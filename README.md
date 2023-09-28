@@ -33,3 +33,12 @@ Wednesday 27 September 2023 12:00 - 13:00, Met with team in Library Study Room.
 - selected roles
 - discussed team standards and conflict resolution
 - went over the projects
+
+## Support & Assistance
+
+Should you encounter any issues or need to discuss matters of a personal nature, Marco, our team leader, is readily available to assist. Please feel free to send him a direct message or reach out via the email provided above.
+
+For external support options:
+
+- [University Support Team](https://www.nottingham.ac.uk/studentservices/help/index.aspx)
+- [Wellbeing Support Service](https://www.nottingham.ac.uk/studentservices/services/support-and-wellbeing-service.aspx)
