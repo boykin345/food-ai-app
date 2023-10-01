@@ -19,7 +19,19 @@ This is just built so we can keep a record of everything we have done so far and
 - [John Camento](psyjc21@exmail.nottingham.ac.uk)
 
 ## Projects Shortlist
-
+1. food AI brief = 75 points
+2. centipede port = 71 points
+3. super mario bros = 67 points
+4. quantum arkanoid = 64 points
+5. police dark web = 58 points
+6. car modelling = 58 points
+7. nestle = 56 points
+8. carbon impacts of transactions = 51 points
+9. strategy game = 49 points
+10. unidays snap match = 45 points
+11. squash = 42 points
+12. delivery route planning = 34 points
+13. legal contracts = 24 points
 
 ## Future Activities
 - Wednesday 4th October 2023 11:00 - 13:00 in A32, "Regular Meeting"
