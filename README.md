@@ -33,6 +33,14 @@ This is just built so we can keep a record of everything we have done so far and
 12. delivery route planning = 34 points
 13. legal contracts = 24 points
 
+## Projects selected
+- [BJSS Food AI brief](https://moodle.nottingham.ac.uk/pluginfile.php/10088915/mod_resource/content/0/BJSS-FoodAIBrief.pdf)
+- [Centiport](https://moodle.nottingham.ac.uk/pluginfile.php/10084241/mod_resource/content/0/FeralInteractive-Centiport.pdf)
+- [Cargobot with structure](https://moodle.nottingham.ac.uk/pluginfile.php/10168901/mod_resource/content/0/UoN-CargobotWithStructure.pdf)
+
+## Plan for upcoming meetings
+- [GRP Plan](./assets/Project Notes.md)
+
 ## Future Activities
 - Wednesday 4th October 2023 11:00 - 13:00 in A32, "Regular Meeting"
 - Monday 9th October 2023 9:00 - 11:00 in JC-BS-SOUTH-A25+, "Team Work Activity 5"
@@ -45,6 +53,13 @@ Wednesday 27 September 2023 12:00 - 13:00, Met with team in Library Study Room.
 - selected roles
 - discussed team standards and conflict resolution
 - went over the projects
+
+Wednesday 4th October 2023 11:00 - 13:00 in A32, "Regular Meeting"
+- [Meeting Transcript]((./assets/Project Notes.md))
+
+Thursday 5th October 2023 14:00 - 14:20 in A32, "Project 3 discussion"
+- [Meeting Transcript](./assets/Project Notes.md)
+- only 5/8 members showed up, rest in process of catching up
 
 ## Support & Assistance
 
