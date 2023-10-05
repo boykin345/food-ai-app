@@ -55,7 +55,7 @@ Wednesday 27 September 2023 12:00 - 13:00, Met with team in Library Study Room.
 - went over the projects
 
 Wednesday 4th October 2023 11:00 - 13:00 in A32, "Regular Meeting"
-- [Meeting Transcript]((./assets/Project Notes.md))
+- [Meeting Transcript](./assets/Project Notes.md)
 
 Thursday 5th October 2023 14:00 - 14:20 in A32, "Project 3 discussion"
 - [Meeting Transcript](./assets/Project Notes.md)
