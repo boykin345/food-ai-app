@@ -38,8 +38,13 @@ This is just built so we can keep a record of everything we have done so far and
 - [Centiport](https://moodle.nottingham.ac.uk/pluginfile.php/10084241/mod_resource/content/0/FeralInteractive-Centiport.pdf)
 - [Cargobot with structure](https://moodle.nottingham.ac.uk/pluginfile.php/10168901/mod_resource/content/0/UoN-CargobotWithStructure.pdf)
 
-## Plan for upcoming meetings
+## Plan and Resources for upcoming meetings
 - [GRP Plan](./assets/Project Notes.md)
+- [Script Template](https://uniofnottm-my.sharepoint.com/:w:/g/personal/psymm9_nottingham_ac_uk/EcZDh0bHvwVOvc5gKGSsYCIBX_G768DUx8P9IqhRRvLBTg?e=XK1EJH)
+- PowerPoints:
+    - [BJSS Food AI brief](https://uniofnottm-my.sharepoint.com/:p:/g/personal/psymm9_nottingham_ac_uk/EbFzjZXqODVPimKOHsD8e08Be-EQf3fQ-iVLgDQ18Ov9sg?e=Fp7ukz)
+    - [Centiport](https://uniofnottm-my.sharepoint.com/:p:/g/personal/psymm9_nottingham_ac_uk/EXAaRViUMTNOg7WAKlgp5goB5zD-H0Jk3ZSbnTbCDyFfNw?e=qrFRdv)
+    - [Cargobot with structure](https://uniofnottm-my.sharepoint.com/:p:/g/personal/psymm9_nottingham_ac_uk/EaAvN1UwNw9OrXCDBPJ1xqsBvWcL4oujFjkWRmFqF2Ru3A?e=sIDi5W)
 
 ## Future Activities
 - Wednesday 4th October 2023 11:00 - 13:00 in A32, "Regular Meeting"
