@@ -47,8 +47,6 @@ This is just built so we can keep a record of everything we have done so far and
     - [Cargobot with structure](https://uniofnottm-my.sharepoint.com/:p:/g/personal/psymm9_nottingham_ac_uk/EaAvN1UwNw9OrXCDBPJ1xqsBvWcL4oujFjkWRmFqF2Ru3A?e=sIDi5W)
 
 ## Future Activities
-- Wednesday 4th October 2023 11:00 - 13:00 in A32, "Regular Meeting"
-- Monday 9th October 2023 9:00 - 11:00 in JC-BS-SOUTH-A25+, "Team Work Activity 5"
 - Wednesday 11th October 2023 11:00 - 13:00 in A32, "Regular Meeting"
 - Wednesday 18th October 2023 11:00 - 13:00 in A32, "Regular Meeting"
 
@@ -65,6 +63,14 @@ Wednesday 4th October 2023 11:00 - 13:00 in A32, "Regular Meeting"
 Thursday 5th October 2023 14:00 - 14:20 in A32, "Project 3 discussion"
 - [Meeting Transcript](./assets/Project Notes.md)
 - only 5/8 members showed up, rest in process of catching up
+
+Monday 9th October 2023 9:00 - 11:00 in JC-BS-SOUTH-A25+, "Team Work Activity 5"
+- not important
+
+Monday 9th October 2023 12:00 - 13:45 in Library, "Project planning"
+- discussed CVs
+- planned project and sketched diagrams for technology interactions
+- [Meeting Transcript](./assets/)
 
 ## Support & Assistance
 
