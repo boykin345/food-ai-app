@@ -4,19 +4,19 @@ This is just built so we can keep a record of everything we have done so far and
 ## Project Contributors
 
 ### Team Leader
-- [Marco Mehta](psymm9@exmail.nottingham.ac.uk)
+- [Marco Mehta](psymm9@nottingham.ac.uk)
 ### Team Administrator
-- [Elliot Ray](psyer4@exmail.nottingham.ac.uk)
+- [Elliot Ray](psyer4@nottingham.ac.uk)
 
 ### Git Admin
-- [Justin Cheung](psyjc24@exmail.nottingham.ac.uk)
+- [Justin Cheung](psyjc24@nottingham.ac.uk)
 
 ### Developers
-- [Chao Fang](scycf1@exmail.nottingham.ac.uk)
-- [Mikhail Kolyakin](efymk3@exmail.nottingham.ac.uk)
-- [Equilius Chamberlain](psyec4@exmail.nottingham.ac.uk)
-- [George Cook](psygc3@exmail.nottingham.ac.uk)
-- [John Camento](psyjc21@exmail.nottingham.ac.uk)
+- [Chao Fang](scycf1@nottingham.ac.uk)
+- [Mikhail Kolyakin](efymk3@nottingham.ac.uk)
+- [Equilius Chamberlain](psyec4@nottingham.ac.uk)
+- [George Cook](psygc3@nottingham.ac.uk)
+- [John Camento](psyjc21@nottingham.ac.uk)
 
 ## Projects Shortlist
 1. food AI brief = 75 points
