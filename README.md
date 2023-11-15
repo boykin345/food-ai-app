@@ -60,10 +60,12 @@ We will be using firebase for back-end, flutter for front-end and the gpt api fo
 
 ## Testing Frameworks
 
-## Activity Diagrams
-
-## Sequence Digrams
-
+## Context Diagram
+[!context diagram](assets/Food%20AI%20Context%20Diagram.PNG)
+## Activity Diagram
+[!activity diagram](assets/Food%20AI%20Activity%20Diagram.png)
+## Sequence Diagram
+[!sequence diagram](assets/Food%20AI%20Sequence%20Diagram%20(temp).png)
 ## App Mockups
 
 ## Coding and Maintainability Conventions
