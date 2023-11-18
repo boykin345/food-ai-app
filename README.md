@@ -96,19 +96,43 @@ K9. As an app user, I want detailed nutritional information for each recipe so t
 ## Technologies
 We will be using firebase for back-end, flutter for front-end and the gpt api for image and recipe generation.
 
-## Testing Frameworks
-We will be using flutter_test to do test driven development for this project. We will also do user driven development for features that we can't test like gpt api.
+## Testing Strategy and Frameworks
+For this project, we are committed to adopting a Test-Driven Development (TDD) approach to ensure high-quality, reliable software. Our testing strategy encompasses a combination of powerful tools, including *flutter_test*, *mockito*, and *integration_test*.
+
+- flutter_test
+    - Flutter_test is the central component of our unit and widget testing. We can thoroughly test our Flutter widgets and underlying Dart functionality thanks to this framework. We make sure that every element works as intended, both separately and as a part of the larger user interface (UI) by simulating user interactions and validating widget behaviors in a controlled environment.
+- Mockito
+    - We use mockito as an addition to our unit testing. With the help of this tool, we can easily create mock objects for our tests, which helps us to test and isolate particular components separately from external dependencies. This method improves the accuracy of our testing while also accelerating it.
+- Integration_test
+    - For our integration testing requirements, we use integration_test. This framework helps us in verifying that the application functions smoothly overall and that all of its parts cooperate well from the user's point of view.
+
+We will also utilise User-Driven Development (UDD) since we understand that not all functionalities lend themselves to automated testing, especially when working with external APIs like the GPT API. With this approach, we work closely with our users to collect input and iterate improve features that are difficult to test the traditional way.
 
 ## Use Case Digram
+![Use Case Diagram](assets/FOOD_AI_USE_CASE_DIAGRAMjpg.png)
 
 ## Context Diagram
 ![Context Diagram](assets/Food%20AI%20Context%20Diagram.PNG)
+
 ## Activity Diagram
-![Activity Diagram](assets/Food%20AI%20Activity%20Diagram.png)
+![Activity Diagram1](FOOD_AI_ACTIVITY_DIAGRAM_SIGNUP.jpg)
+![Activity Diagram2](FOOD_AI_ACTIVITY_DIAGRAM_LOGIN.jpg)
+![Activity Diagram3](assets/FOOD_AI_ACTIVITY_DIAGRAM_USER.jpg)
+![Activity Diagram4](assets/Food%20AI%20Activity%20Diagram.png)
+
 ## Sequence Diagram
-![Sequence Diagram](assets/Food%20AI%20Sequence%20Diagram%20(temp).png)
+![Sequence Diagram](assets/FOOD_AI_SEQUENCE_DIAGRAM.png)
+
 ## App Mockups
+[Link to AdobeXD Project](https://xd.adobe.com/view/72e04895-bd2b-4dc1-b016-ba3df1bee1a2-27b3/?fullscreen)
+George Video
 
 ## Coding and Maintainability Conventions
+Throughout the project, we're going to keep the bar for readability and code quality high. We have decided to use the [Google Dart Style Guide](https://dart.dev/effective-dart/style this is the style guide we will use, make yourselves familiar with it) in order to accomplish this. This manual offers thorough instructions for creating idiomatic, consistent, and understandable Dart code. It is recommended that all team members become acquainted with this style guide in order to maintain consistency throughout our codebase.
+
+Maintaining the integrity of our codebase is largely the responsibility of our Git administrator. Each merge request will be examined by them to ensure that our coding standards are being followed. This entails a careful examination for readability, consistency, and adherence to the Dart style guide.
+
+We plan to incorporate the Flutter linter into our development workflow in order to enhance our code quality assurance even more. Our code will be automatically examined by this tool to see if it complies with accepted coding standards and best practices.
+As a first line of defense, the linter will spot any possible problems and inconsistencies in our code. It will lessen the workload associated with manual code reviews and ensure a more seamless and effective development process by assisting us in identifying and fixing issues early in the development cycle.
 
 # Installation Manual
