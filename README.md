@@ -94,7 +94,14 @@ K8.As an app user, I want to know the portion sizes for each recipe so that I ca
 K9. As an app user, I want detailed nutritional information for each recipe so that I can track my dietary intake and choose recipes that align with my health goals. - 1
 
 ## Technologies
-We will be using firebase for back-end, flutter for front-end and the gpt api for image and recipe generation.
+Firebase: Back-End Development
+Firebase provides our app with a reliable and scalable back=end solution. It's ideal for managing user data, handling authentication, and storing recipe information efficiently.
+
+Flutter: Front-End Development
+We're using Flutter for front-end development, allowing us to create a visually appealing and responsive interface for our food app across multiple platforms with a single codebase.
+
+GPT API: Recipe and Image Generation
+The GPT API is integrated for its advanced AI capabilities, particularly in generating creative recipe suggestions and food-related content, enhancing the user experience with innovative features.
 
 ## Testing Strategy and Frameworks
 For this project, we are committed to adopting a Test-Driven Development (TDD) approach to ensure high-quality, reliable software. Our testing strategy encompasses a combination of powerful tools, including *flutter_test*, *mockito*, and *integration_test*.
