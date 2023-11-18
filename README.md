@@ -97,6 +97,9 @@ K9. As an app user, I want detailed nutritional information for each recipe so t
 We will be using firebase for back-end, flutter for front-end and the gpt api for image and recipe generation.
 
 ## Testing Frameworks
+We will be using flutter_test to do test driven development for this project. We will also do user driven development for features that we can't test like gpt api.
+
+## Use Case Digram
 
 ## Context Diagram
 ![Context Diagram](assets/Food%20AI%20Context%20Diagram.PNG)
