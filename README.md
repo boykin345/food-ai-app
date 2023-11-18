@@ -115,9 +115,12 @@ We will also utilise User-Driven Development (UDD) since we understand that not
 ![Context Diagram](assets/Food%20AI%20Context%20Diagram.PNG)
 
 ## Activity Diagram
-![Activity Diagram1](FOOD_AI_ACTIVITY_DIAGRAM_SIGNUP.jpg)
-![Activity Diagram2](FOOD_AI_ACTIVITY_DIAGRAM_LOGIN.jpg)
+![Activity Diagram1](assets/FOOD_AI_ACTIVITY_DIAGRAM_SIGNUP.jpg)
+
+![Activity Diagram2](assets/FOOD_AI_ACTIVITY_DIAGRAM_LOGIN.jpg)
+
 ![Activity Diagram3](assets/FOOD_AI_ACTIVITY_DIAGRAM_USER.jpg)
+
 ![Activity Diagram4](assets/Food%20AI%20Activity%20Diagram.png)
 
 ## Sequence Diagram
@@ -128,7 +131,7 @@ We will also utilise User-Driven Development (UDD) since we understand that not
 George Video
 
 ## Coding and Maintainability Conventions
-Throughout the project, we're going to keep the bar for readability and code quality high. We have decided to use the [Google Dart Style Guide](https://dart.dev/effective-dart/style this is the style guide we will use, make yourselves familiar with it) in order to accomplish this. This manual offers thorough instructions for creating idiomatic, consistent, and understandable Dart code. It is recommended that all team members become acquainted with this style guide in order to maintain consistency throughout our codebase.
+Throughout the project, we're going to keep the bar for readability and code quality high. We have decided to use the [Google Dart Style Guide](https://dart.dev/effective-dart/style). This manual offers thorough instructions for creating idiomatic, consistent, and understandable Dart code. It is recommended that all team members become acquainted with this style guide in order to maintain consistency throughout our codebase.
 
 Maintaining the integrity of our codebase is largely the responsibility of our Git administrator. Each merge request will be examined by them to ensure that our coding standards are being followed. This entails a careful examination for readability, consistency, and adherence to the Dart style guide.
 
