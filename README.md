@@ -2,9 +2,11 @@
 
 ## Introduction
 **Team 31's Food AI Project**
+
 Ever found yourself looking inside your fridge trying to figure out what to eat? Our Food AI project aims to deal with this age-old issue with Generative AI packaged in an easy to use yet feature-rich mobile application.
 
-**How it Works**
+**How it Works:**
+
 Generate recipes that the user will like in only four simple steps:
 
 1. Set up your preferences, allergies, etc., and tell the app what cooking equipment you have.
