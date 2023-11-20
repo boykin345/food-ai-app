@@ -18,6 +18,7 @@ Generate recipes that the user will like in only four simple steps:
 4. Swipe left if you're not interested or swipe right if you're feeling hungry, and the recipe will be shown to you in its full glory.
 
 **Goals:**
+
 - User-friendly user interface
 - Accessibility options and testing
 - Recipe saving and organisation
