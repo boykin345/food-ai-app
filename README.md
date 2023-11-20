@@ -1,6 +1,19 @@
 # Food AI Brief
 
 ## Introduction
+**Team 31's Food AI Project**
+Ever found yourself looking inside your fridge trying to figure out what to eat? Our Food AI project aims to deal with this age-old issue with Generative AI packaged in an easy to use yet feature-rich mobile application.
+
+**How it Works**
+Generate recipes that the user will like in only four simple steps:
+
+1. Set up your preferences, allergies, etc., and tell the app what cooking equipment you have.
+
+2. Take a photo of your fridge and an image detection component will help identify possible ingredients.
+
+3. Watch as recipes are generated for you.
+
+4. Swipe left if you're not interested or swipe right if you're feeling hungry and the recipe will be shown to you in its full glory.
 
 ## User Stories
 Below are the user stories that we will be using for our product backlog. We have given codes at the start of each user story so that they can be tracked across the various diagrams that we have made. At the end of each user story there is also a rating which tells us how hard it will be to complete that specific task.
