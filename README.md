@@ -140,6 +140,8 @@ For this project, we are committed to adopting a Test-Driven Development (TDD) a
 
 We will also utilise User-Driven Development (UDD) since we understand that not all functionalities lend themselves to automated testing, especially when working with external APIs like the GPT API. With this approach, we work closely with our users to collect input and iterate to improve features that are difficult to test the traditional way.
 
+In the development and testing phase of our Food AI project, we will also leverage emulators in Firebase, allowing our team to efficiently test and validate features before deploying to the cloud. Firebase emulators provide a convenient and cost-effective way to test and debug Firebase functionality.
+
 ## Use Case Diagram
 ![Use Case Diagram](assets/FOOD_AI_USE_CASE_DIAGRAMjpg.png)
 
