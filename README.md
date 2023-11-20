@@ -158,4 +158,7 @@ Maintaining the integrity of our codebase is largely the responsibility of our G
 We plan to incorporate the Flutter linter into our development workflow in order to enhance our code quality assurance even more. Our code will be automatically examined by this tool to see if it complies with accepted coding standards and best practices.
 As a first line of defense, the linter will spot any possible problems and inconsistencies in our code. It will lessen the workload associated with manual code reviews and ensure a more seamless and effective development process by assisting us in identifying and fixing issues early in the development cycle.
 
+## Accessibility
+We wish for our project to be an easy way for anyone to come up with something to eat, and as a result we will work hard to ensure that our application will have a high degree of accessibility. We intend to achieve this by following the [Web Content Acessibility Guidelines 2.2](https://www.w3.org/TR/WCAG22/) which defines a set of standards that improve the quality of Web (and application) content for people with disabilities including but not limited to visual, auditory and physical. If time allows, we will implement features such as alternate colour palettes for colourblind people, text-to-speech/speech-to-text functionality and test a variety of screen readers on our application.
+
 # Installation Manual
