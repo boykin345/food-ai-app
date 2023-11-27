@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 void main() {
   runApp(const MyApp());
 }
@@ -56,6 +57,44 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  String _response = 'No image processed yet';
+
+  Future<String> sendToOpenAI() async {
+      var uri =
+          Uri.parse('https://api.openai.com/v1/chat/completions'); // API URL
+      const String API_KEY =
+          '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'; // Replace with your actual API Key
+
+      var response = await http.post(
+        uri,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $API_KEY'
+        },
+        body: jsonEncode({
+          "model": "gpt-4-vision-preview", // Replace with the correct model
+          "messages": [
+            // If you are sending an image, it would be another message here
+            {
+              "role": "user",
+              "content": "What’s in this image?" // Your text prompt/question
+            },
+            {
+              "role": "user",
+              "content":
+                  "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg"
+            }
+          ],
+          // Do NOT include a separate 'prompt' field outside the 'messages' array
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        return response.body;
+      } else {
+        return 'Error: ${response.statusCode}';
+      }
+    }
 
   void _incrementCounter() {
     setState(() {
@@ -66,6 +105,11 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
     });
+    String response = await sendToOpenAI();
+        setState(() {
+          _response = response;
+        });
+      }
   }
 
   @override
@@ -112,6 +156,13 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+          Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Text(
+                          _response,
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                      ),
           ],
         ),
       ),
