@@ -1,6 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
+
 void main() {
   runApp(const MyApp());
 }
@@ -14,21 +16,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a blue toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
@@ -40,15 +27,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
 
   @override
@@ -59,57 +37,76 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   String _response = 'No image processed yet';
 
-  Future<String> sendToOpenAI() async {
-      var uri =
-          Uri.parse('https://api.openai.com/v1/chat/completions'); // API URL
-      const String API_KEY =
-          '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'; // Replace with your actual API Key
+  Map<String, String> parseContent(String content) {
+    Map<String, String> resultMap = {};
+    var entries = content.split('\n'); // 使用逗号分割字符串
 
-      var response = await http.post(
-        uri,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $API_KEY'
-        },
-        body: jsonEncode({
-          "model": "gpt-4-vision-preview", // Replace with the correct model
-          "messages": [
-            // If you are sending an image, it would be another message here
-            {
-              "role": "user",
-              "content": "What’s in this image?" // Your text prompt/question
-            },
-            {
-              "role": "user",
-              "content":
-                  "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg"
-            }
-          ],
-          // Do NOT include a separate 'prompt' field outside the 'messages' array
-        }),
-      );
-
-      if (response.statusCode == 200) {
-        return response.body;
-      } else {
-        return 'Error: ${response.statusCode}';
+    for (var entry in entries) {
+      var keyValue = entry.split(':'); // 分割键和值
+      if (keyValue.length == 2) {
+        var key = keyValue[0].trim(); // 清除空格
+        var value = keyValue[1].trim(); // 清除空格
+        resultMap[key] = value;
       }
     }
+    return resultMap;
+  }
 
-  void _incrementCounter() {
+  Future<String> sendToOpenAI() async {
+    var uri =
+        Uri.parse('https://api.openai.com/v1/chat/completions'); // API URL
+    const String API_KEY =
+        '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'; // Replace with your actual API Key
+
+    var response = await http.post(
+      uri,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $API_KEY'
+      },
+      body: jsonEncode({
+        "model": "gpt-4-0613", // Replace with the correct model
+        "messages": [
+          // If you are sending an image, it would be another message here
+          {
+            "role": "user",
+            "content":
+                "What’s in the image? format:'name: quantity' for example: 'grass: a lot' " // Your text prompt/question
+          },
+          {
+            "role": "system",
+            "content":
+                "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg"
+          }
+        ],
+        // Do NOT include a separate 'prompt' field outside the 'messages' array
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      return 'Error: ${response.statusCode}';
+    }
+  }
+
+  void _incrementCounter() async {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
       _counter++;
     });
     String response = await sendToOpenAI();
-        setState(() {
-          _response = response;
-        });
-      }
+    setState(() {
+      // 解析响应 JSON 字符串
+      var jsonResponse = jsonDecode(response);
+      // 假设 "choices" 数组的第一个元素的 "message" 对象包含 "content" 字段
+      var contentString = jsonResponse['choices'][0]['message']['content'];
+      // 将 "content" 字段的字符串转换为 Map
+      Map<String, String> contentMap = parseContent(contentString);
+      // 现在 contentMap 包含了转换后的哈希表，可以根据需要使用它
+      _response = contentMap.entries
+          .map((entry) => '${entry.key}: ${entry.value}')
+          .join(', ');
+    });
   }
 
   @override
@@ -156,13 +153,13 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
-          Padding(
-                        padding: EdgeInsets.all(16.0),
-                        child: Text(
-                          _response,
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                      ),
+            Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Text(
+                _response,
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+            ),
           ],
         ),
       ),
