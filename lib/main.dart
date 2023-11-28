@@ -105,6 +105,18 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void printIngredients(Map<String, String> originalMap) {
+    print("Ingredients: ");
+    ingredients.forEach(ingredient);
+    {
+     print("- $ingredient: $quantity units", ingredient, quantity);
+    };
+  }
+
+  void addIngredients(HashMap<String, String> originalMap, Map<String, String> newIngredients) {
+    originalMap.addAll(newIngredients);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
