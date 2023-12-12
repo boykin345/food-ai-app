@@ -157,12 +157,16 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Expanded(
-              child: ListView.builder(
+      body: SingleChildScrollView(
+        // Making the entire column scrollable
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              ListView.builder(
+                shrinkWrap: true, // Shrinking the ListView to its content size
+                physics:
+                    NeverScrollableScrollPhysics(), // Disabling ListView's scrolling as it's nested in a SingleChildScrollView
                 itemCount: ingredientsMap.length,
                 itemBuilder: (context, index) {
                   String key = ingredientsMap.keys.elementAt(index);
@@ -176,54 +180,54 @@ class _MyHomePageState extends State<MyHomePage> {
                   );
                 },
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  TextField(
-                    controller: ingredientController,
-                    decoration: InputDecoration(
-                      labelText: 'Ingredient',
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: ingredientController,
+                      decoration: InputDecoration(
+                        labelText: 'Ingredient',
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  TextField(
-                    controller: quantityController,
-                    decoration: InputDecoration(
-                      labelText: 'Quantity',
+                    const SizedBox(height: 10),
+                    TextField(
+                      controller: quantityController,
+                      decoration: InputDecoration(
+                        labelText: 'Quantity',
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (ingredientController.text.isNotEmpty &&
-                          quantityController.text.isNotEmpty) {
-                        addItemToIngredientsMap(
-                          ingredientController.text,
-                          quantityController.text,
-                        );
-                        ingredientController.clear();
-                        quantityController.clear();
-                      }
-                    },
-                    child: const Text('Add Ingredient'),
-                  ),
-                ],
+                    const SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        if (ingredientController.text.isNotEmpty &&
+                            quantityController.text.isNotEmpty) {
+                          addItemToIngredientsMap(
+                            ingredientController.text,
+                            quantityController.text,
+                          );
+                          ingredientController.clear();
+                          quantityController.clear();
+                        }
+                      },
+                      child: const Text('Add Ingredient'),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            ElevatedButton(
-              onPressed: navigateToRecipeScreen,
-              child: const Text('Get Recipe Suggestions'),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                _response,
-                style: Theme.of(context).textTheme.bodyLarge,
+              ElevatedButton(
+                onPressed: navigateToRecipeScreen,
+                child: const Text('Get Recipe Suggestions'),
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  _response,
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
