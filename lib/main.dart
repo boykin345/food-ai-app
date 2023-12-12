@@ -8,9 +8,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,7 +24,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({Key? key, required this.title});
 
   final String title;
 
@@ -36,6 +35,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   String _response = 'No image processed yet';
+
+  TextEditingController ingredientController = TextEditingController();
+  TextEditingController quantityController = TextEditingController();
 
   Map<String, String> parseContent(String content) {
     Map<String, String> resultMap = {};
@@ -53,8 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<String> sendToOpenAI() async {
-    var uri =
-    Uri.parse('https://api.openai.com/v1/chat/completions'); // API URL
+    var uri = Uri.parse('https://api.openai.com/v1/chat/completions'); // API URL
     const String API_KEY =
         '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'; // Replace with your actual API Key
 
@@ -67,7 +68,6 @@ class _MyHomePageState extends State<MyHomePage> {
       body: jsonEncode({
         "model": "gpt-4-vision-preview", // Replace with the correct model
         "messages": [
-          // If you are sending an image, it would be another message here
           {
             "role": "user",
             "content":
@@ -79,7 +79,6 @@ class _MyHomePageState extends State<MyHomePage> {
             "https://upload.wikimedia.org/wikipedia/commons/7/7b/Open_refrigerator_with_food_at_night.jpg"
           }
         ],
-        // Do NOT include a separate 'prompt' field outside the 'messages' array
       }),
     );
 
@@ -102,7 +101,9 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _counter++;
     });
+
     String response = await sendToOpenAI();
+
     setState(() {
       var jsonResponse = jsonDecode(response);
       var contentString = jsonResponse['choices'][0]['message']['content'];
@@ -112,10 +113,10 @@ class _MyHomePageState extends State<MyHomePage> {
           .map((entry) => '${entry.key}: ${entry.value}')
           .join(', ');
     });
-
   }
 
-  void addIngredients(Map<String, String> originalMap, Map<String, String> newIngredients) {
+  void addIngredients(
+      Map<String, String> originalMap, Map<String, String> newIngredients) {
     originalMap.addAll(newIngredients);
   }
 
@@ -141,13 +142,45 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+              style: Theme.of(context).textTheme.headline6,
             ),
             Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               child: Text(
                 _response,
                 style: Theme.of(context).textTheme.bodyText1,
+              ),
+            ),
+            // New text fields for entering ingredient and quantity
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  TextField(
+                    controller: ingredientController,
+                    decoration: InputDecoration(
+                      labelText: 'Ingredient',
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  TextField(
+                    controller: quantityController,
+                    decoration: InputDecoration(
+                      labelText: 'Quantity',
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      addItemToIngredientsMap(
+                        ingredientController.text,
+                        quantityController.text,
+                      );
+
+                    },
+                    child: const Text('Add Ingredient'),
+                  ),
+                ],
               ),
             ),
           ],
@@ -157,7 +190,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }
