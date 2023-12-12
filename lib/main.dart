@@ -72,7 +72,8 @@ class _MyHomePageState extends State<MyHomePage> {
           {
             "role": "user",
             "content":
-                "What are ingredients inside of that fridge? Just give Name:quantity, nothing else. Example: 'Apple: 1 Orange: 3' " // Your text prompt/question
+                "What are ingredients inside of that fridge? Just give Name:quantity, nothing else. Example: 'Apple: 1 Orange: 3' "
+            // Your text prompt/question
           },
           {
             "role": "system",
@@ -135,7 +136,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void removeIngredient(String itemName) {
     setState(() {
       ingredientsMap.remove(itemName);
-      updateResponseDisplay();
     });
   }
 
@@ -158,6 +158,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   return ListTile(
                     title: Text(key),
                     subtitle: Text('Quantity: ${ingredientsMap[key]}'),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () => removeIngredient(key),
+                    ),
                   );
                 },
               ),
@@ -182,21 +186,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   const SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: () {
-                      addItemToIngredientsMap(
-                        ingredientController.text,
-                        quantityController.text,
-                      );
+                      if (ingredientController.text.isNotEmpty &&
+                          quantityController.text.isNotEmpty) {
+                        setState(() {
+                          ingredientsMap[ingredientController.text] =
+                              quantityController.text;
+                          ingredientController.clear();
+                          quantityController.clear();
+                        });
+                      }
                     },
                     child: const Text('Add Ingredient'),
-                  ),
-                  const SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: () {
-                      removeIngredient(
-                        ingredientController.text,
-                      );
-                    },
-                    child: const Text('Remove Ingredient'),
                   ),
                 ],
               ),
