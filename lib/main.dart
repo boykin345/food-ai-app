@@ -126,6 +126,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void removeIngredient(String itemName) {
+    setState(() {
+      ingredientsMap.remove(itemName);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -176,9 +182,17 @@ class _MyHomePageState extends State<MyHomePage> {
                         ingredientController.text,
                         quantityController.text,
                       );
-
                     },
                     child: const Text('Add Ingredient'),
+                  ),
+                  const SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: () {
+                      removeIngredient(
+                        ingredientController.text,
+                      );
+                    },
+                    child: const Text('Remove Ingredient'),
                   ),
                 ],
               ),
