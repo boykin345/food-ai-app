@@ -43,12 +43,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController ingredientController = TextEditingController();
   TextEditingController quantityController = TextEditingController();
-  Map<String, String> ingredientsMap = {
-    'Flour': '2 cups',
-    'Sugar': '1 cup',
-    'Eggs': '2',
-    'Milk': '1 cup',
-  };
+  Map<String, String> ingredientsMap = {};
 
   String _response = 'No image processed yet';
 
@@ -107,6 +102,21 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  Map<String, String> parseContent(String content) {
+    Map<String, String> resultMap = {};
+    var lines = content.split('\n');
+
+    for (var line in lines) {
+      var parts = line.split(':');
+      if (parts.length == 2) {
+        var ingredient = parts[0].trim();
+        var quantity = parts[1].trim();
+        resultMap[ingredient] = quantity;
+      }
+    }
+    return resultMap;
+  }
+
   void processImage() async {
     try {
       String? imageUrl = await uploadImageAndGetDownloadUrl();
@@ -114,6 +124,8 @@ class _MyHomePageState extends State<MyHomePage> {
         String response = await sendToOpenAI(imageUrl);
         var jsonResponse = jsonDecode(response);
         var contentString = jsonResponse['choices'][0]['message']['content'];
+        ingredientsMap = parseContent(contentString);
+
         setState(() {
           _response = contentString;
         });
@@ -218,13 +230,6 @@ class _MyHomePageState extends State<MyHomePage> {
               ElevatedButton(
                 onPressed: navigateToRecipeScreen,
                 child: const Text('Get Recipe Suggestions'),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  _response,
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
               ),
             ],
           ),
