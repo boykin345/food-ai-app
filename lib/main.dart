@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<String> sendToOpenAI() async {
     var uri =
-        Uri.parse('https://api.openai.com/v1/chat/completions'); // API URL
+    Uri.parse('https://api.openai.com/v1/chat/completions'); // API URL
     const String API_KEY =
         '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'; // Replace with your actual API Key
 
@@ -65,18 +65,18 @@ class _MyHomePageState extends State<MyHomePage> {
         'Authorization': 'Bearer $API_KEY'
       },
       body: jsonEncode({
-        "model": "gpt-4-0613", // Replace with the correct model
+        "model": "gpt-4-vision-preview", // Replace with the correct model
         "messages": [
           // If you are sending an image, it would be another message here
           {
             "role": "user",
             "content":
-                "What’s in the image? format:'name: quantity' for example: 'grass: a lot' " // Your text prompt/question
+            "What are ingredients inside of that fridge? Just give Name:quantity, nothing else. Example: 'Apple: 1 Orange: 3' " // Your text prompt/question
           },
           {
             "role": "system",
             "content":
-                "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg"
+            "https://upload.wikimedia.org/wikipedia/commons/7/7b/Open_refrigerator_with_food_at_night.jpg"
           }
         ],
         // Do NOT include a separate 'prompt' field outside the 'messages' array
@@ -90,6 +90,14 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  Map<String, String> ingredientsMap = {
+    'Flour': '2',
+    'Sugar': '1',
+    'Eggs': '2',
+    'Milk': '4',
+    'Butter': '6',
+  };
+
   void _incrementCounter() async {
     setState(() {
       _counter++;
@@ -99,22 +107,22 @@ class _MyHomePageState extends State<MyHomePage> {
       var jsonResponse = jsonDecode(response);
       var contentString = jsonResponse['choices'][0]['message']['content'];
       Map<String, String> contentMap = parseContent(contentString);
+      addIngredients(contentMap, ingredientsMap);
       _response = contentMap.entries
           .map((entry) => '${entry.key}: ${entry.value}')
           .join(', ');
     });
+
   }
 
-  void printIngredients(Map<String, String> originalMap) {
-    print("Ingredients: ");
-    ingredients.forEach(ingredient);
-    {
-     print("- $ingredient: $quantity units", ingredient, quantity);
-    };
-  }
-
-  void addIngredients(HashMap<String, String> originalMap, Map<String, String> newIngredients) {
+  void addIngredients(Map<String, String> originalMap, Map<String, String> newIngredients) {
     originalMap.addAll(newIngredients);
+  }
+
+  void addItemToIngredientsMap(String itemName, String quantity) {
+    setState(() {
+      ingredientsMap[itemName] = quantity;
+    });
   }
 
   @override
