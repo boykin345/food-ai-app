@@ -13,12 +13,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'FOOD AI',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'FOOD AI Prototype'),
     );
   }
 }
@@ -55,7 +55,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<String> sendToOpenAI() async {
-    var uri = Uri.parse('https://api.openai.com/v1/chat/completions'); // API URL
+    var uri =
+        Uri.parse('https://api.openai.com/v1/chat/completions'); // API URL
     const String API_KEY =
         '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'; // Replace with your actual API Key
 
@@ -71,12 +72,12 @@ class _MyHomePageState extends State<MyHomePage> {
           {
             "role": "user",
             "content":
-            "What are ingredients inside of that fridge? Just give Name:quantity, nothing else. Example: 'Apple: 1 Orange: 3' " // Your text prompt/question
+                "What are ingredients inside of that fridge? Just give Name:quantity, nothing else. Example: 'Apple: 1 Orange: 3' " // Your text prompt/question
           },
           {
             "role": "system",
             "content":
-            "https://upload.wikimedia.org/wikipedia/commons/7/7b/Open_refrigerator_with_food_at_night.jpg"
+                "https://upload.wikimedia.org/wikipedia/commons/7/7b/Open_refrigerator_with_food_at_night.jpg"
           }
         ],
       }),
@@ -98,8 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
   };
 
   void updateUI() async {
-    setState(() {
-    });
+    setState(() {});
 
     String response = await sendToOpenAI();
 
@@ -114,6 +114,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void updateResponseDisplay() {
+    _response = ingredientsMap.entries
+        .map((entry) => '${entry.key}: ${entry.value}')
+        .join(', ');
+  }
+
   void addIngredients(
       Map<String, String> originalMap, Map<String, String> newIngredients) {
     originalMap.addAll(newIngredients);
@@ -122,12 +128,14 @@ class _MyHomePageState extends State<MyHomePage> {
   void addItemToIngredientsMap(String itemName, String quantity) {
     setState(() {
       ingredientsMap[itemName] = quantity;
+      updateResponseDisplay();
     });
   }
 
   void removeIngredient(String itemName) {
     setState(() {
       ingredientsMap.remove(itemName);
+      updateResponseDisplay();
     });
   }
 
@@ -142,14 +150,18 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                _response,
-                style: Theme.of(context).textTheme.bodyText1,
+            Expanded(
+              child: ListView.builder(
+                itemCount: ingredientsMap.length,
+                itemBuilder: (context, index) {
+                  String key = ingredientsMap.keys.elementAt(index);
+                  return ListTile(
+                    title: Text(key),
+                    subtitle: Text('Quantity: ${ingredientsMap[key]}'),
+                  );
+                },
               ),
             ),
-            // New text fields for entering ingredient and quantity
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
