@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as path;
 
-
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<String?> uploadImageAndGetDownloadUrl() async {
     FilePickerResult? result =
-    await FilePicker.platform.pickFiles(type: FileType.image);
+        await FilePicker.platform.pickFiles(type: FileType.image);
     if (result != null && result.files.single.path != null) {
       File file = File(result.files.single.path!);
 
@@ -67,11 +67,11 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-
   Future<String> sendToOpenAI(String imageUrl) async {
-    var uri = Uri.parse('https://api.openai.com/v1/chat/completions'); // API URL
+    var uri =
+        Uri.parse('https://api.openai.com/v1/chat/completions'); // API URL
     const String API_KEY =
-        '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'; // Replace with your actual API Key
+        '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'; // Replace with your actual API Key
 
     var response = await http.post(
       uri,
@@ -85,7 +85,11 @@ class _MyHomePageState extends State<MyHomePage> {
           {
             "role": "user",
             "content": [
-              {"type": "text", "text": "What are ingredients inside of that fridge? Just give Name:quantity, nothing else. Example: 'Apple: 1 Orange: 3' "},
+              {
+                "type": "text",
+                "text":
+                    "What are ingredients inside of that fridge? Just give Name:quantity, nothing else. Example: 'Apple: 1' "
+              },
               {"type": "image_url", "image_url": imageUrl}
             ]
           }
@@ -123,7 +127,6 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     return resultMap;
   }
-
 
   void _incrementCounter() async {
     setState(() {
