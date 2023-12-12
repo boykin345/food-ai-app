@@ -1,14 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:food_ai_app/recipe_screen.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as path;
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
@@ -20,12 +21,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'FOOD AI',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'FOOD AI Prototype'),
     );
   }
 }
@@ -40,26 +41,27 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  String _response = 'No image processed yet';
-
   TextEditingController ingredientController = TextEditingController();
   TextEditingController quantityController = TextEditingController();
+  Map<String, String> ingredientsMap = {
+    'Flour': '2 cups',
+    'Sugar': '1 cup',
+    'Eggs': '2',
+    'Milk': '1 cup',
+  };
+
+  String _response = 'No image processed yet';
 
   Future<String?> uploadImageAndGetDownloadUrl() async {
     FilePickerResult? result =
         await FilePicker.platform.pickFiles(type: FileType.image);
     if (result != null && result.files.single.path != null) {
       File file = File(result.files.single.path!);
-
       String fileName = path.basename(file.path);
-
       firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
           .ref()
           .child('images/$fileName');
-
       await ref.putFile(file);
-
       String downloadUrl = await ref.getDownloadURL();
       return downloadUrl;
     } else {
@@ -105,55 +107,26 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  Map<String, String> ingredientsMap = {
-    'Flour': '2',
-    'Sugar': '1',
-    'Eggs': '2',
-    'Milk': '4',
-    'Butter': '6',
-  };
-
-  Map<String, String> parseContent(String content) {
-    Map<String, String> resultMap = {};
-    var entries = content.split('\n');
-
-    for (var entry in entries) {
-      var keyValue = entry.split(':');
-      if (keyValue.length == 2) {
-        var key = keyValue[0].trim();
-        var value = keyValue[1].trim();
-        resultMap[key] = value;
-      }
-    }
-    return resultMap;
-  }
-
-  void _incrementCounter() async {
-    setState(() {
-      _counter++;
-    });
-
-    String? imageUrl = await uploadImageAndGetDownloadUrl();
-    if (imageUrl != null) {
-      String response = await sendToOpenAI(imageUrl);
-      setState(() {
+  void processImage() async {
+    try {
+      String? imageUrl = await uploadImageAndGetDownloadUrl();
+      if (imageUrl != null) {
+        String response = await sendToOpenAI(imageUrl);
         var jsonResponse = jsonDecode(response);
         var contentString = jsonResponse['choices'][0]['message']['content'];
-        Map<String, String> contentMap = parseContent(contentString);
-        _response = contentMap.entries
-            .map((entry) => '${entry.key}: ${entry.value}')
-            .join(', ');
-      });
-    } else {
+        setState(() {
+          _response = contentString;
+        });
+      } else {
+        setState(() {
+          _response = "Error: Image was not uploaded successfully.";
+        });
+      }
+    } catch (e) {
       setState(() {
-        _response = "Error: Image was not uploaded successfully.";
+        _response = 'Error processing image: ${e.toString()}';
       });
     }
-  }
-
-  void addIngredients(
-      Map<String, String> originalMap, Map<String, String> newIngredients) {
-    originalMap.addAll(newIngredients);
   }
 
   void addItemToIngredientsMap(String itemName, String quantity) {
@@ -168,32 +141,42 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void navigateToRecipeScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => RecipeScreen(ingredients: ingredientsMap),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline6,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                _response,
-                style: Theme.of(context).textTheme.bodyText1,
+            Expanded(
+              child: ListView.builder(
+                itemCount: ingredientsMap.length,
+                itemBuilder: (context, index) {
+                  String key = ingredientsMap.keys.elementAt(index);
+                  return ListTile(
+                    title: Text(key),
+                    subtitle: Text('Quantity: ${ingredientsMap[key]}'),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () => removeIngredient(key),
+                    ),
+                  );
+                },
               ),
             ),
-            // New text fields for entering ingredient and quantity
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -214,32 +197,39 @@ class _MyHomePageState extends State<MyHomePage> {
                   const SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: () {
-                      addItemToIngredientsMap(
-                        ingredientController.text,
-                        quantityController.text,
-                      );
+                      if (ingredientController.text.isNotEmpty &&
+                          quantityController.text.isNotEmpty) {
+                        addItemToIngredientsMap(
+                          ingredientController.text,
+                          quantityController.text,
+                        );
+                        ingredientController.clear();
+                        quantityController.clear();
+                      }
                     },
                     child: const Text('Add Ingredient'),
                   ),
-                  const SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: () {
-                      removeIngredient(
-                        ingredientController.text,
-                      );
-                    },
-                    child: const Text('Remove Ingredient'),
-                  ),
                 ],
+              ),
+            ),
+            ElevatedButton(
+              onPressed: navigateToRecipeScreen,
+              child: const Text('Get Recipe Suggestions'),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                _response,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        onPressed: processImage,
+        tooltip: 'Upload Image',
+        child: const Icon(Icons.upload),
       ),
     );
   }
