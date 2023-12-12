@@ -1,9 +1,16 @@
 import 'dart:convert';
-
+import 'dart:io';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:path/path.dart' as path;
 
-void main() {
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -33,28 +40,35 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
   String _response = 'No image processed yet';
 
-  // TextEditingController reads user inputs
   TextEditingController ingredientController = TextEditingController();
   TextEditingController quantityController = TextEditingController();
 
-  Map<String, String> parseContent(String content) {
-    Map<String, String> resultMap = {};
-    var entries = content.split('\n');
+  Future<String?> uploadImageAndGetDownloadUrl() async {
+    FilePickerResult? result =
+    await FilePicker.platform.pickFiles(type: FileType.image);
+    if (result != null && result.files.single.path != null) {
+      File file = File(result.files.single.path!);
 
-    for (var entry in entries) {
-      var keyValue = entry.split(':');
-      if (keyValue.length == 2) {
-        var key = keyValue[0].trim();
-        var value = keyValue[1].trim();
-        resultMap[key] = value;
-      }
+      String fileName = path.basename(file.path);
+
+      firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
+          .ref()
+          .child('images/$fileName');
+
+      await ref.putFile(file);
+
+      String downloadUrl = await ref.getDownloadURL();
+      return downloadUrl;
+    } else {
+      return null;
     }
-    return resultMap;
   }
 
-  Future<String> sendToOpenAI() async {
+
+  Future<String> sendToOpenAI(String imageUrl) async {
     var uri = Uri.parse('https://api.openai.com/v1/chat/completions'); // API URL
     const String API_KEY =
         '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'; // Replace with your actual API Key
@@ -70,15 +84,13 @@ class _MyHomePageState extends State<MyHomePage> {
         "messages": [
           {
             "role": "user",
-            "content":
-            "What are ingredients inside of that fridge? Just give Name:quantity, nothing else. Example: 'Apple: 1 Orange: 3' " // Your text prompt/question
-          },
-          {
-            "role": "system",
-            "content":
-            "https://upload.wikimedia.org/wikipedia/commons/7/7b/Open_refrigerator_with_food_at_night.jpg"
+            "content": [
+              {"type": "text", "text": "What are ingredients inside of that fridge? Just give Name:quantity, nothing else. Example: 'Apple: 1 Orange: 3' "},
+              {"type": "image_url", "image_url": imageUrl}
+            ]
           }
         ],
+        "max_tokens": 1000
       }),
     );
 
@@ -97,21 +109,43 @@ class _MyHomePageState extends State<MyHomePage> {
     'Butter': '6',
   };
 
-  void updateUI() async {
+  Map<String, String> parseContent(String content) {
+    Map<String, String> resultMap = {};
+    var entries = content.split('\n');
+
+    for (var entry in entries) {
+      var keyValue = entry.split(':');
+      if (keyValue.length == 2) {
+        var key = keyValue[0].trim();
+        var value = keyValue[1].trim();
+        resultMap[key] = value;
+      }
+    }
+    return resultMap;
+  }
+
+
+  void _incrementCounter() async {
     setState(() {
+      _counter++;
     });
 
-    String response = await sendToOpenAI();
-
-    setState(() {
-      var jsonResponse = jsonDecode(response);
-      var contentString = jsonResponse['choices'][0]['message']['content'];
-      Map<String, String> contentMap = parseContent(contentString);
-      addIngredients(contentMap, ingredientsMap);
-      _response = contentMap.entries
-          .map((entry) => '${entry.key}: ${entry.value}')
-          .join(', ');
-    });
+    String? imageUrl = await uploadImageAndGetDownloadUrl();
+    if (imageUrl != null) {
+      String response = await sendToOpenAI(imageUrl);
+      setState(() {
+        var jsonResponse = jsonDecode(response);
+        var contentString = jsonResponse['choices'][0]['message']['content'];
+        Map<String, String> contentMap = parseContent(contentString);
+        _response = contentMap.entries
+            .map((entry) => '${entry.key}: ${entry.value}')
+            .join(', ');
+      });
+    } else {
+      setState(() {
+        _response = "Error: Image was not uploaded successfully.";
+      });
+    }
   }
 
   void addIngredients(
@@ -142,6 +176,13 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            const Text(
+              'You have pushed the button this many times:',
+            ),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headline6,
+            ),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
@@ -193,9 +234,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: updateUI,
-        tooltip: 'Scan Fridge',
-        child: const Icon(Icons.search),
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
       ),
     );
   }
