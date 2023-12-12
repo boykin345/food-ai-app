@@ -33,9 +33,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   String _response = 'No image processed yet';
 
+  // TextEditingController reads user inputs
   TextEditingController ingredientController = TextEditingController();
   TextEditingController quantityController = TextEditingController();
 
@@ -97,9 +97,8 @@ class _MyHomePageState extends State<MyHomePage> {
     'Butter': '6',
   };
 
-  void _incrementCounter() async {
+  void updateUI() async {
     setState(() {
-      _counter++;
     });
 
     String response = await sendToOpenAI();
@@ -143,13 +142,6 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline6,
-            ),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
@@ -201,9 +193,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        onPressed: updateUI,
+        tooltip: 'Scan Fridge',
+        child: const Icon(Icons.search),
       ),
     );
   }
