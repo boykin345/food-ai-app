@@ -91,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ]
           }
         ],
-        "max_tokens": 1000
+        "max_tokens": 200
       }),
     );
 
