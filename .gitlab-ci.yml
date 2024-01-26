@@ -7,7 +7,7 @@ stages:
 
 variables:
   DOCKER_DRIVER: overlay2
-  SUDO_ASKPASS: "/path/to/sudo-askpass.sh"
+  SUDO_ASKPASS: "sudo-askpass.sh"
 
 before_script:
   - export SUDO_ASKPASS
