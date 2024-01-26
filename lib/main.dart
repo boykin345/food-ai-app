@@ -207,7 +207,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: updateUI,
         tooltip: 'Scan Fridge',
-        child: const Icon(Icons.search),
+        child: const Icon(Icons.search), //f
       ),
     );
   }
