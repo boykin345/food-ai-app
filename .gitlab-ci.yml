@@ -1,26 +1,19 @@
-image: docker:19.03
-
-services:
-  - docker:dind
-
-variables:
-  DOCKER_DRIVER: overlay2
-  DOCKER_HOST: tcp://docker:2375/
-  DOCKER_TLS_CERTDIR: ""
+image: marcom3622/food-ai:tagname
 
 stages:
   - build
   - test
   - analyze
 
+variables:
+  DOCKER_DRIVER: overlay2
+
 before_script:
-  # Check Docker info to verify Docker is running
-  - docker info
+  - docker build -t my_flutter_app .
 
 build_android:
   stage: build
   script:
-    - docker build -t my_flutter_app .
     - docker run --rm my_flutter_app flutter build apk
   rules:
     - if: '$CI_COMMIT_BRANCH'
