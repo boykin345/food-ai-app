@@ -5,6 +5,9 @@ FROM ubuntu:latest
 RUN echo "Updating packages list..."
 RUN apt-get update
 
+# Install sudo
+RUN apt-get install -y sudo
+
 # Install dependencies for Flutter
 RUN echo "Installing dependencies..."
 RUN apt-get install -y git wget unzip xz-utils zip libglu1-mesa openjdk-11-jdk-headless curl
