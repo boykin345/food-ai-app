@@ -1,4 +1,7 @@
-image: marcom3622/food-ai:tagname
+image: docker:19.03.12
+
+services:
+  - docker:19.03.12-dind
 
 stages:
   - build
@@ -7,8 +10,10 @@ stages:
 
 variables:
   DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: "/certs"
 
 before_script:
+  - docker info
   - docker build -t my_flutter_app .
 
 build_android:
