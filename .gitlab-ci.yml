@@ -9,25 +9,25 @@ variables:
   DOCKER_DRIVER: overlay2
 
 before_script:
-  - docker build -t my_flutter_app .
+  - sudo docker build -t my_flutter_app .
 
 build_android:
   stage: build
   script:
-    - docker run --rm my_flutter_app flutter build apk
+    - sudo docker run --rm my_flutter_app flutter build apk
   rules:
     - if: '$CI_COMMIT_BRANCH'
 
 test_android:
   stage: test
   script:
-    - docker run --rm my_flutter_app flutter test
+    - sudo docker run --rm my_flutter_app flutter test
   rules:
     - if: '$CI_COMMIT_BRANCH'
 
 analyze_code:
   stage: analyze
   script:
-    - docker run --rm my_flutter_app flutter analyze
+    - sudo docker run --rm my_flutter_app flutter analyze
   rules:
     - if: '$CI_COMMIT_BRANCH'
