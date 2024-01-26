@@ -7,32 +7,27 @@ stages:
 
 variables:
   DOCKER_DRIVER: overlay2
-  SUDO_ASKPASS: "/usr/local/bin/sudo-askpass.sh"
 
 before_script:
-  - export SUDO_ASKPASS
-  - sudo -A docker build -t my_flutter_app .
+  - docker build -t my_flutter_app .
 
 build_android:
   stage: build
   script:
-    - export SUDO_ASKPASS
-    - sudo -A docker run --rm my_flutter_app flutter build apk
+    - docker run --rm my_flutter_app flutter build apk
   rules:
     - if: '$CI_COMMIT_BRANCH'
 
 test_android:
   stage: test
   script:
-    - export SUDO_ASKPASS
-    - sudo -A docker run --rm my_flutter_app flutter test
+    - docker run --rm my_flutter_app flutter test
   rules:
     - if: '$CI_COMMIT_BRANCH'
 
 analyze_code:
   stage: analyze
   script:
-    - export SUDO_ASKPASS
-    - sudo -A docker run --rm my_flutter_app flutter analyze
+    - docker run --rm my_flutter_app flutter analyze
   rules:
     - if: '$CI_COMMIT_BRANCH'
