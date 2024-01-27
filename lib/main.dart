@@ -1,141 +1,41 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FOOD AI',
+      title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const MyHomePage(title: 'FOOD AI Prototype'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title});
+  // Change made here: Convert 'key' to a super parameter
+  const MyHomePage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _response = 'No image processed yet';
+  int _counter = 0;
 
-  // TextEditingController reads user inputs
-  TextEditingController ingredientController = TextEditingController();
-  TextEditingController quantityController = TextEditingController();
-
-  Map<String, String> parseContent(String content) {
-    Map<String, String> resultMap = {};
-    var entries = content.split('\n');
-
-    for (var entry in entries) {
-      var keyValue = entry.split(':');
-      if (keyValue.length == 2) {
-        var key = keyValue[0].trim();
-        var value = keyValue[1].trim();
-        resultMap[key] = value;
-      }
-    }
-    return resultMap;
-  }
-
-  Future<String> sendToOpenAI() async {
-    var uri =
-        Uri.parse('https://api.openai.com/v1/chat/completions'); // API URL
-    const String API_KEY =
-        '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'; // Replace with your actual API Key
-
-    var response = await http.post(
-      uri,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $API_KEY'
-      },
-      body: jsonEncode({
-        "model": "gpt-4-vision-preview", // Replace with the correct model
-        "messages": [
-          {
-            "role": "user",
-            "content":
-                "What are ingredients inside of that fridge? Just give Name:quantity, nothing else. Example: 'Apple: 1 Orange: 3' "
-            // Your text prompt/question
-          },
-          {
-            "role": "system",
-            "content":
-                "https://upload.wikimedia.org/wikipedia/commons/7/7b/Open_refrigerator_with_food_at_night.jpg"
-          }
-        ],
-      }),
-    );
-
-    if (response.statusCode == 200) {
-      return response.body;
-    } else {
-      return 'Error: ${response.statusCode}';
-    }
-  }
-
-  Map<String, String> ingredientsMap = {
-    'Flour': '2',
-    'Sugar': '1',
-    'Eggs': '2',
-    'Milk': '4',
-    'Butter': '6',
-  };
-
-  void updateUI() async {
-    setState(() {});
-
-    String response = await sendToOpenAI();
-
+  void _incrementCounter() {
     setState(() {
-      var jsonResponse = jsonDecode(response);
-      var contentString = jsonResponse['choices'][0]['message']['content'];
-      Map<String, String> contentMap = parseContent(contentString);
-      addIngredients(contentMap, ingredientsMap);
-      _response = contentMap.entries
-          .map((entry) => '${entry.key}: ${entry.value}')
-          .join(', ');
-    });
-  }
-
-  void updateResponseDisplay() {
-    _response = ingredientsMap.entries
-        .map((entry) => '${entry.key}: ${entry.value}')
-        .join(', ');
-  }
-
-  void addIngredients(
-      Map<String, String> originalMap, Map<String, String> newIngredients) {
-    originalMap.addAll(newIngredients);
-  }
-
-  void addItemToIngredientsMap(String itemName, String quantity) {
-    setState(() {
-      ingredientsMap[itemName] = quantity;
-      updateResponseDisplay();
-    });
-  }
-
-  void removeIngredient(String itemName) {
-    setState(() {
-      ingredientsMap.remove(itemName);
+      _counter++;
     });
   }
 
@@ -143,71 +43,27 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Expanded(
-              child: ListView.builder(
-                itemCount: ingredientsMap.length,
-                itemBuilder: (context, index) {
-                  String key = ingredientsMap.keys.elementAt(index);
-                  return ListTile(
-                    title: Text(key),
-                    subtitle: Text('Quantity: ${ingredientsMap[key]}'),
-                    trailing: IconButton(
-                      icon: Icon(Icons.delete),
-                      onPressed: () => removeIngredient(key),
-                    ),
-                  );
-                },
-              ),
+            const Text(
+              'You have pushed the button this many times:',
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  TextField(
-                    controller: ingredientController,
-                    decoration: InputDecoration(
-                      labelText: 'Ingredient',
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  TextField(
-                    controller: quantityController,
-                    decoration: InputDecoration(
-                      labelText: 'Quantity',
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (ingredientController.text.isNotEmpty &&
-                          quantityController.text.isNotEmpty) {
-                        setState(() {
-                          ingredientsMap[ingredientController.text] =
-                              quantityController.text;
-                          ingredientController.clear();
-                          quantityController.clear();
-                        });
-                      }
-                    },
-                    child: const Text('Add Ingredient'),
-                  ),
-                ],
-              ),
+            Text(
+              '$_counter',
+              // Change made here: Replace deprecated 'headline4' with 'headlineMedium'
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: updateUI,
-        tooltip: 'Scan Fridge',
-        child: const Icon(Icons.search),
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
       ),
     );
   }
