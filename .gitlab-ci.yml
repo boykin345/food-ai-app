@@ -6,7 +6,10 @@ stages:
   - analyze
 
 services:
-  - docker:dind
+  - name: docker:dind
+    alias: docker
+    command: ["--insecure-registry"]
+    privileged: true
 
 variables:
   DOCKER_DRIVER: overlay2
