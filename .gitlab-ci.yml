@@ -1,5 +1,10 @@
 image: marcom3622/food-ai:tagname
 
+cache:
+  key: "$CI_COMMIT_REF_SLUG"
+  paths:
+    - .pub-cache/
+
 stages:
   - build
   - test
