@@ -15,7 +15,7 @@ variables:
 
 before_script:
   - docker info
-  - DOCKER_BUILDKIT=1 docker buildx build --load -t my_flutter_app .  # Ensure this is the correct context
+  - DOCKER_BUILDKIT=1 docker buildx build --load -t my_flutter_app .
 
 build_android:
   stage: build
