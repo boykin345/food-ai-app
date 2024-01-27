@@ -47,7 +47,7 @@ RUN flutter pub get && \
 # Run flutter doctor with verbose output
 RUN flutter doctor -v
 
-# Expose the port that your app runs on (adjust if necessary)
+# Expose the port that your app runs on
 EXPOSE 8080
 
 # Command to run your app
