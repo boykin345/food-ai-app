@@ -1,7 +1,7 @@
 # Use an official base image
 FROM ubuntu:latest
 
-# Update packages list and install sudo
+# Update packages list and install required packages
 RUN apt-get update && \
     apt-get install -y sudo git wget unzip xz-utils zip libglu1-mesa openjdk-11-jdk-headless curl
 
@@ -22,16 +22,21 @@ ENV PATH="$PATH:/usr/local/flutter/bin:/usr/local/flutter/bin/cache/dart-sdk/bin
 RUN yes | sdkmanager --licenses
 
 # Install Android build tools and platforms
-RUN sdkmanager "platform-tools" "platforms;android-29" "build-tools;29.0.2"
+RUN sdkmanager "platform-tools" "platforms;android-33" "build-tools;30.0.3"
+
+# Create a new user
+RUN useradd -ms /bin/bash user
+
+# Change the ownership of the Android SDK directory to the non-root user
+RUN chown -R user:user $ANDROID_SDK_ROOT
 
 # Clone Flutter SDK and checkout the specific version
 RUN git clone https://github.com/flutter/flutter.git /usr/local/flutter && \
     cd /usr/local/flutter && \
     git checkout 3.16.9
 
-# Create a new user and change ownership
-RUN useradd -ms /bin/bash user && \
-    chown -R user:user /usr/local/flutter
+# Change the ownership of the Flutter SDK directory to the non-root user
+RUN chown -R user:user /usr/local/flutter
 
 # Switch to the non-root user
 USER user
