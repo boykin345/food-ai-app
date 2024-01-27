@@ -7,9 +7,9 @@ stages:
 
 services:
   - name: docker:dind
-    alias: docker
-    command: ["--insecure-registry"]
-    privileged: true
+  - alias: docker
+  - command: ["--insecure-registry"]
+  - privileged: true
 
 variables:
   DOCKER_DRIVER: overlay2
