@@ -1,60 +1,55 @@
 # Use an official base image
 FROM ubuntu:latest
 
-# Update packages list
-RUN echo "Updating packages list..."
-RUN apt-get update
+# Update packages list and install sudo
+RUN apt-get update && \
+    apt-get install -y sudo git wget unzip xz-utils zip libglu1-mesa openjdk-11-jdk-headless curl
 
-# Install sudo
-RUN apt-get install -y sudo
+# Install Android SDK
+ENV ANDROID_HOME="/usr/local/android-sdk"
+ENV ANDROID_SDK_ROOT="$ANDROID_HOME"
+RUN mkdir -p "$ANDROID_SDK_ROOT/cmdline-tools" && \
+    cd "$ANDROID_SDK_ROOT/cmdline-tools" && \
+    wget -O cmdline-tools.zip "https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip" && \
+    unzip cmdline-tools.zip && \
+    rm cmdline-tools.zip && \
+    mv cmdline-tools latest
 
-# Install dependencies for Flutter
-RUN echo "Installing dependencies..."
-RUN apt-get install -y git wget unzip xz-utils zip libglu1-mesa openjdk-11-jdk-headless curl
+# Set environment variables
+ENV PATH="$PATH:/usr/local/flutter/bin:/usr/local/flutter/bin/cache/dart-sdk/bin:${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin:${ANDROID_SDK_ROOT}/platform-tools"
 
-# Create a new user to run commands as non-root
-RUN echo "Creating a new user..."
-RUN useradd -ms /bin/bash user
+# Accept Android SDK licenses
+RUN yes | sdkmanager --licenses
 
-# Install Flutter SDK
-RUN echo "Cloning Flutter SDK..."
-RUN git clone https://github.com/flutter/flutter.git /usr/local/flutter
+# Install Android build tools and platforms
+RUN sdkmanager "platform-tools" "platforms;android-29" "build-tools;29.0.2"
 
-# Checkout the specific version of Flutter
-# Replace 'commit_hash' with the actual commit hash corresponding to Flutter 3.19.0-9.0.pre.170
-RUN echo "Checking out specific Flutter version..."
-RUN cd /usr/local/flutter && git checkout 3.16.9
+# Clone Flutter SDK and checkout the specific version
+RUN git clone https://github.com/flutter/flutter.git /usr/local/flutter && \
+    cd /usr/local/flutter && \
+    git checkout 3.16.9
 
-# Change ownership of the Flutter SDK directory to the new user
-RUN echo "Changing ownership of the Flutter SDK directory..."
-RUN chown -R user:user /usr/local/flutter
-
-# Set the environment variable for Flutter and Dart SDK
-ENV PATH="/usr/local/flutter/bin:/usr/local/flutter/bin/cache/dart-sdk/bin:${PATH}"
+# Create a new user and change ownership
+RUN useradd -ms /bin/bash user && \
+    chown -R user:user /usr/local/flutter
 
 # Switch to the non-root user
 USER user
 WORKDIR /home/user
 
-# Copy your Flutter project and change ownership
-RUN echo "Copying Flutter project..."
+# Copy the Flutter project
 COPY --chown=user:user . /home/user/app
 WORKDIR /home/user/app
 
-# Get Flutter packages
-RUN echo "Getting Flutter packages..."
-RUN flutter pub get
-
-# Pre-download development binaries, this layers will be cached if the pubspec.yaml doesn't change
-RUN echo "Pre-caching development binaries..."
-RUN flutter precache
+# Get Flutter packages and pre-download development binaries
+RUN flutter pub get && \
+    flutter precache
 
 # Run flutter doctor with verbose output
-RUN echo "Running flutter doctor..."
 RUN flutter doctor -v
 
-# Expose the port that your app runs on, adjust if necessary
+# Expose the port that your app runs on (adjust if necessary)
 EXPOSE 8080
 
 # Command to run your app
-CMD echo "Running the app..." && flutter run
+CMD ["flutter", "run"]
