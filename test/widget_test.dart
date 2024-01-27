@@ -27,4 +27,9 @@ void main() {
     expect(find.text('0'), findsNothing);
     expect(find.text('1'), findsOneWidget);
   });
+
+  test('Intentional Failure Test', () {
+    var actualString = 'Hello, Flutter!';
+    expect(actualString, equals('This will fail'));
+  });
 }
