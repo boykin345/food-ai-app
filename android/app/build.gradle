@@ -78,6 +78,11 @@ flutter {
     source '../..'
 }
 
+<<<<<<< HEAD
 
+=======
+dependencies {
+}
+>>>>>>> dcee2acd943d9cb5f762c99990a717bb87869518
 
 apply plugin: 'com.google.gms.google-services'

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'dart:convert';
 import 'dart:io';
 
@@ -8,6 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:food_ai_app/recipe_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as path;
+=======
+import 'package:flutter/material.dart';
+>>>>>>> dcee2acd943d9cb5f762c99990a717bb87869518
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,31 +20,38 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FOOD AI',
+      title: 'Flutter Demo',
       theme: ThemeData(
+<<<<<<< HEAD
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
         useMaterial3: true,
+=======
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+>>>>>>> dcee2acd943d9cb5f762c99990a717bb87869518
       ),
-      home: const MyHomePage(title: 'FOOD AI Prototype'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title});
+  // Change made here: Convert 'key' to a super parameter
+  const MyHomePage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+<<<<<<< HEAD
   TextEditingController ingredientController = TextEditingController();
   TextEditingController quantityController = TextEditingController();
   Map<String, String> ingredientsMap = {};
@@ -150,6 +161,13 @@ class _MyHomePageState extends State<MyHomePage> {
   void removeIngredient(String itemName) {
     setState(() {
       ingredientsMap.remove(itemName);
+=======
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+>>>>>>> dcee2acd943d9cb5f762c99990a717bb87869518
     });
   }
 
@@ -169,6 +187,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
+<<<<<<< HEAD
       body: SingleChildScrollView(
         // Making the entire column scrollable
         child: Center(
@@ -239,6 +258,27 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: processImage,
         tooltip: 'Upload Image',
         child: const Icon(Icons.upload),
+=======
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Text(
+              'You have pushed the button this many times:',
+            ),
+            Text(
+              '$_counter',
+              // Change made here: Replace deprecated 'headline4' with 'headlineMedium'
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+>>>>>>> dcee2acd943d9cb5f762c99990a717bb87869518
       ),
     );
   }
