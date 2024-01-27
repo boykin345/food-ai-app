@@ -10,25 +10,32 @@ variables:
 
 before_script:
   - docker info
-  - docker build -t my_flutter_app .
+  - docker build -t my_flutter_app .  # Ensure this is the correct context
 
 build_android:
   stage: build
   script:
     - docker run --rm my_flutter_app flutter build apk
+  artifacts:
+    paths:
+      - build/app/outputs/flutter-apk/  # Adjust the path according to where your APK is generated
   rules:
-    - if: '$CI_COMMIT_BRANCH'
+    - if: '$CI_COMMIT_BRANCH != null'  # Adjust this condition as needed
 
 test_android:
   stage: test
   script:
     - docker run --rm my_flutter_app flutter test
+  artifacts:
+    when: always
+    reports:
+      junit: test-results.xml  # Adjust this path to your test results file
   rules:
-    - if: '$CI_COMMIT_BRANCH'
+    - if: '$CI_COMMIT_BRANCH != null'
 
 analyze_code:
   stage: analyze
   script:
     - docker run --rm my_flutter_app flutter analyze
   rules:
-    - if: '$CI_COMMIT_BRANCH'
+    - if: '$CI_COMMIT_BRANCH != null'
