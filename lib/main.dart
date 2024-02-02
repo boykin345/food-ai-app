@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:food_ai_app/firebase_options.dart';
 
-void main() {
+import 'package:food_ai_app/Controllers/sign_up.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
   runApp(const MyApp());
 }
 
@@ -10,12 +16,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Food AI',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Index Page'),
     );
   }
 }
@@ -31,39 +37,87 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              // Change made here: Replace deprecated 'headline4' with 'headlineMedium'
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+      backgroundColor: Color(0xFF2D3444),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 50),
+              Text('Food AI',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 60,
+                        color: Colors.white
+                    ),
+                  ),
+              Padding(padding: const EdgeInsets.only(left: 150),
+                child: Text('Lets find the',
+                  style: TextStyle(
+                    color: Color(0xFFC4CCD8),
+                    fontSize: 28,
+                  ),
+                ),
+              ),
+              Padding(padding: const EdgeInsets.only(left: 170),
+                child: Text('Food you love',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              SizedBox(height: 200),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    // Add the desired functionality when the button is pressed
+                    print('Switching to login page!');
+                  },
+                  child: Text('Log In', style: TextStyle(
+                    color: Colors.black87,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 40),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignUpPage()),
+                  );
+                  // Add the desired functionality when the button is pressed
+                  print('Switching to sign up page!');
+                },
+                child: Text('Sign Up', style: TextStyle(
+                  color: Colors.black87,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              SizedBox(height: 40),
+              ElevatedButton(
+                onPressed: () {
+                  print('Switching to help page!');
+                },
+                child: Text('Help', style: TextStyle(
+                    color: Colors.black87,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
