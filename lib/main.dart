@@ -1,12 +1,35 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:food_ai_app/firebase_options.dart';
+import 'package:food_ai_app/Util/firebase_options.dart';
 
 import 'package:food_ai_app/Controllers/sign_up.dart';
 
+import 'Util/data_util.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
+  try {
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  } catch (e) {
+    print('Error initializing Firebase: $e');
+  }
+
+  AuthUtil authUtil = AuthUtil();
+  DataUtil dataUtil = DataUtil();
+
+  String email = 'user@example.com';
+  String password = 'password123';
+  String username = 'john_doe';
+
+  // Sign up the user
+  User? user = await authUtil.signUp(email, password);
+
+  // If the user is signed up successfully, add user data to Firestore
+  if (user != null) {
+    dataUtil.addUserData(user.uid, username, email);
+  }
+
   runApp(const MyApp());
 }
 
