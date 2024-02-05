@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import '../Util/Palette.dart';
 
 class LoginSignupScreen extends StatefulWidget {
+  final bool screenType;
+
+  LoginSignupScreen({required this.screenType});
+
   @override
   _LoginSignupScreenState createState() => _LoginSignupScreenState();
 }
@@ -28,11 +32,13 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
   bool passwordVisible = false;
   bool confirmPasswordVisible = false;
 
-  bool isSignupScreen = true;
+  bool isSignupScreen = false;
 
   @override
   void initState() {
     super.initState();
+    isSignupScreen = widget.screenType;
+
     usernameFocusNode = FocusNode();
     emailFocusNode = FocusNode();
     passwordFocusNode = FocusNode();
