@@ -63,7 +63,7 @@ D3. As an app user, I want to have a multi-factor authentication option for incr
 
 D4. As an app user, I want to sign in using my email or social media account for quick login access to minimise the time and effort required to use the app regularly. - 2
 
-D5. As an app user, I want the ability to reset my password because over time, it's common for me to forget my password. - 2
+D5. As an app user, I want the ability to reset my password so that I can regain access to my account when I forget my password. - 2
 
 ---
 Fridge Snapshot
