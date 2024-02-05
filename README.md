@@ -61,6 +61,10 @@ D2. As an app user, I want to choose a unique username for my profile on the app
 
 D3. As an app user, I want to have a multi-factor authentication option for increased security to ensure my personal information and account details are well-protected.  - 1
 
+D4. As an app user, I want to sign in using my email or social media account for quick login access to minimise the time and effort required to use the app regularly. - 2
+
+D5. As an app user, I want the ability to reset my password because over time, it's common for me to forget my password. - 2
+
 ---
 Fridge Snapshot
 
@@ -117,6 +121,13 @@ K7. As an app user, I want to see allergen information for each recipe so that I
 K8. As an app user, I want to know the portion sizes for each recipe so that I can plan meals according to the number of people I'm serving or for my own dietary needs. - 1
 
 K9. As an app user, I want detailed nutritional information for each recipe so that I can track my dietary intake and choose recipes that align with my health goals. - 1
+
+---
+User Landing Page
+
+L1. As an app user, I expect a user-friendly interface to access the signup page, so I can easily follow the provided instructions to sign up to the app. - 1
+
+L2. As an app user, I expect a user-friendly interface to access the login page, so I can easily follow the provided instructions to log in to and access the app. - 1
 
 ## Technologies
 Firebase: Back-End Development
