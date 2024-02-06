@@ -139,6 +139,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                           onTap: () {
                             setState(() {
                               isSignupScreen = false;
+                              resetValues();
                             });
                           },
                           child: Column(
@@ -166,6 +167,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                           onTap: () {
                             setState(() {
                               isSignupScreen = true;
+                              resetValues();
                             });
                           },
                           child: Column(
@@ -558,5 +560,24 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
     }
 
     return null; // Return null if the validation is successful
+  }
+
+  // Reset the values when changing between the screens
+  void resetValues() {
+    // Reset controllers
+    usernameController.text = "";
+    emailController.text = "";
+    passwordController.text = "";
+    confirmPasswordController.text = "";
+
+    // Reset interact
+    usernameInteracted = false;
+    emailInteracted = false;
+    passwordInteracted = false;
+    confirmPasswordInteracted = false;
+
+    // Reset visible password fields
+    passwordVisible = false;
+    confirmPasswordVisible = false;
   }
 }
