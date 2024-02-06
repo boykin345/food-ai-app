@@ -1,18 +1,35 @@
 import 'package:food_ai_app/tinder_model.dart';
 import 'package:food_ai_app/tinder_view.dart';
 import 'package:food_ai_app/api_mock.dart';
+import 'package:flutter/material.dart';
 
 class TinderController {
   TinderModel model;
-  TinderView view;
   MockApiClient apiClient;
   final int THREAD_COUNT = 3;
 
-  TinderController(this.model, this.view, this.apiClient);
+  VoidCallback? onModelUpdated;
 
-  // Moved initialisation out of constructor to use async feature
+  // Constructor
+  TinderController(this.model, this.apiClient);
+
+  // Moved initialization out of constructor to use async feature
   Future<void> initialize() async {
     await fetchRecipes();
+  }
+
+  void refreshView() {
+    onModelUpdated?.call();
+  }
+
+  // Method to be called to create a new TinderView
+  TinderView createView() {
+    return TinderView(
+      model: model,
+      onChangeRecipe: () {
+        changeRecipe(); // Wrap the async call with a function
+      },
+    );
   }
 
   // Add async to method
@@ -31,10 +48,9 @@ class TinderController {
     if (model.getIndex() >= THREAD_COUNT - 1) {
       model.resetIndex();
       await fetchRecipes();
-      model.resetIndex();
-      return;
+    } else {
+      model.incrementIndex();
     }
-    //refresh-view
-    model.incrementIndex();
+    refreshView();
   }
 }

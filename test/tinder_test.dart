@@ -107,11 +107,6 @@ Bake: Place the pie in the preheated oven and bake for about 25-30 minutes, or u
 Serve: Let the pie cool for a few minutes before serving. This dish is perfect with a side of mashed potatoes or a simple green salad.
 ''';
 
-  final String IMAGE_0 = "assets/A1.png";
-  final String IMAGE_3 = "assets/A4.png";
-  final String IMAGE_4 = "assets/A5.png";
-  final String IMAGE_5 = "assets/A6.png";
-
   MockApiClient? apiClient;
   TinderModel? tinderModel;
   TinderView? tinderView;
@@ -123,7 +118,6 @@ Serve: Let the pie cool for a few minutes before serving. This dish is perfect w
     // Initialize new instances before each test
     apiClient = MockApiClient();
     tinderModel = TinderModel();
-    tinderView = TinderView();
     tinderController = TinderController(tinderModel!, tinderView!, apiClient!);
     await tinderController!.initialize();
   });
