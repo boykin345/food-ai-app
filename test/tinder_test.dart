@@ -1,3 +1,6 @@
+import 'dart:html';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:food_ai_app/api_mock.dart';
@@ -10,27 +13,27 @@ void main() {
   final String DESCRIPTION_0 = '''
 Fish and Chips
 
-  Ingredients:
+Ingredients:
 
-  4 large potatoes, peeled and cut into strips
-  4 fish fillets (cod, haddock, or pollock)
-  1 cup flour, plus extra for dusting
-  1 cup beer (or sparkling water)
-  2 teaspoons baking powder
-  Salt and pepper to taste
-  Oil for frying
-  Instructions:
+4 large potatoes, peeled and cut into strips
+4 fish fillets (cod, haddock, or pollock)
+1 cup flour, plus extra for dusting
+1 cup beer (or sparkling water)
+2 teaspoons baking powder
+Salt and pepper to taste
+Oil for frying
+Instructions:
 
-  Heat oil in a deep fryer or large pot to 365°F (185°C).
-  Pat the fish dry and season with salt and pepper. Dust lightly with flour.
-  In a bowl, mix 1 cup flour, baking powder, salt, and pepper. Gradually mix in beer until a smooth batter is formed.
-  Dip fish fillets into the batter, coating them completely.
-  Fry the potatoes in batches until golden and crispy. Drain on paper towels.
-  Fry the battered fish until golden brown and crispy, about 4-5 minutes. Drain on paper towels.
-  Serve fish with chips and your choice of dipping sauce.''';
+Heat oil in a deep fryer or large pot to 365°F (185°C).
+Pat the fish dry and season with salt and pepper. Dust lightly with flour.
+In a bowl, mix 1 cup flour, baking powder, salt, and pepper. Gradually mix in beer until a smooth batter is formed.
+Dip fish fillets into the batter, coating them completely.
+Fry the potatoes in batches until golden and crispy. Drain on paper towels.
+Fry the battered fish until golden brown and crispy, about 4-5 minutes. Drain on paper towels.
+Serve fish with chips and your choice of dipping sauce.''';
 
   final String DESCRIPTION_3 = '''
-  Full English Breakfast
+Full English Breakfast
 
 Ingredients:
 
@@ -52,7 +55,7 @@ Serve everything hot with toasted bread.
 ''';
 
   final String DESCRIPTION_4 = '''
-  Sticky Toffee Pudding 
+Sticky Toffee Pudding 
 
 Ingredients:
 
@@ -81,7 +84,7 @@ Pour sauce over warm pudding before serving.
 ''';
 
   final String DESCRIPTION_5 = '''
-  Meat and Vegetable Pie
+Meat and Vegetable Pie
 
 Ingredients:
 
@@ -118,7 +121,7 @@ Serve: Let the pie cool for a few minutes before serving. This dish is perfect w
     // Initialize new instances before each test
     apiClient = MockApiClient();
     tinderModel = TinderModel();
-    tinderController = TinderController(tinderModel!, tinderView!, apiClient!);
+    tinderController = TinderController(tinderModel!, apiClient!);
     await tinderController!.initialize();
   });
 
@@ -208,5 +211,39 @@ Serve: Let the pie cool for a few minutes before serving. This dish is perfect w
 
       expect(tinderModel?.getIndex(), 0);
     });
+
+    test('TinderController calls refreshView callback if set', () {
+      bool wasCalled = false;
+      tinderController?.onModelUpdated = () {
+        wasCalled = true;
+      };
+
+      tinderController?.refreshView();
+
+      expect(wasCalled, true);
+    });
+
+    test(
+        'TinderController createView method returns a TinderView with model and callback',
+        () {
+      final view = tinderController?.createView();
+      expect(view?.onChangeRecipe, isNotNull);
+    });
+  });
+
+  group('Check TinderView Methods and design', () {
+    VoidCallback mockOnChangeRecipe = () {};
+
+    testWidgets('TinderView displays image, buttons, and description', (WidgetTester tester) async {
+      // Build our app and trigger a frame.
+      await tester.pumpWidget(MaterialApp(
+        home: TinderView(model: tinderModel, onChangeRecipe: mockOnChangeRecipe),
+      ));
+
+      // Verify that image, buttons, and description are displayed
+      expect(find.byIcon(Icons.image), findsOneWidget); // Placeholder icon for image
+      expect(find.byIcon(Icons.close), findsOneWidget); // "No" button
+      expect(find.byIcon(Icons.check), findsOneWidget); // "Yes" button
+      expect(find.text('Test Recipe Description'), findsOneWidget); // Recipe description
   });
 }
