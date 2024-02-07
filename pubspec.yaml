@@ -75,6 +75,7 @@ flutter:
     - family: Caviar Dreams
       fonts:
         - asset: fonts/CaviarDreams.ttf
+        - asset: fonts/CaviarDreams_Bold.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:

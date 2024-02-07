@@ -9,27 +9,27 @@ class MockApiClient extends Mock {
   final String DESCRIPTION_0 = '''
 Fish and Chips
 
-  Ingredients:
+Ingredients:
 
-  4 large potatoes, peeled and cut into strips
-  4 fish fillets (cod, haddock, or pollock)
-  1 cup flour, plus extra for dusting
-  1 cup beer (or sparkling water)
-  2 teaspoons baking powder
-  Salt and pepper to taste
-  Oil for frying
-  Instructions:
+4 large potatoes, peeled and cut into strips
+4 fish fillets (cod, haddock, or pollock)
+1 cup flour, plus extra for dusting
+1 cup beer (or sparkling water)
+2 teaspoons baking powder
+Salt and pepper to taste
+Oil for frying
+Instructions:
 
-  Heat oil in a deep fryer or large pot to 365°F (185°C).
-  Pat the fish dry and season with salt and pepper. Dust lightly with flour.
-  In a bowl, mix 1 cup flour, baking powder, salt, and pepper. Gradually mix in beer until a smooth batter is formed.
-  Dip fish fillets into the batter, coating them completely.
-  Fry the potatoes in batches until golden and crispy. Drain on paper towels.
-  Fry the battered fish until golden brown and crispy, about 4-5 minutes. Drain on paper towels.
-  Serve fish with chips and your choice of dipping sauce.''';
+Heat oil in a deep fryer or large pot to 365°F (185°C).
+Pat the fish dry and season with salt and pepper. Dust lightly with flour.
+In a bowl, mix 1 cup flour, baking powder, salt, and pepper. Gradually mix in beer until a smooth batter is formed.
+Dip fish fillets into the batter, coating them completely.
+Fry the potatoes in batches until golden and crispy. Drain on paper towels.
+Fry the battered fish until golden brown and crispy, about 4-5 minutes. Drain on paper towels.
+Serve fish with chips and your choice of dipping sauce.''';
 
   final String DESCRIPTION_1 = '''
-  Shepherd's Pie
+Shepherd's Pie
 
 Ingredients:
 
@@ -54,7 +54,7 @@ Bake for 20-25 minutes, or until the top is golden brown.
 ''';
 
   final String DESCRIPTION_2 = '''
-  Beef Wellington
+Beef Wellington
 
 Ingredients:
 
@@ -76,7 +76,7 @@ Bake for 25-30 minutes, or until pastry is golden. Let rest before slicing.
 ''';
 
   final String DESCRIPTION_3 = '''
-  Full English Breakfast
+Full English Breakfast
 
 Ingredients:
 
@@ -98,7 +98,7 @@ Serve everything hot with toasted bread.
 ''';
 
   final String DESCRIPTION_4 = '''
-  Sticky Toffee Pudding 
+Sticky Toffee Pudding 
 
 Ingredients:
 
@@ -127,7 +127,7 @@ Pour sauce over warm pudding before serving.
 ''';
 
   final String DESCRIPTION_5 = '''
-  Meat and Vegetable Pie
+Meat and Vegetable Pie
 
 Ingredients:
 
