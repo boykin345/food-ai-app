@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:food_ai_app/Pages/login_page.dart';
+import 'package:food_ai_app/Pages/signup_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class IndexPage extends StatefulWidget {
@@ -50,11 +52,12 @@ class _IndexPageState extends State<IndexPage> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 30, top: 30),
                         child: ElevatedButton(
+                          key: ValueKey('loginButton'),
                           onPressed: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => IndexPage()),
+                                  builder: (context) => LoginPage()),
                               //builder: (context) => LoginSignupScreen(screenType: false)),
                             );
                           },
@@ -74,11 +77,12 @@ class _IndexPageState extends State<IndexPage> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 30, top: 30),
                         child: ElevatedButton(
+                          key: ValueKey('signUpButton'),
                           onPressed: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => IndexPage()),
+                                  builder: (context) => SignUpPage()),
                             );
                           },
                           style: ElevatedButton.styleFrom(
