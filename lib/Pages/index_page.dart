@@ -4,11 +4,13 @@ import 'package:food_ai_app/Pages/login_page.dart';
 import 'package:food_ai_app/Pages/signup_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+// Initialises the state for the index page.
 class IndexPage extends StatefulWidget {
   @override
   _IndexPageState createState() => _IndexPageState();
 }
 
+// Returns a scaffold widget to display the index page.
 class _IndexPageState extends State<IndexPage> {
   @override
   Widget build(BuildContext context) {
@@ -49,10 +51,12 @@ class _IndexPageState extends State<IndexPage> {
                 Container(
                   child: Column(
                     children: [
+                      // Handles the login button.
                       Padding(
                         padding: const EdgeInsets.only(bottom: 30, top: 30),
                         child: ElevatedButton(
                           key: ValueKey('loginButton'),
+                          // Provide an onPressed redirecting to the login page.
                           onPressed: () {
                             Navigator.push(
                               context,
@@ -74,10 +78,13 @@ class _IndexPageState extends State<IndexPage> {
                           ),
                         ),
                       ),
+
+                      // Handles the sign up button.
                       Padding(
                         padding: const EdgeInsets.only(bottom: 30, top: 30),
                         child: ElevatedButton(
                           key: ValueKey('signUpButton'),
+                          // Provide an onPressed redirecting to the sign up page.
                           onPressed: () {
                             Navigator.push(
                               context,
@@ -98,6 +105,8 @@ class _IndexPageState extends State<IndexPage> {
                           ),
                         ),
                       ),
+
+                      // Handles the help button.
                       Padding(
                         padding: const EdgeInsets.only(bottom: 30, top: 30),
                         child: ElevatedButton(
@@ -119,11 +128,12 @@ class _IndexPageState extends State<IndexPage> {
                   ),
                 ),
 
-                // Container to display the social buttons.
+                // Container to display the social media section.
                 Container(
                   margin: EdgeInsets.only(top: 40),
                   child: Column(
                     children: [
+                      // Container to display some text "follow us".
                       Container(
                         child: Column(
                           children: [
@@ -143,12 +153,15 @@ class _IndexPageState extends State<IndexPage> {
                           ],
                         ),
                       ),
+
+                      // Container to display the social media buttons.
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Container(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              // Provide an onTap redirecting the user to google plus social media page.
                               GestureDetector(
                                 onTap: () async {
                                   await launchUrl(Uri(scheme: 'https', host: 'google.com'), mode: LaunchMode.externalApplication);
@@ -169,6 +182,8 @@ class _IndexPageState extends State<IndexPage> {
                                 ),
                               ),
                               SizedBox(width: 10),
+
+                              // Provide an onTap redirecting the user to facebook social media page.
                               GestureDetector(
                                 onTap: () async {
                                   await launchUrl(Uri(scheme: 'https', host: 'google.com'), mode: LaunchMode.externalApplication);
@@ -189,6 +204,8 @@ class _IndexPageState extends State<IndexPage> {
                                 ),
                               ),
                               SizedBox(width: 10),
+
+                              // Provide an onTap redirecting the user to twitter social media page.
                               GestureDetector(
                                 onTap: () async {
                                   await launchUrl(Uri(scheme: 'https', host: 'google.com'), mode: LaunchMode.externalApplication);
