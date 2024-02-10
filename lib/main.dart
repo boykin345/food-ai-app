@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:food_ai_app/Util/firebase_options.dart';
 
-import 'Screens/LogInSignUpScreen.dart';
+import 'Pages/login_signup_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -70,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => LoginSignupScreen(screenType: false)),
+                            builder: (context) => LoginSignupPage(screenType: false)),
                       );
                     },
                     style: ElevatedButton.styleFrom(
@@ -93,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => LoginSignupScreen(screenType: true,)),
+                            builder: (context) => LoginSignupPage(screenType: true,)),
                       );
                     },
                     style: ElevatedButton.styleFrom(

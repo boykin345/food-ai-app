@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 import '../Util/Palette.dart';
 
-class LoginSignupScreen extends StatefulWidget {
+class LoginSignupPage extends StatefulWidget {
   final bool screenType;
 
-  LoginSignupScreen({required this.screenType});
+  LoginSignupPage({required this.screenType});
 
   @override
-  _LoginSignupScreenState createState() => _LoginSignupScreenState();
+  _LoginSignupPageState createState() => _LoginSignupPageState();
 }
 
-class _LoginSignupScreenState extends State<LoginSignupScreen> {
+class _LoginSignupPageState extends State<LoginSignupPage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
