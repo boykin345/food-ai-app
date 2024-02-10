@@ -559,6 +559,11 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
       return "Minimum length is 8 characters!";
     }
 
+    // Checks to make sure the password field box matches the confirm password field box.
+    if (passwordController.text != confirmPassword) {
+      return "Passwords do not match!";
+    }
+
     return null; // Return null if the validation is successful
   }
 
