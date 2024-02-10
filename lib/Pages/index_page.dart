@@ -17,87 +17,105 @@ class _IndexPageState extends State<IndexPage> {
           child: Padding(
             padding: const EdgeInsets.only(top: 50.0),
             child: Column(
-              children: <Widget> [
-                Text(
-                  'Food AI',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 60,
-                      color: Colors.white
-                  ),
-                ),
-                Text(
-                  'Lets find the food you love',
-                  style: TextStyle(
-                    color: Color(0xFFC4CCD8),
-                    fontSize: 28,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 30, top: 30),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
+              children: [
 
-                          builder: (context) => IndexPage()),
-                            //builder: (context) => LoginSignupScreen(screenType: false)),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                        fixedSize: Size(125, 30.0)
-                    ),
-                    child: Text(
-                      'Log In',
-                      style: TextStyle(
-                        color: Colors.black87,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
+                // Container to display the text at the top of the screen.
+                Container(
+                  child: Column(
+                    children: [
+                      Text(
+                        'Food AI',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 60,
+                            color: Colors.white
+                        ),
                       ),
-                    ),
+                      Text(
+                        'Lets find the food you love',
+                        style: TextStyle(
+                          color: Color(0xFFC4CCD8),
+                          fontSize: 28,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                ),
+
+                // Container to display the buttons on the screen such as login, sing up.
+                Container(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 30, top: 30),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => IndexPage()),
+                              //builder: (context) => LoginSignupScreen(screenType: false)),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                              fixedSize: Size(125, 30.0)
+                          ),
+                          child: Text(
+                            'Log In',
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 30, top: 30),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => IndexPage()),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                              fixedSize: Size(125, 30.0)
+                          ),
+                          child: Text(
+                            'Sign Up',
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 30, top: 30),
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                              fixedSize: Size(125, 30.0)
+                          ),
+                          child: Text(
+                            'Help',
+                            style: TextStyle(
+                              color: Colors.black87,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 30, top: 30),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => IndexPage()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                        fixedSize: Size(125, 30.0)
-                    ),
-                    child: Text(
-                      'Sign Up',
-                      style: TextStyle(
-                        color: Colors.black87,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 30, top: 30),
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        fixedSize: Size(125, 30.0)
-                    ),
-                    child: Text(
-                      'Help',
-                      style: TextStyle(
-                        color: Colors.black87,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
+
+                // Container to display the social buttons.
                 Container(
                   margin: EdgeInsets.only(top: 40),
                   child: Column(
