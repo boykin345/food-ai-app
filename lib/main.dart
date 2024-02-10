@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,27 +13,94 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  // Change made here: Convert 'key' to a super parameter for linter
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
+class MyHomePage extends StatelessWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('App'),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Text('George Cook', style: TextStyle(color: Colors.white)),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+            ),
+            ListTile(
+              title: Text('Settings'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SettingsScreen()),
+                );
+              },
+            ),
+            ListTile(
+              title: Text('Preferences'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AllergiesScreen()),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+      body: Center(child: Text('Main Page')),
+    );
+  }
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class SettingsScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Settings'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView(
+          children: <Widget>[
+            // Add your TextFields for email, phone, etc. here
+          ],
+        ),
+      ),
+    );
+  }
+}
 
-  void _incrementCounter() {
+class AllergiesScreen extends StatefulWidget {
+  @override
+  _AllergiesScreenState createState() => _AllergiesScreenState();
+}
+
+class _AllergiesScreenState extends State<AllergiesScreen> {
+  List<String> allergies = ['Gluten-free', 'Vegan', 'Vegetarian'];
+  final TextEditingController allergyController = TextEditingController();
+
+  void _addAllergy() {
+    if (allergyController.text.isNotEmpty) {
+      setState(() {
+        allergies.add(allergyController.text);
+      });
+      allergyController.clear();
+    }
+  }
+
+  void _removeAllergy(String allergy) {
     setState(() {
-      _counter++;
+      allergies.remove(allergy);
     });
   }
 
@@ -43,27 +108,45 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text('Preferences'),
       ),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            TextField(
+              controller: allergyController,
+              decoration: InputDecoration(
+                labelText: 'Add a new Dietary need',
+                suffixIcon: IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: _addAllergy,
+                ),
+              ),
             ),
-            Text(
-              '$_counter',
-              // Change made here: Replace deprecated 'headline4' with 'headlineMedium'
-              style: Theme.of(context).textTheme.headlineMedium,
+            Expanded(
+              child: ListView.builder(
+                itemCount: allergies.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(allergies[index]),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () => _removeAllergy(allergies[index]),
+                    ),
+                  );
+                },
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Implement save functionality if needed
+                Navigator.pop(context);
+              },
+              child: Text('Looks good to me'),
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }

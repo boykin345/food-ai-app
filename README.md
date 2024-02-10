@@ -25,7 +25,7 @@ Generate recipes that the user will like in only four simple steps:
 - Safe, diverse, and high-quality recipes with detailed instructions and warnings
 - Personalisation and fine-tuning of recipes and user settings
 - Social media integration
-- CI/CD
+- CI/CD pipeline
 
 ## User Stories
 Below are the user stories that we will be using for our product backlog. We have given codes at the start of each user story so that they can be tracked across the various diagrams that we have made. At the end of each user story, there is also a rating which tells us how hard it will be to complete that specific task.
