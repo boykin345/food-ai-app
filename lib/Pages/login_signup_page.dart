@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../Util/Palette.dart';
+import 'package:food_ai_app/Util/colours.dart';
 
+/// Initialises the state for the login & sign up page.
+///
+/// [screenType] whether it shows the login page or the sign up page, where true will show the sign up page.
 class LoginSignupPage extends StatefulWidget {
+  /// Whether the we are loading the login page or the sign up page.
   final bool screenType;
 
   LoginSignupPage({required this.screenType});
@@ -11,57 +15,68 @@ class LoginSignupPage extends StatefulWidget {
   _LoginSignupPageState createState() => _LoginSignupPageState();
 }
 
+/// Returns a scaffold widget to display login/signup page with certain properties.
 class _LoginSignupPageState extends State<LoginSignupPage> {
+  // Controllers for the editable text fields within the pages.
   TextEditingController usernameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
 
-  // Interact with field boxes
+  // Whether the user has interacted with a particular text field.
   bool usernameInteracted = false;
   bool emailInteracted = false;
   bool passwordInteracted = false;
   bool confirmPasswordInteracted = false;
 
+  // Managed the focus state of the text fields within the pages.
   late FocusNode usernameFocusNode;
   late FocusNode emailFocusNode;
   late FocusNode passwordFocusNode;
   late FocusNode confirmPasswordFocusNode;
 
-  // Visible
+  // Whether the password text fields are obscure or not.
   bool passwordVisible = false;
   bool confirmPasswordVisible = false;
 
+  // Whether the we are loading the login page or the sign up page.
   bool isSignupScreen = false;
 
+  /// Called when the widget is initialised to setup properties for the widget to function.
   @override
   void initState() {
     super.initState();
+    // Updates the boolean value decide which page to show.
     isSignupScreen = widget.screenType;
 
+    // Sets up the focus nodes for the text fields.
     usernameFocusNode = FocusNode();
     emailFocusNode = FocusNode();
     passwordFocusNode = FocusNode();
     confirmPasswordFocusNode = FocusNode();
 
+    // Adds a listener to track changes to the username text field.
     usernameFocusNode.addListener(() {
       setState(() {
         usernameInteracted = !usernameFocusNode.hasFocus;
       });
     });
 
+    // Adds a listener to track changes to the email text field.
     emailFocusNode.addListener(() {
       setState(() {
         emailInteracted = !emailFocusNode.hasFocus;
       });
     });
 
+    // Adds a listener to track changes to the password text field.
     passwordFocusNode.addListener(() {
       setState(() {
         passwordInteracted = !passwordFocusNode.hasFocus;
       });
     });
 
+    // Adds a listener to track changes to the confirm password text field.
     confirmPasswordFocusNode.addListener(() {
       setState(() {
         confirmPasswordInteracted = !confirmPasswordFocusNode.hasFocus;
@@ -69,6 +84,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     });
   }
 
+  /// Called when the widget is no longer need to release the resources used.
   @override
   void dispose() {
     usernameFocusNode.dispose();
@@ -78,20 +94,22 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     super.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Palette.backgroundOff,
       body: Stack(
         children: [
-          // Top part of the screen
+
+          // Top part of the screen.
           Positioned(
             right: 0,
             left: 0,
             child: Container(
               height: 300,
               padding: EdgeInsets.only(top: 90, left: 20),
-              color: Palette.backgroundMain,
+              color: Palette.primary,
               child: Column(
                 children: [
                   RichText(
@@ -108,10 +126,12 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
               ),
             ),
           ),
-          // Login container box
+
+          // Login container box.
           AnimatedPositioned(
             duration: Duration(milliseconds: 600),
             curve: Curves.bounceInOut,
+            // Changes the size of the container starting height depending if it's the login page or the sign up page.
             top: isSignupScreen ? 190 : 220,
             child: AnimatedContainer(
               duration: Duration(milliseconds: 600),
@@ -132,6 +152,8 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
+
+                    // Row to change between the login page & the sign up page.
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -139,7 +161,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                           onTap: () {
                             setState(() {
                               isSignupScreen = false;
-                              resetValues();
+                              resetTextFields();
                             });
                           },
                           child: Column(
@@ -167,7 +189,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                           onTap: () {
                             setState(() {
                               isSignupScreen = true;
-                              resetValues();
+                              resetTextFields();
                             });
                           },
                           child: Column(
@@ -193,8 +215,14 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                         ),
                       ],
                     ),
+
+                    // Whether to show the sign up page or not.
                     if (isSignupScreen) signUpSection(),
-                    if (!isSignupScreen) signInSection(),
+
+                    // Whether to show the login page or not.
+                    if (!isSignupScreen) logInSection(),
+
+                    // Container to show the login / sign up button after the text fields.
                     Container(
                       margin: EdgeInsets.only(
                           top: 30, bottom: 15, left: 40, right: 40),
@@ -225,6 +253,8 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                         ],
                       ),
                     ),
+
+                    // Container to show the text for social media options.
                     Container(
                       margin: EdgeInsets.only(top: 15),
                       child: Column(
@@ -245,6 +275,8 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                         ],
                       ),
                     ),
+
+                    // Container to display the social media button options.
                     Container(
                       child: Column(
                         children: [
@@ -262,12 +294,14 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     );
   }
 
-  // Creates the sign in container
-  Container signInSection() {
+  // Creates the login container.
+  Container logInSection() {
     return Container(
         margin: EdgeInsets.only(top: 20),
         child: Column(
           children: [
+
+            // Email text field.
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
               child: TextField(
@@ -286,6 +320,8 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                 ),
               ),
             ),
+
+            // Password text field.
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
               child: TextField(
@@ -302,6 +338,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                     icon: Icon(
                       passwordVisible ? Icons.visibility : Icons.visibility_off,
                     ),
+                    // When pressed will update the obscure text value to the opposite, e.g. hidden text will become visible.
                     onPressed: () {
                       setState(() {
                         passwordVisible = !passwordVisible;
@@ -315,6 +352,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                 ),
               ),
             ),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -329,12 +367,14 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
         ));
   }
 
-  // Creates the signUp container
+  // Creates the sign up container.
   Container signUpSection() {
     return Container(
       margin: EdgeInsets.only(top: 20),
       child: Column(
         children: [
+
+          // Username text field.
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: TextField(
@@ -353,6 +393,8 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
               ),
             ),
           ),
+
+          // Email text field.
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: TextField(
@@ -371,6 +413,8 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
               ),
             ),
           ),
+
+          // Password text field.
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: TextField(
@@ -387,6 +431,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                   icon: Icon(
                     passwordVisible ? Icons.visibility : Icons.visibility_off,
                   ),
+                  // When pressed will update the obscure text value to the opposite, e.g. hidden text will become visible.
                   onPressed: () {
                     setState(() {
                       passwordVisible = !passwordVisible;
@@ -400,6 +445,8 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
               ),
             ),
           ),
+
+          // Confirm password text field.
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: TextField(
@@ -436,12 +483,14 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     );
   }
 
-  // Creates the social buttons at the bottom of the page
+  // Creates the social media buttons container at the bottom of the page.
   Container socialButtons() {
     return Container(
       margin: EdgeInsets.only(top: 15, left: 40, right: 40),
       child: Column(
         children: [
+
+          // Displays the facebook social media button.
           TextButton(
             onPressed: () {},
             style: TextButton.styleFrom(
@@ -462,6 +511,8 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
             ),
           ),
           SizedBox(height: 5),
+
+          // Displays the google social media button.
           TextButton(
             onPressed: () {},
             style: TextButton.styleFrom(
@@ -486,75 +537,88 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     );
   }
 
+  /// Validates the provided username input.
+  ///
+  /// Returns an error message if [username] is invalid, otherwise it will return `null`.
   String? validateUsername(String? username) {
-    // Checks to see if the text field has been interacted with, if not exit early
+    // Checks to see if the text field has been interacted with, if not exit early.
     if (usernameInteracted == false) {
       return null;
     }
 
-    // Checks if the username field is empty
+    // Checks if the username field is empty.
     if (username == null || username.isEmpty) {
       return "Username field is empty!";
     }
 
-    // Checks if the username length meets the minimal amount of characters
+    // Checks if the username length meets the minimal amount of characters.
     if (username.length < 3) {
       return "Minimum length is 3 characters!";
     }
 
-    return null; // validation successful
+    return null; // Validation successful.
   }
 
+  /// Validates the provided email input.
+  ///
+  /// Returns an error message if [email] is invalid, otherwise it will return `null`.
   String? validateEmail(String? email) {
-    // Checks to see if the text field has been interacted with, if not exit early
+    // Checks to see if the text field has been interacted with, if not exit early.
     if (emailInteracted == false) {
       return null;
     }
 
-    // Checks if the email field is empty
+    // Checks if the email field is empty.
     if (email == null || email.isEmpty) {
       return "Email address field is empty!";
     }
 
-    // Checks if the email address is in the correct format
+    // Checks if the email address is in the correct format.
     if (!email.contains('@')) {
       return "Not a valid email address!";
     }
 
-    return null; // validation successful
+    return null; // Validation successful.
   }
 
+
+  /// Validates the provided password input.
+  ///
+  /// Returns an error message if [password] is invalid, otherwise it will return `null`.
   String? validatePassword(String? password) {
-    // Checks to see if the text field has been interacted with, if not exit early
+    // Checks to see if the text field has been interacted with, if not exit early.
     if (passwordInteracted == false) {
       return null;
     }
 
-    // Checks if the password field is empty
+    // Checks if the password field is empty.
     if (password == null || password.isEmpty) {
       return "Password field is empty!";
     }
 
-    // Checks if the password length meets the minimal amount of characters
+    // Checks if the password length meets the minimal amount of characters.
     if (password.length < 8) {
       return "Minimum length is 8 characters!";
     }
 
-    return null; // Return null if the validation is successful
+    return null; // Validation successful.
   }
 
+  /// Validates the provided confirm password input.
+  ///
+  /// Returns an error message if [confirmPassword] is invalid, otherwise it will return `null`.
   String? validateConfirmPassword(String? confirmPassword) {
-    // Checks to see if the text field has been interacted with, if not exit early
+    // Checks to see if the text field has been interacted with, if not exit early.
     if (confirmPasswordInteracted == false) {
       return null;
     }
 
-    // Checks if the password field is empty
+    // Checks if the password field is empty.
     if (confirmPassword == null || confirmPassword.isEmpty) {
       return "Confirm password field is empty!";
     }
 
-    // Checks if the password length meets the minimal amount of characters
+    // Checks if the password length meets the minimal amount of characters.
     if (confirmPassword.length < 8) {
       return "Minimum length is 8 characters!";
     }
@@ -564,24 +628,26 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
       return "Passwords do not match!";
     }
 
-    return null; // Return null if the validation is successful
+    return null; // Validation successful.
   }
 
-  // Reset the values when changing between the screens
-  void resetValues() {
-    // Reset controllers
+  /// Resets the text fields for when changing between the login & sign up pages.
+  ///
+  /// Will reset the text input field, if the user has interacted with the text field, and the obscure visibility of the text field.
+  void resetTextFields() {
+    // Reset controller text input string.
     usernameController.text = "";
     emailController.text = "";
     passwordController.text = "";
     confirmPasswordController.text = "";
 
-    // Reset interact
+    // Reset the interact value of the text fields.
     usernameInteracted = false;
     emailInteracted = false;
     passwordInteracted = false;
     confirmPasswordInteracted = false;
 
-    // Reset visible password fields
+    // Reset the obscure visibility of the text fields if they have this property.
     passwordVisible = false;
     confirmPasswordVisible = false;
   }
