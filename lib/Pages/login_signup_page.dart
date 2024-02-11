@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:food_ai_app/Util/colours.dart';
@@ -93,7 +94,6 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     confirmPasswordFocusNode.dispose();
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -229,7 +229,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                       child: Column(
                         children: [
                           TextButton(
-                            onPressed: () {},
+                            onPressed: login,
                             style: TextButton.styleFrom(
                               foregroundColor: Colors.white,
                               side: BorderSide(width: 2),
@@ -650,5 +650,41 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     // Reset the obscure visibility of the text fields if they have this property.
     passwordVisible = false;
     confirmPasswordVisible = false;
+  }
+
+  /// Called when the user presses on the login button.
+  ///
+  /// Performs multiple checks to ensure all the data entered is valid and there is a record of the data in the database.
+  Future<void> login() async {
+    // Checks the email entered is valid, otherwise return.
+    emailInteracted = true;
+    if (validateEmail(emailController.text.trim()) != null) {
+      FocusScope.of(context).requestFocus(emailFocusNode);
+      FocusScope.of(context).requestFocus(FocusNode());
+      return;
+    }
+
+    // Checks the password entered is valid, otherwise return.
+    passwordInteracted = true;
+    if (validatePassword(passwordController.text.trim()) != null) {
+      FocusScope.of(context).requestFocus(passwordFocusNode);
+      FocusScope.of(context).requestFocus(FocusNode());
+      return;
+    }
+
+    // Checks the user is actually in the database, otherwise return an error.
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim()
+      );
+    } on FirebaseAuthException catch (e) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(content: Text("There is no user record corresponding to this combination of email and password, please double check the information entered!"));
+          }
+      );
+    }
   }
 }
