@@ -1,39 +1,38 @@
-class TinderModel {
-  final int THREAD_COUNT = 3;
+import 'dart:collection';
 
-  List<String> _imageUrls = ["", "", ""]; // Stores URLs of images
-  List<String> _recipeDescriptions = [
-    "",
-    "",
-    ""
-  ]; // Stores descriptions of recipes
-  int _index = 0;
+class TinderModel {
+  final Queue<String> _imageUrls = Queue<String>();
+  final Queue<String> _recipeDescriptions = Queue<String>();
 
   void addRecipe(String description, String imageUrl) {
     if (description.isEmpty || imageUrl.isEmpty)
       throw FormatException("Empty values");
-    _recipeDescriptions[_index] = description;
-    _imageUrls[_index] = imageUrl;
-    incrementIndex();
+    _recipeDescriptions.add(description);
+    _imageUrls.add(imageUrl);
   }
 
   String getRecipeDescription() {
-    return _recipeDescriptions[_index];
+    if (_recipeDescriptions.isNotEmpty) {
+      return _recipeDescriptions.first;
+    } else {
+      return "";
+    }
   }
 
   String getRecipeImage() {
-    return _imageUrls[_index];
+    if (_imageUrls.isNotEmpty) {
+      return _imageUrls.first;
+    } else {
+      return "";
+    }
   }
 
-  int getIndex() {
-    return _index;
-  }
-
-  void resetIndex() {
-    _index = 0;
-  }
-
-  void incrementIndex() {
-    _index++;
+  void removeCurrentRecipe() {
+    if (_recipeDescriptions.isNotEmpty) {
+      _recipeDescriptions.removeFirst();
+    }
+    if (_imageUrls.isNotEmpty) {
+      _imageUrls.removeFirst();
+    }
   }
 }

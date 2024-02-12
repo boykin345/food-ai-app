@@ -19,7 +19,7 @@ class TinderController {
 
   // Moved initialization out of constructor to use async feature
   Future<void> initialize() async {
-    await fetchRecipes();
+    await initRecipes();
   }
 
   void refreshView() {
@@ -45,25 +45,42 @@ class TinderController {
     }
   }
 
+  Future<void> initRecipes() async {
+    // Step 1: Fetch all recipes concurrently
+    List<Future<String>> recipeFutures = List.generate(
+      THREAD_COUNT,
+      (_) => gptApiClient.fetchRecipe(),
+    );
+
+    List<String> descriptions = await Future.wait(recipeFutures);
+
+    // Step 2: Extract information for image fetch
+    List<Future<String>> imageFutures = descriptions.map((description) {
+      String firstLine = extractFirstLineFromString(description);
+      return imageFetcherClient.fetchImage(firstLine);
+    }).toList();
+
+    // Step 3: Fetch all images concurrently
+    List<String> images = await Future.wait(imageFutures);
+
+    // Step 4: Combine recipes and images
+    for (int i = 0; i < descriptions.length; i++) {
+      model.addRecipe(descriptions[i], images[i]);
+    }
+  }
+
   // Add async to method
   Future<void> fetchRecipes() async {
-    for (int i = 0; i < THREAD_COUNT; i++) {
-      final String description = await gptApiClient.fetchRecipe();
-      final String image = await imageFetcherClient
-          .fetchImage(extractFirstLineFromString(description));
-      model.addRecipe(description, image);
-    }
-    model.resetIndex();
+    final String description = await gptApiClient.fetchRecipe();
+    final String image = await imageFetcherClient
+        .fetchImage(extractFirstLineFromString(description));
+    model.addRecipe(description, image);
   }
 
   // Add async to method
   Future<void> changeRecipe() async {
-    if (model.getIndex() >= THREAD_COUNT - 1) {
-      model.resetIndex();
-      await fetchRecipes();
-    } else {
-      model.incrementIndex();
-    }
+    model.removeCurrentRecipe();
+    fetchRecipes();
     refreshView();
   }
 }

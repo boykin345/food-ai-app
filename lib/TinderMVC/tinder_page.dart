@@ -4,7 +4,9 @@ import 'package:food_ai_app/API/image_fetcher_interface.dart';
 import 'package:food_ai_app/API/image_fetcher_mock.dart';
 import 'package:food_ai_app/TinderMVC/tinder_controller.dart';
 import 'package:food_ai_app/TinderMVC/tinder_model.dart';
+import '../API/chatgpt_recipe.dart';
 import '../API/chatgpt_recipe_mock.dart';
+import '../API/image_fetcher.dart';
 
 class TinderPage extends StatefulWidget {
   @override
@@ -21,9 +23,9 @@ class _TinderPageState extends State<TinderPage> {
   void initState() {
     super.initState();
     model = TinderModel();
-    gptApiClient = ChatGPTRecipeMock(); //Change to ChatGPTRecipe for real API
-    imageFetcherClient =
-        ImageFetcherMock(); //Change to ImageFetcher for real API
+    gptApiClient = ChatGPTRecipe(
+        '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'); //Change to ChatGPTRecipe for real API
+    imageFetcherClient = ImageFetcher(); //Change to ImageFetcher for real API
     controller = TinderController(model, gptApiClient, imageFetcherClient);
     controller.onModelUpdated = () {
       setState(() {
