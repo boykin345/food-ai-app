@@ -36,12 +36,21 @@ class TinderController {
     );
   }
 
+  String extractFirstLineFromString(String text) {
+    final List<String> lines = text.split('\n');
+    if (lines.isNotEmpty) {
+      return lines.first;
+    } else {
+      return '';
+    }
+  }
+
   // Add async to method
   Future<void> fetchRecipes() async {
     for (int i = 0; i < THREAD_COUNT; i++) {
       final String description = await gptApiClient.fetchRecipe();
-      final String image =
-          await imageFetcherClient.fetchImage(""); // placeholder
+      final String image = await imageFetcherClient
+          .fetchImage(extractFirstLineFromString(description));
       model.addRecipe(description, image);
     }
     model.resetIndex();
