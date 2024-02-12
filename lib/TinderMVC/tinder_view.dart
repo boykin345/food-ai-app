@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
-import 'package:food_ai_app/tinder_model.dart'; // Ensure this import matches your project structure
+import 'package:food_ai_app/TinderMVC/tinder_model.dart';
 
 class TinderView extends StatefulWidget {
   final TinderModel model;

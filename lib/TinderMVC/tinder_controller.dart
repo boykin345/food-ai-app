@@ -1,17 +1,21 @@
-import 'package:food_ai_app/tinder_model.dart';
-import 'package:food_ai_app/tinder_view.dart';
-import 'package:food_ai_app/api_mock.dart';
+import 'package:food_ai_app/API/chatgpt_recipe_interface.dart';
+import 'package:food_ai_app/API/image_fetcher_interface.dart';
+import 'package:food_ai_app/TinderMVC/tinder_model.dart';
+import 'package:food_ai_app/TinderMVC/tinder_view.dart';
+import 'package:food_ai_app/API/chatgpt_recipe_mock.dart';
 import 'package:flutter/material.dart';
 
 class TinderController {
   TinderModel model;
-  MockApiClient apiClient;
+  ChatGPTRecipeInterface gptApiClient;
+  ImageFetcherInterface imageFetcherClient;
+
   final int THREAD_COUNT = 3;
 
   VoidCallback? onModelUpdated;
 
   // Constructor
-  TinderController(this.model, this.apiClient);
+  TinderController(this.model, this.gptApiClient, this.imageFetcherClient);
 
   // Moved initialization out of constructor to use async feature
   Future<void> initialize() async {
@@ -35,10 +39,10 @@ class TinderController {
   // Add async to method
   Future<void> fetchRecipes() async {
     for (int i = 0; i < THREAD_COUNT; i++) {
-      final String description = apiClient.fetchDescription();
-      final String image = await apiClient.fetchImage();
+      final String description = await gptApiClient.fetchRecipe();
+      final String image =
+          await imageFetcherClient.fetchImage(""); // placeholder
       model.addRecipe(description, image);
-      apiClient.incrementCounter();
     }
     model.resetIndex();
   }

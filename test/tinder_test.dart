@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:food_ai_app/api_mock.dart';
-import 'package:food_ai_app/tinder_controller.dart';
+import 'package:food_ai_app/API/chatgpt_recipe_mock.dart';
+import 'package:food_ai_app/TinderMVC/tinder_controller.dart';
 import 'package:food_ai_app/tinder_model.dart';
 import 'package:food_ai_app/tinder_view.dart';
 
@@ -107,7 +107,7 @@ Bake: Place the pie in the preheated oven and bake for about 25-30 minutes, or u
 Serve: Let the pie cool for a few minutes before serving. This dish is perfect with a side of mashed potatoes or a simple green salad.
 ''';
 
-  MockApiClient? apiClient;
+  ChatGPTRecipeMock? apiClient;
   TinderModel? tinderModel;
   TinderView? tinderView;
   TinderController? tinderController;
@@ -116,7 +116,7 @@ Serve: Let the pie cool for a few minutes before serving. This dish is perfect w
   setUp(() async {
     TestWidgetsFlutterBinding.ensureInitialized();
     // Initialize new instances before each test
-    apiClient = MockApiClient();
+    apiClient = ChatGPTRecipeMock();
     tinderModel = TinderModel();
     tinderController = TinderController(tinderModel!, apiClient!);
     await tinderController!.initialize();

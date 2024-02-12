@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_ai_app/tinder_page.dart';
+import 'package:food_ai_app/TinderMVC/tinder_page.dart';
 
 void main() {
   runApp(MyApp());

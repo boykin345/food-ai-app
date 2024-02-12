@@ -1,9 +1,10 @@
+import 'package:food_ai_app/API/chatgpt_recipe_interface.dart';
 import 'package:mockito/mockito.dart';
 import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 
-class MockApiClient extends Mock {
+class ChatGPTRecipeMock extends ChatGPTRecipeInterface {
   int count = 0;
 
   final String DESCRIPTION_0 = '''
@@ -153,72 +154,31 @@ Bake: Place the pie in the preheated oven and bake for about 25-30 minutes, or u
 Serve: Let the pie cool for a few minutes before serving. This dish is perfect with a side of mashed potatoes or a simple green salad.
 ''';
 
-  final String IMAGE_0 = "assets/A1.png";
-  final String IMAGE_1 = "assets/A2.png";
-  final String IMAGE_2 = "assets/A3.png";
-  final String IMAGE_3 = "assets/A4.png";
-  final String IMAGE_4 = "assets/A5.png";
-  final String IMAGE_5 = "assets/A6.png";
-
   void incrementCounter() {
     count++;
   }
 
-  Future<String> imageToBase64(String assetPath) async {
-    try {
-      final ByteData data = await rootBundle.load(assetPath);
-      final Uint8List bytes = data.buffer.asUint8List();
-      final String base64String = base64Encode(bytes);
-
-      return base64String;
-    } catch (e) {
-      print("Error converting image to Base64 string: $e");
-      return '';
-    }
-  }
-
-  Future<String> convertAndPrintBase64(String imageName) async {
-    final String base64String = await imageToBase64(imageName);
-    return base64String;
-  }
-
-  Future<String> fetchImage() async {
-    String assetPath;
+  @override
+  Future<String> fetchRecipe() {
+    String description;
     switch (count) {
       case 0:
-        assetPath = IMAGE_0;
+        description = DESCRIPTION_0;
       case 1:
-        assetPath = IMAGE_1;
+        description = DESCRIPTION_1;
       case 2:
-        assetPath = IMAGE_2;
+        description = DESCRIPTION_2;
       case 3:
-        assetPath = IMAGE_3;
+        description = DESCRIPTION_3;
       case 4:
-        assetPath = IMAGE_4;
+        description = DESCRIPTION_4;
       case 5:
-        assetPath = IMAGE_5;
+        description = DESCRIPTION_5;
       default:
-        assetPath = "";
+        description = "Description not found";
     }
-    return convertAndPrintBase64(assetPath);
-  }
 
-  String fetchDescription() {
-    switch (count) {
-      case 0:
-        return DESCRIPTION_0;
-      case 1:
-        return DESCRIPTION_1;
-      case 2:
-        return DESCRIPTION_2;
-      case 3:
-        return DESCRIPTION_3;
-      case 4:
-        return DESCRIPTION_4;
-      case 5:
-        return DESCRIPTION_5;
-      default:
-        return "Description not found";
-    }
+    incrementCounter();
+    return Future.value(description);
   }
 }
