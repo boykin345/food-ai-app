@@ -108,9 +108,11 @@ class _AllergiesScreenState extends State<AllergiesScreen> {
   }
 
   void fetchAllergies() async {
-    DocumentSnapshot userSnapshot = await firestore.collection('users').doc('TestUser').get();
+    DocumentSnapshot userSnapshot =
+        await firestore.collection('users').doc('TestUser').get();
     setState(() {
-      var userData = userSnapshot.data() as Map<String, dynamic>?; // Cast to Map<String, dynamic> or null
+      var userData = userSnapshot.data()
+          as Map<String, dynamic>?; // Cast to Map<String, dynamic> or null
       if (userData != null && userData['allergies'] is List<dynamic>) {
         allergies = (userData['allergies'] as List<dynamic>).cast<String>();
       } else {
@@ -118,8 +120,6 @@ class _AllergiesScreenState extends State<AllergiesScreen> {
       }
     });
   }
-
-
 
   void _addAllergy() {
     if (allergyController.text.isNotEmpty) {
