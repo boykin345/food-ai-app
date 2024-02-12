@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+        apiKey: "AIzaSyAGXrbQ1Z7sKGt_dYrocxkcbpkefyRQMhw",
+        appId: "1:265622470895:android:8d0fbe0cf1b22509e11b1a", // android
+        messagingSenderId: "265622470895",
+        projectId: "bjss-food-ai"),
+  );
   runApp(MyApp());
 }
 
@@ -46,7 +55,7 @@ class MyHomePage extends StatelessWidget {
               },
             ),
             ListTile(
-              title: Text('Preferences'),
+              title: Text('Allergies'),
               onTap: () {
                 Navigator.push(
                   context,
@@ -87,13 +96,39 @@ class AllergiesScreen extends StatefulWidget {
 }
 
 class _AllergiesScreenState extends State<AllergiesScreen> {
-  List<String> allergies = ['Gluten-free', 'Vegan', 'Vegetarian'];
+  List<String> allergies = [];
   final TextEditingController allergyController = TextEditingController();
+
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchAllergies();
+  }
+
+  void fetchAllergies() async {
+    DocumentSnapshot userSnapshot = await firestore.collection('users').doc('TestUser').get();
+    setState(() {
+      var userData = userSnapshot.data() as Map<String, dynamic>?; // Cast to Map<String, dynamic> or null
+      if (userData != null && userData['allergies'] is List<dynamic>) {
+        allergies = (userData['allergies'] as List<dynamic>).cast<String>();
+      } else {
+        allergies = [];
+      }
+    });
+  }
+
+
 
   void _addAllergy() {
     if (allergyController.text.isNotEmpty) {
       setState(() {
         allergies.add(allergyController.text);
+      });
+      // Add allergy to Firestore
+      firestore.collection('users').doc('TestUser').update({
+        'allergies': FieldValue.arrayUnion([allergyController.text])
       });
       allergyController.clear();
     }
@@ -103,13 +138,17 @@ class _AllergiesScreenState extends State<AllergiesScreen> {
     setState(() {
       allergies.remove(allergy);
     });
+    // Remove allergy from Firestore
+    firestore.collection('users').doc('TestUser').update({
+      'allergies': FieldValue.arrayRemove([allergy])
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Preferences'),
+        title: Text('Allergies'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -144,7 +183,7 @@ class _AllergiesScreenState extends State<AllergiesScreen> {
                 // Implement save functionality if needed
                 Navigator.pop(context);
               },
-              child: Text('Looks good to me'),
+              child: Text('Save'),
             ),
           ],
         ),
