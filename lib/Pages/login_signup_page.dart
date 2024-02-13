@@ -308,7 +308,6 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
               child: TextField(
                 controller: emailController,
                 focusNode: emailFocusNode,
-                maxLength: 128,
                 decoration: InputDecoration(
                   prefixIcon: Icon(
                     Icons.email_outlined,
@@ -329,7 +328,6 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                 obscureText: !passwordVisible,
                 controller: passwordController,
                 focusNode: passwordFocusNode,
-                maxLength: 32,
                 decoration: InputDecoration(
                   prefixIcon: Icon(
                     Icons.lock_outline,
@@ -381,7 +379,6 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
             child: TextField(
               controller: usernameController,
               focusNode: usernameFocusNode,
-              maxLength: 32,
               decoration: InputDecoration(
                 prefixIcon: Icon(
                   Icons.account_circle_outlined,
@@ -401,7 +398,6 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
             child: TextField(
               controller: emailController,
               focusNode: emailFocusNode,
-              maxLength: 128,
               decoration: InputDecoration(
                 prefixIcon: Icon(
                   Icons.email_outlined,
@@ -422,7 +418,6 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
               obscureText: !passwordVisible,
               controller: passwordController,
               focusNode: passwordFocusNode,
-              maxLength: 32,
               decoration: InputDecoration(
                 prefixIcon: Icon(
                   Icons.lock_outline,
@@ -454,7 +449,6 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
               obscureText: !confirmPasswordVisible,
               controller: confirmPasswordController,
               focusNode: confirmPasswordFocusNode,
-              maxLength: 32,
               decoration: InputDecoration(
                 prefixIcon: Icon(
                   Icons.lock_outline,
@@ -557,6 +551,11 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
       return "Minimum length is 3 characters!";
     }
 
+    // Checks username doesn't exceed a certain amount of characters
+    if (username.length > 32) {
+      return "Maximum length is 32 characters!";
+    }
+
     return null; // Validation successful.
   }
 
@@ -572,6 +571,11 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     // Checks if the email field is empty.
     if (email == null || email.isEmpty) {
       return "Email address field is empty!";
+    }
+
+    // Checks email address doesn't exceed a certain amount of characters
+    if (email.length > 255) {
+      return "Maximum length is 255 characters!";
     }
 
     // Checks if the email address is in the correct format.
@@ -602,6 +606,11 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
       return "Minimum length is 8 characters!";
     }
 
+    // Checks password doesn't exceed a certain amount of characters
+    if (password.length > 32) {
+      return "Maximum length is 32 characters!";
+    }
+
     return null; // Validation successful.
   }
 
@@ -622,6 +631,11 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     // Checks if the password length meets the minimal amount of characters.
     if (confirmPassword.length < 8) {
       return "Minimum length is 8 characters!";
+    }
+
+    // Checks confirm password doesn't exceed a certain amount of characters
+    if (confirmPassword.length > 32) {
+      return "Maximum length is 32 characters!";
     }
 
     // Checks to make sure the password field box matches the confirm password field box.
