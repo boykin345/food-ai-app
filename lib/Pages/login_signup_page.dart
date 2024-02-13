@@ -720,6 +720,17 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
       return;
     }
 
+    // Checks the email entered doesn't already exists
+    if (await DataUtil.emailAlreadyTaken(emailController.text.trim()) == true) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(content: Text("This email address is already taken!\nPlease select a different email address or reset your password."));
+          }
+      );
+      return;
+    }
+
     User? user = await AuthUtil.signUp(emailController.text.trim(), passwordController.text.trim());
     DataUtil.addUser(user!.uid, usernameController.text.trim(), emailController.text.trim());
   }
