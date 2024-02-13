@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:food_ai_app/Util/colours.dart';
+import 'package:food_ai_app/Util/data_util.dart';
 
 /// Initialises the state for the login & sign up page.
 ///
@@ -229,7 +230,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                       child: Column(
                         children: [
                           TextButton(
-                            onPressed: login,
+                            onPressed: isSignupScreen ? signUp : login,
                             style: TextButton.styleFrom(
                               foregroundColor: Colors.white,
                               side: BorderSide(width: 2),
@@ -672,13 +673,11 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
       return;
     }
 
-    // Checks the user is actually in the database, otherwise return an error.
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text.trim(),
-          password: passwordController.text.trim()
-      );
-    } on FirebaseAuthException catch (e) {
+    // Checks the user is actually in the database, otherwise return null.
+    User? user = await AuthUtil.login(emailController.text.trim(), passwordController.text.trim());
+
+    // If the user doesn't exist, display an error message.
+    if (user == null) {
       showDialog(
           context: context,
           builder: (context) {
@@ -686,5 +685,42 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           }
       );
     }
+  }
+
+  Future<void> signUp() async {
+    // Checks the username entered is valid, otherwise return.
+    usernameInteracted = true;
+    if (validateUsername(usernameController.text.trim()) != null) {
+      FocusScope.of(context).requestFocus(usernameFocusNode);
+      FocusScope.of(context).requestFocus(FocusNode());
+      return;
+    }
+
+    // Checks the email address entered is valid, otherwise return.
+    emailInteracted = true;
+    if (validateEmail(emailController.text.trim()) != null) {
+      FocusScope.of(context).requestFocus(emailFocusNode);
+      FocusScope.of(context).requestFocus(FocusNode());
+      return;
+    }
+
+    // Checks the password entered is valid, otherwise return.
+    passwordInteracted = true;
+    if (validatePassword(passwordController.text.trim()) != null) {
+      FocusScope.of(context).requestFocus(passwordFocusNode);
+      FocusScope.of(context).requestFocus(FocusNode());
+      return;
+    }
+
+    // Checks the confirm password entered is valid, otherwise return.
+    confirmPasswordInteracted = true;
+    if (validateConfirmPassword(confirmPasswordController.text.trim()) != null) {
+      FocusScope.of(context).requestFocus(confirmPasswordFocusNode);
+      FocusScope.of(context).requestFocus(FocusNode());
+      return;
+    }
+
+    User? user = await AuthUtil.signUp(emailController.text.trim(), passwordController.text.trim());
+    DataUtil.addUser(user!.uid, usernameController.text.trim(), emailController.text.trim());
   }
 }
