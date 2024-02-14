@@ -1,6 +1,8 @@
 import 'dart:collection';
 
-class TinderModel {
+import 'package:flutter/cupertino.dart';
+
+class TinderModel extends ChangeNotifier {
   final Queue<String> _imageUrls = Queue<String>();
   final Queue<String> _recipeDescriptions = Queue<String>();
 
@@ -9,6 +11,7 @@ class TinderModel {
       throw FormatException("Empty values");
     _recipeDescriptions.add(description);
     _imageUrls.add(imageUrl);
+    notifyListeners();
   }
 
   String getRecipeDescription() {
@@ -34,5 +37,9 @@ class TinderModel {
     if (_imageUrls.isNotEmpty) {
       _imageUrls.removeFirst();
     }
+  }
+
+  bool hasData() {
+    return _recipeDescriptions.isNotEmpty && _imageUrls.isNotEmpty;
   }
 }

@@ -47,6 +47,7 @@ class TinderController {
 
   Future<void> initRecipes() async {
     // Step 1: Fetch all recipes concurrently
+
     List<Future<String>> recipeFutures = List.generate(
       THREAD_COUNT,
       (_) => gptApiClient.fetchRecipe(),
@@ -67,6 +68,7 @@ class TinderController {
     for (int i = 0; i < descriptions.length; i++) {
       model.addRecipe(descriptions[i], images[i]);
     }
+    refreshView();
   }
 
   // Add async to method

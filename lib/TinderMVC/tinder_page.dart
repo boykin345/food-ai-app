@@ -23,9 +23,10 @@ class _TinderPageState extends State<TinderPage> {
   void initState() {
     super.initState();
     model = TinderModel();
-    gptApiClient = ChatGPTRecipe(
+    gptApiClient = ChatGPTRecipeMock(
         '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'); //Change to ChatGPTRecipe for real API
-    imageFetcherClient = ImageFetcher(); //Change to ImageFetcher for real API
+    imageFetcherClient =
+        ImageFetcherMock(); //Change to ImageFetcher for real API
     controller = TinderController(model, gptApiClient, imageFetcherClient);
     controller.onModelUpdated = () {
       setState(() {

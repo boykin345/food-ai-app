@@ -13,6 +13,33 @@ class TinderView extends StatefulWidget {
 }
 
 class _TinderViewState extends State<TinderView> {
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    // Add model listener
+    widget.model.addListener(_onModelChange);
+  }
+
+  @override
+  void dispose() {
+    // Remove model listener
+    widget.model.removeListener(_onModelChange);
+    super.dispose();
+  }
+
+  void _onModelChange() {
+    // Check if the loading screen is being displayed and if data is now available
+    if (_isLoading && widget.model.hasData()) {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
+  }
+
   void _onSwipe(DismissDirection direction) {
     if (direction == DismissDirection.endToStart) {
       // Swiped Left - No
@@ -27,6 +54,24 @@ class _TinderViewState extends State<TinderView> {
 
   @override
   Widget build(BuildContext context) {
+    // Check if model has data
+    _isLoading = !widget.model.hasData();
+
+    return Scaffold(
+      backgroundColor: Color(0xFF2D3444),
+      body: _isLoading ? buildLoadingScreen() : buildContent(context),
+    );
+  }
+
+  Widget buildLoadingScreen() {
+    return Center(
+      child: CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+      ),
+    );
+  }
+
+  Widget buildContent(BuildContext context) {
     final ThemeData theme = Theme.of(context).copyWith(
       textTheme: Theme.of(context).textTheme.apply(
             fontFamily: 'Caviar Dreams',
@@ -72,14 +117,14 @@ class _TinderViewState extends State<TinderView> {
                     width: imageWidth,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Colors.grey,
+                      color: Colors.transparent,
                     ),
                     child: widget.model.getRecipeImage().isNotEmpty
                         ? ClipRRect(
                             borderRadius: BorderRadius.circular(20),
                             child: Image.memory(
                               base64Decode(widget.model.getRecipeImage()),
-                              fit: BoxFit.cover,
+                              fit: BoxFit.contain,
                             ),
                           )
                         : Icon(Icons.image, size: 100, color: Colors.white54),

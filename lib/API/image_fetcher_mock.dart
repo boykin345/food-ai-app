@@ -15,6 +15,9 @@ class ImageFetcherMock extends ImageFetcherInterface {
   final String IMAGE_5 = "assets/A6.png";
 
   void incrementCounter() {
+    if (count >= 6) {
+      count = -1;
+    }
     count++;
   }
 
@@ -56,6 +59,7 @@ class ImageFetcherMock extends ImageFetcherInterface {
         assetPath = "";
     }
     incrementCounter();
-    return convertAndPrintBase64(assetPath);
+    return Future.delayed(
+        Duration(seconds: 2), () => convertAndPrintBase64(assetPath));
   }
 }

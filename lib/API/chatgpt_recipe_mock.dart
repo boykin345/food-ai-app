@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:food_ai_app/API/chatgpt_recipe_interface.dart';
 import 'package:mockito/mockito.dart';
 import 'dart:typed_data';
@@ -154,12 +156,19 @@ Bake: Place the pie in the preheated oven and bake for about 25-30 minutes, or u
 Serve: Let the pie cool for a few minutes before serving. This dish is perfect with a side of mashed potatoes or a simple green salad.
 ''';
 
+  final String apiKey;
+
+  ChatGPTRecipeMock(this.apiKey);
+
   void incrementCounter() {
+    if (count >= 6) {
+      count = -1;
+    }
     count++;
   }
 
   @override
-  Future<String> fetchRecipe() {
+  Future<String> fetchRecipe() async {
     String description;
     switch (count) {
       case 0:
@@ -179,6 +188,6 @@ Serve: Let the pie cool for a few minutes before serving. This dish is perfect w
     }
 
     incrementCounter();
-    return Future.value(description);
+    return Future.delayed(Duration(seconds: 4), () => description);
   }
 }
