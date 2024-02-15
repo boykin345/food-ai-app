@@ -14,7 +14,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
+        title: Text('Settings', style: TextStyle(color: Colors.white)),
+        backgroundColor:
+            Colors.blue[900], // Set app bar background color to dark blue
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

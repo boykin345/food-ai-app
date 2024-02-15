@@ -59,7 +59,8 @@ class _AllergiesScreenState extends State<AllergiesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Allergies'),
+        title: Text('Allergies', style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.blue[900],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -69,8 +70,13 @@ class _AllergiesScreenState extends State<AllergiesScreen> {
               controller: allergyController,
               decoration: InputDecoration(
                 labelText: 'Add a new Dietary need',
+                labelStyle:
+                    TextStyle(color: Colors.white), // Set label color to white
                 suffixIcon: IconButton(
-                  icon: Icon(Icons.add),
+                  icon: Icon(
+                    Icons.add,
+                    color: Colors.white, // Set icon color to white
+                  ),
                   onPressed: _addAllergy,
                 ),
               ),
@@ -80,9 +86,17 @@ class _AllergiesScreenState extends State<AllergiesScreen> {
                 itemCount: allergies.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: Text(allergies[index]),
+                    title: Text(
+                      allergies[index],
+                      style: TextStyle(
+                        color: Colors.white,
+                      ), // Set text color to white
+                    ),
                     trailing: IconButton(
-                      icon: Icon(Icons.delete),
+                      icon: Icon(
+                        Icons.delete,
+                        color: Colors.white, // Set icon color to white
+                      ),
                       onPressed: () => _removeAllergy(allergies[index]),
                     ),
                   );

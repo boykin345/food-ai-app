@@ -21,11 +21,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme: Theme.of(context).textTheme.apply(
               fontFamily: 'Caviar Dreams',
+              bodyColor: Colors.white,
             ),
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue)
+            .copyWith(background: Colors.blue[900]),
       ),
       home: MyHomePage(),
     );
@@ -37,16 +39,18 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Main Page'),
+        title: Text('Main Page', style: TextStyle(color: Colors.white)),
+        backgroundColor:
+            Colors.blue[900], // Set app bar background color to dark blue
       ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              child: Text('George Cook', style: TextStyle(color: Colors.white)),
+              child: Text('Hi George', style: TextStyle(color: Colors.black)),
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: Colors.white,
               ),
             ),
             ListTile(
@@ -70,7 +74,7 @@ class MyHomePage extends StatelessWidget {
           ],
         ),
       ),
-      body: Center(child: Text('Main Page')),
+      body: Center(child: Text('Hi George!')),
     );
   }
 }
