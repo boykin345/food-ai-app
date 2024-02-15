@@ -142,6 +142,7 @@ class _TinderViewState extends State<TinderView> {
                         children: [
                           // No Button
                           ElevatedButton(
+                            key: ValueKey('no-button'),
                             onPressed: widget.onChangeRecipe,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.red,
