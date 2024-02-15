@@ -96,7 +96,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               items: [
                 DropdownMenuItem<int>(
                   value: 1,
-                  child: Text('1'),
+                  child: Text('1 (Easy)'),
                 ),
                 DropdownMenuItem<int>(
                   value: 2,
@@ -112,7 +112,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 DropdownMenuItem<int>(
                   value: 5,
-                  child: Text('5'),
+                  child: Text('5 (Hard)'),
                 ),
               ],
               onChanged: (value) {
@@ -146,19 +146,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
               items: [
                 DropdownMenuItem<int>(
                   value: 1,
-                  child: Text('1'),
+                  child: Text('For 1 person'),
                 ),
                 DropdownMenuItem<int>(
                   value: 2,
-                  child: Text('2'),
+                  child: Text('For 2 people'),
                 ),
                 DropdownMenuItem<int>(
                   value: 4,
-                  child: Text('4'),
+                  child: Text('For 4 people'),
                 ),
                 DropdownMenuItem<int>(
                   value: 6,
-                  child: Text('6'),
+                  child: Text('For 6 people'),
                 ),
               ],
               onChanged: (value) {
