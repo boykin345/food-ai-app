@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:food_ai_app/TinderMVC/tinder_model.dart';
 
-import '../LoadingScreen/loading_screen.dart';
+import '../LoadingScreen/custom_loading_circle.dart';
 
 class TinderView extends StatefulWidget {
   final TinderModel model;
