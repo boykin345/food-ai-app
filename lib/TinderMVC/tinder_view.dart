@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:food_ai_app/TinderMVC/tinder_model.dart';
 
+import '../LoadingScreen/loading_screen.dart';
+
 class TinderView extends StatefulWidget {
   final TinderModel model;
   final VoidCallback onChangeRecipe;
@@ -65,9 +67,7 @@ class _TinderViewState extends State<TinderView> {
 
   Widget buildLoadingScreen() {
     return Center(
-      child: CircularProgressIndicator(
-        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-      ),
+      child: CustomLoadingCircle(),
     );
   }
 
