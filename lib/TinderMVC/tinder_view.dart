@@ -41,11 +41,15 @@ class _TinderViewState extends State<TinderView> {
   }
 
   void _onSwipe(DismissDirection direction) {
+    print('Swipe detected: $direction'); // 这行代码用于输出滑动方向
+
     if (direction == DismissDirection.endToStart) {
       // Swiped Left - No
+      print('Swiped left'); // 输出向左滑动的日志
       widget.onChangeRecipe();
     } else if (direction == DismissDirection.startToEnd) {
       // Swiped Right - Yes
+      print('Swiped right'); // 输出向右滑动的日志
       // Need to implement what happens when swiped right
     }
     // Refresh view
@@ -101,6 +105,7 @@ class _TinderViewState extends State<TinderView> {
             ),
             SizedBox(height: buttonHeight / 2),
             GestureDetector(
+              key: Key('swipeGestureDetector'),
               onHorizontalDragEnd: (dragEndDetails) {
                 if (dragEndDetails.primaryVelocity! < 0) {
                   _onSwipe(DismissDirection.endToStart);
