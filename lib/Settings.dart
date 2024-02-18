@@ -51,7 +51,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   _selectedDifficulty = value!;
                 });
               },
-              decoration: InputDecoration(labelText: 'Difficulty'),
+              decoration: InputDecoration(
+                labelText: 'Difficulty',
+                labelStyle:
+                    TextStyle(color: Colors.white), // Set label color to white
+              ),
             ),
             DropdownButtonFormField<String>(
               value: _selectedCookingTime,
@@ -70,7 +74,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   _selectedCookingTime = value!;
                 });
               },
-              decoration: InputDecoration(labelText: 'Cooking Time'),
+              decoration: InputDecoration(
+                labelText: 'Cooking Time',
+                labelStyle:
+                    TextStyle(color: Colors.white), // Set label color to white
+              ),
             ),
             DropdownButtonFormField<int>(
               value: _selectedPortionSize,
@@ -97,7 +105,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   _selectedPortionSize = value!;
                 });
               },
-              decoration: InputDecoration(labelText: 'Portion Size'),
+              decoration: InputDecoration(
+                labelText: 'Portion Size',
+                labelStyle:
+                    TextStyle(color: Colors.white), // Set label color to white
+              ),
             ),
           ],
         ),
