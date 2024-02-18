@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:food_ai_app/TinderMVC/tinder_model.dart';
-
-import '../LoadingScreen/custom_loading_circle.dart';
+import 'package:food_ai_app/LoadingScreen/custom_loading_circle.dart';
 
 class TinderView extends StatefulWidget {
   final TinderModel model;
@@ -154,6 +153,7 @@ class _TinderViewState extends State<TinderView> {
                           ),
                           // Yes Button
                           ElevatedButton(
+                            key: ValueKey('yes-button'),
                             onPressed: () {
                               // Handle Yes action
                             },

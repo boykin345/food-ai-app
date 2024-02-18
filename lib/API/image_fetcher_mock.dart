@@ -1,18 +1,16 @@
 import 'package:food_ai_app/API/image_fetcher_interface.dart';
-import 'package:mockito/mockito.dart';
-import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 
 class ImageFetcherMock extends ImageFetcherInterface {
   int count = 0;
 
-  final String IMAGE_0 = "assets/A1.png";
-  final String IMAGE_1 = "assets/A2.png";
-  final String IMAGE_2 = "assets/A3.png";
-  final String IMAGE_3 = "assets/A4.png";
-  final String IMAGE_4 = "assets/A5.png";
-  final String IMAGE_5 = "assets/A6.png";
+  final String image0 = "assets/A1.png";
+  final String image1 = "assets/A2.png";
+  final String image2 = "assets/A3.png";
+  final String image3 = "assets/A4.png";
+  final String image4 = "assets/A5.png";
+  final String image5 = "assets/A6.png";
 
   void incrementCounter() {
     if (count >= 6) {
@@ -44,17 +42,17 @@ class ImageFetcherMock extends ImageFetcherInterface {
     String assetPath;
     switch (count) {
       case 0:
-        assetPath = IMAGE_0;
+        assetPath = image0;
       case 1:
-        assetPath = IMAGE_1;
+        assetPath = image1;
       case 2:
-        assetPath = IMAGE_2;
+        assetPath = image2;
       case 3:
-        assetPath = IMAGE_3;
+        assetPath = image3;
       case 4:
-        assetPath = IMAGE_4;
+        assetPath = image4;
       case 5:
-        assetPath = IMAGE_5;
+        assetPath = image5;
       default:
         assetPath = "";
     }

@@ -4,9 +4,7 @@ import 'package:food_ai_app/API/image_fetcher_interface.dart';
 import 'package:food_ai_app/API/image_fetcher_mock.dart';
 import 'package:food_ai_app/TinderMVC/tinder_controller.dart';
 import 'package:food_ai_app/TinderMVC/tinder_model.dart';
-import '../API/chatgpt_recipe.dart';
-import '../API/chatgpt_recipe_mock.dart';
-import '../API/image_fetcher.dart';
+import 'package:food_ai_app/API/chatgpt_recipe_mock.dart';
 
 class TinderPage extends StatefulWidget {
   @override

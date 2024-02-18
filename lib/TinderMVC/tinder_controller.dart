@@ -2,7 +2,6 @@ import 'package:food_ai_app/API/chatgpt_recipe_interface.dart';
 import 'package:food_ai_app/API/image_fetcher_interface.dart';
 import 'package:food_ai_app/TinderMVC/tinder_model.dart';
 import 'package:food_ai_app/TinderMVC/tinder_view.dart';
-import 'package:food_ai_app/API/chatgpt_recipe_mock.dart';
 import 'package:flutter/material.dart';
 
 class TinderController {
@@ -10,7 +9,7 @@ class TinderController {
   ChatGPTRecipeInterface gptApiClient;
   ImageFetcherInterface imageFetcherClient;
 
-  final int THREAD_COUNT = 3;
+  final int threadCount = 3;
 
   VoidCallback? onModelUpdated;
 
@@ -48,21 +47,21 @@ class TinderController {
   Future<void> initRecipes() async {
     // Step 1: Fetch all recipes concurrently
 
-    List<Future<String>> recipeFutures = List.generate(
-      THREAD_COUNT,
+    final List<Future<String>> recipeFutures = List.generate(
+      threadCount,
       (_) => gptApiClient.fetchRecipe(),
     );
 
-    List<String> descriptions = await Future.wait(recipeFutures);
+    final List<String> descriptions = await Future.wait(recipeFutures);
 
     // Step 2: Extract information for image fetch
-    List<Future<String>> imageFutures = descriptions.map((description) {
-      String firstLine = extractFirstLineFromString(description);
+    final List<Future<String>> imageFutures = descriptions.map((description) {
+      final String firstLine = extractFirstLineFromString(description);
       return imageFetcherClient.fetchImage(firstLine);
     }).toList();
 
     // Step 3: Fetch all images concurrently
-    List<String> images = await Future.wait(imageFutures);
+    final List<String> images = await Future.wait(imageFutures);
 
     // Step 4: Combine recipes and images
     for (int i = 0; i < descriptions.length; i++) {
