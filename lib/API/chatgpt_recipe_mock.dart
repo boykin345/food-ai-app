@@ -173,18 +173,25 @@ Serve: Let the pie cool for a few minutes before serving. This dish is perfect w
     switch (count) {
       case 0:
         description = DESCRIPTION_0;
+        break;
       case 1:
         description = DESCRIPTION_1;
+        break;
       case 2:
         description = DESCRIPTION_2;
+        break;
       case 3:
         description = DESCRIPTION_3;
+        break;
       case 4:
         description = DESCRIPTION_4;
+        break;
       case 5:
         description = DESCRIPTION_5;
+        break;
       default:
         description = "Description not found";
+        break;
     }
 
     incrementCounter();

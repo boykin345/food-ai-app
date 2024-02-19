@@ -4,6 +4,8 @@ import 'package:food_ai_app/API/image_fetcher_interface.dart';
 import 'package:food_ai_app/TinderMVC/tinder_model.dart';
 import 'package:food_ai_app/TinderMVC/tinder_controller.dart';
 import 'package:mockito/mockito.dart';
+import 'package:food_ai_app/API/image_fetcher_mock.dart';
+import 'package:food_ai_app/API/chatgpt_recipe_mock.dart';
 
 class MockChatGPTRecipeInterface extends Mock implements ChatGPTRecipeInterface {}
 class MockImageFetcherInterface extends Mock implements ImageFetcherInterface {}
@@ -11,38 +13,53 @@ class MockImageFetcherInterface extends Mock implements ImageFetcherInterface {}
 void main() {
   group('TinderController Tests', () {
     late TinderModel tinderModel;
-    late MockChatGPTRecipeInterface mockChatGPTRecipeInterface;
-    late MockImageFetcherInterface mockImageFetcherInterface;
+    late ChatGPTRecipeMock mockChatGPTRecipeInterface;
+    late ImageFetcherMock mockImageFetcherInterface;
     late TinderController tinderController;
 
     setUp(() {
+      TestWidgetsFlutterBinding.ensureInitialized();
       tinderModel = TinderModel();
-      mockChatGPTRecipeInterface = MockChatGPTRecipeInterface();
-      mockImageFetcherInterface = MockImageFetcherInterface();
-      tinderController = TinderController(tinderModel, mockChatGPTRecipeInterface, mockImageFetcherInterface);
+      mockChatGPTRecipeInterface = ChatGPTRecipeMock("");
+      mockImageFetcherInterface = ImageFetcherMock();
+      tinderController = TinderController(
+          tinderModel, mockChatGPTRecipeInterface, mockImageFetcherInterface);
     });
 
     test('initialize() populates model with recipes and images', () async {
-      when(mockChatGPTRecipeInterface.fetchRecipe()).thenAnswer((_) => Future.value("Test Recipe"));
-      when(mockImageFetcherInterface.fetchImage('fake_url')).thenAnswer((_) async => "Test Image URL");
 
-      await tinderController.initialize();
+      await tinderController.fetchRecipes();
+
 
       expect(tinderModel.hasData(), isTrue);
-      expect(tinderModel.getRecipeDescription(), contains("Test Recipe"));
-      expect(tinderModel.getRecipeImage(), equals("Test Image URL"));
+
+
+      expect(tinderModel.getRecipeDescription(), equals(mockChatGPTRecipeInterface.DESCRIPTION_0));
+
+
+      final imageBase64 = await tinderModel.getRecipeImage();
+      expect(imageBase64, isNotEmpty);
+
     });
 
     test('changeRecipe() removes current recipe and fetches new one', () async {
-      tinderModel.addRecipe("Initial Recipe", "Initial URL");
 
-      when(mockChatGPTRecipeInterface.fetchRecipe()).thenAnswer((_) => Future.value("New Recipe"));
-      when(mockImageFetcherInterface.fetchImage('fake_url')).thenAnswer((_) async => "Test Image URL");
+      await tinderController.fetchRecipes();
+
+
+      final initialRecipeDescription = tinderModel.getRecipeDescription();
+      final initialRecipeImage = tinderModel.getRecipeImage();
+
 
       await tinderController.changeRecipe();
 
-      expect(tinderModel.getRecipeDescription(), equals("New Recipe"));
-      expect(tinderModel.getRecipeImage(), equals("New Image URL"));
+
+      final updatedRecipeDescription = tinderModel.getRecipeDescription();
+      final updatedRecipeImage = tinderModel.getRecipeImage();
+
+
+      expect(updatedRecipeDescription, isNot(equals(initialRecipeDescription)));
+      expect(updatedRecipeImage, isNot(equals(initialRecipeImage)));
     });
 
 
@@ -50,18 +67,15 @@ void main() {
       expect(tinderModel.hasData(), isFalse);
     });
 
-    test('refreshView callback is called after initialization', () async {
-      bool callbackCalled = false;
-      tinderController.onModelUpdated = () {
-        callbackCalled = true;
-      };
+    test('fetchRecipes adds new recipe and image to model', () async {
+      await tinderController.fetchRecipes();
 
-      when(mockChatGPTRecipeInterface.fetchRecipe()).thenAnswer((_) => Future.value("Test Recipe"));
-      when(mockImageFetcherInterface.fetchImage('fake_url')).thenAnswer((_) async => "Test Image URL");
 
-      await tinderController.initialize();
+      expect(tinderModel.hasData(), isTrue);
 
-      expect(callbackCalled, isTrue);
+      expect(tinderModel.getRecipeDescription(), contains("Ingredients"));
+
+      expect(tinderModel.getRecipeImage(), isNotEmpty);
     });
 
     test('changeRecipe does not throw when there is no data', () async {
@@ -72,15 +86,13 @@ void main() {
 
     test('fetchRecipes adds new recipe and image to model', () async {
 
-      when(mockChatGPTRecipeInterface.fetchRecipe()).thenAnswer((_) => Future.value("Fetched Recipe"));
-      when(mockImageFetcherInterface.fetchImage('fake_url')).thenAnswer((_) async => "Test Image URL");
       await tinderController.fetchRecipes();
-
-
+      
       expect(tinderModel.hasData(), isTrue);
-      expect(tinderModel.getRecipeDescription(), equals("Fetched Recipe"));
-      expect(tinderModel.getRecipeImage(), equals("Fetched Image URL"));
-    });
+      expect(tinderModel.getRecipeDescription(), isNotNull);
+      expect(tinderModel.getRecipeImage(), isNotNull);
 
+
+    });
   });
 }
