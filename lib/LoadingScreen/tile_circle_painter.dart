@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+/// A custom painter that draws a circle divided into multiple segments
+/// with variable scales to create a dynamic, animated effect.
 class TileCirclePainter extends CustomPainter {
   final List<double> scales;
+
+  /// Constructs a [TileCirclePainter] with given scales for each segment.
   TileCirclePainter(this.scales);
 
+  /// Paints the circle with segments on the given [canvas] using the [size] parameter.
+  /// Each segment's color and scale are determined by [scales].
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
@@ -41,4 +47,6 @@ class TileCirclePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+
+  /// Returns true to indicate that the painter should repaint whenever it is requested.
 }

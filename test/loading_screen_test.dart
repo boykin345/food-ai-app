@@ -39,4 +39,48 @@ void main() {
               'golden_tests/tile_circle_painter_varying_scales.png'));
     });
   });
+
+  group('Loading Screen Animation Tests', () {
+    testWidgets('Loading Circle animates the disappearing phase correctly',
+        (WidgetTester tester) async {
+      await tester
+          .pumpWidget(MaterialApp(home: Scaffold(body: CustomLoadingCircle())));
+
+      final CustomLoadingCircleState state =
+          tester.state(find.byType(CustomLoadingCircle));
+      state.controller.value =
+          0.25; // Advance the animation to the disappearing phase
+      await tester.pumpAndSettle();
+
+      await expectLater(find.byType(CustomLoadingCircle),
+          matchesGoldenFile('golden_tests/disappearing_phase_1.png'));
+
+      state.controller.value = 0.35;
+      await tester.pumpAndSettle();
+
+      await expectLater(find.byType(CustomLoadingCircle),
+          matchesGoldenFile('golden_tests/disappearing_phase_2.png'));
+    });
+
+    testWidgets('Loading Circle animates the reappearing phase correctly',
+        (WidgetTester tester) async {
+      await tester
+          .pumpWidget(MaterialApp(home: Scaffold(body: CustomLoadingCircle())));
+
+      final CustomLoadingCircleState state =
+          tester.state(find.byType(CustomLoadingCircle));
+      state.controller.value =
+          0.65; // Advance the animation to the reappearing phase
+      await tester.pumpAndSettle();
+
+      await expectLater(find.byType(CustomLoadingCircle),
+          matchesGoldenFile('golden_tests/reappearing_phase_1.png'));
+
+      state.controller.value = 0.75;
+      await tester.pumpAndSettle();
+
+      await expectLater(find.byType(CustomLoadingCircle),
+          matchesGoldenFile('golden_tests/reappearing_phase_2.png'));
+    });
+  });
 }

@@ -4,16 +4,16 @@ import 'package:food_ai_app/LoadingScreen/tile_circle_painter.dart';
 /// Displays a circular loading indicator with animated segments
 class CustomLoadingCircle extends StatefulWidget {
   @override
-  _CustomLoadingCircleState createState() => _CustomLoadingCircleState();
+  CustomLoadingCircleState createState() => CustomLoadingCircleState();
 }
 
 /// Manages the animation for [CustomLoadingCircle], using an [AnimationController]
 /// to cycle segments through disappearing and reappearing phases.
-class _CustomLoadingCircleState extends State<CustomLoadingCircle>
+class CustomLoadingCircleState extends State<CustomLoadingCircle>
     with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
+  late AnimationController controller;
   final int _segments = 8;
-  List<double> _scales = [];
+  List<double> scales = [];
 
   /// Initializes the animation controller and the scales for each segment.
   @override
@@ -21,13 +21,13 @@ class _CustomLoadingCircleState extends State<CustomLoadingCircle>
     super.initState();
 
     /// Initializes the animation controller and the scales for each segment.
-    _controller = AnimationController(
+    controller = AnimationController(
       duration: const Duration(seconds: 4),
       vsync: this,
     )
       ..addListener(() {
         setState(() {
-          final double animationValue = _controller.value * 2;
+          final double animationValue = controller.value * 2;
           final int phase = animationValue ~/
               1; // Determine phase: 0 for disappearing, 1 for reappearing
           final double phaseProgress =
@@ -38,37 +38,37 @@ class _CustomLoadingCircleState extends State<CustomLoadingCircle>
             // Disappearing phase
             for (int i = 0; i < _segments; i++) {
               if (i < segmentProgress) {
-                _scales[i] =
+                scales[i] =
                     1 - (segmentProgress - i); // Scale down to disappear
-                if (_scales[i] < 0)
-                  _scales[i] = 0; // Ensure scale does not go negative
+                if (scales[i] < 0)
+                  scales[i] = 0; // Ensure scale does not go negative
               } else {
-                _scales[i] = 1; // Segment has not started disappearing
+                scales[i] = 1; // Segment has not started disappearing
               }
             }
           } else {
             // Reappearing phase
             for (int i = 0; i < _segments; i++) {
               if (i < segmentProgress) {
-                _scales[i] = segmentProgress - i; // Scale up to reappear
-                if (_scales[i] > 1)
-                  _scales[i] = 1; // Ensure scale does not exceed 1
+                scales[i] = segmentProgress - i; // Scale up to reappear
+                if (scales[i] > 1)
+                  scales[i] = 1; // Ensure scale does not exceed 1
               } else {
-                _scales[i] = 0; // Segment has not started reappearing
+                scales[i] = 0; // Segment has not started reappearing
               }
             }
           }
         });
       })
       ..repeat();
-    _scales = List.generate(
+    scales = List.generate(
         _segments, (index) => 1.0); // Initialize with all segments visible
   }
 
   /// Disposes of the animation controller to free up resources.
   @override
   void dispose() {
-    _controller.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -79,7 +79,7 @@ class _CustomLoadingCircleState extends State<CustomLoadingCircle>
       width: 100.0,
       height: 100.0,
       child: CustomPaint(
-        painter: TileCirclePainter(_scales),
+        painter: TileCirclePainter(scales),
       ),
     );
   }
