@@ -1,8 +1,12 @@
 import 'package:food_ai_app/API/chatgpt_recipe_interface.dart';
 
+/// A mock implementation of [ChatGPTRecipeInterface] for testing purposes.
+/// Provides pre-defined recipe descriptions without making actual API calls.
 class ChatGPTRecipeMock extends ChatGPTRecipeInterface {
+  /// Counter to cycle through mock recipe descriptions.
   int count = 0;
 
+  /// Mock recipe descriptions.
   final String description0 = '''
 Fish and Chips
 
@@ -150,10 +154,14 @@ Bake: Place the pie in the preheated oven and bake for about 25-30 minutes, or u
 Serve: Let the pie cool for a few minutes before serving. This dish is perfect with a side of mashed potatoes or a simple green salad.
 ''';
 
+  /// The API key for demonstration purposes; not used in the mock.
   final String apiKey;
 
+  /// Constructs a [ChatGPTRecipeMock] instance with an optional [apiKey].
   ChatGPTRecipeMock(this.apiKey);
 
+  /// Increments the counter to cycle through the mock descriptions.
+  /// Resets to 0 if it exceeds the number of available descriptions.
   void incrementCounter() {
     if (count >= 6) {
       count = -1;
@@ -161,6 +169,8 @@ Serve: Let the pie cool for a few minutes before serving. This dish is perfect w
     count++;
   }
 
+  /// Returns a mock recipe description based on the current value of [count].
+  /// Simulates a delay to mimic asynchronous network request behavior.
   @override
   Future<String> fetchRecipe() async {
     String description;
