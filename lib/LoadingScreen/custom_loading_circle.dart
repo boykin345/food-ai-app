@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:food_ai_app/LoadingScreen/tile_circle_painter.dart';
 
+/// Displays a circular loading indicator with animated segments
 class CustomLoadingCircle extends StatefulWidget {
   @override
   _CustomLoadingCircleState createState() => _CustomLoadingCircleState();
 }
 
+/// Manages the animation for [CustomLoadingCircle], using an [AnimationController]
+/// to cycle segments through disappearing and reappearing phases.
 class _CustomLoadingCircleState extends State<CustomLoadingCircle>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   final int _segments = 8;
   List<double> _scales = [];
 
+  /// Initializes the animation controller and the scales for each segment.
   @override
   void initState() {
     super.initState();
+
+    /// Initializes the animation controller and the scales for each segment.
     _controller = AnimationController(
       duration: const Duration(seconds: 4),
       vsync: this,
@@ -59,12 +65,14 @@ class _CustomLoadingCircleState extends State<CustomLoadingCircle>
         _segments, (index) => 1.0); // Initialize with all segments visible
   }
 
+  /// Disposes of the animation controller to free up resources.
   @override
   void dispose() {
     _controller.dispose();
     super.dispose();
   }
 
+  /// Builds the widget tree, rendering the animated circular indicator.
   @override
   Widget build(BuildContext context) {
     return Container(
