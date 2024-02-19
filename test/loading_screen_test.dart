@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:food_ai_app/LoadingScreen/custom_loading_circle.dart';
 import 'package:food_ai_app/LoadingScreen/tile_circle_painter.dart';
 
+/// I.3 Tests for the Loading Screen feature
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 

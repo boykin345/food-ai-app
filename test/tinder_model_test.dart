@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:food_ai_app/TinderMVC/tinder_model.dart';
 
+/// I1/I.2 Tests for the Model in the TinderMVC
 void main() {
   group('TinderModel Normal Tests', () {
     late TinderModel tinderModel;
