@@ -6,15 +6,24 @@ import 'package:food_ai_app/TinderMVC/tinder_controller.dart';
 import 'package:food_ai_app/TinderMVC/tinder_model.dart';
 import 'package:food_ai_app/API/chatgpt_recipe_mock.dart';
 
+/// A widget that serves as the entry point for the Tinder-like recipe selection feature.
+/// It initializes the model, controller, and mock API clients, then builds the UI based on the model's state.
 class TinderPage extends StatefulWidget {
   @override
   _TinderPageState createState() => _TinderPageState();
 }
 
 class _TinderPageState extends State<TinderPage> {
+  /// Controller for the Tinder-like recipe feature.
   late TinderController controller;
+
+  /// Model holding the recipe and image data.
   late TinderModel model;
+
+  /// API client for fetching recipe descriptions.
   late ChatGPTRecipeInterface gptApiClient;
+
+  /// API client for fetching recipe images.
   late ImageFetcherInterface imageFetcherClient;
 
   @override
@@ -36,7 +45,7 @@ class _TinderPageState extends State<TinderPage> {
 
   @override
   Widget build(BuildContext context) {
-    return controller
-        .createView(); // This will create the view with current model data
+    /// Builds and returns the view managed by [controller], reflecting the current state of [model].
+    return controller.createView();
   }
 }
