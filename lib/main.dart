@@ -73,7 +73,24 @@ class MyHomePage extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: Text('Settings'),
+              title: Container(
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SettingsScreen()),
+                    );
+                  },
+                  child: Text(
+                    'Settings',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
               onTap: () {
                 Navigator.push(
                   context,
@@ -82,7 +99,25 @@ class MyHomePage extends StatelessWidget {
               },
             ),
             ListTile(
-              title: Text('Allergies'),
+              title: Container(
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AllergiesScreen()),
+                    );
+                  },
+                  child: Text(
+                    'Allergies',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
               onTap: () {
                 Navigator.push(
                   context,
