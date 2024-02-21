@@ -25,7 +25,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30.0),
-                color: Colors.white,
+                color: Colors.blue, // Change container color to blue
               ),
               child: DropdownButtonFormField<int>(
                 value: _selectedDifficulty,
@@ -108,7 +108,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30.0),
-                color: Colors.white,
+                color: Colors.blue, // Change container color to blue
               ),
               child: DropdownButtonFormField<String>(
                 value: _selectedCookingTime,
@@ -155,7 +155,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30.0),
-                color: Colors.white,
+                color: Colors.blue, // Change container color to blue
               ),
               child: DropdownButtonFormField<int>(
                 value: _selectedPortionSize,

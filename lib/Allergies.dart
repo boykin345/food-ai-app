@@ -70,12 +70,11 @@ class _AllergiesScreenState extends State<AllergiesScreen> {
               controller: allergyController,
               decoration: InputDecoration(
                 labelText: 'Add a new Dietary need',
-                labelStyle:
-                    TextStyle(color: Colors.white), // Set label color to white
+                labelStyle: TextStyle(color: Colors.white),
                 suffixIcon: IconButton(
                   icon: Icon(
                     Icons.add,
-                    color: Colors.white, // Set icon color to white
+                    color: Colors.white,
                   ),
                   onPressed: _addAllergy,
                 ),
@@ -85,19 +84,26 @@ class _AllergiesScreenState extends State<AllergiesScreen> {
               child: ListView.builder(
                 itemCount: allergies.length,
                 itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(
-                      allergies[index],
-                      style: TextStyle(
-                        color: Colors.white,
-                      ), // Set text color to white
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.blue,
                     ),
-                    trailing: IconButton(
-                      icon: Icon(
-                        Icons.delete,
-                        color: Colors.white, // Set icon color to white
+                    margin: EdgeInsets.symmetric(vertical: 8),
+                    child: ListTile(
+                      title: Text(
+                        allergies[index],
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
                       ),
-                      onPressed: () => _removeAllergy(allergies[index]),
+                      trailing: IconButton(
+                        icon: Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                        ),
+                        onPressed: () => _removeAllergy(allergies[index]),
+                      ),
                     ),
                   );
                 },
