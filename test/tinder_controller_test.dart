@@ -10,6 +10,8 @@ import 'package:food_ai_app/API/chatgpt_recipe_mock.dart';
 class MockChatGPTRecipeInterface extends Mock implements ChatGPTRecipeInterface {}
 class MockImageFetcherInterface extends Mock implements ImageFetcherInterface {}
 
+
+/// I1/I.2 Tests for the controller in the TinderMVC
 void main() {
   group('TinderController Tests', () {
     late TinderModel tinderModel;
