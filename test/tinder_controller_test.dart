@@ -87,12 +87,46 @@ void main() {
     test('fetchRecipes adds new recipe and image to model', () async {
 
       await tinderController.fetchRecipes();
-      
+
       expect(tinderModel.hasData(), isTrue);
       expect(tinderModel.getRecipeDescription(), isNotNull);
       expect(tinderModel.getRecipeImage(), isNotNull);
-
-
     });
+
+    test('initialize() successfully initializes model with data', () async {
+
+      expect(tinderModel.hasData(), isFalse);
+
+
+      await tinderController.initialize();
+
+
+      expect(tinderModel.hasData(), isTrue);
+    });
+
+    test('createView() returns a TinderView with correct model and callback', () {
+
+      final view = tinderController.createView();
+
+
+      expect(view.model, equals(tinderModel));
+
+
+      expect(view.onChangeRecipe, isNotNull);
+    });
+
+    test('initRecipes() successfully fetches and adds recipes and images to model', () async {
+
+      expect(tinderModel.hasData(), isFalse);
+
+      await tinderController.initRecipes();
+
+      expect(tinderModel.hasData(), isTrue);
+
+      expect(tinderModel.getRecipeDescription(), isNotNull);
+      expect(tinderModel.getRecipeImage(), isNotNull);
+    });
+
+
   });
 }
