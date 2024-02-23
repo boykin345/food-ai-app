@@ -70,4 +70,21 @@ class DataUtil {
       return true; // If an error is caught, still returns true to act as the email is already taken.
     }
   }
+
+  /// Checks if the username the user is signing up with is already taken or not.
+  ///
+  /// Takes in one input, [username] which is the username the user is attempting to sign up with.
+  /// Returns `false` if the username is available, otherwise if the username is taken it will return `true`.
+  static Future<bool> usernameAlreadyTaken(String username) async {
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .where('username', isEqualTo: username)
+          .get();
+      return querySnapshot.docs.isNotEmpty;
+    } catch (e) {
+      print("Error: usernameAlreadyTaken: $e");
+      return true; // If an error is caught, still returns true to act as the username is already taken.
+    }
+  }
 }

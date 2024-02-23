@@ -660,6 +660,18 @@ class LoginSignupPageState extends State<LoginSignupPage> {
       return;
     }
 
+    // Checks the username doesn't already exists
+    if (await DataUtil.usernameAlreadyTaken(usernameController.text.trim()) == true) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+                content: Text(
+                    "This username is already taken!\nPlease select a different username"));
+          });
+      return;
+    }
+
     // Checks the email entered doesn't already exists
     if (await DataUtil.emailAlreadyTaken(emailController.text.trim()) == true) {
       showDialog(
