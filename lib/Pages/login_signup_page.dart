@@ -14,11 +14,11 @@ class LoginSignupPage extends StatefulWidget {
   LoginSignupPage({required this.screenType});
 
   @override
-  _LoginSignupPageState createState() => _LoginSignupPageState();
+  LoginSignupPageState createState() => LoginSignupPageState();
 }
 
 /// Returns a scaffold widget to display login/signup page with certain properties.
-class _LoginSignupPageState extends State<LoginSignupPage> {
+class LoginSignupPageState extends State<LoginSignupPage> {
   // Controllers for the editable text fields within the pages.
   TextEditingController usernameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -102,7 +102,6 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
       backgroundColor: Palette.backgroundOff,
       body: Stack(
         children: [
-
           // Top part of the screen.
           Positioned(
             right: 0,
@@ -153,7 +152,6 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-
                     // Row to change between the login page & the sign up page.
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -169,6 +167,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                             children: [
                               Text(
                                 "LOGIN",
+                                key: Key('loginButton'),
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -197,6 +196,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                             children: [
                               Text(
                                 "SIGN UP",
+                                key: Key('signUpButton'),
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -225,6 +225,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
 
                     // Container to show the login / sign up button after the text fields.
                     Container(
+                      key: ValueKey('submitButton'),
                       margin: EdgeInsets.only(
                           top: 30, bottom: 15, left: 40, right: 40),
                       child: Column(
@@ -254,37 +255,6 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                         ],
                       ),
                     ),
-
-                    // Container to show the text for social media options.
-                    Container(
-                      margin: EdgeInsets.only(top: 15),
-                      child: Column(
-                        children: [
-                          Text(
-                            "OR",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 3),
-                            height: 2,
-                            width: 25,
-                            color: Colors.grey,
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    // Container to display the social media button options.
-                    Container(
-                      child: Column(
-                        children: [
-                          socialButtons(),
-                        ],
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -301,11 +271,11 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
         margin: EdgeInsets.only(top: 20),
         child: Column(
           children: [
-
             // Email text field.
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
               child: TextField(
+                key: ValueKey('emailTextField'),
                 controller: emailController,
                 focusNode: emailFocusNode,
                 decoration: InputDecoration(
@@ -325,6 +295,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
               child: TextField(
+                key: ValueKey('passwordTextField'),
                 obscureText: !passwordVisible,
                 controller: passwordController,
                 focusNode: passwordFocusNode,
@@ -334,16 +305,18 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                     color: Palette.icon,
                   ),
                   suffixIcon: IconButton(
-                    icon: Icon(
-                      passwordVisible ? Icons.visibility : Icons.visibility_off,
-                    ),
-                    // When pressed will update the obscure text value to the opposite, e.g. hidden text will become visible.
-                    onPressed: () {
-                      setState(() {
-                        passwordVisible = !passwordVisible;
-                      });
-                    },
-                  ),
+                      key: Key('passwordVisibleButton'),
+                      icon: Icon(
+                        passwordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                      ),
+                      // When pressed will update the obscure text value to the opposite, e.g. hidden text will become visible.
+                      onPressed: () {
+                        setState(() {
+                          passwordVisible = !passwordVisible;
+                        });
+                      }),
                   contentPadding: EdgeInsets.all(10),
                   hintText: "Password",
                   hintStyle: TextStyle(fontSize: 14, color: Palette.greyText),
@@ -361,7 +334,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                       style: TextStyle(fontSize: 12, color: Palette.greyText)),
                 ),
               ],
-            )
+            ),
           ],
         ));
   }
@@ -372,23 +345,22 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
       margin: EdgeInsets.only(top: 20),
       child: Column(
         children: [
-
           // Username text field.
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: TextField(
+              key: ValueKey('usernameTextField'),
               controller: usernameController,
               focusNode: usernameFocusNode,
               decoration: InputDecoration(
-                prefixIcon: Icon(
-                  Icons.account_circle_outlined,
-                  color: Palette.icon,
-                ),
-                contentPadding: EdgeInsets.all(10),
-                hintText: "Username",
-                hintStyle: TextStyle(fontSize: 14, color: Palette.greyText),
-                errorText: validateUsername(usernameController.text)
-              ),
+                  prefixIcon: Icon(
+                    Icons.account_circle_outlined,
+                    color: Palette.icon,
+                  ),
+                  contentPadding: EdgeInsets.all(10),
+                  hintText: "Username",
+                  hintStyle: TextStyle(fontSize: 14, color: Palette.greyText),
+                  errorText: validateUsername(usernameController.text)),
             ),
           ),
 
@@ -396,6 +368,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: TextField(
+              key: ValueKey('emailTextField'),
               controller: emailController,
               focusNode: emailFocusNode,
               decoration: InputDecoration(
@@ -415,6 +388,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: TextField(
+              key: ValueKey('passwordTextField'),
               obscureText: !passwordVisible,
               controller: passwordController,
               focusNode: passwordFocusNode,
@@ -424,6 +398,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                   color: Palette.icon,
                 ),
                 suffixIcon: IconButton(
+                  key: Key('passwordVisibleButton'),
                   icon: Icon(
                     passwordVisible ? Icons.visibility : Icons.visibility_off,
                   ),
@@ -446,6 +421,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: TextField(
+              key: ValueKey('confirmPasswordTextField'),
               obscureText: !confirmPasswordVisible,
               controller: confirmPasswordController,
               focusNode: confirmPasswordFocusNode,
@@ -455,6 +431,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                   color: Palette.icon,
                 ),
                 suffixIcon: IconButton(
+                  key: Key('confirmPasswordVisibleButton'),
                   icon: Icon(
                     confirmPasswordVisible
                         ? Icons.visibility
@@ -469,62 +446,9 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
                 contentPadding: EdgeInsets.all(10),
                 hintText: "Confirm password",
                 hintStyle: TextStyle(fontSize: 14, color: Palette.greyText),
-                errorText: validateConfirmPassword(confirmPasswordController.text),
+                errorText:
+                    validateConfirmPassword(confirmPasswordController.text),
               ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // Creates the social media buttons container at the bottom of the page.
-  Container socialButtons() {
-    return Container(
-      margin: EdgeInsets.only(top: 15, left: 40, right: 40),
-      child: Column(
-        children: [
-
-          // Displays the facebook social media button.
-          TextButton(
-            onPressed: () {},
-            style: TextButton.styleFrom(
-              foregroundColor: Colors.white,
-              side: BorderSide(width: 2, color: Color(0xFF4267B2)),
-              minimumSize: Size(150, 40),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              backgroundColor: Color(0xFF4267B2).withOpacity(0.9),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.facebook),
-                SizedBox(width: 5),
-                Text("Facebook"),
-              ],
-            ),
-          ),
-          SizedBox(height: 5),
-
-          // Displays the google social media button.
-          TextButton(
-            onPressed: () {},
-            style: TextButton.styleFrom(
-              foregroundColor: Colors.white,
-              side: BorderSide(width: 2, color: Color(0xFFEA5252)),
-              minimumSize: Size(150, 40),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              backgroundColor: Color(0xFFEA5252).withOpacity(0.9),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.mail),
-                SizedBox(width: 5),
-                Text("Google"),
-              ],
             ),
           ),
         ],
@@ -585,7 +509,6 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
 
     return null; // Validation successful.
   }
-
 
   /// Validates the provided password input.
   ///
@@ -688,16 +611,18 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     }
 
     // Checks the user is actually in the database, otherwise return null.
-    User? user = await AuthUtil.login(emailController.text.trim(), passwordController.text.trim());
+    User? user = await AuthUtil.login(
+        emailController.text.trim(), passwordController.text.trim());
 
     // If the user doesn't exist, display an error message.
     if (user == null) {
       showDialog(
           context: context,
           builder: (context) {
-            return AlertDialog(content: Text("There is no user record corresponding to this combination of email and password, please double check the information entered!"));
-          }
-      );
+            return AlertDialog(
+                content: Text(
+                    "There is no user record corresponding to this combination of email and password, please double check the information entered!"));
+          });
     }
   }
 
@@ -728,7 +653,8 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
 
     // Checks the confirm password entered is valid, otherwise return.
     confirmPasswordInteracted = true;
-    if (validateConfirmPassword(confirmPasswordController.text.trim()) != null) {
+    if (validateConfirmPassword(confirmPasswordController.text.trim()) !=
+        null) {
       FocusScope.of(context).requestFocus(confirmPasswordFocusNode);
       FocusScope.of(context).requestFocus(FocusNode());
       return;
@@ -739,13 +665,16 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
       showDialog(
           context: context,
           builder: (context) {
-            return AlertDialog(content: Text("This email address is already taken!\nPlease select a different email address or reset your password."));
-          }
-      );
+            return AlertDialog(
+                content: Text(
+                    "This email address is already taken!\nPlease select a different email address or reset your password."));
+          });
       return;
     }
 
-    User? user = await AuthUtil.signUp(emailController.text.trim(), passwordController.text.trim());
-    DataUtil.addUser(user!.uid, usernameController.text.trim(), emailController.text.trim());
+    User? user = await AuthUtil.signUp(
+        emailController.text.trim(), passwordController.text.trim());
+    DataUtil.addUser(
+        user!.uid, usernameController.text.trim(), emailController.text.trim());
   }
 }

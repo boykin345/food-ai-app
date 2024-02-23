@@ -55,13 +55,13 @@ C2. As an app user, I want to input my health goals (e.g., weight loss, muscle g
 ---
 Account Registration
 
-D1. As an app user, I want to sign up using my email or social media accounts for quick registration to minimise the time and effort required to start using the app. - 1 
+D1. As an app user, I want to sign up using my email or ~~social media accounts~~ for quick registration to minimise the time and effort required to start using the app. - 1 
 
 D2. As an app user, I want to choose a unique username for my profile on the app so I can be easily recognised by friends. - 1
 
-D3. As an app user, I want to have a multi-factor authentication option for increased security to ensure my personal information and account details are well-protected.  - 1
+[- Removed -]D3. As an app user, I want to have a multi-factor authentication option for increased security to ensure my personal information and account details are well-protected.  - 1
 
-D4. As an app user, I want to sign in using my email or social media account for quick login access to minimise the time and effort required to use the app regularly. - 2
+D4. As an app user, I want to sign in using my email or ~~social media account~~ for quick login access to minimise the time and effort required to use the app regularly. - 2
 
 D5. As an app user, I want the ability to reset my password so that I can regain access to my account when I forget my password. - 2
 
