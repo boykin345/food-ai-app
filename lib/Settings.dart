@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -10,13 +11,47 @@ class _SettingsScreenState extends State<SettingsScreen> {
   String _selectedCookingTime = '30 min';
   int _selectedPortionSize = 1;
 
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchSettings();
+  }
+
+  void fetchSettings() async {
+    DocumentSnapshot settingsSnapshot =
+        await firestore.collection('users').doc('TestUser').get();
+    setState(() {
+      var settingsData = settingsSnapshot.data() as Map<String, dynamic>?;
+      if (settingsData != null) {
+        _selectedDifficulty = settingsData['difficulty'] is int
+            ? settingsData['difficulty'] as int
+            : 1;
+        _selectedCookingTime = settingsData['cookingTime'] is String
+            ? settingsData['cookingTime'] as String
+            : '30 min';
+        _selectedPortionSize = settingsData['portionSize'] is int
+            ? settingsData['portionSize'] as int
+            : 1;
+      }
+    });
+  }
+
+  void _updateSettings() {
+    firestore.collection('users').doc('TestUser').update({
+      'difficulty': _selectedDifficulty,
+      'cookingTime': _selectedCookingTime,
+      'portionSize': _selectedPortionSize,
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Settings', style: TextStyle(color: Colors.white)),
-        backgroundColor:
-            Colors.blue[900], // Set app bar background color to dark blue
+        backgroundColor: Colors.blue[900],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -25,7 +60,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30.0),
-                color: Colors.blue, // Change container color to blue
+                color: Colors.blue,
               ),
               child: DropdownButtonFormField<int>(
                 value: _selectedDifficulty,
@@ -36,7 +71,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       '1 (Easy)',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 18, // Adjust font size here
+                        fontSize: 18,
                       ),
                     ),
                   ),
@@ -46,7 +81,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       '2',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 18, // Adjust font size here
+                        fontSize: 18,
                       ),
                     ),
                   ),
@@ -56,7 +91,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       '3',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 18, // Adjust font size here
+                        fontSize: 18,
                       ),
                     ),
                   ),
@@ -66,7 +101,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       '4',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 18, // Adjust font size here
+                        fontSize: 18,
                       ),
                     ),
                   ),
@@ -76,7 +111,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       '5 (Hard)',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 18, // Adjust font size here
+                        fontSize: 18,
                       ),
                     ),
                   ),
@@ -85,6 +120,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   setState(() {
                     _selectedDifficulty = value!;
                   });
+                  _updateSettings();
                 },
                 decoration: InputDecoration(
                   contentPadding:
@@ -92,7 +128,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   labelText: 'Difficulty',
                   labelStyle: TextStyle(
                     color: Colors.black,
-                    fontSize: 24, // Adjust label font size here
+                    fontSize: 24,
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30.0),
@@ -108,7 +144,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30.0),
-                color: Colors.blue, // Change container color to blue
+                color: Colors.blue,
               ),
               child: DropdownButtonFormField<String>(
                 value: _selectedCookingTime,
@@ -123,7 +159,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       value,
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 18, // Adjust font size here
+                        fontSize: 18,
                       ),
                     ),
                   );
@@ -132,6 +168,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   setState(() {
                     _selectedCookingTime = value!;
                   });
+                  _updateSettings();
                 },
                 decoration: InputDecoration(
                   contentPadding:
@@ -139,7 +176,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   labelText: 'Cooking Time',
                   labelStyle: TextStyle(
                     color: Colors.black,
-                    fontSize: 24, // Adjust label font size here
+                    fontSize: 24,
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30.0),
@@ -155,7 +192,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30.0),
-                color: Colors.blue, // Change container color to blue
+                color: Colors.blue,
               ),
               child: DropdownButtonFormField<int>(
                 value: _selectedPortionSize,
@@ -166,7 +203,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       'For 1 person',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 18, // Adjust font size here
+                        fontSize: 18,
                       ),
                     ),
                   ),
@@ -176,7 +213,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       'For 2 people',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 18, // Adjust font size here
+                        fontSize: 18,
                       ),
                     ),
                   ),
@@ -186,7 +223,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       'For 4 people',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 18, // Adjust font size here
+                        fontSize: 18,
                       ),
                     ),
                   ),
@@ -196,7 +233,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       'For 6 people',
                       style: TextStyle(
                         color: Colors.black,
-                        fontSize: 18, // Adjust font size here
+                        fontSize: 18,
                       ),
                     ),
                   ),
@@ -205,6 +242,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   setState(() {
                     _selectedPortionSize = value!;
                   });
+                  _updateSettings();
                 },
                 decoration: InputDecoration(
                   contentPadding:
@@ -212,7 +250,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   labelText: 'Portion Size',
                   labelStyle: TextStyle(
                     color: Colors.black,
-                    fontSize: 24, // Adjust label font size here
+                    fontSize: 24,
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30.0),
