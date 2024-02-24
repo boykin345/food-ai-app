@@ -599,6 +599,7 @@ class LoginSignupPageState extends State<LoginSignupPage> {
     if (validateEmail(emailController.text.trim()) != null) {
       FocusScope.of(context).requestFocus(emailFocusNode);
       FocusScope.of(context).requestFocus(FocusNode());
+      FocusScope.of(context).unfocus();
       return;
     }
 
@@ -607,6 +608,7 @@ class LoginSignupPageState extends State<LoginSignupPage> {
     if (validatePassword(passwordController.text.trim()) != null) {
       FocusScope.of(context).requestFocus(passwordFocusNode);
       FocusScope.of(context).requestFocus(FocusNode());
+      FocusScope.of(context).unfocus();
       return;
     }
 
@@ -632,6 +634,7 @@ class LoginSignupPageState extends State<LoginSignupPage> {
     if (validateUsername(usernameController.text.trim()) != null) {
       FocusScope.of(context).requestFocus(usernameFocusNode);
       FocusScope.of(context).requestFocus(FocusNode());
+      FocusScope.of(context).unfocus();
       return;
     }
 
@@ -640,6 +643,7 @@ class LoginSignupPageState extends State<LoginSignupPage> {
     if (validateEmail(emailController.text.trim()) != null) {
       FocusScope.of(context).requestFocus(emailFocusNode);
       FocusScope.of(context).requestFocus(FocusNode());
+      FocusScope.of(context).unfocus();
       return;
     }
 
@@ -648,6 +652,7 @@ class LoginSignupPageState extends State<LoginSignupPage> {
     if (validatePassword(passwordController.text.trim()) != null) {
       FocusScope.of(context).requestFocus(passwordFocusNode);
       FocusScope.of(context).requestFocus(FocusNode());
+      FocusScope.of(context).unfocus();
       return;
     }
 
@@ -657,6 +662,7 @@ class LoginSignupPageState extends State<LoginSignupPage> {
         null) {
       FocusScope.of(context).requestFocus(confirmPasswordFocusNode);
       FocusScope.of(context).requestFocus(FocusNode());
+      FocusScope.of(context).unfocus();
       return;
     }
 
