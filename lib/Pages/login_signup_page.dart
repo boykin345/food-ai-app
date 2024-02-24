@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:food_ai_app/Util/colours.dart';
 import 'package:food_ai_app/Util/data_util.dart';
 
+import 'package:food_ai_app/Pages/forgot_password_page.dart';
+
 /// Initialises the state for the login & sign up page.
 ///
 /// [screenType] whether it shows the login page or the sign up page, where true will show the sign up page.
@@ -99,7 +101,7 @@ class LoginSignupPageState extends State<LoginSignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Palette.backgroundOff,
+      backgroundColor: Colours.backgroundOff,
       body: Stack(
         children: [
           // Top part of the screen.
@@ -109,7 +111,7 @@ class LoginSignupPageState extends State<LoginSignupPage> {
             child: Container(
               height: 300,
               padding: EdgeInsets.only(top: 90, left: 20),
-              color: Palette.primary,
+              color: Colours.primary,
               child: Column(
                 children: [
                   RichText(
@@ -172,15 +174,15 @@ class LoginSignupPageState extends State<LoginSignupPage> {
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                     color: !isSignupScreen
-                                        ? Palette.primary
-                                        : Palette.greyText),
+                                        ? Colours.primary
+                                        : Colours.greyText),
                               ),
                               if (!isSignupScreen)
                                 Container(
                                   margin: EdgeInsets.only(top: 3),
                                   height: 2,
                                   width: 55,
-                                  color: Palette.accent,
+                                  color: Colours.accent,
                                 ),
                             ],
                           ),
@@ -201,15 +203,15 @@ class LoginSignupPageState extends State<LoginSignupPage> {
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                     color: isSignupScreen
-                                        ? Palette.primary
-                                        : Palette.greyText),
+                                        ? Colours.primary
+                                        : Colours.greyText),
                               ),
                               if (isSignupScreen)
                                 Container(
                                   margin: EdgeInsets.only(top: 3),
                                   height: 2,
                                   width: 55,
-                                  color: Palette.accent,
+                                  color: Colours.accent,
                                 ),
                             ],
                           ),
@@ -281,12 +283,12 @@ class LoginSignupPageState extends State<LoginSignupPage> {
                 decoration: InputDecoration(
                   prefixIcon: Icon(
                     Icons.email_outlined,
-                    color: Palette.icon,
+                    color: Colours.icon,
                   ),
                   contentPadding: EdgeInsets.all(10),
                   hintText: "Info@email.com",
-                  hintStyle: TextStyle(fontSize: 14, color: Palette.greyText),
-                  errorText: validateEmail(emailController.text),
+                  hintStyle: TextStyle(fontSize: 14, color: Colours.greyText),
+                  errorText: validateEmail(emailController.text, emailInteracted),
                 ),
               ),
             ),
@@ -302,7 +304,7 @@ class LoginSignupPageState extends State<LoginSignupPage> {
                 decoration: InputDecoration(
                   prefixIcon: Icon(
                     Icons.lock_outline,
-                    color: Palette.icon,
+                    color: Colours.icon,
                   ),
                   suffixIcon: IconButton(
                       key: Key('passwordVisibleButton'),
@@ -319,7 +321,7 @@ class LoginSignupPageState extends State<LoginSignupPage> {
                       }),
                   contentPadding: EdgeInsets.all(10),
                   hintText: "Password",
-                  hintStyle: TextStyle(fontSize: 14, color: Palette.greyText),
+                  hintStyle: TextStyle(fontSize: 14, color: Colours.greyText),
                   errorText: validatePassword(passwordController.text),
                 ),
               ),
@@ -329,9 +331,13 @@ class LoginSignupPageState extends State<LoginSignupPage> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      return ForgotPasswordPage();
+                    }));
+                  },
                   child: Text("Forgot Password?",
-                      style: TextStyle(fontSize: 12, color: Palette.greyText)),
+                      style: TextStyle(fontSize: 12, color: Colours.greyText)),
                 ),
               ],
             ),
@@ -355,11 +361,11 @@ class LoginSignupPageState extends State<LoginSignupPage> {
               decoration: InputDecoration(
                   prefixIcon: Icon(
                     Icons.account_circle_outlined,
-                    color: Palette.icon,
+                    color: Colours.icon,
                   ),
                   contentPadding: EdgeInsets.all(10),
                   hintText: "Username",
-                  hintStyle: TextStyle(fontSize: 14, color: Palette.greyText),
+                  hintStyle: TextStyle(fontSize: 14, color: Colours.greyText),
                   errorText: validateUsername(usernameController.text)),
             ),
           ),
@@ -374,12 +380,12 @@ class LoginSignupPageState extends State<LoginSignupPage> {
               decoration: InputDecoration(
                 prefixIcon: Icon(
                   Icons.email_outlined,
-                  color: Palette.icon,
+                  color: Colours.icon,
                 ),
                 contentPadding: EdgeInsets.all(10),
                 hintText: "Info@email.com",
-                hintStyle: TextStyle(fontSize: 14, color: Palette.greyText),
-                errorText: validateEmail(emailController.text),
+                hintStyle: TextStyle(fontSize: 14, color: Colours.greyText),
+                errorText: validateEmail(emailController.text, emailInteracted),
               ),
             ),
           ),
@@ -395,7 +401,7 @@ class LoginSignupPageState extends State<LoginSignupPage> {
               decoration: InputDecoration(
                 prefixIcon: Icon(
                   Icons.lock_outline,
-                  color: Palette.icon,
+                  color: Colours.icon,
                 ),
                 suffixIcon: IconButton(
                   key: Key('passwordVisibleButton'),
@@ -411,7 +417,7 @@ class LoginSignupPageState extends State<LoginSignupPage> {
                 ),
                 contentPadding: EdgeInsets.all(10),
                 hintText: "Password",
-                hintStyle: TextStyle(fontSize: 14, color: Palette.greyText),
+                hintStyle: TextStyle(fontSize: 14, color: Colours.greyText),
                 errorText: validatePassword(passwordController.text),
               ),
             ),
@@ -428,7 +434,7 @@ class LoginSignupPageState extends State<LoginSignupPage> {
               decoration: InputDecoration(
                 prefixIcon: Icon(
                   Icons.lock_outline,
-                  color: Palette.icon,
+                  color: Colours.icon,
                 ),
                 suffixIcon: IconButton(
                   key: Key('confirmPasswordVisibleButton'),
@@ -445,7 +451,7 @@ class LoginSignupPageState extends State<LoginSignupPage> {
                 ),
                 contentPadding: EdgeInsets.all(10),
                 hintText: "Confirm password",
-                hintStyle: TextStyle(fontSize: 14, color: Palette.greyText),
+                hintStyle: TextStyle(fontSize: 14, color: Colours.greyText),
                 errorText:
                     validateConfirmPassword(confirmPasswordController.text),
               ),
@@ -458,6 +464,7 @@ class LoginSignupPageState extends State<LoginSignupPage> {
 
   /// Validates the provided username input.
   ///
+  /// Takes in one input, [username] which is the string that is to be validated.
   /// Returns an error message if [username] is invalid, otherwise it will return `null`.
   String? validateUsername(String? username) {
     // Checks to see if the text field has been interacted with, if not exit early.
@@ -485,10 +492,11 @@ class LoginSignupPageState extends State<LoginSignupPage> {
 
   /// Validates the provided email input.
   ///
+  /// Takes in one input, [email] which is the string that is to be validated.
   /// Returns an error message if [email] is invalid, otherwise it will return `null`.
-  String? validateEmail(String? email) {
+  static String? validateEmail(String? email, bool interact) {
     // Checks to see if the text field has been interacted with, if not exit early.
-    if (emailInteracted == false) {
+    if (interact == false) {
       return null;
     }
 
@@ -512,6 +520,7 @@ class LoginSignupPageState extends State<LoginSignupPage> {
 
   /// Validates the provided password input.
   ///
+  /// Takes in one input, [password] which is the string that is to be validated.
   /// Returns an error message if [password] is invalid, otherwise it will return `null`.
   String? validatePassword(String? password) {
     // Checks to see if the text field has been interacted with, if not exit early.
@@ -539,6 +548,7 @@ class LoginSignupPageState extends State<LoginSignupPage> {
 
   /// Validates the provided confirm password input.
   ///
+  /// Takes in one input, [confirmPassword] which is the string that is to be validated.
   /// Returns an error message if [confirmPassword] is invalid, otherwise it will return `null`.
   String? validateConfirmPassword(String? confirmPassword) {
     // Checks to see if the text field has been interacted with, if not exit early.
@@ -596,7 +606,7 @@ class LoginSignupPageState extends State<LoginSignupPage> {
   Future<void> login() async {
     // Checks the email entered is valid, otherwise return.
     emailInteracted = true;
-    if (validateEmail(emailController.text.trim()) != null) {
+    if (validateEmail(emailController.text.trim(), emailInteracted) != null) {
       FocusScope.of(context).requestFocus(emailFocusNode);
       FocusScope.of(context).requestFocus(FocusNode());
       FocusScope.of(context).unfocus();
@@ -640,7 +650,7 @@ class LoginSignupPageState extends State<LoginSignupPage> {
 
     // Checks the email address entered is valid, otherwise return.
     emailInteracted = true;
-    if (validateEmail(emailController.text.trim()) != null) {
+    if (validateEmail(emailController.text.trim(), emailInteracted) != null) {
       FocusScope.of(context).requestFocus(emailFocusNode);
       FocusScope.of(context).requestFocus(FocusNode());
       FocusScope.of(context).unfocus();

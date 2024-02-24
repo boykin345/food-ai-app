@@ -32,6 +32,20 @@ class AuthUtil {
       return null;
     }
   }
+
+  /// Will send a reset password link to the user
+  ///
+  /// Takes in one input [email] which is the emil address of the user.
+  /// Will return `true` if the reset password link was sent to the user, otherwise will return `false` if the link couldn't be sent.
+  static Future<bool> resetPassword(String email) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
 }
 
 /// Deals with the knowledge of accessing & editing the firestore database.

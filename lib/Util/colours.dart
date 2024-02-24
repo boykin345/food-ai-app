@@ -4,7 +4,7 @@ import 'package:flutter/painting.dart';
 //
 /// Below are a set of static const variables with pre-defined colour values to ensure everyone is using the same colours
 /// across the application.
-class Palette {
+class Colours {
   /// Primary colour which is generally used majority of the time e.g. background colour.
   static const Color primary = Color(0xFF2D3444);
 
