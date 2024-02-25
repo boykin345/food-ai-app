@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:food_ai_app/main.dart'; // Import your main.dart file
+import 'package:food_ai_app/main.dart';
 
 void main() {
   testWidgets('MyApp builds', (WidgetTester tester) async {
