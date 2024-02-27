@@ -21,18 +21,18 @@ class GoalScreenState extends State<HealthGoalScreen> {
   }
 
   void initializeHealthGoals() async {
-    firestore.collection('users').doc('TestUser').update({
+    firestore.collection('users').doc('TestUser').collection('Personalisation').doc('Personalisation').update({
       'healthGoals': FieldValue.arrayUnion(['Gain muscle'])
     });
 
-    firestore.collection('users').doc('TestUser').update({
+    firestore.collection('users').doc('TestUser').collection('Personalisation').doc('Personalisation').update({
       'healthGoals': FieldValue.arrayUnion(['Lose weight'])
     });
   }
   
   void fetchhealthGoals() async {
     DocumentSnapshot userSnapshot =
-        await firestore.collection('users').doc('TestUser').get();
+        await firestore.collection('users').doc('TestUser').collection('Personalisation').doc('Personalisation').get();
     setState(() {
       var userData = userSnapshot.data() as Map<String, dynamic>?;
       if (userData != null) {
@@ -59,25 +59,25 @@ class GoalScreenState extends State<HealthGoalScreen> {
     });
   }
 
-  void _addPreference() {
+  void addPreference() {
     if (goalsController.text.isNotEmpty) {
       setState(() {
         healthGoals.add(goalsController.text);
         checkedHealthGoals[goalsController.text] = false; // Initialize as unchecked
       });
-      firestore.collection('users').doc('TestUser').update({
+      firestore.collection('users').doc('TestUser').collection('Personalisation').doc('Personalisation').update({
         'healthGoals': FieldValue.arrayUnion([goalsController.text])
       });
       goalsController.clear();
     }
   }
 
-  void _removePreference(String preference) {
+  void removePreference(String preference) {
     setState(() {
       healthGoals.remove(preference);
       checkedHealthGoals.remove(preference); // Remove from checkedHealthGoals map
     });
-    firestore.collection('users').doc('TestUser').update({
+    firestore.collection('users').doc('TestUser').collection('Personalisation').doc('Personalisation').update({
       'healthGoals': FieldValue.arrayRemove([preference]),
       'activeHealthGoals': FieldValue.arrayRemove([preference]) // Ensure consistency
     });
@@ -99,7 +99,7 @@ class GoalScreenState extends State<HealthGoalScreen> {
                 labelText: 'Add a new Preference',
                 suffixIcon: IconButton(
                   icon: Icon(Icons.add),
-                  onPressed: _addPreference,
+                  onPressed: addPreference,
                 ),
               ),
             ),
@@ -117,19 +117,19 @@ class GoalScreenState extends State<HealthGoalScreen> {
                       });
                       if (newValue == true) {
                         // Add to activehealthGoals if checked
-                        firestore.collection('users').doc('TestUser').update({
+                        firestore.collection('users').doc('TestUser').collection('Personalisation').doc('Personalisation').update({
                           'activeHealthGoals': FieldValue.arrayUnion([currentPreference])
                         });
                       } else {
                         // Remove from activehealthGoals if unchecked
-                        firestore.collection('users').doc('TestUser').update({
+                        firestore.collection('users').doc('TestUser').collection('Personalisation').doc('Personalisation').update({
                           'activeHealthGoals': FieldValue.arrayRemove([currentPreference])
                         });
                       }
                     },
                     secondary: IconButton(
                       icon: Icon(Icons.delete),
-                      onPressed: () => _removePreference(currentPreference),
+                      onPressed: () => removePreference(currentPreference),
                     ),
                   );
                 },

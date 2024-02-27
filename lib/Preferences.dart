@@ -21,26 +21,26 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
   }
 
   void initializePreferences() async {
-      firestore.collection('users').doc('TestUser').update({
+      firestore.collection('users').doc('TestUser').collection('Personalisation').doc('Personalisation').update({
         'preferences': FieldValue.arrayUnion(['Vegetarian'])
       });
 
-      firestore.collection('users').doc('TestUser').update({
+      firestore.collection('users').doc('TestUser').collection('Personalisation').doc('Personalisation').update({
         'preferences': FieldValue.arrayUnion(['Vegan'])
       });
 
-      firestore.collection('users').doc('TestUser').update({
+      firestore.collection('users').doc('TestUser').collection('Personalisation').doc('Personalisation').update({
         'preferences': FieldValue.arrayUnion(['Halal'])
       });
 
-      firestore.collection('users').doc('TestUser').update({
+      firestore.collection('users').doc('TestUser').collection('Personalisation').doc('Personalisation').update({
         'preferences': FieldValue.arrayUnion(['Dairy free'])
       });
   }
 
   void fetchPreferences() async {
     DocumentSnapshot userSnapshot =
-        await firestore.collection('users').doc('TestUser').get();
+        await firestore.collection('users').doc('TestUser').collection('Personalisation').doc('Personalisation').get();
     setState(() {
       var userData = userSnapshot.data() as Map<String, dynamic>?;
       if (userData != null) {
@@ -73,7 +73,7 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
         preferences.add(preferenceController.text);
         checkedPreferences[preferenceController.text] = false; // Initialize as unchecked
       });
-      firestore.collection('users').doc('TestUser').update({
+      firestore.collection('users').doc('TestUser').collection('Personalisation').doc('Personalisation').update({
         'preferences': FieldValue.arrayUnion([preferenceController.text])
       });
       preferenceController.clear();
@@ -85,7 +85,7 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
       preferences.remove(preference);
       checkedPreferences.remove(preference); // Remove from checkedPreferences map
     });
-    firestore.collection('users').doc('TestUser').update({
+    firestore.collection('users').doc('TestUser').collection('Personalisation').doc('Personalisation').update({
       'preferences': FieldValue.arrayRemove([preference]),
       'activePreferences': FieldValue.arrayRemove([preference]) // Ensure consistency
     });
@@ -125,12 +125,12 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
                       });
                       if (newValue == true) {
                         // Add to activePreferences if checked
-                        firestore.collection('users').doc('TestUser').update({
+                        firestore.collection('users').doc('TestUser').collection('Personalisation').doc('Personalisation').update({
                           'activePreferences': FieldValue.arrayUnion([currentPreference])
                         });
                       } else {
                         // Remove from activePreferences if unchecked
-                        firestore.collection('users').doc('TestUser').update({
+                        firestore.collection('users').doc('TestUser').collection('Personalisation').doc('Personalisation').update({
                           'activePreferences': FieldValue.arrayRemove([currentPreference])
                         });
                       }
