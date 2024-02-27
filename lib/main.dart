@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'Allergies.dart';
 import 'Settings.dart';
+import 'Preferences.dart';
+import 'HealthGoals.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,6 +66,24 @@ class MyHomePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => AllergiesScreen()),
+                );
+              },
+            ),
+            ListTile(
+              title: Text('Preferences'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PreferencesScreen()),
+                );
+              },
+            ),
+            ListTile(
+              title: Text('Health Goals'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HealthGoalScreen()),
                 );
               },
             ),
