@@ -16,9 +16,20 @@ class GoalScreenState extends State<HealthGoalScreen> {
   @override
   void initState() {
     super.initState();
+    initializeHealthGoals();
     fetchhealthGoals();
   }
 
+  void initializeHealthGoals() async {
+    firestore.collection('users').doc('TestUser').update({
+      'healthGoals': FieldValue.arrayUnion(['Gain muscle'])
+    });
+
+    firestore.collection('users').doc('TestUser').update({
+      'healthGoals': FieldValue.arrayUnion(['Lose weight'])
+    });
+  }
+  
   void fetchhealthGoals() async {
     DocumentSnapshot userSnapshot =
         await firestore.collection('users').doc('TestUser').get();
