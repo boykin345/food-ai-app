@@ -59,7 +59,7 @@ class GoalScreenState extends State<HealthGoalScreen> {
     });
   }
 
-  void addPreference() {
+  void addGoal() {
     if (goalsController.text.isNotEmpty) {
       setState(() {
         healthGoals.add(goalsController.text);
@@ -72,7 +72,7 @@ class GoalScreenState extends State<HealthGoalScreen> {
     }
   }
 
-  void removePreference(String preference) {
+  void removeGoal(String preference) {
     setState(() {
       healthGoals.remove(preference);
       checkedHealthGoals.remove(preference); // Remove from checkedHealthGoals map
@@ -85,9 +85,10 @@ class GoalScreenState extends State<HealthGoalScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(backgroundColor: Color(0xFF272E3B),
       appBar: AppBar(
-        title: Text('healthGoals'),
+        backgroundColor: Color(0xFF272E3B),
+        title: Text(style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), 'Health Goals'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -95,12 +96,24 @@ class GoalScreenState extends State<HealthGoalScreen> {
           children: <Widget>[
             TextField(
               controller: goalsController,
+              style: TextStyle(color: Color(0xFF272E3B), fontWeight: FontWeight.bold),
               decoration: InputDecoration(
-                labelText: 'Add a new Preference',
-                suffixIcon: IconButton(
-                  icon: Icon(Icons.add),
-                  onPressed: addPreference,
+                labelText: 'Add a new Health Goal',
+                enabledBorder: OutlineInputBorder( // Normal state border
+                  borderSide: BorderSide(color: Colors.white),
+                  borderRadius: BorderRadius.circular(20.0), 
                 ),
+                focusedBorder: OutlineInputBorder( // Border when TextField is focused
+                  borderSide: BorderSide(color: Colors.white),
+                  borderRadius: BorderRadius.circular(20.0), 
+                ),
+                suffixIcon: IconButton(
+                  icon: Icon(color: Color(0xFF272E3B), Icons.add),
+                  onPressed: addGoal,
+                ),
+                fillColor: Colors.white, // Sets the background color inside the TextField to white
+                filled: true, // Enables the fillColor to be applied
+                border: InputBorder.none,
               ),
             ),
             Expanded(
@@ -109,7 +122,7 @@ class GoalScreenState extends State<HealthGoalScreen> {
                 itemBuilder: (context, index) {
                   String currentPreference = healthGoals[index];
                   return CheckboxListTile(
-                    title: Text(currentPreference),
+                    title: Text(style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), currentPreference),
                     value: checkedHealthGoals[currentPreference] ?? false, // Default to false if not found
                     onChanged: (bool? newValue) {
                       setState(() {
@@ -129,7 +142,7 @@ class GoalScreenState extends State<HealthGoalScreen> {
                     },
                     secondary: IconButton(
                       icon: Icon(Icons.delete),
-                      onPressed: () => removePreference(currentPreference),
+                      onPressed: () => removeGoal(currentPreference),
                     ),
                   );
                 },
@@ -140,7 +153,7 @@ class GoalScreenState extends State<HealthGoalScreen> {
                 // Implement save functionality if needed
                 Navigator.pop(context);
               },
-              child: Text('Save'),
+              child: Text(style: TextStyle(color: Color(0xFF272E3B), fontWeight: FontWeight.bold), 'Save'),
             ),
           ],
         ),

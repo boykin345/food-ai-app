@@ -104,7 +104,7 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
           children: <Widget>[
             TextField(
               controller: preferenceController,
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              style: TextStyle(color: Color(0xFF272E3B), fontWeight: FontWeight.bold),
               decoration: InputDecoration(
                 labelText: 'Add a new Preference',
                 enabledBorder: OutlineInputBorder( // Normal state border
@@ -161,7 +161,7 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
                 // Implement save functionality if needed
                 Navigator.pop(context);
               },
-              child: Text(style: TextStyle(color: Color(0xFF272E3B), fontWeight: FontWeight.bold), 'Looks good to me'),
+              child: Text(style: TextStyle(color: Color(0xFF272E3B), fontWeight: FontWeight.bold), 'Save'),
             ),
           ],
         ),
