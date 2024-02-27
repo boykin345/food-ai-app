@@ -17,7 +17,7 @@ class GoalScreenState extends State<HealthGoalScreen> {
   void initState() {
     super.initState();
     initializeHealthGoals();
-    fetchhealthGoals();
+    fetchHealthGoals();
   }
 
   void initializeHealthGoals() async {
@@ -30,7 +30,7 @@ class GoalScreenState extends State<HealthGoalScreen> {
     });
   }
   
-  void fetchhealthGoals() async {
+  void fetchHealthGoals() async {
     DocumentSnapshot userSnapshot =
         await firestore.collection('users').doc('TestUser').collection('Personalisation').doc('Personalisation').get();
     setState(() {
@@ -116,6 +116,79 @@ class GoalScreenState extends State<HealthGoalScreen> {
                 border: InputBorder.none,
               ),
             ),
+            SizedBox(height: 45), // Adds some space between elements
+            Text('Macros', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18)),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  flex: 1, // Takes 1/3 of the row space
+                  child: Text('Protein (g)', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                ),
+                Expanded(
+                  flex: 2, // Takes 2/3 of the row space
+                  child: TextField(
+                    keyboardType: TextInputType.number, // Ensures only numbers can be entered
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18)
+                  ),
+                ),
+                Expanded(
+                  flex: 1, // Takes 1/3 of the row space
+                  child: Text('Fat (g)', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                ),
+                Expanded(
+                  flex: 2, // Takes 2/3 of the row space
+                  child: TextField(
+                    keyboardType: TextInputType.number, // Ensures only numbers can be entered
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  flex: 1, // Takes 1/3 of the row space
+                  child: Text('Carbs (g)', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                ),
+                Expanded(
+                  flex: 2, // Takes 2/3 of the row space
+                  child: TextField(
+                    keyboardType: TextInputType.number, // Ensures only numbers can be entered
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18)
+                  ),
+                ),
+                Expanded(
+                  flex: 1, // Takes 1/3 of the row space
+                  child: Text('Fibre (g)', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                ),
+                Expanded(
+                  flex: 2, // Takes 2/3 of the row space
+                  child: TextField(
+                    keyboardType: TextInputType.number, // Ensures only numbers can be entered
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  flex: 1, // Takes 1/3 of the row space
+                  child: Text('Calories (kcal)', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                ),
+                Expanded(
+                  flex: 2, // Takes 2/3 of the row space
+                  child: TextField(
+                    keyboardType: TextInputType.number, // Ensures only numbers can be entered
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18)
+                  ),
+                ),
+              ],
+            ),
+
+            SizedBox(height: 55), // Adds some space between elements
+            Text('Health Goals', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18)),
             Expanded(
               child: ListView.builder(
                 itemCount: healthGoals.length,
@@ -151,7 +224,7 @@ class GoalScreenState extends State<HealthGoalScreen> {
             ElevatedButton(
               onPressed: () {
                 // Implement save functionality if needed
-                Navigator.pop(context);
+                
               },
               child: Text(style: TextStyle(color: Color(0xFF272E3B), fontWeight: FontWeight.bold), 'Save'),
             ),

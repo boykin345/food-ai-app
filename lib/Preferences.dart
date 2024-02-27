@@ -159,7 +159,7 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
             ElevatedButton(
               onPressed: () {
                 // Implement save functionality if needed
-                Navigator.pop(context);
+                
               },
               child: Text(style: TextStyle(color: Color(0xFF272E3B), fontWeight: FontWeight.bold), 'Save'),
             ),
