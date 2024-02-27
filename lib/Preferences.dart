@@ -16,7 +16,26 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
   @override
   void initState() {
     super.initState();
+    initializePreferences();
     fetchPreferences();
+  }
+
+  void initializePreferences() async {
+      firestore.collection('users').doc('TestUser').update({
+        'preferences': FieldValue.arrayUnion(['Vegetarian'])
+      });
+
+      firestore.collection('users').doc('TestUser').update({
+        'preferences': FieldValue.arrayUnion(['Vegan'])
+      });
+
+      firestore.collection('users').doc('TestUser').update({
+        'preferences': FieldValue.arrayUnion(['Halal'])
+      });
+
+      firestore.collection('users').doc('TestUser').update({
+        'preferences': FieldValue.arrayUnion(['Dairy free'])
+      });
   }
 
   void fetchPreferences() async {
@@ -48,7 +67,7 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
     });
   }
 
-  void _addPreference() {
+  void addPreference() {
     if (preferenceController.text.isNotEmpty) {
       setState(() {
         preferences.add(preferenceController.text);
@@ -61,7 +80,7 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
     }
   }
 
-  void _removePreference(String preference) {
+  void removePreferece(String preference) {
     setState(() {
       preferences.remove(preference);
       checkedPreferences.remove(preference); // Remove from checkedPreferences map
@@ -88,7 +107,7 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
                 labelText: 'Add a new Preference',
                 suffixIcon: IconButton(
                   icon: Icon(Icons.add),
-                  onPressed: _addPreference,
+                  onPressed: addPreference,
                 ),
               ),
             ),
@@ -118,7 +137,7 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
                     },
                     secondary: IconButton(
                       icon: Icon(Icons.delete),
-                      onPressed: () => _removePreference(currentPreference),
+                      onPressed: () => removePreferece(currentPreference),
                     ),
                   );
                 },
