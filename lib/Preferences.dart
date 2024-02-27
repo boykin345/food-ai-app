@@ -93,9 +93,10 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(backgroundColor: Color(0xFF272E3B), 
       appBar: AppBar(
-        title: Text('Preferences'),
+        backgroundColor: Color(0xFF272E3B),
+        title: Text(style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), 'Preferences'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -103,12 +104,24 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
           children: <Widget>[
             TextField(
               controller: preferenceController,
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               decoration: InputDecoration(
                 labelText: 'Add a new Preference',
+                enabledBorder: OutlineInputBorder( // Normal state border
+                  borderSide: BorderSide(color: Colors.white),
+                  borderRadius: BorderRadius.circular(20.0), 
+                ),
+                focusedBorder: OutlineInputBorder( // Border when TextField is focused
+                  borderSide: BorderSide(color: Colors.white),
+                  borderRadius: BorderRadius.circular(20.0), 
+                ),
                 suffixIcon: IconButton(
-                  icon: Icon(Icons.add),
+                  icon: Icon(color: Color(0xFF272E3B), Icons.add),
                   onPressed: addPreference,
                 ),
+                fillColor: Colors.white, // Sets the background color inside the TextField to white
+                filled: true, // Enables the fillColor to be applied
+                border: InputBorder.none,
               ),
             ),
             Expanded(
@@ -117,7 +130,7 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
                 itemBuilder: (context, index) {
                   String currentPreference = preferences[index];
                   return CheckboxListTile(
-                    title: Text(currentPreference),
+                    title: Text(style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold), currentPreference),
                     value: checkedPreferences[currentPreference] ?? false, // Default to false if not found
                     onChanged: (bool? newValue) {
                       setState(() {
@@ -136,7 +149,7 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
                       }
                     },
                     secondary: IconButton(
-                      icon: Icon(Icons.delete),
+                      icon: Icon( Icons.delete),
                       onPressed: () => removePreferece(currentPreference),
                     ),
                   );
@@ -148,7 +161,7 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
                 // Implement save functionality if needed
                 Navigator.pop(context);
               },
-              child: Text('Save'),
+              child: Text(style: TextStyle(color: Color(0xFF272E3B), fontWeight: FontWeight.bold), 'Looks good to me'),
             ),
           ],
         ),
