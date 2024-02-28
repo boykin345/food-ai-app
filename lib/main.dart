@@ -1,58 +1,107 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:food_ai_app/Util/firebase_options.dart';
+import 'package:food_ai_app/TinderMVC/tinder_page.dart';
+import 'package:food_ai_app/Allergies.dart';
+import 'package:food_ai_app/Settings.dart';
+import 'package:food_ai_app/Preferences.dart';
+import 'package:food_ai_app/HealthGoals.dart';
 
-import 'package:food_ai_app/Pages/home_page.dart';
-import 'package:food_ai_app/Pages/login_signup_page.dart';
-
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
-  runApp(const MyApp());
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+        apiKey: "AIzaSyAGXrbQ1Z7sKGt_dYrocxkcbpkefyRQMhw",
+        appId: "1:265622470895:android:8d0fbe0cf1b22509e11b1a", // android
+        messagingSenderId: "265622470895",
+        projectId: "bjss-food-ai"),
+  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Food AI',
+      title: 'Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        textTheme: Theme.of(context).textTheme.apply(
+              fontFamily: 'Caviar Dreams',
+            ),
       ),
-      home: const MyHomePage(title: 'Food AI - Index Page'),
+      home: MyHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  // Change made here: Convert 'key' to a super parameter for linter
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Check if the user is already signed in, if not waits for a login state change.
-      body: StreamBuilder<User?>(stream: FirebaseAuth.instance.authStateChanges(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return HomePage();
-            } else {
-              return LoginSignupPage(screenType: false);
-            }
-          }
+      appBar: AppBar(
+        title: Text('Main Page'),
       ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Text('George Cook', style: TextStyle(color: Colors.white)),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+            ),
+            ListTile(
+              title: Text('Tinder Selection'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => TinderPage()),
+                );
+              },
+            ),
+            ListTile(
+              title: Text('Settings'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SettingsScreen()),
+                );
+              },
+            ),
+            ListTile(
+              title: Text('Allergies'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AllergiesScreen()),
+                );
+              },
+            ),
+            ListTile(
+              title: Text('Preferences'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PreferencesScreen()),
+                );
+              },
+            ),
+            ListTile(
+              title: Text('Health Goals'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HealthGoalScreen()),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+      body: Center(child: Text('Main Page')),
     );
   }
 }

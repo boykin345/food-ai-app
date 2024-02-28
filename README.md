@@ -25,7 +25,7 @@ Generate recipes that the user will like in only four simple steps:
 - Safe, diverse, and high-quality recipes with detailed instructions and warnings
 - Personalisation and fine-tuning of recipes and user settings
 - Social media integration
-- CI/CD
+- CI/CD pipeline
 
 ## User Stories
 Below are the user stories that we will be using for our product backlog. We have given codes at the start of each user story so that they can be tracked across the various diagrams that we have made. At the end of each user story, there is also a rating which tells us how hard it will be to complete that specific task.
@@ -95,6 +95,8 @@ Meal/Tinder Selection
 I1. As an app user, I want to swipe right or left to like or dislike meal options to quickly curate my meal plan and discover new recipes that match my taste. - 8
 
 I2. As an app user, I want to see a thumbnail image of the recipe along with the title and a short description to make an informed decision while swiping through the options. - 8
+
+I3. As an app user, I want to see a loading screen when the recipes are generating so I know that the app is working and not frozen - 2
 
 ---
 Recipe Overview
