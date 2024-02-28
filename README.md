@@ -92,6 +92,8 @@ I1. As an app user, I want to swipe right or left to like or dislike meal option
 
 I2. As an app user, I want to see a thumbnail image of the recipe along with the title and a short description to make an informed decision while swiping through the options. - 8
 
+I3. As an app user, I want to see a loading screen when the recipes are generating so I know that the app is working and not frozen - 2
+
 ---
 Recipe Overview
 
