@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'Allergies.dart';
-import 'Settings.dart';
-import 'Preferences.dart';
-import 'HealthGoals.dart';
+import 'package:food_ai_app/TinderMVC/tinder_page.dart';
+import 'package:food_ai_app/Allergies.dart';
+import 'package:food_ai_app/Settings.dart';
+import 'package:food_ai_app/Preferences.dart';
+import 'package:food_ai_app/HealthGoals.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +17,7 @@ void main() async {
   );
   runApp(MyApp());
 }
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -49,6 +51,15 @@ class MyHomePage extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
+            ),
+            ListTile(
+              title: Text('Tinder Selection'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => TinderPage()),
+                );
+              },
             ),
             ListTile(
               title: Text('Settings'),
