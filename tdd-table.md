@@ -1,6 +1,30 @@
-| User Story Code | Feature / Component          | Test Case Description                                                                        | Test Status | Implementation Status | Refactoring Notes                                                               |
-|-----------------|------------------------------|----------------------------------------------------------------------------------------------|-------------|-----------------------|---------------------------------------------------------------------------------|
-| I               | **Tinder Selection Model**   |                                                                                              |             |                       | Implemented with queues for dynamic data handling and removed index based logic |
+| User Story Code | Feature / Component | Test Case Description | Test Status | Implementation Status | Refactoring Notes |
+|-----------------|-----------|-----------------------|-------------|-----------------------|--|
+| I               | **Meal/Tinder Selection** | | | | |
+| I1/2              | - Index Initialization   | Test if the index is initialized correctly at 0                                                    | Pass             | Done                  |  |
+| I1/2             | - Index Increment        | Test if the index is incremented correctly                                                         | Pass             | Done                  |  |
+| I1/2            | - Get Initial Description| Test if `getRecipeDescription` retrieves the initial description correctly                         | Pass             | Done                  |  |
+| I1/2            | - Get Initial Image      | Test if `getRecipeImage` retrieves the initial image correctly                                     | Pass             | Done                  |  |
+| I1/2            | - Add Recipe Handling    | Test if adding a recipe handles null values correctly by throwing a `FormatException`              | Pass             | Done                  |  |
+| I1/2            | - Fetch Recipes Update   | Test if `fetchRecipes` updates recipe descriptions and images lists correctly after changing recipe  | Pass           | Done                  | |
+| I1/2            | - Recipe List Addition   | Test if changing recipes adds items to the relevant lists correctly after index crosses threshold  | Pass           | Done                  |  |
+| I1/2            | - Recipe Change Handling | Test if changing recipe updates the pointer/index correctly                                        | Pass             | Done                  |  |
+| I1/2            | - Pointer Reset          | Test if the pointer/index resets correctly after reaching the threshold                            | Pass             | Done                  |  |
+| I1/2            | - Tinder Controller      | Test if `initialize()` populates model with recipes and images                                | Pass        | Done                  |                   |
+| I1/2            | - Tinder Controller      | Test if `changeRecipe()` removes current recipe and fetches new one                           | Pass        | Done                  |                   |
+| I1/2            | - Tinder Model           | Test if model is empty before initialization                                                  | Pass        | Done                  |                   |
+| I1/2            | - Tinder Controller      | Test if `fetchRecipes` adds new recipe and image to model                                     | Pass        | Done                  |                   |
+| I1/2            | - Tinder Controller      | Test if `changeRecipe` does not throw when there is no data                                   | Pass        | Done                  |                   |
+| I1/2            | - Tinder Controller      | Test if `initialize()` successfully initializes model with data                               | Pass        | Done                  |                   |
+| I1/2            | - Tinder Controller      | Test if `createView()` returns a TinderView with correct model and callback                   | Pass        | Done                  |                   |
+| I1/2            | - Tinder Controller      | Test if `initRecipes()` successfully fetches and adds recipes and images to model             | Pass        | Done                  |                   |
+| I1             | - Data Display           | Test if data is loaded and displayed correctly                                                | Pass        | Done                  |                   |
+| I2             | - Swipe Right Interaction| Test if swiping right triggers `onChangeRecipe` callback                                      | Pass        | Done                  |                   |
+| I1             | - Model Change UI Update | Test if UI updates correctly when model data changes                                          | Pass        | Done                  |                   |
+| I3             | - Loading Indicator      | Test if loading indicator is displayed when data is loading                                   | Pass        | Done                  |                   |
+| I2             | - No Button Interaction  | Test if clicking the no button triggers `onChangeRecipe` callback                             | Pass        | Done                  |                   |
+| I3             | - Data Display             | Test if TinderView shows loading indicator when there is no data                            | Pass        | Done                  |                   |
+| I2             | - Data Display             | Test if TinderView displays data when available                                             | Pass  | Done                        |                   |
 | I1/2            | - Recipe Addition            | Test if adding a recipe and retrieving it works correctly, adding and retrieving from queues | Pass        | Done                  | Validates queue operations for addition and retrieval                           |
 | I1/2            | - Recipe Removal             | Test if removing a recipe updates queues and data correctly                                  | Pass        | Done                  | Checks queue's `removeFirst` functionality                                      |
 | I1/2            | - Data Presence Check        | Test if `hasData` correctly identifies the presence of recipe data in queues                 | Pass        | Done                  | Ensures synchronization between description and image queues                    |

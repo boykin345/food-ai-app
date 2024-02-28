@@ -189,6 +189,7 @@ Serve: Let the pie cool for a few minutes before serving. This dish is perfect w
         description = description5;
       default:
         description = "Description not found";
+        break;
     }
 
     incrementCounter();
