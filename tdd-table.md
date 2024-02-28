@@ -22,4 +22,6 @@
 | II2             | - Swipe Right Interaction| Test if swiping right triggers `onChangeRecipe` callback                                      | Pass        | Done                  |                   |
 | II3             | - Model Change UI Update | Test if UI updates correctly when model data changes                                          | Pass        | Done                  |                   |
 | II4             | - Loading Indicator      | Test if loading indicator is displayed when data is loading                                   | Pass        | Done                  |                   |
-| II5             | - No Button Interaction  | Test if clicking the no button triggers `onChangeRecipe` callback                             | Pass  | Done                  |                   |
+| II5             | - No Button Interaction  | Test if clicking the no button triggers `onChangeRecipe` callback                             | Pass        | Done                  |                   |
+| II6             | - Data Display             | Test if TinderView shows loading indicator when there is no data                            | Pass        | Done                  |                   |
+| II7             | - Data Display             | Test if TinderView displays data when available                                             | Pass  | Done                        |                   |

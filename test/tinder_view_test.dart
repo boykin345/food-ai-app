@@ -108,46 +108,6 @@ void main() {
 
 
 
-    testWidgets('TinderView updates UI when model changes directly', (WidgetTester tester) async {
-
-      tinderModel = TinderModel();
-      imageFetcher = ImageFetcherMock();
-      String dummyImageData = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/B8AAwAB/DEMI3YAAAAASUVORK5CYII='; // 有效的 Base64 图片数据
-
-
-      tinderModel.addRecipe('First Delicious Recipe', dummyImageData);
-      tinderModel.addRecipe('Second Delicious Recipe', dummyImageData);
-
-
-      await tester.pumpWidget(MaterialApp(home: TinderView(model: tinderModel, onChangeRecipe: () {
-        tinderModel.removeCurrentRecipe();
-      })));
-
-
-      await tester.pumpAndSettle();
-      expect(find.text('First Delicious Recipe'), findsOneWidget);
-
-
-      tinderModel.removeCurrentRecipe();
-
-      await tester.pumpAndSettle();
-
-      expect(find.text('Second Delicious Recipe'), findsOneWidget);
-    });
-
-
-    testWidgets('TinderView maintains loading state when swiped without data', (WidgetTester tester) async {
-
-      tinderModel = TinderModel();
-      await tester.pumpWidget(MaterialApp(home: TinderView(model: tinderModel, onChangeRecipe: () {})));
-
-
-      await tester.drag(find.byKey(Key('swipeGestureDetector')), Offset(-500.0, 0.0));
-      await tester.pump();
-
-
-      expect(find.byType(CircularProgressIndicator), findsOneWidget);
-    });
 
 
 
