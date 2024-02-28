@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:food_ai_app/API/image_fetcher_mock.dart';
+import 'package:food_ai_app/LoadingScreen/custom_loading_circle.dart';
 import 'package:food_ai_app/TinderMVC/tinder_model.dart';
 import 'package:food_ai_app/TinderMVC/tinder_view.dart';
 import 'dart:io';
@@ -88,28 +89,22 @@ void main() {
       expect(callbackTriggered, true);
     });
 
-
-
-    testWidgets('TinderView shows loading indicator when there is no data', (WidgetTester tester) async {
+    testWidgets('TinderView shows loading indicator when there is no data',
+        (WidgetTester tester) async {
       tinderModel = TinderModel();
-      await tester.pumpWidget(MaterialApp(home: TinderView(model: tinderModel, onChangeRecipe: () {})));
+      await tester.pumpWidget(MaterialApp(
+          home: TinderView(model: tinderModel, onChangeRecipe: () {})));
       await tester.pump();
-      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+      expect(find.byType(CustomLoadingCircle), findsOneWidget);
     });
 
-
-    testWidgets('TinderView displays data when available', (WidgetTester tester) async {
-
-      await tester.pumpWidget(MaterialApp(home: TinderView(model: tinderModel, onChangeRecipe: () {})));
+    testWidgets('TinderView displays data when available',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(MaterialApp(
+          home: TinderView(model: tinderModel, onChangeRecipe: () {})));
       await tester.pump();
       expect(find.text('Delicious recipe'), findsOneWidget);
       expect(find.byType(Image), findsOneWidget);
     });
-
-
-
-
-
-
   });
 }
