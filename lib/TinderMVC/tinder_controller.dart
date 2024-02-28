@@ -4,6 +4,8 @@ import 'package:food_ai_app/TinderMVC/tinder_model.dart';
 import 'package:food_ai_app/TinderMVC/tinder_view.dart';
 import 'package:flutter/material.dart';
 
+import '../FullRecipeGeneration/recipe_overview.dart';
+
 /// Controls the interaction between the model and view in the recipe app.
 class TinderController {
   /// The model representing the state and data of the app.
@@ -21,6 +23,9 @@ class TinderController {
   /// Callback to update the view when the model changes.
   VoidCallback? onModelUpdated;
 
+  /// Object which handles operations for full recipe generation
+  RecipeOverview recipeOverview = RecipeOverview();
+
   /// Constructs a [TinderController] with dependencies for model, API, and image fetching.
   TinderController(this.model, this.gptApiClient, this.imageFetcherClient);
 
@@ -31,6 +36,9 @@ class TinderController {
 
   /// Triggers the view to refresh by calling [onModelUpdated].
   void refreshView() {
+    recipeOverview.dishName =
+        extractFirstLineFromString(model.getRecipeDescription());
+    recipeOverview.imageLink = model.getRecipeImage();
     onModelUpdated?.call();
   }
 
@@ -41,6 +49,7 @@ class TinderController {
       onChangeRecipe: () {
         changeRecipe(); // Wrap the async call with a function
       },
+      recipeOverview: recipeOverview, // Inject a RecipeOverview object
     );
   }
 

@@ -17,19 +17,32 @@ class RecipeOverview extends StatelessWidget {
   //store the entire recipe
   String recipe = "";
   //store the name of the dish
-  String dishName = "Paella";
+  String dishName = "";
   //store a link to an image of the dish
   String imageLink = "";
+
+  set image(String imageLink) {
+    this.imageLink = imageLink;
+  }
+
+  String get image {
+    return imageLink;
+  }
+
+  set name(String dishName) {
+    this.dishName = dishName;
+  }
+
+  String get name {
+    return dishName;
+  }
 
   //method to request recipe and image from api
   Future<void> getDish() async {
     //request recipe
     //recipe = await gptRecipeApi.getRecipe("Strawberry cheesecake", false);
-    //request image
-    //imageLink = await gptRecipeApi.getRecipe("Strawberry cheesecake", true);
 
     recipe = mockRecipeApi.recipeText;
-    imageLink = mockRecipeApi.imageLink;
   }
 
   @override
@@ -43,7 +56,7 @@ class RecipeOverview extends StatelessWidget {
           textTheme: Theme.of(context).textTheme.apply(
               bodyColor: Colors.white,
               displayColor: Colors.white,
-              fontFamily: 'Caviar Dreams')),
+              fontFamily: 'CaviarDreams')),
 
       //set title of page
       title: 'Recipe Overview',
@@ -74,14 +87,16 @@ class RecipeOverview extends StatelessWidget {
 
                 //display image of the dish
                 Container(
-                  width: 410,
-                  height: 336,
-                  //give the image rounded corners
-                  clipBehavior: Clip.antiAlias,
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(42)),
-                  child: Image.network(imageLink),
-                ),
+                    width: 410,
+                    height: 336,
+                    //give the image rounded corners
+                    clipBehavior: Clip.antiAlias,
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(42)),
+                    child: Image.memory(
+                      base64Decode(imageLink),
+                      fit: BoxFit.contain,
+                    )),
                 SizedBox(height: 20),
 
                 //display the generated recipe to the screen

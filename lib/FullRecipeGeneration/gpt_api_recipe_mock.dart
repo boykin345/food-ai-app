@@ -1,6 +1,5 @@
 class MockGPTRecipeApi {
   String recipeText = " ";
-  String imageLink = " ";
 
   MockGPTRecipeApi() {
     recipeText = """
@@ -38,7 +37,5 @@ class MockGPTRecipeApi {
   
   Remove the pan from the heat, put the lid on and leave to rest for 5 mins. Stir a few times to mix the ingredients, season to taste and scatter over the chopped parsley. Serve with lemon wedges and an extra drizzle of oil, if you like.
     """;
-    imageLink =
-        "https://images.immediate.co.uk/production/volatile/sites/30/2018/06/Oven-paella-5d16b06.jpg?resize=768,574";
   }
 }

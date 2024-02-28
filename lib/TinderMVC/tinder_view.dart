@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:food_ai_app/TinderMVC/tinder_model.dart';
 import 'package:food_ai_app/LoadingScreen/custom_loading_circle.dart';
 
+import '../FullRecipeGeneration/recipe_overview.dart';
+
 /// A widget that displays a Tinder-like swipe view for recipes.
 /// It shows a loading screen until the data is available and then displays the recipe content.
 class TinderView extends StatefulWidget {
@@ -12,8 +14,15 @@ class TinderView extends StatefulWidget {
   /// Callback function to invoke when the recipe should be changed.
   final VoidCallback onChangeRecipe;
 
+  /// Object which handles operations for full recipe generation
+  final RecipeOverview recipeOverview;
+
   /// Constructs a [TinderView] with required [model] and [onChangeRecipe] callback.
-  TinderView({super.key, required this.model, required this.onChangeRecipe});
+  TinderView(
+      {super.key,
+      required this.model,
+      required this.onChangeRecipe,
+      required this.recipeOverview});
 
   @override
   TinderViewState createState() => TinderViewState();
@@ -55,12 +64,12 @@ class TinderViewState extends State<TinderView> {
 
     if (direction == DismissDirection.endToStart) {
       // Swiped Left - No
-      print('Swiped left'); // 输出向左滑动的日志
       widget.onChangeRecipe();
     } else if (direction == DismissDirection.startToEnd) {
       // Swiped Right - Yes
-      print('Swiped right'); // 输出向右滑动的日志
-      // Need to implement what happens when swiped right
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => widget.recipeOverview),
+      );
     }
     // Refresh view
     setState(() {});
@@ -172,7 +181,11 @@ class TinderViewState extends State<TinderView> {
                           ElevatedButton(
                             key: ValueKey('yes-button'),
                             onPressed: () {
-                              // Handle Yes action
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        widget.recipeOverview),
+                              );
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.green,
