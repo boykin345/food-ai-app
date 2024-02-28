@@ -2,11 +2,17 @@ import 'dart:convert';
 import 'package:food_ai_app/API/chatgpt_recipe_interface.dart';
 import 'package:http/http.dart' as http;
 
+/// A concrete implementation of [ChatGPTRecipeInterface] that fetches recipe descriptions
+/// from the OpenAI API using the GPT model.
 class ChatGPTRecipe extends ChatGPTRecipeInterface {
+  /// The API key used for authenticating requests to the OpenAI API.
   final String apiKey;
 
+  /// Constructs a [ChatGPTRecipe] instance with the given [apiKey].
   ChatGPTRecipe(this.apiKey);
 
+  /// Sends a chat message to the OpenAI API and returns the API's response.
+  /// Throws an exception if the request fails or the response is not 200 OK.
   Future<String> getChatResponse(String message) async {
     final url = Uri.parse('https://api.openai.com/v1/chat/completions');
 
@@ -33,6 +39,12 @@ class ChatGPTRecipe extends ChatGPTRecipeInterface {
     }
   }
 
+  /// Fetches a concise recipe description formatted according to specific criteria.
+  ///
+  /// This method formats the request to include detailed specifications for the recipe's
+  /// description format, then parses the JSON response to extract the recipe text.
+  ///
+  /// Throws an exception if the response format is invalid or in case of an error.
   @override
   Future<String> fetchRecipe() async {
     try {

@@ -1,15 +1,13 @@
-import 'dart:io';
-
 import 'package:food_ai_app/API/chatgpt_recipe_interface.dart';
-import 'package:mockito/mockito.dart';
-import 'dart:typed_data';
-import 'package:flutter/services.dart';
-import 'dart:convert';
 
+/// A mock implementation of [ChatGPTRecipeInterface] for testing purposes.
+/// Provides pre-defined recipe descriptions without making actual API calls.
 class ChatGPTRecipeMock extends ChatGPTRecipeInterface {
+  /// Counter to cycle through mock recipe descriptions.
   int count = 0;
 
-  final String DESCRIPTION_0 = '''
+  /// Mock recipe descriptions.
+  final String description0 = '''
 Fish and Chips
 
 Ingredients:
@@ -31,7 +29,7 @@ Fry the potatoes in batches until golden and crispy. Drain on paper towels.
 Fry the battered fish until golden brown and crispy, about 4-5 minutes. Drain on paper towels.
 Serve fish with chips and your choice of dipping sauce.''';
 
-  final String DESCRIPTION_1 = '''
+  final String description1 = '''
 Shepherd's Pie
 
 Ingredients:
@@ -56,7 +54,7 @@ Spread the meat mixture in a baking dish. Top with mashed potatoes.
 Bake for 20-25 minutes, or until the top is golden brown.
 ''';
 
-  final String DESCRIPTION_2 = '''
+  final String description2 = '''
 Beef Wellington
 
 Ingredients:
@@ -78,7 +76,7 @@ Wrap pastry around beef, sealing edges. Brush with beaten egg.
 Bake for 25-30 minutes, or until pastry is golden. Let rest before slicing.
 ''';
 
-  final String DESCRIPTION_3 = '''
+  final String description3 = '''
 Full English Breakfast
 
 Ingredients:
@@ -100,7 +98,7 @@ Heat baked beans in a pot.
 Serve everything hot with toasted bread.
 ''';
 
-  final String DESCRIPTION_4 = '''
+  final String description4 = '''
 Sticky Toffee Pudding 
 
 Ingredients:
@@ -129,7 +127,7 @@ For the sauce, combine all ingredients in a pan. Bring to a boil, stirring, unti
 Pour sauce over warm pudding before serving.
 ''';
 
-  final String DESCRIPTION_5 = '''
+  final String description5 = '''
 Meat and Vegetable Pie
 
 Ingredients:
@@ -156,10 +154,14 @@ Bake: Place the pie in the preheated oven and bake for about 25-30 minutes, or u
 Serve: Let the pie cool for a few minutes before serving. This dish is perfect with a side of mashed potatoes or a simple green salad.
 ''';
 
+  /// The API key for demonstration purposes; not used in the mock.
   final String apiKey;
 
+  /// Constructs a [ChatGPTRecipeMock] instance with an optional [apiKey].
   ChatGPTRecipeMock(this.apiKey);
 
+  /// Increments the counter to cycle through the mock descriptions.
+  /// Resets to 0 if it exceeds the number of available descriptions.
   void incrementCounter() {
     if (count >= 6) {
       count = -1;
@@ -167,28 +169,24 @@ Serve: Let the pie cool for a few minutes before serving. This dish is perfect w
     count++;
   }
 
+  /// Returns a mock recipe description based on the current value of [count].
+  /// Simulates a delay to mimic asynchronous network request behavior.
   @override
   Future<String> fetchRecipe() async {
     String description;
     switch (count) {
       case 0:
-        description = DESCRIPTION_0;
-        break;
+        description = description0;
       case 1:
-        description = DESCRIPTION_1;
-        break;
+        description = description1;
       case 2:
-        description = DESCRIPTION_2;
-        break;
+        description = description2;
       case 3:
-        description = DESCRIPTION_3;
-        break;
+        description = description3;
       case 4:
-        description = DESCRIPTION_4;
-        break;
+        description = description4;
       case 5:
-        description = DESCRIPTION_5;
-        break;
+        description = description5;
       default:
         description = "Description not found";
         break;

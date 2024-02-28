@@ -2,7 +2,15 @@ import 'package:food_ai_app/API/image_fetcher_interface.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+/// A concrete implementation of [ImageFetcherInterface] that fetches images
+/// from a specified API based on a text query.
 class ImageFetcher extends ImageFetcherInterface {
+  /// Fetches an image URL from an external API based on the provided [query].
+  ///
+  /// Returns a [Future<String>] that resolves to the URL of the fetched image.
+  /// If the request is successful and the image data is found in the response, the image URL is returned.
+  ///
+  /// Throws an [Exception] if the request fails or if the image data is not found in the API response.
   @override
   Future<String> fetchImage(String query) async {
     final url = Uri.parse('https://api.edenai.run/v2/image/generation');

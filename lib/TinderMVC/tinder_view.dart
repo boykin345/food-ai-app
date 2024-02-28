@@ -1,36 +1,45 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:food_ai_app/TinderMVC/tinder_model.dart';
+import 'package:food_ai_app/LoadingScreen/custom_loading_circle.dart';
 
+/// A widget that displays a Tinder-like swipe view for recipes.
+/// It shows a loading screen until the data is available and then displays the recipe content.
 class TinderView extends StatefulWidget {
+  /// The model containing recipe data.
   final TinderModel model;
+
+  /// Callback function to invoke when the recipe should be changed.
   final VoidCallback onChangeRecipe;
 
+  /// Constructs a [TinderView] with required [model] and [onChangeRecipe] callback.
   TinderView({super.key, required this.model, required this.onChangeRecipe});
 
   @override
-  _TinderViewState createState() => _TinderViewState();
+  TinderViewState createState() => TinderViewState();
 }
 
-class _TinderViewState extends State<TinderView> {
+class TinderViewState extends State<TinderView> {
+  /// Tracks if the view is currently loading data.
   bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    // Add model listener
+
+    /// Adds a listener to the model for data changes and updates the loading state accordingly.
     widget.model.addListener(_onModelChange);
   }
 
   @override
   void dispose() {
-    // Remove model listener
+    /// Removes the model listener on widget disposal to prevent memory leaks.
     widget.model.removeListener(_onModelChange);
     super.dispose();
   }
 
+  /// Updates the loading state based on the model's data availability.
   void _onModelChange() {
-    // Check if the loading screen is being displayed and if data is now available
     if (_isLoading && widget.model.hasData()) {
       if (mounted) {
         setState(() {
@@ -40,6 +49,7 @@ class _TinderViewState extends State<TinderView> {
     }
   }
 
+  /// Handles swipe actions to change the recipe based on the swipe direction.
   void _onSwipe(DismissDirection direction) {
     print('Swipe detected: $direction'); // 这行代码用于输出滑动方向
 
@@ -58,7 +68,8 @@ class _TinderViewState extends State<TinderView> {
 
   @override
   Widget build(BuildContext context) {
-    // Check if model has data
+    /// Builds the view based on the current loading state and model's data.
+
     _isLoading = !widget.model.hasData();
 
     return Scaffold(
@@ -67,14 +78,14 @@ class _TinderViewState extends State<TinderView> {
     );
   }
 
+  /// Builds and returns the loading screen widget.
   Widget buildLoadingScreen() {
     return Center(
-      child: CircularProgressIndicator(
-        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-      ),
+      child: CustomLoadingCircle(),
     );
   }
 
+  /// Builds and returns the main content of the TinderView, including the recipe image and description.
   Widget buildContent(BuildContext context) {
     final ThemeData theme = Theme.of(context).copyWith(
       textTheme: Theme.of(context).textTheme.apply(
@@ -147,6 +158,7 @@ class _TinderViewState extends State<TinderView> {
                         children: [
                           // No Button
                           ElevatedButton(
+                            key: ValueKey('no-button'),
                             onPressed: widget.onChangeRecipe,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.red,
@@ -158,6 +170,7 @@ class _TinderViewState extends State<TinderView> {
                           ),
                           // Yes Button
                           ElevatedButton(
+                            key: ValueKey('yes-button'),
                             onPressed: () {
                               // Handle Yes action
                             },

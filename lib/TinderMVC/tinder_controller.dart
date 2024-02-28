@@ -2,31 +2,39 @@ import 'package:food_ai_app/API/chatgpt_recipe_interface.dart';
 import 'package:food_ai_app/API/image_fetcher_interface.dart';
 import 'package:food_ai_app/TinderMVC/tinder_model.dart';
 import 'package:food_ai_app/TinderMVC/tinder_view.dart';
-import 'package:food_ai_app/API/chatgpt_recipe_mock.dart';
 import 'package:flutter/material.dart';
 
+/// Controls the interaction between the model and view in the recipe app.
 class TinderController {
+  /// The model representing the state and data of the app.
   TinderModel model;
+
+  /// Client to interact with a recipe-fetching API.
   ChatGPTRecipeInterface gptApiClient;
+
+  /// Client to fetch images based on recipe descriptions.
   ImageFetcherInterface imageFetcherClient;
 
-  final int THREAD_COUNT = 3;
+  /// Number of recipes to fetch in parallel.
+  final int threadCount = 3;
 
+  /// Callback to update the view when the model changes.
   VoidCallback? onModelUpdated;
 
-  // Constructor
+  /// Constructs a [TinderController] with dependencies for model, API, and image fetching.
   TinderController(this.model, this.gptApiClient, this.imageFetcherClient);
 
-  // Moved initialization out of constructor to use async feature
+  /// Initializes the model by fetching initial set of recipes.
   Future<void> initialize() async {
     await initRecipes();
   }
 
+  /// Triggers the view to refresh by calling [onModelUpdated].
   void refreshView() {
     onModelUpdated?.call();
   }
 
-  // Method to be called to create a new TinderView
+  /// Creates and returns a new [TinderView] configured with callbacks for changing recipes.
   TinderView createView() {
     return TinderView(
       model: model,
@@ -36,6 +44,7 @@ class TinderController {
     );
   }
 
+  /// Extracts and returns the first line from a given string [text].
   String extractFirstLineFromString(String text) {
     final List<String> lines = text.split('\n');
     if (lines.isNotEmpty) {
@@ -45,24 +54,25 @@ class TinderController {
     }
   }
 
+  /// Initializes the app's recipes by fetching descriptions and images asynchronously.
   Future<void> initRecipes() async {
     // Step 1: Fetch all recipes concurrently
 
-    List<Future<String>> recipeFutures = List.generate(
-      THREAD_COUNT,
+    final List<Future<String>> recipeFutures = List.generate(
+      threadCount,
       (_) => gptApiClient.fetchRecipe(),
     );
 
-    List<String> descriptions = await Future.wait(recipeFutures);
+    final List<String> descriptions = await Future.wait(recipeFutures);
 
     // Step 2: Extract information for image fetch
-    List<Future<String>> imageFutures = descriptions.map((description) {
-      String firstLine = extractFirstLineFromString(description);
+    final List<Future<String>> imageFutures = descriptions.map((description) {
+      final String firstLine = extractFirstLineFromString(description);
       return imageFetcherClient.fetchImage(firstLine);
     }).toList();
 
     // Step 3: Fetch all images concurrently
-    List<String> images = await Future.wait(imageFutures);
+    final List<String> images = await Future.wait(imageFutures);
 
     // Step 4: Combine recipes and images
     for (int i = 0; i < descriptions.length; i++) {
@@ -71,7 +81,7 @@ class TinderController {
     refreshView();
   }
 
-  // Add async to method
+  /// Fetches a new recipe and its corresponding image, then updates the model.
   Future<void> fetchRecipes() async {
     final String description = await gptApiClient.fetchRecipe();
     final String image = await imageFetcherClient
@@ -79,7 +89,7 @@ class TinderController {
     model.addRecipe(description, image);
   }
 
-  // Add async to method
+  /// Changes the current recipe to a new one by removing the current and fetching a new recipe.
   Future<void> changeRecipe() async {
     model.removeCurrentRecipe();
     fetchRecipes();
