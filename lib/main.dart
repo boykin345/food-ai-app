@@ -1,154 +1,275 @@
-import 'dart:async';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:camera/camera.dart';
+import 'package:food_ai_app/take_photo.dart';
+import 'package:image_picker/image_picker.dart';
 
-Future<void> main() async {
-  // Ensure that plugin services are initialized so that `availableCameras()`
-  // can be called before `runApp()`
-  WidgetsFlutterBinding.ensureInitialized();
 
-  // Obtain a list of the available cameras on the device.
-  final cameras = await availableCameras();
+void main() {
+  runApp(MyApp());
+}
 
-  // Get a specific camera from the list of available cameras.
-  final firstCamera = cameras.first;
-
-  runApp(
-    MaterialApp(
-      title: "Team 31's Food AI Project",
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "Food App",
       theme: ThemeData(
-          //Default brightness and colours
-      colorScheme: ColorScheme.dark().copyWith(
-          background: Color(0xFF2D3444),
-          onBackground: Color(0xFFFAF0F0),
-      ),
+        colorScheme: ColorScheme.dark().copyWith(
+          background: Color(0xFF2D3444), //navy blue
+          onBackground: Color(0xFFFAF0F0), //white
+        ),
         appBarTheme: AppBarTheme(
           backgroundColor: Color(0xFF2D3444),
-        )
+        ),
       ),
-      home: TakePictureScreen(
-        // Pass the appropriate camera to the TakePictureScreen widget.
-        camera: firstCamera,
-      ),
-    ),
-  );
-}
-
-// A screen that allows users to take a picture using a given camera.
-class TakePictureScreen extends StatefulWidget {
-  const TakePictureScreen({
-    super.key,
-    required this.camera,
-  });
-
-  final CameraDescription camera;
-
-  @override
-  TakePictureScreenState createState() => TakePictureScreenState();
-}
-
-class TakePictureScreenState extends State<TakePictureScreen> {
-  late CameraController _controller;
-  late Future<void> _initializeControllerFuture;
-
-  @override
-  void initState() {
-    super.initState();
-    // To display the current output from the Camera,
-    // create a CameraController.
-    _controller = CameraController(
-      // Get a specific camera from the list of available cameras.
-      widget.camera,
-      // Define the resolution to use.
-      ResolutionPreset.medium,
+      home: HomeScreen(),
     );
-
-    // Next, initialize the controller. This returns a Future.
-    _initializeControllerFuture = _controller.initialize();
   }
+}
 
-  @override
-  void dispose() {
-    // Dispose of the controller when the widget is disposed.
-    _controller.dispose();
-    super.dispose();
-  }
-
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Take a photo')),
-      // You must wait until the controller is initialized before displaying the
-      // camera preview. Use a FutureBuilder to display a loading spinner until the
-      // controller has finished initializing.
-      body: FutureBuilder<void>(
-        future: _initializeControllerFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            // If the Future is complete, display the preview.
-            return CameraPreview(_controller);
-          } else {
-            // Otherwise, display a loading indicator.
-            return const Center(child: CircularProgressIndicator());
-          }
-        },
+      appBar: AppBar(
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Your",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            Text(
+              "Favourites",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.account_circle),
+            iconSize: 50,
+            onPressed: () {
+              // Add functionality to navigate to user profile page
+            },
+          ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        // Provide an onPressed callback.
-        onPressed: () async {
-          // Take the Picture in a try / catch block. If anything goes wrong,
-          // catch the error.
-          try {
-            // Ensure that the camera is initialized.
-            await _initializeControllerFuture;
-
-            // Attempt to take a picture and get the file `image`
-            // where it was saved.
-            final image = await _controller.takePicture();
-
-            if (!mounted) return;
-
-            // If the picture was taken, display it on a new screen.
-            await Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => DisplayPictureScreen(
-                  // Pass the automatically generated path to
-                  // the DisplayPictureScreen widget.
-                  imagePath: image.path,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  vertical: 20.0, horizontal: 16.0),
+              child: Text(
+                "Mains",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
+            ),
+            Container(
+              height: 270, //Adjusts the space for the Mains Section
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  _buildRecipeItem(
+                    imageUrl: "https://via.placeholder.com/150",
+                    name: "Chicken Curry",
+                    calories: "400 kcal",
+                    prepTime: "30 min",
+                  ),
+                  _buildRecipeItem(
+                    imageUrl: "https://via.placeholder.com/150",
+                    name: "Spaghetti Bolognese",
+                    calories: "500 kcal",
+                    prepTime: "45 min",
+                  ),
+                  _buildRecipeItem(
+                    imageUrl: "https://via.placeholder.com/150",
+                    name: "Vegetable Stir Fry",
+                    calories: "300 kcal",
+                    prepTime: "25 min",
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  vertical: 20.0, horizontal: 16.0),
+              child: Text(
+                "Desserts",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Container(
+              height: 270, //Adjusts the space allocated for the Desserts Section
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  _buildRecipeItem(
+                    imageUrl: "https://via.placeholder.com/150",
+                    name: "Chocolate Cake",
+                    calories: "350 kcal",
+                    prepTime: "40 min",
+                  ),
+                  _buildRecipeItem(
+                    imageUrl: "https://via.placeholder.com/150",
+                    name: "Apple Pie",
+                    calories: "250 kcal",
+                    prepTime: "35 min",
+                  ),
+                  _buildRecipeItem(
+                    imageUrl: "https://via.placeholder.com/150",
+                    name: "Strawberry Cheesecake",
+                    calories: "450 kcal",
+                    prepTime: "50 min",
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: Container(
+          width: double.infinity, //will fit to the size of the screen
+          margin: EdgeInsets.symmetric(horizontal: 24.0), //margin for the button
+          child: FloatingActionButton.extended(
+            onPressed: () {
+            showModalBottomSheet(
+              context: context,
+              builder: (BuildContext context) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    ListTile(
+                      leading: Icon(Icons.camera_alt),
+                      title: Text('Take Photo'),
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.push(
+                        context,
+                        initialiseTakePictureScreen(context) as Route<Object?>,
+                        );
+                      },
+                    ),
+                    ListTile(
+                      leading: Icon(Icons.photo),
+                      title: Text('Select From Gallery'),
+                      onTap: () async{
+                        Navigator.pop(context);
+                        final picker = ImagePicker();
+                        final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+                        if (pickedImage != null) {
+                          XFile imageFile = pickedImage;
+                        }
+                      },
+                    ),
+                  ],
+                );
+              },
             );
-          } catch (e) {
-            // If an error occurs, log the error to the console.
-            print(e);
-          }
-        },
-    child: Theme(
-      data: ThemeData(
-        iconTheme: IconThemeData(color: Color(0xFF2D3444)), // Foreground icon color
-      ),
-      child: const Icon(Icons.camera_alt),
-      ),
-      backgroundColor: Color(0xFFFAF0F0),
-      )
+          },
+          label: Text("Scan Your Fridge",
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Color(0xFF2D3444)
+              )
+            ),
+              backgroundColor: Color(0xFFFAF0F0)
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
-}
 
-// A widget that displays the picture taken by the user.
-class DisplayPictureScreen extends StatelessWidget {
-  final String imagePath;
-
-  const DisplayPictureScreen({super.key, required this.imagePath});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Display the Photo')),
-      // The image is stored as a file on the device. Use the `Image.file`
-      // constructor with the given path to display the image.
-      body: Image.file(File(imagePath)),
+  Widget _buildRecipeItem({
+    required String imageUrl,
+    required String name,
+    required String calories,
+    required String prepTime,
+  }) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 15.0),
+      width: 220, //for space in between each box
+      height: 270,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(30.0), //roundness of rectangle
+            child: Stack(
+              children: [
+                Image.network(
+                  imageUrl,
+                  width: 220, //size of each box
+                  height: 270,
+                  fit: BoxFit.cover, // Use BoxFit.cover to maintain aspect ratio
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black54,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(12.0),
+                        bottomRight: Radius.circular(12.0),
+                      ),
+                    ),
+                    padding: EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          name,
+                          maxLines: 1, //forces recipe name to one line
+                          overflow: TextOverflow.ellipsis, //truncates w/ ...
+                          style: TextStyle(
+                            color: Color(0xFFFAF0F0),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.0,
+                          ),
+                        ),
+                        SizedBox(height: 2.0),
+                        Text(
+                          "Calories: $calories",
+                          style: TextStyle(
+                            color: Color(0xFFFAF0F0),
+                            fontSize: 16.0,
+                          ),
+                        ),
+                        SizedBox(height: 2.0),
+                        Text(
+                          "Prep Time: $prepTime",
+                          style: TextStyle(
+                            color: Color(0xFFFAF0F0),
+                            fontSize: 16.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
