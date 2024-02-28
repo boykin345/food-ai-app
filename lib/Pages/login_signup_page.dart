@@ -1,10 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:food_ai_app/Util/colours.dart';
 import 'package:food_ai_app/Util/data_util.dart';
-
 import 'package:food_ai_app/Pages/forgot_password_page.dart';
+import 'package:food_ai_app/Pages/home_page.dart';
 
 /// Initialises the state for the login & sign up page.
 ///
@@ -636,6 +635,11 @@ class LoginSignupPageState extends State<LoginSignupPage> {
                     "There is no user record corresponding to this combination of email and password, please double check the information entered!"));
           });
     }
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => HomePage()),
+    );
   }
 
   Future<void> signUp() async {
@@ -704,5 +708,10 @@ class LoginSignupPageState extends State<LoginSignupPage> {
         emailController.text.trim(), passwordController.text.trim());
     DataUtil.addUser(
         user!.uid, usernameController.text.trim(), emailController.text.trim());
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => HomePage()),
+    );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:food_ai_app/Pages/login_page.dart';
-import 'package:food_ai_app/Pages/signup_page.dart';
+import 'package:food_ai_app/Pages/login_signup_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // Initialises the state for the index page.
@@ -61,7 +60,7 @@ class _IndexPageState extends State<IndexPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => LoginPage()),
+                                  builder: (context) => LoginSignupPage(screenType: false)),
                               //builder: (context) => LoginSignupScreen(screenType: false)),
                             );
                           },
@@ -89,7 +88,7 @@ class _IndexPageState extends State<IndexPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SignUpPage()),
+                                  builder: (context) => LoginSignupPage(screenType: true)),
                             );
                           },
                           style: ElevatedButton.styleFrom(
