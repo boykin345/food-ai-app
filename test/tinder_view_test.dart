@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:food_ai_app/API/image_fetcher_mock.dart';
+import 'package:food_ai_app/FullRecipeGeneration/recipe_overview.dart';
 import 'package:food_ai_app/LoadingScreen/custom_loading_circle.dart';
 import 'package:food_ai_app/TinderMVC/tinder_model.dart';
 import 'package:food_ai_app/TinderMVC/tinder_view.dart';
@@ -24,7 +25,10 @@ void main() {
     testWidgets('Displays content when data is loaded',
         (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
-          home: TinderView(model: tinderModel, onChangeRecipe: () {})));
+          home: TinderView(
+              model: tinderModel,
+              onChangeRecipe: () {},
+              recipeOverview: RecipeOverview())));
 
       await tester.pumpAndSettle();
 
@@ -40,7 +44,8 @@ void main() {
               onChangeRecipe: () {
                 print('onChangeRecipe callback triggered.');
                 callbackTriggered = true;
-              })));
+              },
+              recipeOverview: RecipeOverview())));
 
       await tester.timedDrag(find.byKey(Key('swipeGestureDetector')),
           Offset(-300.0, 0.0), Duration(milliseconds: 200));
@@ -52,7 +57,10 @@ void main() {
     testWidgets('_onModelChange updates UI when model changes',
         (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
-          home: TinderView(model: tinderModel, onChangeRecipe: () {})));
+          home: TinderView(
+              model: tinderModel,
+              onChangeRecipe: () {},
+              recipeOverview: RecipeOverview())));
 
       tinderModel.notifyListeners();
 
@@ -75,11 +83,11 @@ void main() {
 
       await tester.pumpWidget(MaterialApp(
           home: TinderView(
-        model: tinderModel,
-        onChangeRecipe: () {
-          callbackTriggered = true;
-        },
-      )));
+              model: tinderModel,
+              onChangeRecipe: () {
+                callbackTriggered = true;
+              },
+              recipeOverview: RecipeOverview())));
 
       await tester.pumpAndSettle();
 
@@ -93,7 +101,10 @@ void main() {
         (WidgetTester tester) async {
       tinderModel = TinderModel();
       await tester.pumpWidget(MaterialApp(
-          home: TinderView(model: tinderModel, onChangeRecipe: () {})));
+          home: TinderView(
+              model: tinderModel,
+              onChangeRecipe: () {},
+              recipeOverview: RecipeOverview())));
       await tester.pump();
       expect(find.byType(CustomLoadingCircle), findsOneWidget);
     });
@@ -101,7 +112,10 @@ void main() {
     testWidgets('TinderView displays data when available',
         (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
-          home: TinderView(model: tinderModel, onChangeRecipe: () {})));
+          home: TinderView(
+              model: tinderModel,
+              onChangeRecipe: () {},
+              recipeOverview: RecipeOverview())));
       await tester.pump();
       expect(find.text('Delicious recipe'), findsOneWidget);
       expect(find.byType(Image), findsOneWidget);
