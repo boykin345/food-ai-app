@@ -1,6 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+final TextEditingController proteinController = TextEditingController();
+final TextEditingController carbsController = TextEditingController();
+final TextEditingController fatController = TextEditingController();
+final TextEditingController fibreController = TextEditingController();
+final TextEditingController calorieController = TextEditingController();
+
 class HealthGoalScreen extends StatefulWidget {
   @override
   GoalScreenState createState() => GoalScreenState();
@@ -52,9 +58,27 @@ class GoalScreenState extends State<HealthGoalScreen> {
             checkedHealthGoals[preference] = false;
           });
         }
+
+        // Load nutrient values into TextControllers
+        if (userData.containsKey('Protein')) {
+          proteinController.text = userData['Protein'].toString();
+        }
+        if (userData.containsKey('Carbs')) {
+          carbsController.text = userData['Carbs'].toString();
+        }
+        if (userData.containsKey('Fats')) {
+          fatController.text = userData['Fats'].toString();
+        }
+        if (userData.containsKey('Fibre')) {
+          fibreController.text = userData['Fibre'].toString();
+        }
+        if (userData.containsKey('Calories')) {
+          calorieController.text = userData['Calories'].toString();
+        }
       } else {
         healthGoals = [];
         checkedHealthGoals = {};
+
       }
     });
   }
@@ -85,6 +109,7 @@ class GoalScreenState extends State<HealthGoalScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(backgroundColor: Color(0xFF272E3B),
       appBar: AppBar(
         backgroundColor: Color(0xFF272E3B),
@@ -116,8 +141,8 @@ class GoalScreenState extends State<HealthGoalScreen> {
                 border: InputBorder.none,
               ),
             ),
-            SizedBox(height: 45), // Adds some space between elements
-            Text('Macros', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18)),
+            SizedBox(height: 35), // Adds some space between elements
+            Text('Nutrients', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18)),
             Row(
               children: <Widget>[
                 Expanded(
@@ -127,6 +152,7 @@ class GoalScreenState extends State<HealthGoalScreen> {
                 Expanded(
                   flex: 2, // Takes 2/3 of the row space
                   child: TextField(
+                    controller: proteinController,
                     keyboardType: TextInputType.number, // Ensures only numbers can be entered
                     style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18)
                   ),
@@ -138,6 +164,7 @@ class GoalScreenState extends State<HealthGoalScreen> {
                 Expanded(
                   flex: 2, // Takes 2/3 of the row space
                   child: TextField(
+                    controller: fatController,
                     keyboardType: TextInputType.number, // Ensures only numbers can be entered
                     style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
                   ),
@@ -153,6 +180,7 @@ class GoalScreenState extends State<HealthGoalScreen> {
                 Expanded(
                   flex: 2, // Takes 2/3 of the row space
                   child: TextField(
+                    controller: carbsController,
                     keyboardType: TextInputType.number, // Ensures only numbers can be entered
                     style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18)
                   ),
@@ -164,6 +192,7 @@ class GoalScreenState extends State<HealthGoalScreen> {
                 Expanded(
                   flex: 2, // Takes 2/3 of the row space
                   child: TextField(
+                    controller: fibreController,
                     keyboardType: TextInputType.number, // Ensures only numbers can be entered
                     style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
                   ),
@@ -175,11 +204,12 @@ class GoalScreenState extends State<HealthGoalScreen> {
               children: <Widget>[
                 Expanded(
                   flex: 1, // Takes 1/3 of the row space
-                  child: Text('Calories (kcal)', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                  child: Text('Calories (cal)', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                 ),
                 Expanded(
                   flex: 2, // Takes 2/3 of the row space
                   child: TextField(
+                    controller: calorieController,
                     keyboardType: TextInputType.number, // Ensures only numbers can be entered
                     style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18)
                   ),
@@ -187,7 +217,7 @@ class GoalScreenState extends State<HealthGoalScreen> {
               ],
             ),
 
-            SizedBox(height: 55), // Adds some space between elements
+            SizedBox(height: 45), // Adds some space between elements
             Text('Health Goals', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18)),
             Expanded(
               child: ListView.builder(
@@ -223,7 +253,21 @@ class GoalScreenState extends State<HealthGoalScreen> {
             ),
             ElevatedButton(
               onPressed: () {
-                // Implement save functionality if needed
+                // Read values from the controllers
+                final String protein = proteinController.text;
+                final String carbs = carbsController.text;
+                final String fats = fatController.text;
+                final String fibre = fibreController.text;
+                final String calorie = calorieController.text;
+
+
+                firestore.collection('users').doc('TestUser').collection('Personalisation').doc('Personalisation').update({
+                'Protein': protein,
+                'Carbs': carbs,
+                'Fats': fats,
+                'Fibre': fibre,
+                'Calories': calorie,
+                });
                 
               },
               child: Text(style: TextStyle(color: Color(0xFF272E3B), fontWeight: FontWeight.bold), 'Save'),
