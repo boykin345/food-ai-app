@@ -18,11 +18,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme: Theme.of(context).textTheme.apply(
               fontFamily: 'Caviar Dreams',
+              bodyColor: Colors.white,
             ),
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blue)
+            .copyWith(background: Colors.blue[900]),
       ),
       home: Scaffold(
         body: StreamBuilder<User?>(
