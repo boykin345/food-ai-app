@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'package:food_ai_app/Allergies.dart';
-import 'package:food_ai_app/HealthGoals.dart';
-import 'package:food_ai_app/Preferences.dart';
-import 'package:food_ai_app/Settings.dart';
+import 'package:food_ai_app/SettingsPage/Allergies.dart';
+import 'package:food_ai_app/SettingsPage/HealthGoals.dart';
+import 'package:food_ai_app/SettingsPage/Preferences.dart';
+import 'package:food_ai_app/SettingsPage/Settings.dart';
 import 'package:food_ai_app/TinderMVC/tinder_page.dart';
 
 class HomePage extends StatefulWidget {
