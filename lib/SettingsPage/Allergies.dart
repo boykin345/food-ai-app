@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AllergiesScreen extends StatefulWidget {
@@ -11,6 +12,7 @@ class _AllergiesScreenState extends State<AllergiesScreen> {
   final TextEditingController allergyController = TextEditingController();
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
@@ -20,7 +22,7 @@ class _AllergiesScreenState extends State<AllergiesScreen> {
 
   void fetchAllergies() async {
     DocumentSnapshot userSnapshot =
-        await firestore.collection('users').doc('TestUser').get();
+        await firestore.collection('users').doc(user?.uid).get();
     setState(() {
       var userData = userSnapshot.data()
           as Map<String, dynamic>?; // Cast to Map<String, dynamic> or null
@@ -38,7 +40,7 @@ class _AllergiesScreenState extends State<AllergiesScreen> {
         allergies.add(allergyController.text);
       });
       // Add allergy to Firestore
-      firestore.collection('users').doc('TestUser').update({
+      firestore.collection('users').doc(user?.uid).update({
         'allergies': FieldValue.arrayUnion([allergyController.text])
       });
       allergyController.clear();
@@ -50,7 +52,7 @@ class _AllergiesScreenState extends State<AllergiesScreen> {
       allergies.remove(allergy);
     });
     // Remove allergy from Firestore
-    firestore.collection('users').doc('TestUser').update({
+    firestore.collection('users').doc(user?.uid).update({
       'allergies': FieldValue.arrayRemove([allergy])
     });
   }
