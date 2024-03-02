@@ -96,6 +96,7 @@ class TinderController {
     final String image = await imageFetcherClient
         .fetchImage(extractFirstLineFromString(description));
     model.addRecipe(description, image);
+    refreshView();
   }
 
   /// Changes the current recipe to a new one by removing the current and fetching a new recipe.
