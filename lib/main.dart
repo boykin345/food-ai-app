@@ -23,7 +23,17 @@ class MyApp extends StatelessWidget {
               fontFamily: 'Caviar Dreams',
             ),
       ),
-      home: HomePage(),
+      home: Scaffold(
+        body: StreamBuilder<User?>(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return HomePage();
+              } else {
+                return IndexPage();
+              }
+            }),
+      ),
     );
   }
 }
