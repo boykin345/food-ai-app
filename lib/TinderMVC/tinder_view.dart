@@ -180,8 +180,8 @@ class TinderViewState extends State<TinderView> {
                           // Yes Button
                           ElevatedButton(
                             key: ValueKey('yes-button'),
-                            onPressed: () {
-                              widget.recipeOverview.getDish();
+                            onPressed: () async {
+                              await widget.recipeOverview.getDish();
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                     builder: (context) =>

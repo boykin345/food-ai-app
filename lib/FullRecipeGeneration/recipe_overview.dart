@@ -5,15 +5,10 @@ import 'package:http/http.dart' as http;
 import 'package:food_ai_app/FullRecipeGeneration/gpt_api_recipe.dart';
 import 'package:food_ai_app/FullRecipeGeneration/gpt_api_recipe_mock.dart';
 
-class RecipeOverview extends StatefulWidget {
+class RecipeOverview extends StatelessWidget {
   late String dishName;
   late String imageLink;
 
-  @override
-  RecipeOverviewState createState() => RecipeOverviewState();
-}
-
-class RecipeOverviewState extends State<RecipeOverview> {
   //create background colour
   Color back = const Color.fromARGB(255, 45, 52, 68);
 
@@ -25,26 +20,25 @@ class RecipeOverviewState extends State<RecipeOverview> {
   String recipe = "";
 
   set image(String imageLink) {
-    widget.imageLink = imageLink;
+    this.imageLink = imageLink;
   }
 
   String get image {
-    return widget.imageLink;
+    return imageLink;
   }
 
   set name(String dishName) {
-    widget.dishName = dishName;
+    this.dishName = dishName;
   }
 
   String get name {
-    return widget.dishName;
+    return dishName;
   }
 
   //method to request recipe and image from api
   Future<void> getDish() async {
     //request recipe
-    recipe = await gptRecipeApi.getRecipe(widget.dishName, false);
-    setState(() {});
+    recipe = await gptRecipeApi.getRecipe(dishName, false);
     //recipe = mockRecipeApi.recipeText;
   }
 
@@ -94,7 +88,7 @@ class RecipeOverviewState extends State<RecipeOverview> {
                     decoration:
                         BoxDecoration(borderRadius: BorderRadius.circular(42)),
                     child: Image.memory(
-                      base64Decode(widget.imageLink),
+                      base64Decode(imageLink),
                       fit: BoxFit.contain,
                     )),
                 SizedBox(height: 20),
