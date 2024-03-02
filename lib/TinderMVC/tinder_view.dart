@@ -30,7 +30,8 @@ class TinderView extends StatefulWidget {
 
 class TinderViewState extends State<TinderView> {
   /// Tracks if the view is currently loading data.
-  bool _isLoading = true;
+  bool isLoading = true;
+  bool isLoadingRecipe = false;
 
   @override
   void initState() {
@@ -49,10 +50,10 @@ class TinderViewState extends State<TinderView> {
 
   /// Updates the loading state based on the model's data availability.
   void _onModelChange() {
-    if (_isLoading && widget.model.hasData()) {
+    if (isLoading && widget.model.hasData()) {
       if (mounted) {
         setState(() {
-          _isLoading = false;
+          isLoading = false;
         });
       }
     }
@@ -79,11 +80,13 @@ class TinderViewState extends State<TinderView> {
   Widget build(BuildContext context) {
     /// Builds the view based on the current loading state and model's data.
 
-    _isLoading = !widget.model.hasData();
+    isLoading = !widget.model.hasData();
 
     return Scaffold(
       backgroundColor: Color(0xFF2D3444),
-      body: _isLoading ? buildLoadingScreen() : buildContent(context),
+      body: isLoading || isLoadingRecipe
+          ? buildLoadingScreen()
+          : buildContent(context),
     );
   }
 
@@ -181,7 +184,15 @@ class TinderViewState extends State<TinderView> {
                           ElevatedButton(
                             key: ValueKey('yes-button'),
                             onPressed: () async {
+                              setState(() {
+                                isLoadingRecipe = true; // Start loading
+                              });
                               await widget.recipeOverview.getDish();
+
+                              setState(() {
+                                isLoadingRecipe = false; // End  loading
+                              });
+
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                     builder: (context) =>
