@@ -5,51 +5,51 @@ import 'package:http/http.dart' as http;
 import 'package:food_ai_app/FullRecipeGeneration/gpt_api_recipe.dart';
 import 'package:food_ai_app/FullRecipeGeneration/gpt_api_recipe_mock.dart';
 
-class RecipeOverview extends StatelessWidget {
+class RecipeOverview extends StatefulWidget {
+  late String dishName;
+  late String imageLink;
+
+  @override
+  RecipeOverviewState createState() => RecipeOverviewState();
+}
+
+class RecipeOverviewState extends State<RecipeOverview> {
   //create background colour
   Color back = const Color.fromARGB(255, 45, 52, 68);
 
   //create an instance of the gpt class that can be used to make api requests
-  GPTRecipeApi gptRecipeApi =
-      GPTRecipeApi('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');
+  GPTRecipeApi gptRecipeApi = GPTRecipeApi('46ac92c47cd344e48007ac50e31d7771');
   MockGPTRecipeApi mockRecipeApi = MockGPTRecipeApi();
 
   //store the entire recipe
   String recipe = "";
-  //store the name of the dish
-  String dishName = "";
-  //store a link to an image of the dish
-  String imageLink = "";
 
   set image(String imageLink) {
-    this.imageLink = imageLink;
+    widget.imageLink = imageLink;
   }
 
   String get image {
-    return imageLink;
+    return widget.imageLink;
   }
 
   set name(String dishName) {
-    this.dishName = dishName;
+    widget.dishName = dishName;
   }
 
   String get name {
-    return dishName;
+    return widget.dishName;
   }
 
   //method to request recipe and image from api
   Future<void> getDish() async {
     //request recipe
-    //recipe = await gptRecipeApi.getRecipe("Strawberry cheesecake", false);
-
-    recipe = mockRecipeApi.recipeText;
+    recipe = await gptRecipeApi.getRecipe(widget.dishName, false);
+    setState(() {});
+    //recipe = mockRecipeApi.recipeText;
   }
 
   @override
   Widget build(BuildContext context) {
-    //generate recipe
-    getDish();
-
     return MaterialApp(
       //set all text to white
       theme: ThemeData(
@@ -78,7 +78,7 @@ class RecipeOverview extends StatelessWidget {
                 SizedBox(height: 20),
                 Padding(
                   padding: EdgeInsets.all(15),
-                  child: Text("You have chosen $dishName",
+                  child: Text("You have chosen $name",
                       style: TextStyle(
                         fontSize: 30.0,
                       )),
@@ -94,7 +94,7 @@ class RecipeOverview extends StatelessWidget {
                     decoration:
                         BoxDecoration(borderRadius: BorderRadius.circular(42)),
                     child: Image.memory(
-                      base64Decode(imageLink),
+                      base64Decode(widget.imageLink),
                       fit: BoxFit.contain,
                     )),
                 SizedBox(height: 20),

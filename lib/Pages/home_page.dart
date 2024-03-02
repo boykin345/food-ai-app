@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final user = FirebaseAuth.instance.currentUser!;
+  //final user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      body: Center(child: Text('sign in as: ${user.email!}')),
+      //body: Center(child: Text('sign in as: ${user.email!}')),
     );
   }
 }

@@ -17,7 +17,7 @@ class TinderView extends StatefulWidget {
   /// Object which handles operations for full recipe generation
   final RecipeOverview recipeOverview;
 
-  /// Constructs a [TinderView] with required [model] and [onChangeRecipe] callback.
+  /// Constructs a [TinderView] with required [model] and [onChangeRecipe] callback and [recipeOverview] object.
   TinderView(
       {super.key,
       required this.model,
@@ -181,6 +181,7 @@ class TinderViewState extends State<TinderView> {
                           ElevatedButton(
                             key: ValueKey('yes-button'),
                             onPressed: () {
+                              widget.recipeOverview.getDish();
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                     builder: (context) =>
