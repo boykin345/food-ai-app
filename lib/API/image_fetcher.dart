@@ -13,32 +13,35 @@ class ImageFetcher extends ImageFetcherInterface {
   /// Throws an [Exception] if the request fails or if the image data is not found in the API response.
   @override
   Future<String> fetchImage(String query) async {
-    final url = Uri.parse('https://api.edenai.run/v2/image/generation');
+    final url = Uri.parse(
+        'https://gpt-marco.openai.azure.com/openai/deployments/marco-dalle/images/generations?api-version=2024-02-15-preview');
+
+    const String apiKey = 'f90105825dc14b71a1b94833d046590a';
+
     final response = await http.post(
       url,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiODZjY2Y3MGUtMDE5YS00MTY3LTg2OWQtMjUyOTZkZDVmYzQ2IiwidHlwZSI6ImFwaV90b2tlbiJ9.cUa508ZkMKPXZxMpjB2kOgRpY1DSo75PLljcR98LtlY',
-      },
+      headers: {'Content-Type': 'application/json', 'api-key': apiKey},
       body: jsonEncode({
-        "providers": "openai",
-        "text": query,
-        "resolution": "256x256",
+        "model": "marco-dalle",
+        "prompt": "<Generate me an image of a realistic looking $query>",
+        "n": 1
       }),
     );
 
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      if (data != null &&
-          data['openai'] != null &&
-          data['openai']['items'] != null) {
-        return data['openai']['items'][0]['image'] as String;
+      final imageUrl = jsonDecode(response.body)['data'][0]['url'] as String;
+      // Fetch the image data from the URL
+      final imageResponse = await http.get(Uri.parse(imageUrl));
+      if (imageResponse.statusCode == 200) {
+        // Convert the image data to base64
+        final base64Image = base64Encode(imageResponse.bodyBytes);
+        return base64Image;
       } else {
-        throw Exception('Image data not found in response');
+        throw Exception('Failed to fetch image data');
       }
     } else {
-      throw Exception('Request failed with status: ${response.statusCode}');
+      print(response.body);
+      throw Exception('Failed to generate image');
     }
   }
 }

@@ -10,21 +10,22 @@ class GPTRecipeApi {
 
   //method for fetching responses from GPT
   Future<String> getChatResponse(String message) async {
-    final url = Uri.parse('https://api.openai.com/v1/chat/completions');
+    final url = Uri.parse(
+        'https://marco-gpt-uk.openai.azure.com/openai/deployments/marco-gpt-4/chat/completions?api-version=2024-02-15-preview');
 
     final response = await http.post(
       url,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $apiKey',
-      },
+      headers: {'Content-Type': 'application/json', 'api-key': apiKey},
       body: jsonEncode({
-        'messages': [
-          {'role': 'system', 'content': 'You are a helpful assistant.'},
-          {'role': 'user', 'content': message}
+        "messages": [
+          {"role": "user", "content": message}
         ],
-        'max_tokens': 200,
-        'model': 'gpt-4',
+        "temperature": 0.7,
+        "top_p": 0.95,
+        "frequency_penalty": 0,
+        "presence_penalty": 0,
+        "max_tokens": 800,
+        "stop": null
       }),
     );
 
@@ -41,7 +42,7 @@ class GPTRecipeApi {
   //function to get a recipe from GPT
   Future<String> getRecipe(String dishName, bool isImage) async {
     try {
-      String message = " ";
+      String message = "";
       if (!isImage) {
         //instruct the api to return a recipe with name, difficulty cooking time, ingredients and method
         message =
