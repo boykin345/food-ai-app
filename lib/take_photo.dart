@@ -152,6 +152,7 @@ class DisplayPictureScreen extends StatelessWidget {
                 children: [
                   // Reject Photo
                   FloatingActionButton.extended(
+                    heroTag: "reject",
                     onPressed: () {
                       // Go back to the camera preview screen
                       Navigator.pop(context);
@@ -162,9 +163,11 @@ class DisplayPictureScreen extends StatelessWidget {
                   ),
                   FloatingActionButton.extended(
                     // Accept Photo
+                    heroTag: "accept",
                     onPressed: () {
                       // Handle choose photo action
                       Navigator.pop(context, imagePath);
+                      print("test");
                       Navigator.pop(context, imagePath);
                     },
                     label: Icon(Icons.check),

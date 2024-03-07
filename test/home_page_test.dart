@@ -16,7 +16,7 @@ void main() {
     });
     testWidgets('HomeScreen should display properly', (WidgetTester tester) async {
       // Build the widget tree and trigger frame rendering
-      await tester.pumpWidget(MaterialApp(home: HomeScreen()));
+      await tester.pumpWidget(MaterialApp(home: HomeScreen(body)));
       // Verify that HomeScreen is rendered
       expect(find.text('Your'), findsOneWidget);
       expect(find.text('Favourites'), findsOneWidget);
