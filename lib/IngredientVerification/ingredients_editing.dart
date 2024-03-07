@@ -7,7 +7,7 @@ import 'package:food_ai_app/IngredientVerification/ingredients.dart';
 import 'package:food_ai_app/IngredientVerification/mock_ingredients.dart';
 import 'package:food_ai_app/SettingsPage/Preferences.dart';
 
-import '../SettingsPage/Settings.dart';
+import 'package:food_ai_app/SettingsPage/Settings.dart';
 
 class IngredientEditing extends StatefulWidget {
   final Map<String, String> ingredientsMapCons;
