@@ -23,9 +23,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final user = FirebaseAuth.instance.currentUser!;
+  late IngredientEditing ingredientEditing;
 
   File? _imageFile;
   String _response = 'No image processed yet';
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   /// Function to get an image from the device's gallery.
   Future<void> getImageFromGallery() async {
@@ -70,7 +76,12 @@ class _HomePageState extends State<HomePage> {
         setState(() {
           _response = contentString as String;
           final ingredientsMap = parseContent(_response);
-          print(ingredientsMap);
+          ingredientEditing =
+              IngredientEditing(ingredientsMapCons: ingredientsMap);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ingredientEditing),
+          );
         });
       } else {
         setState(() {
@@ -82,7 +93,6 @@ class _HomePageState extends State<HomePage> {
         _response = 'Error processing image: ${e}';
       });
     }
-    print(_response);
   }
 
   @override
@@ -170,16 +180,6 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => HealthGoalScreen()),
-                );
-              },
-            ),
-            ListTile(
-              title: Text('Ingredient Verification'),
-              onTap: () {
-                FirebaseAuth.instance.signOut();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => IngredientEditing()),
                 );
               },
             ),

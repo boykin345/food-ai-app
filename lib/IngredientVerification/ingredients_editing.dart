@@ -7,14 +7,16 @@ import 'package:food_ai_app/IngredientVerification/ingredients.dart';
 import 'package:food_ai_app/IngredientVerification/mock_ingredients.dart';
 
 class IngredientEditing extends StatefulWidget {
-  const IngredientEditing({super.key});
+  final Map<String, String> ingredientsMapCons;
+
+  const IngredientEditing({super.key, required this.ingredientsMapCons});
 
   @override
   IngredientEditingState createState() => IngredientEditingState();
 }
 
 class IngredientEditingState extends State<IngredientEditing> {
-  final mockIngredients = MockIngredients();
+  //final mockIngredients = MockIngredients();
   Map<String, String> ingredientsMap = {};
   final TextEditingController ingredientNameController =
       TextEditingController();
@@ -24,7 +26,8 @@ class IngredientEditingState extends State<IngredientEditing> {
   @override
   void initState() {
     super.initState();
-    ingredientsMap = mockIngredients.getMap();
+    ingredientsMap = widget.ingredientsMapCons;
+    //ingredientsMap = mockIngredients.getMap();
   }
 
   @override
