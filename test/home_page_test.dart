@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
-import 'package:food_ai_app/home_page.dart';
+import 'package:food_ai_app/Pages/home_page.dart';
 
 void main() {
   group('HomeScreen', () {
@@ -14,7 +14,8 @@ void main() {
       };
       expect(homeScreenState.parseContent(content), expectedMap);
     });
-    testWidgets('HomeScreen should display properly', (WidgetTester tester) async {
+    testWidgets('HomeScreen should display properly',
+        (WidgetTester tester) async {
       // Build the widget tree and trigger frame rendering
       await tester.pumpWidget(MaterialApp(home: HomeScreen(body)));
       // Verify that HomeScreen is rendered
