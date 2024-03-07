@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:food_ai_app/take_photo.dart';
+import 'package:food_ai_app/ImageDetection/take_photo.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:food_ai_app/api_call.dart';
+import 'package:food_ai_app/ImageDetection/api_call.dart';
 
 /// The main homepage widget for the Food AI App.
 class HomePage extends StatelessWidget {
@@ -39,15 +39,16 @@ class HomeScreenState extends State<HomeScreen> {
 
   /// Function to get an image from the device's gallery.
   Future<void> getImageFromGallery() async {
-  final picker = ImagePicker();
-  final pickedImage = await picker.pickImage(source: ImageSource.gallery);
-  if (pickedImage != null) {
-    setState(() {
-      _imageFile = File(pickedImage.path); // Update image file state
-    });
-    processImage(_imageFile!);
+    final picker = ImagePicker();
+    final pickedImage = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      setState(() {
+        _imageFile = File(pickedImage.path); // Update image file state
+      });
+      processImage(_imageFile!);
+    }
   }
-}
+
   /// Map to store ingredients and their quantities.
   Map<String, String> ingredientsMap = {};
 
@@ -69,7 +70,8 @@ class HomeScreenState extends State<HomeScreen> {
   /// Process the selected image to extract information using APIs.
   Future<void> processImage(File imageFile) async {
     try {
-      final String? imageUrl = await APICall.uploadImageAndGetDownloadUrl(imageFile);
+      final String? imageUrl =
+          await APICall.uploadImageAndGetDownloadUrl(imageFile);
       print(imageUrl);
       if (imageUrl != null) {
         final String response = await APICall.sendToOpenAI(imageUrl);
@@ -93,8 +95,7 @@ class HomeScreenState extends State<HomeScreen> {
     print(_response);
   }
 
-
-@override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -132,8 +133,8 @@ class HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(
-                  vertical: 20.0, horizontal: 16.0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
               child: Text(
                 "Mains",
                 style: TextStyle(
@@ -169,8 +170,8 @@ class HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(
-                  vertical: 20.0, horizontal: 16.0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
               child: Text(
                 "Desserts",
                 style: TextStyle(
@@ -180,7 +181,8 @@ class HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Container(
-              height: 270, //Adjusts the space allocated for the Desserts Section
+              height:
+                  270, //Adjusts the space allocated for the Desserts Section
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
@@ -209,56 +211,53 @@ class HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButton: Container(
-          width: double.infinity, //will fit to the size of the screen
-          margin: EdgeInsets.symmetric(horizontal: 24.0), //margin for the button
-          child: FloatingActionButton.extended(
+        width: double.infinity, //will fit to the size of the screen
+        margin: EdgeInsets.symmetric(horizontal: 24.0), //margin for the button
+        child: FloatingActionButton.extended(
             onPressed: () {
-            showModalBottomSheet(
-              context: context,
-              builder: (BuildContext context) {
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    ListTile(
-                      leading: Icon(Icons.camera_alt),
-                      title: Text('Take Photo'),
-                      onTap: () async {
-                        //Navigate to Take Picture Screen
-                        //Navigator.pop(context);
-                        final imagePath = await initialiseTakePictureScreen(context);
-                        //Handle returned image path
-                        if (imagePath != null){
-                          setState(() {
-                            print(imagePath);
-                            _imageFile = File(imagePath); // Update _imageFile with the captured image
-                            processImage(_imageFile!);
-                          });
-                        }
-                      },
-                    ),
-                    ListTile(
-                      leading: Icon(Icons.photo),
-                      title: Text('Select From Gallery'),
-                      onTap: () async{
-                        Navigator.pop(context);
-                        getImageFromGallery();
-                      },
-                    ),
-                  ],
-                );
-              },
-            );
-          },
-          label: Text("Scan Your Fridge",
-              style: TextStyle(
-                  fontSize: 20,
-                  color: Color(0xFF2D3444)
-              )
-            ),
-              backgroundColor: Color(0xFFFAF0F0)
-          ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+              showModalBottomSheet(
+                context: context,
+                builder: (BuildContext context) {
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      ListTile(
+                        leading: Icon(Icons.camera_alt),
+                        title: Text('Take Photo'),
+                        onTap: () async {
+                          //Navigate to Take Picture Screen
+                          //Navigator.pop(context);
+                          final imagePath =
+                              await initialiseTakePictureScreen(context);
+                          //Handle returned image path
+                          if (imagePath != null) {
+                            setState(() {
+                              print(imagePath);
+                              _imageFile = File(
+                                  imagePath); // Update _imageFile with the captured image
+                              processImage(_imageFile!);
+                            });
+                          }
+                        },
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.photo),
+                        title: Text('Select From Gallery'),
+                        onTap: () async {
+                          Navigator.pop(context);
+                          getImageFromGallery();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            label: Text("Scan Your Fridge",
+                style: TextStyle(fontSize: 20, color: Color(0xFF2D3444))),
+            backgroundColor: Color(0xFFFAF0F0)),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
@@ -283,7 +282,8 @@ class HomeScreenState extends State<HomeScreen> {
                   imageUrl,
                   width: 220, //size of each box
                   height: 270,
-                  fit: BoxFit.cover, // Use BoxFit.cover to maintain aspect ratio
+                  fit:
+                      BoxFit.cover, // Use BoxFit.cover to maintain aspect ratio
                 ),
                 Positioned(
                   bottom: 0,
@@ -297,8 +297,8 @@ class HomeScreenState extends State<HomeScreen> {
                         bottomRight: Radius.circular(12.0),
                       ),
                     ),
-                    padding: EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 16.0),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
