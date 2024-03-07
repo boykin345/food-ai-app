@@ -14,6 +14,8 @@ import 'package:food_ai_app/ImageDetection/api_call.dart';
 
 import 'package:food_ai_app/Pages/index_page.dart';
 
+import '../IngredientVerification/ingredients_editing.dart';
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -168,6 +170,16 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => HealthGoalScreen()),
+                );
+              },
+            ),
+            ListTile(
+              title: Text('Ingredient Verification'),
+              onTap: () {
+                FirebaseAuth.instance.signOut();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => IngredientEditing()),
                 );
               },
             ),
