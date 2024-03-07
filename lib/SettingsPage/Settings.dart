@@ -21,31 +21,39 @@ class _SettingsScreenState extends State<SettingsScreen> {
     fetchSettings();
   }
 
-  void fetchSettings() async {
-    DocumentSnapshot settingsSnapshot =
-        await firestore.collection('users').doc(user?.uid).get();
-    setState(() {
-      var settingsData = settingsSnapshot.data() as Map<String, dynamic>?;
-      if (settingsData != null) {
-        _selectedDifficulty = settingsData['difficulty'] is int
-            ? settingsData['difficulty'] as int
-            : 1;
-        _selectedCookingTime = settingsData['cookingTime'] is String
-            ? settingsData['cookingTime'] as String
-            : '30 min';
-        _selectedPortionSize = settingsData['portionSize'] is int
-            ? settingsData['portionSize'] as int
-            : 1;
-      }
-    });
+  Future<void> fetchSettings() async {
+    try {
+      DocumentSnapshot settingsSnapshot =
+          await firestore.collection('users').doc(user?.uid).get();
+      setState(() {
+        var settingsData = settingsSnapshot.data() as Map<String, dynamic>?;
+        if (settingsData != null) {
+          _selectedDifficulty = settingsData['difficulty'] is int
+              ? settingsData['difficulty'] as int
+              : 1;
+          _selectedCookingTime = settingsData['cookingTime'] is String
+              ? settingsData['cookingTime'] as String
+              : '30 min';
+          _selectedPortionSize = settingsData['portionSize'] is int
+              ? settingsData['portionSize'] as int
+              : 1;
+        }
+      });
+    } catch (error) {
+      print('Error fetching settings: $error');
+    }
   }
 
-  void _updateSettings() {
-    firestore.collection('users').doc(user?.uid).update({
-      'difficulty': _selectedDifficulty,
-      'cookingTime': _selectedCookingTime,
-      'portionSize': _selectedPortionSize,
-    });
+  Future<void> _updateSettings() async {
+    try {
+      await firestore.collection('users').doc(user?.uid).update({
+        'difficulty': _selectedDifficulty,
+        'cookingTime': _selectedCookingTime,
+        'portionSize': _selectedPortionSize,
+      });
+    } catch (error) {
+      print('Error updating settings: $error');
+    }
   }
 
   @override

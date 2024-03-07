@@ -20,41 +20,50 @@ class _AllergiesScreenState extends State<AllergiesScreen> {
     fetchAllergies();
   }
 
-  void fetchAllergies() async {
-    DocumentSnapshot userSnapshot =
-        await firestore.collection('users').doc(user?.uid).get();
-    setState(() {
-      var userData = userSnapshot.data()
-          as Map<String, dynamic>?; // Cast to Map<String, dynamic> or null
-      if (userData != null && userData['allergies'] is List<dynamic>) {
-        allergies = (userData['allergies'] as List<dynamic>).cast<String>();
-      } else {
-        allergies = [];
-      }
-    });
-  }
-
-  void _addAllergy() {
-    if (allergyController.text.isNotEmpty) {
+  Future<void> fetchAllergies() async {
+    try {
+      DocumentSnapshot userSnapshot =
+          await firestore.collection('users').doc(user?.uid).get();
       setState(() {
-        allergies.add(allergyController.text);
+        var userData = userSnapshot.data() as Map<String, dynamic>?;
+        if (userData != null && userData['allergies'] is List<dynamic>) {
+          allergies = (userData['allergies'] as List<dynamic>).cast<String>();
+        } else {
+          allergies = [];
+        }
       });
-      // Add allergy to Firestore
-      firestore.collection('users').doc(user?.uid).update({
-        'allergies': FieldValue.arrayUnion([allergyController.text])
-      });
-      allergyController.clear();
+    } catch (error) {
+      print('Error fetching allergies: $error');
     }
   }
 
-  void _removeAllergy(String allergy) {
-    setState(() {
-      allergies.remove(allergy);
-    });
-    // Remove allergy from Firestore
-    firestore.collection('users').doc(user?.uid).update({
-      'allergies': FieldValue.arrayRemove([allergy])
-    });
+  Future<void> _addAllergy() async {
+    try {
+      if (allergyController.text.isNotEmpty) {
+        setState(() {
+          allergies.add(allergyController.text);
+        });
+        await firestore.collection('users').doc(user?.uid).update({
+          'allergies': FieldValue.arrayUnion([allergyController.text])
+        });
+        allergyController.clear();
+      }
+    } catch (error) {
+      print('Error adding allergy: $error');
+    }
+  }
+
+  Future<void> _removeAllergy(String allergy) async {
+    try {
+      setState(() {
+        allergies.remove(allergy);
+      });
+      await firestore.collection('users').doc(user?.uid).update({
+        'allergies': FieldValue.arrayRemove([allergy])
+      });
+    } catch (error) {
+      print('Error removing allergy: $error');
+    }
   }
 
   @override
