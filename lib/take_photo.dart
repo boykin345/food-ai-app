@@ -167,7 +167,6 @@ class DisplayPictureScreen extends StatelessWidget {
                     onPressed: () {
                       // Handle choose photo action
                       Navigator.pop(context, imagePath);
-                      print("test");
                       Navigator.pop(context, imagePath);
                     },
                     label: Icon(Icons.check),
