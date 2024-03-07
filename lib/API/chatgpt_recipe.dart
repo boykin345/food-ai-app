@@ -14,21 +14,22 @@ class ChatGPTRecipe extends ChatGPTRecipeInterface {
   /// Sends a chat message to the OpenAI API and returns the API's response.
   /// Throws an exception if the request fails or the response is not 200 OK.
   Future<String> getChatResponse(String message) async {
-    final url = Uri.parse('https://api.openai.com/v1/chat/completions');
+    final url = Uri.parse(
+        'https://marco-gpt-uk.openai.azure.com/openai/deployments/marco-gpt-4/chat/completions?api-version=2024-02-15-preview');
 
     final response = await http.post(
       url,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $apiKey',
-      },
+      headers: {'Content-Type': 'application/json', 'api-key': apiKey},
       body: jsonEncode({
-        'messages': [
-          {'role': 'system', 'content': 'You are a helpful assistant.'},
-          {'role': 'user', 'content': message}
+        "messages": [
+          {"role": "user", "content": message}
         ],
-        'max_tokens': 200,
-        'model': 'gpt-4',
+        "temperature": 0.7,
+        "top_p": 0.95,
+        "frequency_penalty": 0,
+        "presence_penalty": 0,
+        "max_tokens": 800,
+        "stop": null
       }),
     );
 

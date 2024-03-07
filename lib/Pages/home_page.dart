@@ -7,6 +7,8 @@ import 'package:food_ai_app/SettingsPage/Preferences.dart';
 import 'package:food_ai_app/SettingsPage/Settings.dart';
 import 'package:food_ai_app/TinderMVC/tinder_page.dart';
 
+import 'index_page.dart';
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -73,6 +75,16 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => HealthGoalScreen()),
+                );
+              },
+            ),
+            ListTile(
+              title: Text('Log Out'),
+              onTap: () {
+                FirebaseAuth.instance.signOut();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => IndexPage()),
                 );
               },
             ),

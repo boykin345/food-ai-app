@@ -58,8 +58,7 @@ class DataUtil {
   /// [email] the email address of the user.
   static Future<void> addUser(String userId, String username, String email) async {
     try {
-      await FirebaseFirestore.instance.collection('users').add({
-        'uid': userId,
+      await FirebaseFirestore.instance.collection('users').doc(userId).set({
         'username': username,
         'email': email,
       });
