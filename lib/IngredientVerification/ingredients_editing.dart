@@ -225,7 +225,7 @@ class IngredientEditingState extends State<IngredientEditing> {
           height: 40,
           width: 40,
           child: ClipRRect(
-            child: Image.asset('lib/images/pflpic.png'),
+            child: Image.asset('assets/pflpic.png'),
           ),
         ),
       ]),
