@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 
-Future<void> initialiseTakePictureScreen(BuildContext context) async {
+/// A future that initialises the camera screen.
+/// Returns the image path of the picture taken.
+Future<String?> initialiseTakePictureScreen(BuildContext context) async {
   // Ensure that plugin services are initialized so that `availableCameras()`
   // can be called before `runApp()`
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,19 +14,21 @@ Future<void> initialiseTakePictureScreen(BuildContext context) async {
   final cameras = await availableCameras();
 
   // Get a specific camera from the list of available cameras.
+  // potentially add functionality to change cameras in the future?
   final firstCamera = cameras.first;
 
   // Navigate to the Take Picture Screen
-  if (!context.mounted) return;
-  Navigator.push(
+  final result = await Navigator.push(
     context,
     MaterialPageRoute(
       builder: (context) => TakePictureScreen(camera: firstCamera),
     ),
   );
+
+  return result as String?; // Return the image path
 }
 
-// A screen that allows users to take a picture using a given camera.
+/// A screen that allows users to take a picture using a given camera.
 class TakePictureScreen extends StatefulWidget {
   const TakePictureScreen({
     super.key,
@@ -36,7 +40,7 @@ class TakePictureScreen extends StatefulWidget {
   @override
   TakePictureScreenState createState() => TakePictureScreenState();
 }
-
+/// The state for [TakePictureScreen].
 class TakePictureScreenState extends State<TakePictureScreen> {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
@@ -95,7 +99,6 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             // Attempt to take a picture and get the file `image`
             // where it was saved.
             final image = await _controller.takePicture();
-
             if (!mounted) return;
 
             // If the picture was taken, navigate to the display picture screen.
@@ -120,7 +123,8 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   }
 }
 
-// A widget that displays the picture taken by the user.
+/// A widget that displays the picture taken by the user.
+/// Allows the user to confirm or reject & retake a photo taken.
 class DisplayPictureScreen extends StatelessWidget {
   final String imagePath;
 
@@ -129,17 +133,15 @@ class DisplayPictureScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Display the Photo')),
+      appBar: AppBar(title: const Text('Select Photo?')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
-              child: FittedBox(
-                child: Image.file(
-                  File(imagePath),
-                  fit: BoxFit.contain,
-                ),
+              child: Image.file(
+                File(imagePath),
+                fit: BoxFit.contain,
               ),
             ),
             SizedBox(height: 20),
@@ -148,18 +150,22 @@ class DisplayPictureScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  // Reject Photo
                   FloatingActionButton.extended(
                     onPressed: () {
-                      //go back to the camera preview screen
+                      // Go back to the camera preview screen
                       Navigator.pop(context);
                     },
-                    label: Icon(Icons.arrow_back),
+                    label: Icon(Icons.close_rounded),
                     foregroundColor: Color(0xFF2D3444),
                     backgroundColor: Color(0xFFFAF0F0),
                   ),
                   FloatingActionButton.extended(
+                    // Accept Photo
                     onPressed: () {
                       // Handle choose photo action
+                      Navigator.pop(context, imagePath);
+                      Navigator.pop(context, imagePath);
                     },
                     label: Icon(Icons.check),
                     foregroundColor: Color(0xFF2D3444),
