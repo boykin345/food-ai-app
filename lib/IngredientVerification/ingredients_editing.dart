@@ -5,6 +5,9 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:food_ai_app/IngredientVerification/ingredients.dart';
 
 import 'package:food_ai_app/IngredientVerification/mock_ingredients.dart';
+import 'package:food_ai_app/SettingsPage/Preferences.dart';
+
+import '../SettingsPage/Settings.dart';
 
 class IngredientEditing extends StatefulWidget {
   final Map<String, String> ingredientsMapCons;
@@ -162,6 +165,17 @@ class IngredientEditingState extends State<IngredientEditing> {
             ],
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SettingsScreen()),
+            );
+          },
+          child: Icon(Icons.check_box),
+          backgroundColor: Colors.blue,
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
   }

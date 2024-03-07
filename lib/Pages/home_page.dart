@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:food_ai_app/SettingsPage/Allergies.dart';
 import 'package:food_ai_app/SettingsPage/HealthGoals.dart';
 import 'package:food_ai_app/SettingsPage/Preferences.dart';
 import 'package:food_ai_app/SettingsPage/Settings.dart';
@@ -14,7 +13,7 @@ import 'package:food_ai_app/ImageDetection/api_call.dart';
 
 import 'package:food_ai_app/Pages/index_page.dart';
 
-import '../IngredientVerification/ingredients_editing.dart';
+import 'package:food_ai_app/IngredientVerification/ingredients_editing.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -153,15 +152,6 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => SettingsScreen()),
-                );
-              },
-            ),
-            ListTile(
-              title: Text('Allergies'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AllergiesScreen()),
                 );
               },
             ),
