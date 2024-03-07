@@ -72,11 +72,11 @@ class _AllergiesScreenState extends State<AllergiesScreen> {
               controller: allergyController,
               decoration: InputDecoration(
                 labelText: 'Add a new Dietary need',
-                labelStyle: TextStyle(color: Colors.white),
+                labelStyle: TextStyle(color: Colors.black),
                 suffixIcon: IconButton(
                   icon: Icon(
                     Icons.add,
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                   onPressed: _addAllergy,
                 ),
