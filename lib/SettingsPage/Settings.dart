@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -12,6 +13,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   int _selectedPortionSize = 1;
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
@@ -21,7 +23,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   void fetchSettings() async {
     DocumentSnapshot settingsSnapshot =
-        await firestore.collection('users').doc('TestUser').get();
+        await firestore.collection('users').doc(user?.uid).get();
     setState(() {
       var settingsData = settingsSnapshot.data() as Map<String, dynamic>?;
       if (settingsData != null) {
@@ -39,7 +41,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void _updateSettings() {
-    firestore.collection('users').doc('TestUser').update({
+    firestore.collection('users').doc(user?.uid).update({
       'difficulty': _selectedDifficulty,
       'cookingTime': _selectedCookingTime,
       'portionSize': _selectedPortionSize,
