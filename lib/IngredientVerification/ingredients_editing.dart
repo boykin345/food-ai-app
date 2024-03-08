@@ -169,7 +169,7 @@ class IngredientEditingState extends State<IngredientEditing> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => SettingsScreen()),
+              MaterialPageRoute(builder: (context) => SettingsScreen(ingredientsMapCons: ingredientsMap)),
             );
           },
           child: Icon(Icons.check_box),

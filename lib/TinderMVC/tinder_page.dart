@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:food_ai_app/API/chatgpt_recipe_interface.dart';
 import 'package:food_ai_app/API/image_fetcher_interface.dart';
 import 'package:food_ai_app/API/image_fetcher_mock.dart';
@@ -14,6 +15,10 @@ import '../API/image_fetcher.dart';
 /// A widget that serves as the entry point for the Tinder-like recipe selection feature.
 /// It initializes the model, controller, and mock API clients, then builds the UI based on the model's state.
 class TinderPage extends StatefulWidget {
+  final Map<String, String> ingredientsMapCons;
+
+  const TinderPage({super.key, required this.ingredientsMapCons});
+
   @override
   _TinderPageState createState() => _TinderPageState();
 }
@@ -32,13 +37,15 @@ class _TinderPageState extends State<TinderPage> {
   /// API client for fetching recipe images.
   late ImageFetcherInterface imageFetcherClient;
 
+  late Future<void> _initFuture;
+
   @override
   void initState() {
     super.initState();
-    model = TinderModel();
+    _initFuture = fetchUserDataAndInitialize();
+  }
 
     Future<void> fetchUserDataAndInitialize() async {
-
       Map<String, dynamic> userSettings = {}; // This will hold user settings.
       try {
         final userSnapshot = await FirebaseFirestore.instance
@@ -49,28 +56,39 @@ class _TinderPageState extends State<TinderPage> {
       } catch (error) {
         print('Error fetching user data: $error');
       }
-
       gptApiClient = ChatGPTRecipe(
-        '46ac92c47cd344e48007ac50e31d7771', // Use your actual API key here
-        userDifficulty: userSettings['difficulty'] ?? 1, // Default values if user settings are not found
-        userCookingTime: userSettings['cookingTime'] ?? '30 min',
-        userPortionSize: userSettings['portionSize'] ?? 1,
-        userAllergies: List<String>.from(userSettings['allergies'] ?? []),
+        '46ac92c47cd344e48007ac50e31d7771',
+        ingredientsMap: widget.ingredientsMapCons,
+        userDifficulty: int.tryParse(userSettings['difficulty']?.toString() ?? '') ?? 1,
+        userCookingTime: userSettings['cookingTime']?.toString() ?? '30 min',
+        userPortionSize: int.tryParse(userSettings['portionSize']?.toString() ?? '') ?? 1,
+        userAllergies: List<String>.from(userSettings['allergies'] as List<dynamic>? ?? []),
       );
 
-    imageFetcherClient = ImageFetcher(); //Change to ImageFetcher for real API
-    controller = TinderController(model, gptApiClient, imageFetcherClient);
-    controller.onModelUpdated = () {
-      setState(() {
-        // This will rebuild the TinderPage with the updated model
-      });
-    };
-    controller.initialize();
-  }
+      imageFetcherClient = ImageFetcher(); //Change to ImageFetcher for real API
+      model = TinderModel();
+      controller = TinderController(model, gptApiClient, imageFetcherClient);
+      controller.onModelUpdated = () {
+        setState(() {
+          // This will rebuild the TinderPage with the updated model
+        });
+      };
+      await controller.initialize();
+    }
+
 
   @override
   Widget build(BuildContext context) {
-    /// Builds and returns the view managed by [controller], reflecting the current state of [model].
-    return controller.createView();
+    return FutureBuilder(
+      future: _initFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+
+          return controller.createView();
+        } else {
+          return Center(child: CircularProgressIndicator());
+        }
+      },
+    );
   }
 }

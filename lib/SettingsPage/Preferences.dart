@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:food_ai_app/TinderMVC/tinder_page.dart';
 
 class PreferencesScreen extends StatefulWidget {
+  final Map<String, String> ingredientsMapCons;
+
+  const PreferencesScreen({super.key, required this.ingredientsMapCons});
+
   @override
   _PreferenceScreenState createState() => _PreferenceScreenState();
 }
@@ -225,7 +229,10 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
                 // Implement save functionality if needed
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => TinderPage()),
+                  MaterialPageRoute(
+                      builder: (context) => TinderPage(
+                          ingredientsMapCons: widget.ingredientsMapCons)),
+
                 );
               },
               child: Text(

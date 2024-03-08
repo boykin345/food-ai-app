@@ -142,7 +142,7 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => TinderPage()),
+                  MaterialPageRoute(builder: (context) => HomePage()),
                 );
               },
             ),
@@ -151,7 +151,7 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SettingsScreen()),
+                  MaterialPageRoute(builder: (context) => HomePage()),
                 );
               },
             ),
@@ -160,7 +160,7 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => PreferencesScreen()),
+                  MaterialPageRoute(builder: (context) => HomePage()),
                 );
               },
             ),
@@ -169,7 +169,7 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => HealthGoalScreen()),
+                  MaterialPageRoute(builder: (context) => HomePage()),
                 );
               },
             ),

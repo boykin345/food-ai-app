@@ -4,6 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:food_ai_app/SettingsPage/HealthGoals.dart';
 
 class SettingsScreen extends StatefulWidget {
+  final Map<String, String> ingredientsMapCons;
+
+  const SettingsScreen({super.key, required this.ingredientsMapCons});
+
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
 }
@@ -356,7 +360,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Navigator.pop(context);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => HealthGoalScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => HealthGoalScreen(
+                          ingredientsMapCons: widget.ingredientsMapCons)),
+
                 );
               },
               child: Text('Save'),
