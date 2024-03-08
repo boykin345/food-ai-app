@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:food_ai_app/API/chatgpt_recipe_interface.dart';
 import 'package:food_ai_app/API/image_fetcher_interface.dart';
@@ -16,6 +18,7 @@ class TinderPage extends StatefulWidget {
   _TinderPageState createState() => _TinderPageState();
 }
 
+
 class _TinderPageState extends State<TinderPage> {
   /// Controller for the Tinder-like recipe feature.
   late TinderController controller;
@@ -33,8 +36,28 @@ class _TinderPageState extends State<TinderPage> {
   void initState() {
     super.initState();
     model = TinderModel();
-    gptApiClient = ChatGPTRecipe(
-        '46ac92c47cd344e48007ac50e31d7771'); //Change to ChatGPTRecipe for real API
+
+    Future<void> fetchUserDataAndInitialize() async {
+
+      Map<String, dynamic> userSettings = {}; // This will hold user settings.
+      try {
+        final userSnapshot = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(FirebaseAuth.instance.currentUser?.uid)
+            .get();
+        userSettings = userSnapshot.data() as Map<String, dynamic>;
+      } catch (error) {
+        print('Error fetching user data: $error');
+      }
+
+      gptApiClient = ChatGPTRecipe(
+        '46ac92c47cd344e48007ac50e31d7771', // Use your actual API key here
+        userDifficulty: userSettings['difficulty'] ?? 1, // Default values if user settings are not found
+        userCookingTime: userSettings['cookingTime'] ?? '30 min',
+        userPortionSize: userSettings['portionSize'] ?? 1,
+        userAllergies: List<String>.from(userSettings['allergies'] ?? []),
+      );
+
     imageFetcherClient = ImageFetcher(); //Change to ImageFetcher for real API
     controller = TinderController(model, gptApiClient, imageFetcherClient);
     controller.onModelUpdated = () {
