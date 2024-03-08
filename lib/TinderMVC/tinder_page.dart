@@ -45,36 +45,58 @@ class _TinderPageState extends State<TinderPage> {
     _initFuture = fetchUserDataAndInitialize();
   }
 
-    Future<void> fetchUserDataAndInitialize() async {
-      Map<String, dynamic> userSettings = {}; // This will hold user settings.
-      try {
-        final userSnapshot = await FirebaseFirestore.instance
-            .collection('users')
-            .doc(FirebaseAuth.instance.currentUser?.uid)
-            .get();
+  Future<void> fetchUserDataAndInitialize() async {
+    Map<String, dynamic> userSettings = {}; // This will hold user settings.
+    List<String> healthGoals = [];
+    List<String> preferences = [];
+    try {
+      final userSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .get();
+      if (userSnapshot.exists) {
         userSettings = userSnapshot.data() as Map<String, dynamic>;
-      } catch (error) {
-        print('Error fetching user data: $error');
-      }
-      gptApiClient = ChatGPTRecipe(
-        '46ac92c47cd344e48007ac50e31d7771',
-        ingredientsMap: widget.ingredientsMapCons,
-        userDifficulty: int.tryParse(userSettings['difficulty']?.toString() ?? '') ?? 1,
-        userCookingTime: userSettings['cookingTime']?.toString() ?? '30 min',
-        userPortionSize: int.tryParse(userSettings['portionSize']?.toString() ?? '') ?? 1,
-        userAllergies: List<String>.from(userSettings['allergies'] as List<dynamic>? ?? []),
-      );
 
-      imageFetcherClient = ImageFetcher(); //Change to ImageFetcher for real API
-      model = TinderModel();
-      controller = TinderController(model, gptApiClient, imageFetcherClient);
-      controller.onModelUpdated = () {
-        setState(() {
-          // This will rebuild the TinderPage with the updated model
-        });
-      };
-      await controller.initialize();
+
+        healthGoals = userSettings['healthGoals'] is List
+            ? List<String>.from(userSettings['healthGoals'] as List<dynamic>)
+            : [];
+
+
+
+        preferences = (userSettings['preferences'] is List)
+            ? List<String>.from(userSettings['preferences'] as List<dynamic>)
+            : [];
+      }
+    } catch (error) {
+      print('Error fetching user data: $error');
     }
+    print(healthGoals);
+    print(preferences);
+    final String healthGoalsString = healthGoals.join(', ');
+    final String preferencesString = preferences.join(', ');
+
+    gptApiClient = ChatGPTRecipe(
+      '46ac92c47cd344e48007ac50e31d7771',
+      ingredientsMap: widget.ingredientsMapCons,
+      userDifficulty: int.tryParse(userSettings['difficulty']?.toString() ?? '') ?? 1,
+      userCookingTime: userSettings['cookingTime']?.toString() ?? '30 min',
+      userPortionSize: int.tryParse(userSettings['portionSize']?.toString() ?? '') ?? 1,
+      userAllergies: List<String>.from(userSettings['allergies'] as List<dynamic>? ?? []),
+      healthGoalsString: healthGoalsString,
+      preferencesString: preferencesString,
+    );
+
+    imageFetcherClient = ImageFetcher(); // Change to ImageFetcher for real API
+    model = TinderModel();
+    controller = TinderController(model, gptApiClient, imageFetcherClient);
+    controller.onModelUpdated = () {
+      setState(() {
+        // This will rebuild the TinderPage with the updated model
+      });
+    };
+    await controller.initialize();
+  }
 
 
   @override
