@@ -9,9 +9,6 @@ final TextEditingController fibreController = TextEditingController();
 final TextEditingController calorieController = TextEditingController();
 
 class HealthGoalScreen extends StatefulWidget {
-  final Map<String, String> ingredientsMapCons;
-
-  const HealthGoalScreen({super.key, required this.ingredientsMapCons});
 
   @override
   GoalScreenState createState() => GoalScreenState();
@@ -363,13 +360,6 @@ class GoalScreenState extends State<HealthGoalScreen> {
                   'Fibre': fibre,
                   'Calories': calorie,
                 });
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => PreferencesScreen(
-                          ingredientsMapCons: widget.ingredientsMapCons)),
-
-                );
               },
               child: Text(
                   style: TextStyle(

@@ -1,12 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:food_ai_app/TinderMVC/tinder_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class PreferencesScreen extends StatefulWidget {
-  final Map<String, String> ingredientsMapCons;
-
-  const PreferencesScreen({super.key, required this.ingredientsMapCons});
-
   @override
   _PreferenceScreenState createState() => _PreferenceScreenState();
 }
@@ -17,6 +13,8 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
   final TextEditingController preferenceController = TextEditingController();
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final user = FirebaseAuth.instance.currentUser;
+
 
   @override
   void initState() {
@@ -26,47 +24,39 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
   }
 
   void initializePreferences() async {
-    firestore
-        .collection('users')
-        .doc('TestUser')
-        .collection('Personalisation')
-        .doc('Personalisation')
-        .update({
-      'preferences': FieldValue.arrayUnion(['Vegetarian'])
-    });
+    // Reference to the Personalisation document
+    var personalisationDocRef = firestore
+    .collection('users')
+    .doc(user?.uid)
+    .collection('Personalisation')
+    .doc('Personalisation');
 
-    firestore
-        .collection('users')
-        .doc('TestUser')
-        .collection('Personalisation')
-        .doc('Personalisation')
-        .update({
-      'preferences': FieldValue.arrayUnion(['Vegan'])
-    });
-
-    firestore
-        .collection('users')
-        .doc('TestUser')
-        .collection('Personalisation')
-        .doc('Personalisation')
-        .update({
-      'preferences': FieldValue.arrayUnion(['Halal'])
-    });
-
-    firestore
-        .collection('users')
-        .doc('TestUser')
-        .collection('Personalisation')
-        .doc('Personalisation')
-        .update({
-      'preferences': FieldValue.arrayUnion(['Dairy free'])
-    });
+    var docSnapshot = await personalisationDocRef.get();
+    
+    // Check if the document exists
+    if (docSnapshot.exists) {
+      // Document exists, now check if 'prefrences' field exists
+      var data = docSnapshot.data();
+      if (data != null && !data.containsKey('preferences')) {
+        // 'healthGoals' field doesn't exist, initialize it
+        await personalisationDocRef.update({
+          'preferences': FieldValue
+          .arrayUnion(['Vegetarian', 'Vegan', 'Halal', 'Dairy Free'])
+        });
+      } 
+    } else {
+      // Document doesn't exist, create it and initialize 'preferences'
+      await personalisationDocRef.set({
+        'preferences': FieldValue
+        .arrayUnion(['Vegetarian', 'Vegan', 'Halal', 'Dairy Free'])
+      });
+    }
   }
 
   void fetchPreferences() async {
     DocumentSnapshot userSnapshot = await firestore
         .collection('users')
-        .doc('TestUser')
+        .doc(user?.uid)
         .collection('Personalisation')
         .doc('Personalisation')
         .get();
@@ -108,7 +98,7 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
       });
       firestore
           .collection('users')
-          .doc('TestUser')
+          .doc(user?.uid)
           .collection('Personalisation')
           .doc('Personalisation')
           .update({
@@ -126,7 +116,7 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
     });
     firestore
         .collection('users')
-        .doc('TestUser')
+        .doc(user?.uid)
         .collection('Personalisation')
         .doc('Personalisation')
         .update({
@@ -196,7 +186,7 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
                         // Add to activePreferences if checked
                         firestore
                             .collection('users')
-                            .doc('TestUser')
+                            .doc(user?.uid)
                             .collection('Personalisation')
                             .doc('Personalisation')
                             .update({
@@ -207,7 +197,7 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
                         // Remove from activePreferences if unchecked
                         firestore
                             .collection('users')
-                            .doc('TestUser')
+                            .doc(user?.uid)
                             .collection('Personalisation')
                             .doc('Personalisation')
                             .update({
@@ -223,22 +213,6 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
                   );
                 },
               ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // Implement save functionality if needed
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => TinderPage(
-                          ingredientsMapCons: widget.ingredientsMapCons)),
-
-                );
-              },
-              child: Text(
-                  style: TextStyle(
-                      color: Color(0xFF272E3B), fontWeight: FontWeight.bold),
-                  'Save'),
             ),
           ],
         ),
