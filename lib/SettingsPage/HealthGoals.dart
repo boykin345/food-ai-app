@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:food_ai_app/SettingsPage/Preferences.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 final TextEditingController proteinController = TextEditingController();
 final TextEditingController carbsController = TextEditingController();
@@ -9,7 +9,6 @@ final TextEditingController fibreController = TextEditingController();
 final TextEditingController calorieController = TextEditingController();
 
 class HealthGoalScreen extends StatefulWidget {
-
   @override
   GoalScreenState createState() => GoalScreenState();
 }
@@ -20,6 +19,7 @@ class GoalScreenState extends State<HealthGoalScreen> {
   final TextEditingController goalsController = TextEditingController();
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+final user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
@@ -29,29 +29,37 @@ class GoalScreenState extends State<HealthGoalScreen> {
   }
 
   void initializeHealthGoals() async {
-    firestore
-        .collection('users')
-        .doc('TestUser')
-        .collection('Personalisation')
-        .doc('Personalisation')
-        .update({
-      'healthGoals': FieldValue.arrayUnion(['Gain muscle'])
-    });
+    var personalisationDocRef = firestore
+    .collection('users')
+    .doc(user?.uid)
+    .collection('Personalisation')
+    .doc('Personalisation');
 
-    firestore
-        .collection('users')
-        .doc('TestUser')
-        .collection('Personalisation')
-        .doc('Personalisation')
-        .update({
-      'healthGoals': FieldValue.arrayUnion(['Lose weight'])
+    var docSnapshot = await personalisationDocRef.get();
+
+    // Check if the document exists
+    if (docSnapshot.exists) {
+      // Document exists, now check if 'healthGoals' field exists
+      var data = docSnapshot.data();
+      if (data != null && !data.containsKey('healthGoals')) {
+        // 'healthGoals' field doesn't exist, initialize it
+        await personalisationDocRef.update({
+          'healthGoals': FieldValue.arrayUnion(['Gain Muscle', 'Lose Weight'])
+        });
+      }
+    } else {
+      // Document doesn't exist, create it and initialize 'healthGoals'
+      await personalisationDocRef.set({
+        'healthGoals': ['Gain Muscle', 'Lose Weight']
     });
   }
+}
+
 
   void fetchHealthGoals() async {
     DocumentSnapshot userSnapshot = await firestore
         .collection('users')
-        .doc('TestUser')
+        .doc(user?.uid)
         .collection('Personalisation')
         .doc('Personalisation')
         .get();
@@ -110,7 +118,7 @@ class GoalScreenState extends State<HealthGoalScreen> {
       });
       firestore
           .collection('users')
-          .doc('TestUser')
+          .doc(user?.uid)
           .collection('Personalisation')
           .doc('Personalisation')
           .update({
@@ -128,7 +136,7 @@ class GoalScreenState extends State<HealthGoalScreen> {
     });
     firestore
         .collection('users')
-        .doc('TestUser')
+        .doc(user?.uid)
         .collection('Personalisation')
         .doc('Personalisation')
         .update({
@@ -311,7 +319,7 @@ class GoalScreenState extends State<HealthGoalScreen> {
                         // Add to activehealthGoals if checked
                         firestore
                             .collection('users')
-                            .doc('TestUser')
+                            .doc(user?.uid)
                             .collection('Personalisation')
                             .doc('Personalisation')
                             .update({
@@ -322,7 +330,7 @@ class GoalScreenState extends State<HealthGoalScreen> {
                         // Remove from activehealthGoals if unchecked
                         firestore
                             .collection('users')
-                            .doc('TestUser')
+                            .doc(user?.uid)
                             .collection('Personalisation')
                             .doc('Personalisation')
                             .update({
@@ -350,7 +358,7 @@ class GoalScreenState extends State<HealthGoalScreen> {
 
                 firestore
                     .collection('users')
-                    .doc('TestUser')
+                    .doc(user?.uid)
                     .collection('Personalisation')
                     .doc('Personalisation')
                     .update({
