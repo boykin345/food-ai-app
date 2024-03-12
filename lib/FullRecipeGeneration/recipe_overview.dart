@@ -11,12 +11,20 @@ void main()
 }
 
 class RecipeOverview extends StatelessWidget {
+  //store properties of recipe in separate variables such that they can be distinguished for recipe saving
   late String dishName = " ";
+  String caloriesString = " ";
+  int calories = 0;
+  String cookingTime = " ";
+  String difficultyString = " ";
+  int difficulty = 0;
+  String method = " ";
+  String ingredients = " ";
+
 
 
   //create background colour
   Color back = const Color.fromARGB(255, 44,52,67,);
-
 
   //create an instance of the gpt class that can be used to make api requests
   GPTRecipeApi gptRecipeApi = GPTRecipeApi('46ac92c47cd344e48007ac50e31d7771');
@@ -40,8 +48,73 @@ class RecipeOverview extends StatelessWidget {
     //recipe = mockRecipeApi.recipeText;
   }
 
+  //method to separate parts of the recipe
+  void splitRecipe(String recipe)
+  {
+    //assign each part a number (in order)
+    //0 - dish name
+    //1 - difficulty
+    //2 - cooking time
+    //3 - calories
+    //4 - ingredients
+    //5 - method
+
+    //keep track of these with count variable
+    int count = 0;
+    //int to keep track where to start substrings from
+    int startPoint = 0;
+
+    //loop through string
+    for (int i = 0; i < recipe.length; i++)
+    {
+        //check for double new line
+        if (recipe[i] == '\n')
+        {
+          if (recipe[i + 1] == '\n')
+          {
+            //assign substring to variable
+              switch(count)
+              {
+                case (0):
+                  dishName = recipe.substring(startPoint, i - 1);
+                case (1):
+                  difficultyString = recipe.substring(startPoint, i - 1);
+                case (2):
+                  cookingTime = recipe.substring(startPoint, i - 1);
+                case (3):
+                  caloriesString = recipe.substring(startPoint, i - 1);
+                case (4):
+                  ingredients = recipe.substring(startPoint, i - 1);
+                case (5):
+                  method = recipe.substring(startPoint, i - 1);
+
+              }
+              //increment count and set start point for next substring
+              count++;
+              startPoint = i + 2;
+          }
+        }
+    }
+  }
+
+  //method to save recipe
+  void saveRecipe()
+  {
+    try
+    {
+      difficulty = int.parse(difficultyString);
+      calories = int.parse(caloriesString);
+    }catch (exception)
+    {
+      throw Exception('Could not convert string to int');
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
+
+    getDish();
     return MaterialApp(
       //set all text to white
       theme: ThemeData(
@@ -99,7 +172,19 @@ class RecipeOverview extends StatelessWidget {
                 SizedBox(height: 20),
               ],
             ),
-          ))),
+          ),
+          ),
+            floatingActionButton: FloatingActionButton(
+            onPressed:()
+            {
+              splitRecipe(recipe);
+              saveRecipe();
+
+            },
+            foregroundColor: Colors.black,
+            backgroundColor: Colors.white,
+            child: Text("Save"))
+      ),
     );
   }
 }
