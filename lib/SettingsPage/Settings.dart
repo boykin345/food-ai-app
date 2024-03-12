@@ -354,6 +354,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 },
               ),
             ),
+            ElevatedButton(
+              onPressed: () {
+                // Implement save functionality if needed
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HealthGoalScreen(
+                          ingredientsMapCons: widget.ingredientsMapCons)),
+                );
+              },
+              child: Text('Save'),
+            ),
           ],
         ),
       ),

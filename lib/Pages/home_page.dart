@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:food_ai_app/IngredientVerification/mock_ingredients.dart';
 import 'package:food_ai_app/SettingsPage/HealthGoals.dart';
 import 'package:food_ai_app/SettingsPage/Preferences.dart';
 import 'package:food_ai_app/SettingsPage/Settings.dart';
@@ -67,14 +67,15 @@ class _HomePageState extends State<HomePage> {
     try {
       final String? imageUrl =
           await APICall.uploadImageAndGetDownloadUrl(imageFile);
-      print(imageUrl);
       if (imageUrl != null) {
-        final String response = await APICall.sendToOpenAI(imageUrl);
+        /*final String response = await APICall.sendToOpenAI(imageUrl);
         final jsonResponse = jsonDecode(response);
-        final contentString = jsonResponse['choices'][0]['message']['content'];
+        final contentString = jsonResponse['choices'][0]['message']['content'];*/
         setState(() {
-          _response = contentString as String;
-          final ingredientsMap = parseContent(_response);
+          /* _response = contentString as String;
+          final ingredientsMap = parseContent(_response);*/
+          final mockIngredients = MockIngredients();
+          final ingredientsMap = mockIngredients.getMap();
           ingredientEditing =
               IngredientEditing(ingredientsMapCons: ingredientsMap);
           Navigator.push(
@@ -160,7 +161,7 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => PreferencesScreen()),
+                  MaterialPageRoute(builder: (context) => HomePage()),
                 );
               },
             ),
@@ -169,7 +170,7 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => HealthGoalScreen()),
+                  MaterialPageRoute(builder: (context) => HomePage()),
                 );
               },
             ),

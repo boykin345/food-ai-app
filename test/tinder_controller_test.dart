@@ -23,7 +23,14 @@ void main() {
     setUp(() {
       TestWidgetsFlutterBinding.ensureInitialized();
       tinderModel = TinderModel();
-      mockChatGPTRecipeInterface = ChatGPTRecipeMock("");
+      mockChatGPTRecipeInterface = ChatGPTRecipeMock("",
+          ingredientsMap: {},
+          userDifficulty: 1,
+          userCookingTime: "",
+          userPortionSize: 1,
+          userAllergies: [],
+          healthGoalsString: '',
+          preferencesString: '');
       mockImageFetcherInterface = ImageFetcherMock();
       tinderController = TinderController(
           tinderModel, mockChatGPTRecipeInterface, mockImageFetcherInterface);

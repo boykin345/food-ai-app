@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'Preferences.dart';
+
 final TextEditingController proteinController = TextEditingController();
 final TextEditingController carbsController = TextEditingController();
 final TextEditingController fatController = TextEditingController();
@@ -9,6 +11,10 @@ final TextEditingController fibreController = TextEditingController();
 final TextEditingController calorieController = TextEditingController();
 
 class HealthGoalScreen extends StatefulWidget {
+  final Map<String, String> ingredientsMapCons;
+
+  const HealthGoalScreen({super.key, required this.ingredientsMapCons});
+
   @override
   GoalScreenState createState() => GoalScreenState();
 }
@@ -19,7 +25,7 @@ class GoalScreenState extends State<HealthGoalScreen> {
   final TextEditingController goalsController = TextEditingController();
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-final user = FirebaseAuth.instance.currentUser;
+  final user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
@@ -30,10 +36,10 @@ final user = FirebaseAuth.instance.currentUser;
 
   void initializeHealthGoals() async {
     var personalisationDocRef = firestore
-    .collection('users')
-    .doc(user?.uid)
-    .collection('Personalisation')
-    .doc('Personalisation');
+        .collection('users')
+        .doc(user?.uid)
+        .collection('Personalisation')
+        .doc('Personalisation');
 
     var docSnapshot = await personalisationDocRef.get();
 
@@ -51,10 +57,9 @@ final user = FirebaseAuth.instance.currentUser;
       // Document doesn't exist, create it and initialize 'healthGoals'
       await personalisationDocRef.set({
         'healthGoals': ['Gain Muscle', 'Lose Weight']
-    });
+      });
+    }
   }
-}
-
 
   void fetchHealthGoals() async {
     DocumentSnapshot userSnapshot = await firestore
@@ -368,6 +373,12 @@ final user = FirebaseAuth.instance.currentUser;
                   'Fibre': fibre,
                   'Calories': calorie,
                 });
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => PreferencesScreen(
+                          ingredientsMapCons: widget.ingredientsMapCons)),
+                );
               },
               child: Text(
                   style: TextStyle(

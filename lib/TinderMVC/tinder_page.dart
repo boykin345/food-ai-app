@@ -23,7 +23,6 @@ class TinderPage extends StatefulWidget {
   _TinderPageState createState() => _TinderPageState();
 }
 
-
 class _TinderPageState extends State<TinderPage> {
   /// Controller for the Tinder-like recipe feature.
   late TinderController controller;
@@ -57,12 +56,9 @@ class _TinderPageState extends State<TinderPage> {
       if (userSnapshot.exists) {
         userSettings = userSnapshot.data() as Map<String, dynamic>;
 
-
         healthGoals = userSettings['healthGoals'] is List
             ? List<String>.from(userSettings['healthGoals'] as List<dynamic>)
             : [];
-
-
 
         preferences = (userSettings['preferences'] is List)
             ? List<String>.from(userSettings['preferences'] as List<dynamic>)
@@ -76,18 +72,22 @@ class _TinderPageState extends State<TinderPage> {
     final String healthGoalsString = healthGoals.join(', ');
     final String preferencesString = preferences.join(', ');
 
-    gptApiClient = ChatGPTRecipe(
+    gptApiClient = ChatGPTRecipeMock(
       '46ac92c47cd344e48007ac50e31d7771',
       ingredientsMap: widget.ingredientsMapCons,
-      userDifficulty: int.tryParse(userSettings['difficulty']?.toString() ?? '') ?? 1,
+      userDifficulty:
+          int.tryParse(userSettings['difficulty']?.toString() ?? '') ?? 1,
       userCookingTime: userSettings['cookingTime']?.toString() ?? '30 min',
-      userPortionSize: int.tryParse(userSettings['portionSize']?.toString() ?? '') ?? 1,
-      userAllergies: List<String>.from(userSettings['allergies'] as List<dynamic>? ?? []),
+      userPortionSize:
+          int.tryParse(userSettings['portionSize']?.toString() ?? '') ?? 1,
+      userAllergies:
+          List<String>.from(userSettings['allergies'] as List<dynamic>? ?? []),
       healthGoalsString: healthGoalsString,
       preferencesString: preferencesString,
     );
 
-    imageFetcherClient = ImageFetcher(); // Change to ImageFetcher for real API
+    imageFetcherClient =
+        ImageFetcherMock(); // Change to ImageFetcher for real API
     model = TinderModel();
     controller = TinderController(model, gptApiClient, imageFetcherClient);
     controller.onModelUpdated = () {
@@ -98,14 +98,12 @@ class _TinderPageState extends State<TinderPage> {
     await controller.initialize();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: _initFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-
           return controller.createView();
         } else {
           return Center(child: CircularProgressIndicator());
