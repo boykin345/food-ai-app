@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:food_ai_app/SettingsPage/Allergies.dart';
-import 'package:food_ai_app/SettingsPage/HealthGoals.dart';
-import 'package:food_ai_app/SettingsPage/Preferences.dart';
-import 'package:food_ai_app/SettingsPage/Settings.dart';
+import 'package:food_ai_app/SettingsPage/allergies.dart';
+import 'package:food_ai_app/SettingsPage/health_goals.dart';
+import 'package:food_ai_app/SettingsPage/preferences.dart';
+import 'package:food_ai_app/SettingsPage/settings.dart';
 import 'package:food_ai_app/TinderMVC/tinder_page.dart';
 import 'package:food_ai_app/ImageDetection/take_photo.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:food_ai_app/ImageDetection/api_call.dart';
 
-import 'package:food_ai_app/Pages/index_page.dart';
+import 'package:food_ai_app/LoginPages/index_page.dart';
 
-import '../IngredientVerification/ingredients_editing.dart';
+import 'package:food_ai_app/IngredientVerification/ingredients_editing.dart';
 
 class HomePage extends StatefulWidget {
   @override
