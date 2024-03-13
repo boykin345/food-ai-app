@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:food_ai_app/SettingsPage/allergies.dart';
 import 'package:food_ai_app/SettingsPage/health_goals.dart';
 import 'package:food_ai_app/SettingsPage/preferences.dart';
 import 'package:food_ai_app/SettingsPage/settings.dart';

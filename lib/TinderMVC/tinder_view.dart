@@ -4,6 +4,9 @@ import 'package:food_ai_app/TinderMVC/tinder_model.dart';
 import 'package:food_ai_app/LoadingScreen/custom_loading_circle.dart';
 
 import '../FullRecipeGeneration/recipe_overview.dart';
+import '../Util/colours.dart';
+import '../Util/custom_app_bar.dart';
+import '../Util/customer_drawer.dart';
 
 /// A widget that displays a Tinder-like swipe view for recipes.
 /// It shows a loading screen until the data is available and then displays the recipe content.
@@ -99,34 +102,42 @@ class TinderViewState extends State<TinderView> {
 
   /// Builds and returns the main content of the TinderView, including the recipe image and description.
   Widget buildContent(BuildContext context) {
-    final ThemeData theme = Theme.of(context).copyWith(
-      textTheme: Theme.of(context).textTheme.apply(
-            fontFamily: 'Caviar Dreams',
-          ),
-    );
-
     final double buttonHeight = 60;
     final double imageHeight = 300;
     final double imageWidth = MediaQuery.of(context).size.width * 0.9;
 
     return Scaffold(
-      backgroundColor: Color(0xFF2D3444),
+      appBar: CustomAppBar(),
+      drawer: CustomDrawer(),
+      backgroundColor: Colours.primary,
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              width: double.infinity,
-              color: Color(0xFF2D3444),
-              padding: EdgeInsets.all(16.0),
+            Padding(
+              padding: EdgeInsets.only(top: 10.0, left: 15.0),
               child: Text(
-                "Based on your Fridge\nBON APPETIT!",
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: Color(0xFFF5F5F5),
-                  fontSize: 28,
+                "Based on your Fridge",
+                style: TextStyle(
+                  fontSize: 30,
+                  color: Colors.white,
                 ),
               ),
             ),
-            SizedBox(height: buttonHeight / 2),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.0),
+              child: Text(
+                "BON APPETIT!",
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0, left: 15.0),
+            ),
             GestureDetector(
               key: Key('swipeGestureDetector'),
               onHorizontalDragEnd: (dragEndDetails) {
@@ -218,13 +229,13 @@ class TinderViewState extends State<TinderView> {
             // Recipe Description Container
             Container(
               width: double.infinity,
-              color: Color(0xFF2D3444),
+              color: Colours.primary,
               padding: EdgeInsets.all(16.0),
               child: Text(
                 widget.model.getRecipeDescription(),
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: Color(0xFFF5F5F5),
-                  fontSize: 28,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
                 ),
               ),
             ),

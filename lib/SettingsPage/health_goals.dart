@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../Util/colours.dart';
 import '../Util/custom_app_bar.dart';
 import '../Util/customer_drawer.dart';
 import 'Preferences.dart';
@@ -156,7 +157,7 @@ class GoalScreenState extends State<HealthGoalScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF272E3B),
+      backgroundColor: Colours.primary,
       appBar: CustomAppBar(),
       drawer: CustomDrawer(),
       body: Padding(
