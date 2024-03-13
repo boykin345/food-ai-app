@@ -104,7 +104,9 @@ class TinderViewState extends State<TinderView> {
   Widget buildContent(BuildContext context) {
     final double buttonHeight = 60;
     final double imageHeight = 300;
-    final double imageWidth = MediaQuery.of(context).size.width * 0.9;
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double imageWidth = screenWidth * 0.9;
+    final double sidePadding = (screenWidth - imageWidth) + 15;
 
     return Scaffold(
       appBar: CustomAppBar(),
@@ -147,20 +149,13 @@ class TinderViewState extends State<TinderView> {
                   _onSwipe(DismissDirection.startToEnd);
                 }
               },
-              child: Stack(
-                clipBehavior: Clip.none,
-                alignment: Alignment.bottomCenter,
+              child: Column(
                 children: [
                   Container(
                     height: imageHeight,
                     width: imageWidth,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.transparent,
-                    ),
                     child: widget.model.getRecipeImage().isNotEmpty
                         ? ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
                             child: Image.memory(
                               base64Decode(widget.model.getRecipeImage()),
                               fit: BoxFit.contain,
@@ -168,58 +163,52 @@ class TinderViewState extends State<TinderView> {
                           )
                         : Icon(Icons.image, size: 100, color: Colors.white54),
                   ),
-
-                  // Buttons Overlay
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          // No Button
-                          ElevatedButton(
-                            key: ValueKey('no-button'),
-                            onPressed: widget.onChangeRecipe,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.red,
-                              shape: CircleBorder(),
-                              padding: EdgeInsets.all(15),
-                            ),
-                            child: Icon(Icons.close,
-                                size: 50, color: Colors.white),
+                  Padding(
+                    padding:
+                        EdgeInsets.fromLTRB(sidePadding, 0, sidePadding, 0),
+                    // Buttons Overlay
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // No Button
+                        ElevatedButton(
+                          key: ValueKey('no-button'),
+                          onPressed: widget.onChangeRecipe,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                            shape: CircleBorder(),
+                            padding: EdgeInsets.all(15),
                           ),
-                          // Yes Button
-                          ElevatedButton(
-                            key: ValueKey('yes-button'),
-                            onPressed: () async {
-                              setState(() {
-                                isLoadingRecipe = true; // Start loading
-                              });
-                              await widget.recipeOverview.getDish();
+                          child:
+                              Icon(Icons.close, size: 50, color: Colors.white),
+                        ),
+                        // Yes Button
+                        ElevatedButton(
+                          key: ValueKey('yes-button'),
+                          onPressed: () async {
+                            setState(() {
+                              isLoadingRecipe = true; // Start loading
+                            });
+                            await widget.recipeOverview.getDish();
 
-                              setState(() {
-                                isLoadingRecipe = false; // End  loading
-                              });
+                            setState(() {
+                              isLoadingRecipe = false; // End  loading
+                            });
 
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        widget.recipeOverview),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green,
-                              shape: CircleBorder(),
-                              padding: EdgeInsets.all(15),
-                            ),
-                            child: Icon(Icons.check,
-                                size: 50, color: Colors.white),
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => widget.recipeOverview),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                            shape: CircleBorder(),
+                            padding: EdgeInsets.all(15),
                           ),
-                        ],
-                      ),
+                          child:
+                              Icon(Icons.check, size: 50, color: Colors.white),
+                        ),
+                      ],
                     ),
                   ),
                 ],
