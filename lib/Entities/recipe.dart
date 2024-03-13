@@ -5,6 +5,8 @@ class Recipe {
   int difficulty;
   List<String> ingredients;
   String instructions;
+  // Category should be one of the following: Breakfast, Main, Desserts, Side-Dishes, Lunch
+  String category;
 
   Recipe({
     required this.recipeName,
@@ -13,5 +15,6 @@ class Recipe {
     required this.difficulty,
     required this.ingredients,
     required this.instructions,
+    required this.category,
   });
 }
