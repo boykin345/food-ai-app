@@ -107,6 +107,8 @@ class TinderViewState extends State<TinderView> {
     final double imageWidth = screenWidth * 0.9;
     final double sidePadding = (screenWidth - imageWidth) * 2;
     final double textMargin = (screenWidth - imageWidth) - 15;
+    final double secondImageHeight = imageHeight - (imageHeight * 0.9);
+    final double secondImageWidth = screenWidth / 2;
 
     return Scaffold(
       appBar: CustomAppBar(),
@@ -155,15 +157,50 @@ class TinderViewState extends State<TinderView> {
                     height: imageHeight,
                     width: imageWidth,
                     alignment: Alignment.centerLeft,
-                    child: widget.model.getRecipeImage().isNotEmpty
-                        ? ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Image.memory(
-                              base64Decode(widget.model.getRecipeImage()),
-                              fit: BoxFit.contain,
-                            ),
-                          )
-                        : Icon(Icons.image, size: 100, color: Colors.white54),
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        // Second image (background)
+                        Positioned(
+                          left: secondImageWidth,
+                          bottom: secondImageHeight,
+                          child: widget.model.getSecondRecipeImage().isNotEmpty
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: Stack(
+                                    children: [
+                                      Image.memory(
+                                        base64Decode(widget.model
+                                            .getSecondRecipeImage()),
+                                        fit: BoxFit.contain,
+                                        height: imageHeight * 0.8,
+                                        width: imageWidth * 0.8,
+                                      ),
+                                      Container(
+                                        height: imageHeight * 0.8,
+                                        width: imageWidth * 0.8,
+                                        decoration: BoxDecoration(
+                                          color: Colors.black.withOpacity(0.4),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : SizedBox(), // Placeholder
+                        ),
+                        // First image (foreground)
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: widget.model.getRecipeImage().isNotEmpty
+                              ? Image.memory(
+                                  base64Decode(widget.model.getRecipeImage()),
+                                  fit: BoxFit.contain,
+                                )
+                              : Icon(Icons.image,
+                                  size: 100, color: Colors.white54),
+                        ),
+                      ],
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(15, 0, sidePadding, 0),
