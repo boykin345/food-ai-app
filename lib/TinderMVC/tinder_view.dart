@@ -105,7 +105,7 @@ class TinderViewState extends State<TinderView> {
     final double imageHeight = 300;
     final double screenWidth = MediaQuery.of(context).size.width;
     final double imageWidth = screenWidth * 0.9;
-    final double sidePadding = (screenWidth - imageWidth) + 15;
+    final double sidePadding = (screenWidth - imageWidth) * 2;
 
     return Scaffold(
       appBar: CustomAppBar(),
