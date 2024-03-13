@@ -9,6 +9,7 @@ import 'package:food_ai_app/SettingsPage/Preferences.dart';
 
 import 'package:food_ai_app/SettingsPage/Settings.dart';
 
+import '../Util/colours.dart';
 import '../Util/custom_app_bar.dart';
 import '../Util/customer_drawer.dart';
 
@@ -136,53 +137,46 @@ class IngredientEditingState extends State<IngredientEditing> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        textTheme: Theme.of(context).textTheme.apply(
-              fontFamily: 'Caviar Dreams',
-            ),
-      ),
-      home: Scaffold(
-        backgroundColor: Color(0xFF2D3444),
-        appBar: CustomAppBar(),
-        drawer: CustomDrawer(),
-        body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 05, vertical: 0),
-          child: Column(
-            children: [
-              Text(
+    return Scaffold(
+      backgroundColor: Colours.primary,
+      appBar: CustomAppBar(),
+      drawer: CustomDrawer(),
+      body: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 10.0, left: 15.0, bottom: 10),
+              child: Text(
                 'Based on your Fridge \nWE DETECTED',
                 style: TextStyle(
                   fontSize: 30,
                   color: Colors.white,
                 ),
               ),
-              searchBox(),
-              Expanded(
-                child: ListView(
-                  children: _buildIngredientWidgets(ingredientsMap),
-                ),
+            ),
+            searchBox(),
+            Expanded(
+              child: ListView(
+                children: _buildIngredientWidgets(ingredientsMap),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      SettingsScreen(ingredientsMapCons: ingredientsMap)),
-            );
-          },
-          child: Icon(Icons.check_box),
-          backgroundColor: Colors.blue,
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    SettingsScreen(ingredientsMapCons: ingredientsMap)),
+          );
+        },
+        child: Icon(Icons.check_box),
+        backgroundColor: Colors.blue,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 

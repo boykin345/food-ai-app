@@ -117,7 +117,7 @@ class _HomePageState extends State<HomePage> {
               child: Text(
                 "Let's find the",
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 30,
                   color: Colors.white,
                 ),
               ),
@@ -125,9 +125,9 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 15.0),
               child: Text(
-                "Food you Love",
+                "Meals you'll Love",
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 30,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                 ),
