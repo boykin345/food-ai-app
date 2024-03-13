@@ -106,6 +106,7 @@ class TinderViewState extends State<TinderView> {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double imageWidth = screenWidth * 0.9;
     final double sidePadding = (screenWidth - imageWidth) * 2;
+    final double textMargin = (screenWidth - imageWidth) - 15;
 
     return Scaffold(
       appBar: CustomAppBar(),
@@ -156,6 +157,7 @@ class TinderViewState extends State<TinderView> {
                     alignment: Alignment.centerLeft,
                     child: widget.model.getRecipeImage().isNotEmpty
                         ? ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
                             child: Image.memory(
                               base64Decode(widget.model.getRecipeImage()),
                               fit: BoxFit.contain,
@@ -214,18 +216,34 @@ class TinderViewState extends State<TinderView> {
               ),
             ),
             Padding(
+              padding: EdgeInsets.only(top: 15.0, left: 15.0),
+              child: Text(
+                "DISH DETAILS...",
+                style: TextStyle(
+                  fontSize: 30,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Padding(
               padding: const EdgeInsets.only(top: 15.0, left: 15.0),
             ),
             // Recipe Description Container
             Container(
+              margin: EdgeInsets.fromLTRB(0, 0, textMargin + 30, 0),
               color: Colours.primary,
               padding: EdgeInsets.all(15.0),
-              child: Text(
-                widget.model.getRecipeDescription(),
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
+              child: Wrap(
+                children: [
+                  Text(
+                    widget.model.getRecipeDescription(),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
