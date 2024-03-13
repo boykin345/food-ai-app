@@ -5,6 +5,9 @@ import 'package:http/http.dart' as http;
 import 'package:food_ai_app/FullRecipeGeneration/gpt_api_recipe.dart';
 import 'package:food_ai_app/FullRecipeGeneration/gpt_api_recipe_mock.dart';
 
+import '../Util/custom_app_bar.dart';
+import '../Util/customer_drawer.dart';
+
 class RecipeOverview extends StatelessWidget {
   late String dishName;
   late String imageLink;
@@ -54,9 +57,10 @@ class RecipeOverview extends StatelessWidget {
 
       //set title of page
       title: 'Recipe Overview',
-
       //create scaffold to lay out elements
       home: Scaffold(
+          appBar: CustomAppBar(),
+          drawer: CustomDrawer(),
           //set background colour of page
           backgroundColor: back,
 

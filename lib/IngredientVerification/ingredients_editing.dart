@@ -9,6 +9,9 @@ import 'package:food_ai_app/SettingsPage/Preferences.dart';
 
 import 'package:food_ai_app/SettingsPage/Settings.dart';
 
+import '../Util/custom_app_bar.dart';
+import '../Util/customer_drawer.dart';
+
 class IngredientEditing extends StatefulWidget {
   final Map<String, String> ingredientsMapCons;
 
@@ -144,7 +147,8 @@ class IngredientEditingState extends State<IngredientEditing> {
       ),
       home: Scaffold(
         backgroundColor: Color(0xFF2D3444),
-        appBar: _buildAppBar(),
+        appBar: CustomAppBar(),
+        drawer: CustomDrawer(),
         body: Container(
           padding: EdgeInsets.symmetric(horizontal: 05, vertical: 0),
           child: Column(
@@ -227,27 +231,6 @@ class IngredientEditingState extends State<IngredientEditing> {
           ),
         ],
       ),
-    );
-  }
-
-  AppBar _buildAppBar() {
-    return AppBar(
-      backgroundColor: Color(0xFF2D3444),
-      elevation: 0,
-      title: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Icon(
-          Icons.menu,
-          color: Colors.black,
-          size: 30,
-        ),
-        Container(
-          height: 40,
-          width: 40,
-          child: ClipRRect(
-            child: Image.asset('assets/pflpic.png'),
-          ),
-        ),
-      ]),
     );
   }
 }

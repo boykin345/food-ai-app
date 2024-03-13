@@ -17,8 +17,10 @@ import 'package:food_ai_app/LoginPages/index_page.dart';
 
 import 'package:food_ai_app/IngredientVerification/ingredients_editing.dart';
 
-import '../Util/custom_app_bar.dart';
-import '../Util/customer_drawer.dart';
+import 'package:food_ai_app/Util/custom_app_bar.dart';
+import 'package:food_ai_app/Util/customer_drawer.dart';
+
+import '../Util/colours.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -105,10 +107,25 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: CustomAppBar(),
       drawer: CustomDrawer(),
+      backgroundColor: Colours.primary,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Text(
+              "Your",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            Text(
+              "Favourites",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             Padding(
               padding:
                   const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),

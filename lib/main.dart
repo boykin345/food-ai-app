@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:food_ai_app/LoginPages/index_page.dart';
 import 'package:food_ai_app/LoginPages/home_page.dart';
+import 'package:food_ai_app/Util/colours.dart';
 import 'package:food_ai_app/Util/firebase_options.dart';
 
 void main() async {
@@ -20,8 +21,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme: Theme.of(context).textTheme.apply(
-              fontFamily: 'Caviar Dreams',
+              fontFamily: 'CaviarDreams_Bold',
             ),
+        appBarTheme: AppBarTheme(
+          iconTheme: IconThemeData(
+            size: 50,
+            color: Colors.white,
+          ),
+          actionsIconTheme: IconThemeData(
+            size: 50,
+            color: Colors.white,
+          ),
+        ),
       ),
       home: Scaffold(
         body: StreamBuilder<User?>(

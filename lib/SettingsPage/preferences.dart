@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../TinderMVC/tinder_page.dart';
+import '../Util/custom_app_bar.dart';
+import '../Util/customer_drawer.dart';
 
 class PreferencesScreen extends StatefulWidget {
   final Map<String, String> ingredientsMapCons;
@@ -135,12 +137,8 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF272E3B),
-      appBar: AppBar(
-        backgroundColor: Color(0xFF272E3B),
-        title: Text(
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            'Preferences'),
-      ),
+      appBar: CustomAppBar(),
+      drawer: CustomDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

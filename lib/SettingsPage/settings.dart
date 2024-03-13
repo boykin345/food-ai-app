@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:food_ai_app/SettingsPage/health_goals.dart';
 
+import '../Util/custom_app_bar.dart';
+import '../Util/customer_drawer.dart';
+
 class SettingsScreen extends StatefulWidget {
   final Map<String, String> ingredientsMapCons;
 
@@ -27,7 +30,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     super.initState();
     fetchUserData();
   }
-
 
   Future<void> fetchUserData() async {
     try {
@@ -97,10 +99,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Settings', style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.blue[900],
-      ),
+      appBar: CustomAppBar(),
+      drawer: CustomDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
