@@ -20,7 +20,7 @@ import 'package:food_ai_app/IngredientVerification/ingredients_editing.dart';
 import 'package:food_ai_app/Util/custom_app_bar.dart';
 import 'package:food_ai_app/Util/customer_drawer.dart';
 
-import '../Util/colours.dart';
+import 'package:food_ai_app/Util/colours.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -112,28 +112,35 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Your",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-            Text(
-              "Favourites",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+            Padding(
+              padding: EdgeInsets.only(top: 10.0, left: 15.0),
+              child: Text(
+                "Let's find the",
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.white,
+                ),
               ),
             ),
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
+              padding: EdgeInsets.symmetric(horizontal: 15.0),
+              child: Text(
+                "Food you Love",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 45.0, left: 15.0, bottom: 15),
               child: Text(
                 "Mains",
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -164,13 +171,13 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 16.0),
+              padding: const EdgeInsets.only(top: 45.0, left: 15.0, bottom: 15),
               child: Text(
                 "Desserts",
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
               ),
             ),
