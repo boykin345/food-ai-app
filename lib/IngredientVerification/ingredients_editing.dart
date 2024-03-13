@@ -5,9 +5,14 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:food_ai_app/IngredientVerification/ingredients.dart';
 
 import 'package:food_ai_app/IngredientVerification/mock_ingredients.dart';
+import 'package:food_ai_app/SettingsPage/Preferences.dart';
+
+import 'package:food_ai_app/SettingsPage/Settings.dart';
 
 class IngredientEditing extends StatefulWidget {
-  const IngredientEditing({super.key});
+  final Map<String, String> ingredientsMapCons;
+
+  const IngredientEditing({super.key, required this.ingredientsMapCons});
 
   @override
   IngredientEditingState createState() => IngredientEditingState();
@@ -24,7 +29,8 @@ class IngredientEditingState extends State<IngredientEditing> {
   @override
   void initState() {
     super.initState();
-    ingredientsMap = mockIngredients.getMap();
+    ingredientsMap = widget.ingredientsMapCons;
+    //ingredientsMap = mockIngredients.getMap();
   }
 
   @override
@@ -159,6 +165,19 @@ class IngredientEditingState extends State<IngredientEditing> {
             ],
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      SettingsScreen(ingredientsMapCons: ingredientsMap)),
+            );
+          },
+          child: Icon(Icons.check_box),
+          backgroundColor: Colors.blue,
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
   }

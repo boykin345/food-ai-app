@@ -17,7 +17,8 @@ class APICall {
   static Future<String?> uploadImageAndGetDownloadUrl(File file) async {
     try {
       final String fileName = path.basename(file.path);
-      final firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
+      final firebase_storage.Reference ref = firebase_storage
+          .FirebaseStorage.instance
           .ref()
           .child('images/$fileName');
       await ref.putFile(file);
@@ -49,7 +50,7 @@ class APICall {
               {
                 "type": "text",
                 "text":
-                "What are ingredients inside of that fridge? Just give Name:quantity, nothing else. Example: 'Apple: 1' "
+                    "What are ingredients inside of that fridge? Just give Name:quantity, nothing else. Example: 'Apple: 1' "
               },
               {
                 "type": "image_url",
@@ -70,6 +71,18 @@ class APICall {
     }
   }
 
+  /// Parse the content string to extract ingredients and their quantities.
+  Map<String, String> parseContent(String content) {
+    final Map<String, String> resultMap = {};
+    final lines = content.split('\n');
+    for (final line in lines) {
+      final parts = line.split(':');
+      if (parts.length == 2) {
+        final ingredient = parts[0].trim();
+        final quantity = parts[1].trim();
+        resultMap[ingredient] = quantity;
+      }
+    }
+    return resultMap;
+  }
 }
-
-

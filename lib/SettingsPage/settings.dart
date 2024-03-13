@@ -1,8 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:food_ai_app/SettingsPage/health_goals.dart';
 
 class SettingsScreen extends StatefulWidget {
+  final Map<String, String> ingredientsMapCons;
+
+  const SettingsScreen({super.key, required this.ingredientsMapCons});
+
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
 }
@@ -11,6 +16,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   int _selectedDifficulty = 1;
   String _selectedCookingTime = '30 min';
   int _selectedPortionSize = 1;
+  List<String> allergies = [];
+  final TextEditingController allergyController = TextEditingController();
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   final user = FirebaseAuth.instance.currentUser;
@@ -18,29 +25,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   void initState() {
     super.initState();
-    fetchSettings();
+    fetchUserData();
   }
 
-  Future<void> fetchSettings() async {
+
+  Future<void> fetchUserData() async {
     try {
-      DocumentSnapshot settingsSnapshot =
+      DocumentSnapshot userSnapshot =
           await firestore.collection('users').doc(user?.uid).get();
       setState(() {
-        var settingsData = settingsSnapshot.data() as Map<String, dynamic>?;
-        if (settingsData != null) {
-          _selectedDifficulty = settingsData['difficulty'] is int
-              ? settingsData['difficulty'] as int
-              : 1;
-          _selectedCookingTime = settingsData['cookingTime'] is String
-              ? settingsData['cookingTime'] as String
+        var userData = userSnapshot.data() as Map<String, dynamic>?;
+        if (userData != null) {
+          _selectedDifficulty =
+              userData['difficulty'] is int ? userData['difficulty'] as int : 1;
+          _selectedCookingTime = userData['cookingTime'] is String
+              ? userData['cookingTime'] as String
               : '30 min';
-          _selectedPortionSize = settingsData['portionSize'] is int
-              ? settingsData['portionSize'] as int
+          _selectedPortionSize = userData['portionSize'] is int
+              ? userData['portionSize'] as int
               : 1;
+          if (userData['allergies'] is List<dynamic>) {
+            allergies = (userData['allergies'] as List<dynamic>).cast<String>();
+          } else {
+            allergies = [];
+          }
         }
       });
     } catch (error) {
-      print('Error fetching settings: $error');
+      print('Error fetching user data: $error');
     }
   }
 
@@ -50,9 +62,35 @@ class _SettingsScreenState extends State<SettingsScreen> {
         'difficulty': _selectedDifficulty,
         'cookingTime': _selectedCookingTime,
         'portionSize': _selectedPortionSize,
+        'allergies': allergies,
       });
     } catch (error) {
       print('Error updating settings: $error');
+    }
+  }
+
+  Future<void> _addAllergy() async {
+    try {
+      if (allergyController.text.isNotEmpty) {
+        setState(() {
+          allergies.add(allergyController.text);
+        });
+        await _updateSettings(); // Update all user settings
+        allergyController.clear();
+      }
+    } catch (error) {
+      print('Error adding allergy: $error');
+    }
+  }
+
+  Future<void> _removeAllergy(String allergy) async {
+    try {
+      setState(() {
+        allergies.remove(allergy);
+      });
+      await _updateSettings(); // Update all user settings
+    } catch (error) {
+      print('Error removing allergy: $error');
     }
   }
 
@@ -65,7 +103,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: ListView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Container(
               decoration: BoxDecoration(
@@ -271,6 +310,63 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                 ),
               ),
+            ),
+            SizedBox(height: 20),
+            TextField(
+              controller: allergyController,
+              decoration: InputDecoration(
+                labelText: 'Add a new Dietary need',
+                labelStyle: TextStyle(color: Colors.black),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    Icons.add,
+                    color: Colors.black,
+                  ),
+                  onPressed: _addAllergy,
+                ),
+              ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: allergies.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.blue,
+                    ),
+                    margin: EdgeInsets.symmetric(vertical: 8),
+                    child: ListTile(
+                      title: Text(
+                        allergies[index],
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      trailing: IconButton(
+                        icon: Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                        ),
+                        onPressed: () => _removeAllergy(allergies[index]),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Implement save functionality if needed
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HealthGoalScreen(
+                          ingredientsMapCons: widget.ingredientsMapCons)),
+                );
+              },
+              child: Text('Save'),
             ),
           ],
         ),

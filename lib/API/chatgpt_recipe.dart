@@ -8,8 +8,28 @@ class ChatGPTRecipe extends ChatGPTRecipeInterface {
   /// The API key used for authenticating requests to the OpenAI API.
   final String apiKey;
 
-  /// Constructs a [ChatGPTRecipe] instance with the given [apiKey].
-  ChatGPTRecipe(this.apiKey);
+  /// Add fields for user settings.
+  final int userDifficulty;
+  final String userCookingTime;
+  final int userPortionSize;
+  final List<String> userAllergies;
+  final String healthGoalsString;
+  final String preferencesString;
+
+  /// The map is used as part of a prompt to gpt.
+  final Map<String, String> ingredientsMap;
+
+  /// Modify the constructor to accept user settings.
+  ChatGPTRecipe(
+    this.apiKey, {
+    required this.ingredientsMap,
+    required this.userDifficulty,
+    required this.userCookingTime,
+    required this.userPortionSize,
+    required this.userAllergies,
+    required this.healthGoalsString,
+    required this.preferencesString,
+  });
 
   /// Sends a chat message to the OpenAI API and returns the API's response.
   /// Throws an exception if the request fails or the response is not 200 OK.
@@ -48,9 +68,27 @@ class ChatGPTRecipe extends ChatGPTRecipeInterface {
   /// Throws an exception if the response format is invalid or in case of an error.
   @override
   Future<String> fetchRecipe() async {
+    final ingredientsString = ingredientsMap.entries
+        .map((entry) => '${entry.key}: ${entry.value}')
+        .join(', ');
     try {
       final message =
-          'Tell me how to make tomato soup, do not need to give me instructions, make your description concise and in this format: Calories:\n Prep Time:\nDifficult Rating:\nProtein:\n Carbohydrates:\nFats:\nCooking Times:\nUtensils:\nProtenial Allergens:\nIngredients: , and make sure your calories is only number, no other things, and make name of cuisine name on first line(only show  tomato soup),make difficult rating out of 10';
+          'Tell me a set of dishes based on ingredients: $ingredientsString, '
+          'do not need to give me instructions, make your description concise and in this format: Calories:\n Prep Time:\nDifficult Rating:\nProtein:\n Carbohydrates:\nFats:\nCooking Times:\nUtensils:\nProtenial Allergens:\nIngredients: , and make sure your calories is only number, no other things, and make name of cuisine name on first line(only show  tomato soup),make difficult rating out of 5 '
+          'And the condition of food should be close to these information: '
+          'Difficulty: $userDifficulty, '
+          'Cooking Time: $userCookingTime, '
+          'Portion Size: $userPortionSize, '
+          'Allergies: ${userAllergies.join(', ')}, '
+          'Health Goals: $healthGoalsString, '
+          'Preference: $preferencesString, '
+          'make sure your description is concise and formatted properly. Do not give anything else not included in the format.';
+
+      //  print(healthGoalsString);
+      //  print(userAllergies.join(', '));
+      //  print(preferencesString);
+      //  print(userCookingTime);
+      print(message);
       final response = await getChatResponse(message);
       final decodedResponse = jsonDecode(response)
           as Map<String, dynamic>; // Safely cast to Map<String, dynamic>

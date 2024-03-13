@@ -38,8 +38,8 @@ class RecipeOverview extends StatelessWidget {
   //method to request recipe and image from api
   Future<void> getDish() async {
     //request recipe
-    recipe = await gptRecipeApi.getRecipe(dishName, false);
-    //recipe = mockRecipeApi.recipeText;
+    //recipe = await gptRecipeApi.getRecipe(dishName, false);
+    recipe = mockRecipeApi.recipeText;
   }
 
   @override

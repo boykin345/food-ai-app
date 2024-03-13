@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
 
+
 import 'package:food_ai_app/SettingsPage/allergies.dart';
 import 'package:food_ai_app/SettingsPage/health_goals.dart';
 import 'package:food_ai_app/SettingsPage/preferences.dart';
 import 'package:food_ai_app/SettingsPage/settings.dart';
+import 'package:food_ai_app/IngredientVerification/mock_ingredients.dart';
 import 'package:food_ai_app/TinderMVC/tinder_page.dart';
 import 'package:food_ai_app/ImageDetection/take_photo.dart';
 import 'package:image_picker/image_picker.dart';
@@ -23,9 +25,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final user = FirebaseAuth.instance.currentUser!;
+  late IngredientEditing ingredientEditing;
 
   File? _imageFile;
   String _response = 'No image processed yet';
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   /// Function to get an image from the device's gallery.
   Future<void> getImageFromGallery() async {
@@ -62,15 +70,21 @@ class _HomePageState extends State<HomePage> {
     try {
       final String? imageUrl =
           await APICall.uploadImageAndGetDownloadUrl(imageFile);
-      print(imageUrl);
       if (imageUrl != null) {
-        final String response = await APICall.sendToOpenAI(imageUrl);
+        /*final String response = await APICall.sendToOpenAI(imageUrl);
         final jsonResponse = jsonDecode(response);
-        final contentString = jsonResponse['choices'][0]['message']['content'];
+        final contentString = jsonResponse['choices'][0]['message']['content'];*/
         setState(() {
-          _response = contentString as String;
-          final ingredientsMap = parseContent(_response);
-          print(ingredientsMap);
+          /* _response = contentString as String;
+          final ingredientsMap = parseContent(_response);*/
+          final mockIngredients = MockIngredients();
+          final ingredientsMap = mockIngredients.getMap();
+          ingredientEditing =
+              IngredientEditing(ingredientsMapCons: ingredientsMap);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ingredientEditing),
+          );
         });
       } else {
         setState(() {
@@ -82,7 +96,6 @@ class _HomePageState extends State<HomePage> {
         _response = 'Error processing image: ${e}';
       });
     }
-    print(_response);
   }
 
   @override
@@ -133,7 +146,7 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => TinderPage()),
+                  MaterialPageRoute(builder: (context) => HomePage()),
                 );
               },
             ),
@@ -142,16 +155,7 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SettingsScreen()),
-                );
-              },
-            ),
-            ListTile(
-              title: Text('Allergies'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AllergiesScreen()),
+                  MaterialPageRoute(builder: (context) => HomePage()),
                 );
               },
             ),
@@ -160,7 +164,7 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => PreferencesScreen()),
+                  MaterialPageRoute(builder: (context) => HomePage()),
                 );
               },
             ),
@@ -169,17 +173,7 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => HealthGoalScreen()),
-                );
-              },
-            ),
-            ListTile(
-              title: Text('Ingredient Verification'),
-              onTap: () {
-                FirebaseAuth.instance.signOut();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => IngredientEditing()),
+                  MaterialPageRoute(builder: (context) => HomePage()),
                 );
               },
             ),
