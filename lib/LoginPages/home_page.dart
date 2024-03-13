@@ -281,7 +281,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 Image.network(
                   imageUrl,
-                  width: 220, //size of each box
+                  width: 210, //size of each box
                   height: 270,
                   fit:
                       BoxFit.cover, // Use BoxFit.cover to maintain aspect ratio

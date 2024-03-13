@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme: Theme.of(context).textTheme.apply(
-              fontFamily: 'CaviarDreams_Bold',
+              fontFamily: 'Caviar Dreams',
             ),
         appBarTheme: AppBarTheme(
           iconTheme: IconThemeData(
