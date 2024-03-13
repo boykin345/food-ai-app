@@ -169,18 +169,6 @@ class TinderViewState extends State<TinderView> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // No Button
-                        ElevatedButton(
-                          key: ValueKey('no-button'),
-                          onPressed: widget.onChangeRecipe,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.red,
-                            shape: CircleBorder(),
-                            padding: EdgeInsets.all(15),
-                          ),
-                          child:
-                              Icon(Icons.close, size: 50, color: Colors.white),
-                        ),
                         // Yes Button
                         ElevatedButton(
                           key: ValueKey('yes-button'),
@@ -206,6 +194,18 @@ class TinderViewState extends State<TinderView> {
                           ),
                           child:
                               Icon(Icons.check, size: 50, color: Colors.white),
+                        ),
+                        // No Button
+                        ElevatedButton(
+                          key: ValueKey('no-button'),
+                          onPressed: widget.onChangeRecipe,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                            shape: CircleBorder(),
+                            padding: EdgeInsets.all(15),
+                          ),
+                          child:
+                              Icon(Icons.close, size: 50, color: Colors.white),
                         ),
                       ],
                     ),
