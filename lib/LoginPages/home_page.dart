@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
 
-
 import 'package:food_ai_app/SettingsPage/allergies.dart';
 import 'package:food_ai_app/SettingsPage/health_goals.dart';
 import 'package:food_ai_app/SettingsPage/preferences.dart';
@@ -17,6 +16,9 @@ import 'package:food_ai_app/ImageDetection/api_call.dart';
 import 'package:food_ai_app/LoginPages/index_page.dart';
 
 import 'package:food_ai_app/IngredientVerification/ingredients_editing.dart';
+
+import '../Util/custom_app_bar.dart';
+import '../Util/customer_drawer.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -101,95 +103,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Your",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-            Text(
-              "Favourites",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.account_circle),
-            iconSize: 50,
-            onPressed: () {
-              // Add functionality to navigate to user profile page
-            },
-          ),
-        ],
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Text('George Cook', style: TextStyle(color: Colors.white)),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-            ),
-            ListTile(
-              title: Text('Tinder Selection'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomePage()),
-                );
-              },
-            ),
-            ListTile(
-              title: Text('Settings'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomePage()),
-                );
-              },
-            ),
-            ListTile(
-              title: Text('Preferences'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomePage()),
-                );
-              },
-            ),
-            ListTile(
-              title: Text('Health Goals'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomePage()),
-                );
-              },
-            ),
-            ListTile(
-              title: Text('Log Out'),
-              onTap: () {
-                FirebaseAuth.instance.signOut();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => IndexPage()),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+      appBar: CustomAppBar(),
+      drawer: CustomDrawer(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
