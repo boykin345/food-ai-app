@@ -5,15 +5,13 @@ import 'package:http/http.dart' as http;
 import 'package:food_ai_app/FullRecipeGeneration/gpt_api_recipe.dart';
 import 'package:food_ai_app/FullRecipeGeneration/gpt_api_recipe_mock.dart';
 
+import '../Util/colours.dart';
 import '../Util/custom_app_bar.dart';
 import '../Util/customer_drawer.dart';
 
 class RecipeOverview extends StatelessWidget {
   late String dishName;
   late String imageLink;
-
-  //create background colour
-  Color back = const Color.fromARGB(255, 45, 52, 68);
 
   //create an instance of the gpt class that can be used to make api requests
   GPTRecipeApi gptRecipeApi = GPTRecipeApi('46ac92c47cd344e48007ac50e31d7771');
@@ -47,65 +45,77 @@ class RecipeOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      //set all text to white
-      theme: ThemeData(
-          textTheme: Theme.of(context).textTheme.apply(
-              bodyColor: Colors.white,
-              displayColor: Colors.white,
-              fontFamily: 'CaviarDreams')),
+    return Scaffold(
+        appBar: CustomAppBar(),
+        drawer: CustomDrawer(),
+        //set background colour of page
+        backgroundColor: Colours.primary,
 
-      //set title of page
-      title: 'Recipe Overview',
-      //create scaffold to lay out elements
-      home: Scaffold(
-          appBar: CustomAppBar(),
-          drawer: CustomDrawer(),
-          //set background colour of page
-          backgroundColor: back,
-
-          //make page scrollable
-          body: SingleChildScrollView(
-              //create a container to hold elements
-              child: Container(
-            //center the elements of the page
-            alignment: Alignment.center,
-            child: Column(
-              children: [
-                //display name of dish at the top of the page
-                SizedBox(height: 20),
-                Padding(
-                  padding: EdgeInsets.all(15),
-                  child: Text("You have chosen $name",
-                      style: TextStyle(
-                        fontSize: 30.0,
-                      )),
+        //make page scrollable
+        body: SingleChildScrollView(
+          //create a container to hold elements
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //display name of dish at the top of the page
+              Padding(
+                padding: EdgeInsets.only(top: 10.0, left: 15.0),
+                child: Text(
+                  "You have chosen",
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: Colors.white,
+                  ),
                 ),
-                SizedBox(height: 20),
-
-                //display image of the dish
-                Container(
-                    width: 410,
-                    height: 336,
-                    //give the image rounded corners
-                    clipBehavior: Clip.antiAlias,
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(42)),
-                    child: Image.memory(
-                      base64Decode(imageLink),
-                      fit: BoxFit.contain,
-                    )),
-                SizedBox(height: 20),
-
-                //display the generated recipe to the screen
-                Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Text(recipe, style: TextStyle(fontSize: 16)),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.0),
+                child: Text(
+                  name,
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: Colors.white,
+                  ),
                 ),
-                SizedBox(height: 20),
-              ],
-            ),
-          ))),
-    );
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 15.0, left: 15.0),
+              ),
+              //display image of the dish
+              Container(
+                  width: 410,
+                  height: 336,
+                  //give the image rounded corners
+                  clipBehavior: Clip.antiAlias,
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(42)),
+                  child: Image.memory(
+                    base64Decode(imageLink),
+                    fit: BoxFit.contain,
+                  )),
+              Padding(
+                padding: const EdgeInsets.only(top: 15.0, left: 15.0),
+              ),
+
+              //display the generated recipe to the screen
+              Padding(
+                padding: EdgeInsets.only(top: 15.0, left: 15.0),
+                child: Text(
+                  recipe,
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 80.0,
+                    left: 15.0,
+                    bottom: 15), // Adds more space at the bottom of the page
+              )
+            ],
+          ),
+        ));
   }
 }
