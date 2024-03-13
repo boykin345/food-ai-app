@@ -102,7 +102,6 @@ class TinderViewState extends State<TinderView> {
 
   /// Builds and returns the main content of the TinderView, including the recipe image and description.
   Widget buildContent(BuildContext context) {
-    final double buttonHeight = 60;
     final double imageHeight = 300;
     final double screenWidth = MediaQuery.of(context).size.width;
     final double imageWidth = screenWidth * 0.9;
@@ -154,6 +153,7 @@ class TinderViewState extends State<TinderView> {
                   Container(
                     height: imageHeight,
                     width: imageWidth,
+                    alignment: Alignment.centerLeft,
                     child: widget.model.getRecipeImage().isNotEmpty
                         ? ClipRRect(
                             child: Image.memory(
@@ -164,8 +164,7 @@ class TinderViewState extends State<TinderView> {
                         : Icon(Icons.image, size: 100, color: Colors.white54),
                   ),
                   Padding(
-                    padding:
-                        EdgeInsets.fromLTRB(sidePadding, 0, sidePadding, 0),
+                    padding: EdgeInsets.fromLTRB(15, 0, sidePadding, 0),
                     // Buttons Overlay
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -214,12 +213,13 @@ class TinderViewState extends State<TinderView> {
                 ],
               ),
             ),
-            SizedBox(height: buttonHeight / 2),
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0, left: 15.0),
+            ),
             // Recipe Description Container
             Container(
-              width: double.infinity,
               color: Colours.primary,
-              padding: EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(15.0),
               child: Text(
                 widget.model.getRecipeDescription(),
                 style: TextStyle(
