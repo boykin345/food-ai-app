@@ -208,6 +208,13 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  top: 80.0,
+                  left: 15.0,
+                  bottom:
+                      15), // Adds more space at the bottom of the page so scan button doesnt cover dessert section
+            )
           ],
         ),
       ),
@@ -269,71 +276,60 @@ class _HomePageState extends State<HomePage> {
     required String prepTime,
   }) {
     return Container(
+      width: 220, // Set a fixed width for the item card
       margin: EdgeInsets.symmetric(horizontal: 15.0),
-      width: 220, //for space in between each box
-      height: 270,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black26,
+            blurRadius: 8.0,
+            offset: Offset(0, 2),
+          ),
+        ],
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min, // Use minimum space needed by children
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(30.0), //roundness of rectangle
-            child: Stack(
-              children: [
-                Image.network(
-                  imageUrl,
-                  width: 210, //size of each box
-                  height: 270,
-                  fit:
-                      BoxFit.cover, // Use BoxFit.cover to maintain aspect ratio
-                ),
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.black54,
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(12.0),
-                        bottomRight: Radius.circular(12.0),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+            child: Image.network(
+              imageUrl,
+              height: 150, // Fixed height for the image
+              width: double.infinity, // Image takes the full width available
+              fit: BoxFit.cover,
+            ),
+          ),
+          Expanded(
+            // Make the text section flexible
+            child: SingleChildScrollView(
+              // Make it scrollable
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0,
                       ),
                     ),
-                    padding:
-                        EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          name,
-                          maxLines: 1, //forces recipe name to one line
-                          overflow: TextOverflow.ellipsis, //truncates w/ ...
-                          style: TextStyle(
-                            color: Color(0xFFFAF0F0),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20.0,
-                          ),
-                        ),
-                        SizedBox(height: 2.0),
-                        Text(
-                          "Calories: $calories",
-                          style: TextStyle(
-                            color: Color(0xFFFAF0F0),
-                            fontSize: 16.0,
-                          ),
-                        ),
-                        SizedBox(height: 2.0),
-                        Text(
-                          "Prep Time: $prepTime",
-                          style: TextStyle(
-                            color: Color(0xFFFAF0F0),
-                            fontSize: 16.0,
-                          ),
-                        ),
-                      ],
+                    SizedBox(height: 8.0),
+                    Text(
+                      "Calories: $calories",
+                      style: TextStyle(fontSize: 14.0),
                     ),
-                  ),
+                    Text(
+                      "Prep Time: $prepTime",
+                      style: TextStyle(fontSize: 14.0),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ],
