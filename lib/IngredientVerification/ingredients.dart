@@ -94,10 +94,10 @@ class _IngredientsState extends State<Ingredients> {
         Expanded(
           child: TextField(
             controller: nameController,
-            style: TextStyle(color: Colors.white), // Text color
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 20), // Text color
             decoration: InputDecoration(
               labelText: 'Ingredient',
-              labelStyle: TextStyle(color: Colors.white), // Label text color
+              labelStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 20), // Label text color
               border: OutlineInputBorder(),
               enabledBorder: OutlineInputBorder(
                 // Normal border color
@@ -115,10 +115,10 @@ class _IngredientsState extends State<Ingredients> {
           child: TextField(
             cursorColor: Colors.white,
             controller: quantityController,
-            style: TextStyle(color: Colors.white), // Text color
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 20), // Text color
             decoration: InputDecoration(
               labelText: 'Quantity',
-              labelStyle: TextStyle(color: Colors.white), // Label text color
+              labelStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 20), // Label text color
               border: OutlineInputBorder(),
               enabledBorder: OutlineInputBorder(
                 // Normal border color
