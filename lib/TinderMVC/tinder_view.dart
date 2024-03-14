@@ -124,7 +124,7 @@ class TinderViewState extends State<TinderView> {
                 "Based on your Fridge",
                 style: TextStyle(
                   fontSize: 30,
-                  color: Colors.white,
+                  color: Colours.backgroundOff,
                 ),
               ),
             ),
@@ -135,7 +135,7 @@ class TinderViewState extends State<TinderView> {
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: Colours.backgroundOff,
                 ),
               ),
             ),
@@ -197,7 +197,7 @@ class TinderViewState extends State<TinderView> {
                                   fit: BoxFit.contain,
                                 )
                               : Icon(Icons.image,
-                                  size: 100, color: Colors.white54),
+                                  size: 100, color: Colours.backgroundOff),
                         ),
                       ],
                     ),
@@ -231,8 +231,8 @@ class TinderViewState extends State<TinderView> {
                             shape: CircleBorder(),
                             padding: EdgeInsets.all(15),
                           ),
-                          child:
-                              Icon(Icons.check, size: 50, color: Colors.white),
+                          child: Icon(Icons.check,
+                              size: 50, color: Colours.backgroundOff),
                         ),
                         // No Button
                         ElevatedButton(
@@ -243,8 +243,8 @@ class TinderViewState extends State<TinderView> {
                             shape: CircleBorder(),
                             padding: EdgeInsets.all(15),
                           ),
-                          child:
-                              Icon(Icons.close, size: 50, color: Colors.white),
+                          child: Icon(Icons.close,
+                              size: 50, color: Colours.backgroundOff),
                         ),
                       ],
                     ),
@@ -258,7 +258,7 @@ class TinderViewState extends State<TinderView> {
                 "DISH DETAILS...",
                 style: TextStyle(
                   fontSize: 30,
-                  color: Colors.white,
+                  color: Colours.backgroundOff,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -276,7 +276,7 @@ class TinderViewState extends State<TinderView> {
                   Text(
                     widget.model.getRecipeDescription(),
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colours.backgroundOff,
                       fontSize: 24,
                     ),
                   ),

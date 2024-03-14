@@ -117,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                 "Let's find the",
                 style: TextStyle(
                   fontSize: 30,
-                  color: Colors.white,
+                  color: Colours.backgroundOff,
                 ),
               ),
             ),
@@ -128,7 +128,7 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: Colours.backgroundOff,
                 ),
               ),
             ),
@@ -139,7 +139,7 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: Colours.backgroundOff,
                 ),
               ),
             ),
@@ -176,7 +176,7 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: Colours.backgroundOff,
                 ),
               ),
             ),
@@ -281,7 +281,7 @@ class _HomePageState extends State<HomePage> {
       width: 220, // Set a fixed width for the item card
       margin: EdgeInsets.symmetric(horizontal: 15.0),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colours.backgroundOff,
         borderRadius: BorderRadius.circular(20.0),
         boxShadow: [
           BoxShadow(
