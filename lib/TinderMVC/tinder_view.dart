@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:food_ai_app/TinderMVC/tinder_model.dart';
 import 'package:food_ai_app/LoadingScreen/custom_loading_circle.dart';
 
-import '../FullRecipeGeneration/recipe_overview.dart';
-import '../Util/colours.dart';
-import '../Util/custom_app_bar.dart';
-import '../Util/customer_drawer.dart';
+import 'package:food_ai_app/FullRecipeGeneration/recipe_overview.dart';
+import 'package:food_ai_app/Util/colours.dart';
+import 'package:food_ai_app/Util/custom_app_bar.dart';
+import 'package:food_ai_app/Util/customer_drawer.dart';
 
 /// A widget that displays a Tinder-like swipe view for recipes.
 /// It shows a loading screen until the data is available and then displays the recipe content.
