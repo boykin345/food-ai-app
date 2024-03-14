@@ -72,16 +72,14 @@ class _HomePageState extends State<HomePage> {
   Future<void> processImage(File imageFile) async {
     try {
       final String? imageUrl =
-      await APICall.uploadImageAndGetDownloadUrl(imageFile);
+          await APICall.uploadImageAndGetDownloadUrl(imageFile);
       if (imageUrl != null) {
-        /*final String response = await APICall.sendToOpenAI(imageUrl);
+        final String response = await APICall.sendToOpenAI(imageUrl);
         final jsonResponse = jsonDecode(response);
-        final contentString = jsonResponse['choices'][0]['message']['content'];*/
+        final contentString = jsonResponse['choices'][0]['message']['content'];
         setState(() {
-          /* _response = contentString as String;
-          final ingredientsMap = parseContent(_response);*/
-          final mockIngredients = MockIngredients();
-          final ingredientsMap = mockIngredients.getMap();
+          _response = contentString as String;
+          final ingredientsMap = parseContent(_response);
           ingredientEditing =
               IngredientEditing(ingredientsMapCons: ingredientsMap);
           Navigator.push(
@@ -182,7 +180,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Container(
               height:
-              270, //Adjusts the space allocated for the Desserts Section
+                  270, //Adjusts the space allocated for the Desserts Section
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
@@ -212,7 +210,7 @@ class _HomePageState extends State<HomePage> {
                   top: 80.0,
                   left: 15.0,
                   bottom:
-                  15), // Adds more space at the bottom of the page so scan button doesnt cover dessert section
+                      15), // Adds more space at the bottom of the page so scan button doesnt cover dessert section
             )
           ],
         ),
@@ -235,7 +233,7 @@ class _HomePageState extends State<HomePage> {
                           //Navigate to Take Picture Screen
                           //Navigator.pop(context);
                           final imagePath =
-                          await initialiseTakePictureScreen(context);
+                              await initialiseTakePictureScreen(context);
                           //Handle returned image path
                           if (imagePath != null) {
                             setState(() {
@@ -321,13 +319,13 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     SizedBox(height: 8.0),
-                    Text(
-                      "Calories: $calories",
-                      style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w800)
-                    ),
+                    Text("Calories: $calories",
+                        style: TextStyle(
+                            fontSize: 14.0, fontWeight: FontWeight.w800)),
                     Text(
                       "Prep Time: $prepTime",
-                      style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w800),
+                      style: TextStyle(
+                          fontSize: 14.0, fontWeight: FontWeight.w800),
                     ),
                   ],
                 ),

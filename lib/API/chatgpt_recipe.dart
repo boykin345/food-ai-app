@@ -35,7 +35,7 @@ class ChatGPTRecipe extends ChatGPTRecipeInterface {
   /// Throws an exception if the request fails or the response is not 200 OK.
   Future<String> getChatResponse(String message) async {
     final url = Uri.parse(
-        'https://marco-gpt-uk.openai.azure.com/openai/deployments/marco-gpt-4/chat/completions?api-version=2024-02-15-preview');
+        'https://gpt-marco-west.openai.azure.com/openai/deployments/gpt-george/chat/completions?api-version=2024-02-15-preview');
 
     final response = await http.post(
       url,

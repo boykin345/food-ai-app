@@ -59,11 +59,13 @@ class _TinderPageState extends State<TinderPage> {
         userSettings = userSnapshot.data() as Map<String, dynamic>;
 
         healthGoals = userSettings['activeHealthGoals'] is List
-            ? List<String>.from(userSettings['activeHealthGoals'] as List<dynamic>)
+            ? List<String>.from(
+                userSettings['activeHealthGoals'] as List<dynamic>)
             : [];
 
         preferences = (userSettings['activePreferences'] is List)
-            ? List<String>.from(userSettings['activePreferences'] as List<dynamic>)
+            ? List<String>.from(
+                userSettings['activePreferences'] as List<dynamic>)
             : [];
       }
     } catch (error) {
@@ -74,8 +76,8 @@ class _TinderPageState extends State<TinderPage> {
     final String healthGoalsString = healthGoals.join(', ');
     final String preferencesString = preferences.join(', ');
 
-    gptApiClient = ChatGPTRecipeMock(
-      '46ac92c47cd344e48007ac50e31d7771',
+    gptApiClient = ChatGPTRecipe(
+      'bafe17e1da1e4a0a870426f8a7fd64d6',
       ingredientsMap: widget.ingredientsMapCons,
       userDifficulty:
           int.tryParse(userSettings['difficulty']?.toString() ?? '') ?? 1,
@@ -88,8 +90,7 @@ class _TinderPageState extends State<TinderPage> {
       preferencesString: preferencesString,
     );
 
-    imageFetcherClient =
-        ImageFetcherMock(); // Change to ImageFetcher for real API
+    imageFetcherClient = ImageFetcher(); // Change to ImageFetcher for real API
     model = TinderModel();
     controller = TinderController(model, gptApiClient, imageFetcherClient);
     controller.onModelUpdated = () {

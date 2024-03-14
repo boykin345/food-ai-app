@@ -14,15 +14,15 @@ class ImageFetcher extends ImageFetcherInterface {
   @override
   Future<String> fetchImage(String query) async {
     final url = Uri.parse(
-        'https://gpt-marco.openai.azure.com/openai/deployments/marco-dalle/images/generations?api-version=2024-02-15-preview');
+        'https://gpt-george-uk.openai.azure.com/openai/deployments/george-dalle/images/generations?api-version=2024-02-01');
 
-    const String apiKey = 'f90105825dc14b71a1b94833d046590a';
+    const String apiKey = 'b3fe274a85ad4962a768317afc26db40';
 
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json', 'api-key': apiKey},
       body: jsonEncode({
-        "model": "marco-dalle",
+        "model": "george-dalle",
         "prompt": "<Generate me an image of a realistic looking $query>",
         "n": 1
       }),
