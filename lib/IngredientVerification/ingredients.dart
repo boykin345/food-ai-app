@@ -46,45 +46,45 @@ class _IngredientsState extends State<Ingredients> {
       child: isEditing
           ? buildEditFields()
           : ListTile(
-        onTap: () {
-          print('Clicked On Ingredient');
-        },
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20)),
-        contentPadding: EdgeInsets.symmetric(horizontal: 20),
-        tileColor: Colors.white,
-        title: Text(
-          nameController.text,
-          style: TextStyle(
-            fontSize: 17,
-            color: Colors.black,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
-        subtitle: Text(
-          quantityController.text,
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.black,
-            fontWeight: FontWeight.w900,
-          ),
-        ),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            IconButton(
-              icon: Icon(Icons.edit),
-              color: Colors.black,
-              onPressed: toggleEdit,
+              onTap: () {
+                print('Clicked On Ingredient');
+              },
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              contentPadding: EdgeInsets.symmetric(horizontal: 20),
+              tileColor: Colors.white,
+              title: Text(
+                nameController.text,
+                style: TextStyle(
+                  fontSize: 17,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+              subtitle: Text(
+                quantityController.text,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w900,
+                ),
+              ),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.edit),
+                    color: Colors.black,
+                    onPressed: toggleEdit,
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.remove_circle_outline),
+                    color: Colors.red,
+                    onPressed: widget.onDelete,
+                  ),
+                ],
+              ),
             ),
-            IconButton(
-              icon: Icon(Icons.remove_circle_outline),
-              color: Colors.red,
-              onPressed: widget.onDelete,
-            ),
-          ],
-        ),
-      ),
     );
   }
 
@@ -94,8 +94,20 @@ class _IngredientsState extends State<Ingredients> {
         Expanded(
           child: TextField(
             controller: nameController,
+            style: TextStyle(color: Colors.white), // Text color
             decoration: InputDecoration(
-                labelText: 'Ingredient', border: OutlineInputBorder()),
+              labelText: 'Ingredient',
+              labelStyle: TextStyle(color: Colors.white), // Label text color
+              border: OutlineInputBorder(),
+              enabledBorder: OutlineInputBorder(
+                // Normal border color
+                borderSide: BorderSide(color: Colors.white),
+              ),
+              focusedBorder: OutlineInputBorder(
+                // Border color when TextField is focused
+                borderSide: BorderSide(color: Colors.white),
+              ),
+            ),
           ),
         ),
         SizedBox(width: 10),
@@ -103,8 +115,19 @@ class _IngredientsState extends State<Ingredients> {
           child: TextField(
             cursorColor: Colors.white,
             controller: quantityController,
+            style: TextStyle(color: Colors.white), // Text color
             decoration: InputDecoration(
-                labelText: 'Quantity', border: OutlineInputBorder()
+              labelText: 'Quantity',
+              labelStyle: TextStyle(color: Colors.white), // Label text color
+              border: OutlineInputBorder(),
+              enabledBorder: OutlineInputBorder(
+                // Normal border color
+                borderSide: BorderSide(color: Colors.white),
+              ),
+              focusedBorder: OutlineInputBorder(
+                // Border color when TextField is focused
+                borderSide: BorderSide(color: Colors.white),
+              ),
             ),
           ),
         ),
