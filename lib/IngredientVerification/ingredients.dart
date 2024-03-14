@@ -46,37 +46,45 @@ class _IngredientsState extends State<Ingredients> {
       child: isEditing
           ? buildEditFields()
           : ListTile(
-              onTap: () {
-                print('Clicked On Ingredient');
-              },
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              contentPadding: EdgeInsets.symmetric(horizontal: 20),
-              tileColor: Colors.white,
-              title: Text(
-                nameController.text,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.black,
-                ),
-              ),
-              subtitle: Text(quantityController.text),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.edit),
-                    color: Colors.blue,
-                    onPressed: toggleEdit,
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.delete),
-                    color: Colors.red,
-                    onPressed: widget.onDelete,
-                  ),
-                ],
-              ),
+        onTap: () {
+          print('Clicked On Ingredient');
+        },
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20)),
+        contentPadding: EdgeInsets.symmetric(horizontal: 20),
+        tileColor: Colors.white,
+        title: Text(
+          nameController.text,
+          style: TextStyle(
+            fontSize: 17,
+            color: Colors.black,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        subtitle: Text(
+          quantityController.text,
+          style: TextStyle(
+            fontSize: 14,
+            color: Colors.black,
+            fontWeight: FontWeight.w900,
+          ),
+        ),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              icon: Icon(Icons.edit),
+              color: Colors.black,
+              onPressed: toggleEdit,
             ),
+            IconButton(
+              icon: Icon(Icons.remove_circle_outline),
+              color: Colors.red,
+              onPressed: widget.onDelete,
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -93,13 +101,16 @@ class _IngredientsState extends State<Ingredients> {
         SizedBox(width: 10),
         Expanded(
           child: TextField(
+            cursorColor: Colors.white,
             controller: quantityController,
             decoration: InputDecoration(
-                labelText: 'Quantity', border: OutlineInputBorder()),
+                labelText: 'Quantity', border: OutlineInputBorder()
+            ),
           ),
         ),
         IconButton(
           icon: Icon(Icons.save),
+          color: Colors.white,
           onPressed: () {
             widget.onEdit(nameController.text, quantityController.text);
             toggleEdit();
@@ -107,6 +118,7 @@ class _IngredientsState extends State<Ingredients> {
         ),
         IconButton(
           icon: Icon(Icons.cancel),
+          color: Colors.red,
           onPressed: () {
             nameController.text = widget.title;
             quantityController.text = widget.quantity;

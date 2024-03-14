@@ -26,9 +26,9 @@ class IngredientEditingState extends State<IngredientEditing> {
   final mockIngredients = MockIngredients();
   Map<String, String> ingredientsMap = {};
   final TextEditingController ingredientNameController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController ingredientQuantityController =
-      TextEditingController();
+  TextEditingController();
 
   @override
   void initState() {
@@ -46,7 +46,7 @@ class IngredientEditingState extends State<IngredientEditing> {
 
   Future<Set<String>> loadFoodNames() async {
     final String response =
-        await rootBundle.loadString('assets/data/food_names.json');
+    await rootBundle.loadString('assets/data/food_names.json');
     final List<dynamic> data = json.decode(response) as List<dynamic>;
     return data.map<String>((item) => item.toString()).toSet();
   }
@@ -146,15 +146,17 @@ class IngredientEditingState extends State<IngredientEditing> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(top: 10.0, left: 15.0, bottom: 10),
+              padding: EdgeInsets.only(top: 10.0, left: 15.0, bottom: 15),
               child: Text(
                 'Based on your Fridge \nWE DETECTED',
                 style: TextStyle(
                   fontSize: 30,
+                  fontWeight: FontWeight.w800,
                   color: Colors.white,
                 ),
               ),
             ),
+
             searchBox(),
             Expanded(
               child: ListView(
@@ -173,8 +175,8 @@ class IngredientEditingState extends State<IngredientEditing> {
                     SettingsScreen(ingredientsMapCons: ingredientsMap)),
           );
         },
-        child: Icon(Icons.check_box),
-        backgroundColor: Colors.blue,
+        child: Icon(Icons.navigate_next),
+        backgroundColor: Colors.white,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
@@ -182,7 +184,7 @@ class IngredientEditingState extends State<IngredientEditing> {
 
   Widget searchBox() {
     return Container(
-      padding: EdgeInsets.only(left: 10, right: 10),
+      padding: EdgeInsets.only(left: 10, right: 10,),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -195,7 +197,7 @@ class IngredientEditingState extends State<IngredientEditing> {
               decoration: InputDecoration(
                 hintText: 'Ingredient',
                 border: InputBorder.none,
-                hintStyle: TextStyle(color: Colors.grey),
+                hintStyle: TextStyle(color: Colors.grey, fontWeight: FontWeight.w900),
               ),
             ),
           ),
@@ -206,7 +208,7 @@ class IngredientEditingState extends State<IngredientEditing> {
               decoration: InputDecoration(
                 hintText: 'Quantity',
                 border: InputBorder.none,
-                hintStyle: TextStyle(color: Colors.grey),
+                hintStyle: TextStyle(color: Colors.grey, fontWeight: FontWeight.w900),
               ),
               keyboardType: TextInputType.number,
             ),
