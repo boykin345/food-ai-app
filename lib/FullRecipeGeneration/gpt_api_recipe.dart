@@ -11,7 +11,7 @@ class GPTRecipeApi {
   //method for fetching responses from GPT
   Future<String> getChatResponse(String message) async {
     final url = Uri.parse(
-        'https://marco-gpt-uk.openai.azure.com/openai/deployments/marco-gpt-4/chat/completions?api-version=2024-02-15-preview');
+        'https://gpt-marco-west.openai.azure.com/openai/deployments/gpt-george/chat/completions?api-version=2024-02-15-preview');
 
     final response = await http.post(
       url,
