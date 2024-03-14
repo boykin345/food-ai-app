@@ -7,6 +7,8 @@ import 'package:food_ai_app/Util/custom_app_bar.dart';
 import 'package:food_ai_app/Util/customer_drawer.dart';
 import 'package:food_ai_app/Util/colours.dart';
 
+import '../Util/navigation_buttons.dart';
+
 class SettingsScreen extends StatefulWidget {
   final Map<String, String> ingredientsMapCons;
 
@@ -356,36 +358,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 },
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colours.primary,
+            NavigationButtons(
+              onBack: () {
+                Navigator.pop(context);
+              },
+              onContinue: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HealthGoalScreen(
+                      ingredientsMapCons: widget.ingredientsMapCons,
+                    ),
                   ),
-                  icon: Icon(Icons.arrow_back, color: Colors.white),
-                  label: Text('Back', style: TextStyle(color: Colors.white)),
-                ),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HealthGoalScreen(
-                            ingredientsMapCons: widget.ingredientsMapCons),
-                      ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colours.primary,
-                  ),
-                  icon: Text('Continue', style: TextStyle(color: Colors.white)),
-                  label: Icon(Icons.arrow_forward, color: Colors.white),
-                ),
-              ],
+                );
+              },
             ),
           ],
         ),
