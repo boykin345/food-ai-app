@@ -76,7 +76,7 @@ class _TinderPageState extends State<TinderPage> {
     final String healthGoalsString = healthGoals.join(', ');
     final String preferencesString = preferences.join(', ');
 
-    gptApiClient = ChatGPTRecipeMock(
+    gptApiClient = ChatGPTRecipe(
       'bafe17e1da1e4a0a870426f8a7fd64d6',
       ingredientsMap: widget.ingredientsMapCons,
       userDifficulty:
@@ -90,8 +90,7 @@ class _TinderPageState extends State<TinderPage> {
       preferencesString: preferencesString,
     );
 
-    imageFetcherClient =
-        ImageFetcherMock(); // Change to ImageFetcher for real API
+    imageFetcherClient = ImageFetcher(); // Change to ImageFetcher for real API
     model = TinderModel();
     controller = TinderController(model, gptApiClient, imageFetcherClient);
     controller.onModelUpdated = () {
