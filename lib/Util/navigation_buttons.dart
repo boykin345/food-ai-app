@@ -20,18 +20,20 @@ class NavigationButtons extends StatelessWidget {
         ElevatedButton.icon(
           onPressed: onBack,
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colours.primary,
+            backgroundColor: Colours.backgroundOff,
           ),
-          icon: Icon(Icons.arrow_back, color: Colors.white),
-          label: Text('Back', style: TextStyle(color: Colors.white)),
+          icon: Icon(Icons.arrow_back, color: Colours.primary),
+          label: Text('Back',
+              style: TextStyle(fontSize: 20, color: Colours.primary)),
         ),
         ElevatedButton.icon(
           onPressed: onContinue,
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colours.primary,
+            backgroundColor: Colours.backgroundOff,
           ),
-          icon: Icon(Icons.arrow_forward, color: Colors.white),
-          label: Text('Continue', style: TextStyle(color: Colors.white)),
+          icon: Text('Continue',
+              style: TextStyle(fontSize: 20, color: Colours.primary)),
+          label: Icon(Icons.arrow_forward, color: Colours.primary),
         ),
       ],
     );

@@ -261,8 +261,11 @@ class _HomePageState extends State<HomePage> {
               );
             },
             label: Text("Scan Your Fridge",
-                style: TextStyle(fontSize: 20, color: Color(0xFF2D3444))),
-            backgroundColor: Color(0xFFFAF0F0)),
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Colours.primary,
+                    fontWeight: FontWeight.bold)),
+            backgroundColor: Colours.backgroundOff),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
