@@ -12,6 +12,7 @@ import 'package:food_ai_app/API/chatgpt_recipe_mock.dart';
 import '../API/chatgpt_recipe.dart';
 import '../API/image_fetcher.dart';
 import '../LoadingScreen/custom_loading_circle.dart';
+import '../Util/colours.dart';
 
 /// A widget that serves as the entry point for the Tinder-like recipe selection feature.
 /// It initializes the model, controller, and mock API clients, then builds the UI based on the model's state.
@@ -101,15 +102,18 @@ class _TinderPageState extends State<TinderPage> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _initFuture,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          return controller.createView();
-        } else {
-          return Center(child: CustomLoadingCircle());
-        }
-      },
+    return Scaffold(
+      backgroundColor: Colours.primary,
+      body: FutureBuilder(
+        future: _initFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return controller.createView();
+          } else {
+            return Center(child: CustomLoadingCircle());
+          }
+        },
+      ),
     );
   }
 }
