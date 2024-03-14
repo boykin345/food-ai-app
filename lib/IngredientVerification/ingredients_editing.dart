@@ -157,9 +157,13 @@ class IngredientEditingState extends State<IngredientEditing> {
                 ),
               ),
             ),
-            searchBox(),
             Padding(
-              padding: const EdgeInsets.only(top: 20.0),
+              padding: EdgeInsets.only(
+                  top: 10.0, left: 15.0, right: 15.0, bottom: 15),
+              child: searchBox(),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
               child: Column(
                 children: _buildIngredientWidgets(ingredientsMap),
               ),
