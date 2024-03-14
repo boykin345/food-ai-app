@@ -356,18 +356,36 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 },
               ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                // Implement save functionality if needed
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => HealthGoalScreen(
-                          ingredientsMapCons: widget.ingredientsMapCons)),
-                );
-              },
-              child: Text('Save'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colours.primary,
+                  ),
+                  icon: Icon(Icons.arrow_back, color: Colors.white),
+                  label: Text('Back', style: TextStyle(color: Colors.white)),
+                ),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HealthGoalScreen(
+                            ingredientsMapCons: widget.ingredientsMapCons),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colours.primary,
+                  ),
+                  icon: Text('Continue', style: TextStyle(color: Colors.white)),
+                  label: Icon(Icons.arrow_forward, color: Colors.white),
+                ),
+              ],
             ),
           ],
         ),
