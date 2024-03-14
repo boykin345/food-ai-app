@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../Util/colours.dart';
 import '../Util/custom_app_bar.dart';
 import '../Util/customer_drawer.dart';
+import '../Util/navigation_buttons.dart';
 import 'Preferences.dart';
 
 final TextEditingController proteinController = TextEditingController();
@@ -351,8 +352,11 @@ class GoalScreenState extends State<HealthGoalScreen> {
                 },
               ),
             ),
-            ElevatedButton(
-              onPressed: () {
+            NavigationButtons(
+              onBack: () {
+                Navigator.pop(context);
+              },
+              onContinue: () {
                 // Read values from the controllers
                 final String protein = proteinController.text;
                 final String carbs = carbsController.text;
@@ -379,10 +383,6 @@ class GoalScreenState extends State<HealthGoalScreen> {
                           ingredientsMapCons: widget.ingredientsMapCons)),
                 );
               },
-              child: Text(
-                  style: TextStyle(
-                      color: Color(0xFF272E3B), fontWeight: FontWeight.bold),
-                  'Save'),
             ),
           ],
         ),

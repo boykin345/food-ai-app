@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../TinderMVC/tinder_page.dart';
 import '../Util/custom_app_bar.dart';
 import '../Util/customer_drawer.dart';
+import '../Util/navigation_buttons.dart';
 
 class PreferencesScreen extends StatefulWidget {
   final Map<String, String> ingredientsMapCons;
@@ -217,9 +218,11 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
                 },
               ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                // Implement save functionality if needed
+            NavigationButtons(
+              onBack: () {
+                Navigator.pop(context);
+              },
+              onContinue: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -227,10 +230,6 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
                           ingredientsMapCons: widget.ingredientsMapCons)),
                 );
               },
-              child: Text(
-                  style: TextStyle(
-                      color: Color(0xFF272E3B), fontWeight: FontWeight.bold),
-                  'Save'),
             ),
           ],
         ),
