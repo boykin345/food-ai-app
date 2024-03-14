@@ -104,15 +104,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       appBar: CustomAppBar(),
       drawer: CustomDrawer(),
+      backgroundColor: Colours.primary,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            Text(
+              'Difficulty',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 10),
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30.0),
-                color: Colors.blue,
+                borderRadius: BorderRadius.circular(20.0),
+                color: Colours.backgroundOff,
               ),
               child: DropdownButtonFormField<int>(
                 value: _selectedDifficulty,
@@ -123,6 +133,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       '1 (Easy)',
                       style: TextStyle(
                         color: Colors.black,
+                        fontWeight: FontWeight.w800,
                         fontSize: 18,
                       ),
                     ),
@@ -133,6 +144,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       '2',
                       style: TextStyle(
                         color: Colors.black,
+                        fontWeight: FontWeight.w800,
                         fontSize: 18,
                       ),
                     ),
@@ -143,6 +155,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       '3',
                       style: TextStyle(
                         color: Colors.black,
+                        fontWeight: FontWeight.w800,
                         fontSize: 18,
                       ),
                     ),
@@ -153,6 +166,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       '4',
                       style: TextStyle(
                         color: Colors.black,
+                        fontWeight: FontWeight.w800,
                         fontSize: 18,
                       ),
                     ),
@@ -163,6 +177,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       '5 (Hard)',
                       style: TextStyle(
                         color: Colors.black,
+                        fontWeight: FontWeight.w800,
                         fontSize: 18,
                       ),
                     ),
@@ -177,26 +192,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 decoration: InputDecoration(
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                  labelText: 'Difficulty',
-                  labelStyle: TextStyle(
-                    color: Colors.black,
-                    fontSize: 24,
-                  ),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30.0),
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30.0),
+                    borderRadius: BorderRadius.circular(20.0),
                     borderSide: BorderSide(color: Colors.white),
                   ),
                 ),
               ),
             ),
             SizedBox(height: 20),
+            Text(
+              'Cooking Time',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 10),
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30.0),
-                color: Colors.blue,
+                borderRadius: BorderRadius.circular(20.0),
+                color: Colours.backgroundOff,
               ),
               child: DropdownButtonFormField<String>(
                 value: _selectedCookingTime,
@@ -211,6 +230,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       value,
                       style: TextStyle(
                         color: Colors.black,
+                        fontWeight: FontWeight.w800,
                         fontSize: 18,
                       ),
                     ),
@@ -225,26 +245,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 decoration: InputDecoration(
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                  labelText: 'Cooking Time',
-                  labelStyle: TextStyle(
-                    color: Colors.black,
-                    fontSize: 24,
-                  ),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30.0),
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30.0),
+                    borderRadius: BorderRadius.circular(20.0),
                     borderSide: BorderSide(color: Colors.white),
                   ),
                 ),
               ),
             ),
             SizedBox(height: 20),
+            Text(
+              'Portion Size',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 10),
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30.0),
-                color: Colors.blue,
+                borderRadius: BorderRadius.circular(20.0),
+                color: Colours.backgroundOff,
               ),
               child: DropdownButtonFormField<int>(
                 value: _selectedPortionSize,
@@ -255,6 +279,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       'For 1 person',
                       style: TextStyle(
                         color: Colors.black,
+                        fontWeight: FontWeight.w800,
                         fontSize: 18,
                       ),
                     ),
@@ -265,6 +290,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       'For 2 people',
                       style: TextStyle(
                         color: Colors.black,
+                        fontWeight: FontWeight.w800,
                         fontSize: 18,
                       ),
                     ),
@@ -275,6 +301,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       'For 4 people',
                       style: TextStyle(
                         color: Colors.black,
+                        fontWeight: FontWeight.w800,
                         fontSize: 18,
                       ),
                     ),
@@ -285,6 +312,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       'For 6 people',
                       style: TextStyle(
                         color: Colors.black,
+                        fontWeight: FontWeight.w800,
                         fontSize: 18,
                       ),
                     ),
@@ -299,11 +327,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 decoration: InputDecoration(
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                  labelText: 'Portion Size',
-                  labelStyle: TextStyle(
-                    color: Colors.black,
-                    fontSize: 24,
-                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30.0),
                   ),
@@ -319,11 +342,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
               controller: allergyController,
               decoration: InputDecoration(
                 labelText: 'Add a new Dietary need',
-                labelStyle: TextStyle(color: Colors.black),
+                labelStyle: TextStyle(
+                    color: Colours.backgroundOff, fontWeight: FontWeight.w800),
                 suffixIcon: IconButton(
                   icon: Icon(
                     Icons.add,
-                    color: Colors.black,
+                    color: Colours.backgroundOff,
                   ),
                   onPressed: _addAllergy,
                 ),
@@ -335,21 +359,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 itemBuilder: (context, index) {
                   return Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colours.backgroundOff,
                     ),
                     margin: EdgeInsets.symmetric(vertical: 8),
                     child: ListTile(
                       title: Text(
                         allergies[index],
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colours.secondary,
+                          fontWeight: FontWeight.w800,
                         ),
                       ),
                       trailing: IconButton(
                         icon: Icon(
                           Icons.delete,
-                          color: Colors.white,
+                          color: Colours.secondary,
                         ),
                         onPressed: () => _removeAllergy(allergies[index]),
                       ),
