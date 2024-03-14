@@ -18,7 +18,7 @@ class TinderController {
   ImageFetcherInterface imageFetcherClient;
 
   /// Number of recipes to fetch in parallel.
-  final int threadCount = 3;
+  final int threadCount = 10;
 
   /// Callback to update the view when the model changes.
   VoidCallback? onModelUpdated;

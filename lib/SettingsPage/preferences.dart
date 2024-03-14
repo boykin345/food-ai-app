@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../TinderMVC/tinder_page.dart';
+import '../Util/colours.dart';
+import '../Util/custom_app_bar.dart';
+import '../Util/customer_drawer.dart';
+import '../Util/navigation_buttons.dart';
 
 class PreferencesScreen extends StatefulWidget {
   final Map<String, String> ingredientsMapCons;
@@ -135,12 +139,8 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF272E3B),
-      appBar: AppBar(
-        backgroundColor: Color(0xFF272E3B),
-        title: Text(
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            'Preferences'),
-      ),
+      appBar: CustomAppBar(),
+      drawer: CustomDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -153,20 +153,20 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
                 labelText: 'Add a new Preference',
                 enabledBorder: OutlineInputBorder(
                   // Normal state border
-                  borderSide: BorderSide(color: Colors.white),
+                  borderSide: BorderSide(color: Colours.backgroundOff),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 focusedBorder: OutlineInputBorder(
                   // Border when TextField is focused
-                  borderSide: BorderSide(color: Colors.white),
+                  borderSide: BorderSide(color: Colours.backgroundOff),
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 suffixIcon: IconButton(
                   icon: Icon(color: Color(0xFF272E3B), Icons.add),
                   onPressed: addPreference,
                 ),
-                fillColor: Colors
-                    .white, // Sets the background color inside the TextField to white
+                fillColor: Colours
+                    .backgroundOff, // Sets the background color inside the TextField to white
                 filled: true, // Enables the fillColor to be applied
                 border: InputBorder.none,
               ),
@@ -179,7 +179,8 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
                   return CheckboxListTile(
                     title: Text(
                         style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                            color: Colours.backgroundOff,
+                            fontWeight: FontWeight.bold),
                         currentPreference),
                     value: checkedPreferences[currentPreference] ??
                         false, // Default to false if not found
@@ -219,9 +220,11 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
                 },
               ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                // Implement save functionality if needed
+            NavigationButtons(
+              onBack: () {
+                Navigator.pop(context);
+              },
+              onContinue: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -229,10 +232,6 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
                           ingredientsMapCons: widget.ingredientsMapCons)),
                 );
               },
-              child: Text(
-                  style: TextStyle(
-                      color: Color(0xFF272E3B), fontWeight: FontWeight.bold),
-                  'Save'),
             ),
           ],
         ),

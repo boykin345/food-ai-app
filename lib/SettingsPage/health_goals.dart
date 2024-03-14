@@ -2,6 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../Util/colours.dart';
+import '../Util/custom_app_bar.dart';
+import '../Util/customer_drawer.dart';
+import '../Util/navigation_buttons.dart';
 import 'Preferences.dart';
 
 final TextEditingController proteinController = TextEditingController();
@@ -154,13 +158,9 @@ class GoalScreenState extends State<HealthGoalScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF272E3B),
-      appBar: AppBar(
-        backgroundColor: Color(0xFF272E3B),
-        title: Text(
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-            'Health Goals'),
-      ),
+      backgroundColor: Colours.primary,
+      appBar: CustomAppBar(),
+      drawer: CustomDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -352,8 +352,11 @@ class GoalScreenState extends State<HealthGoalScreen> {
                 },
               ),
             ),
-            ElevatedButton(
-              onPressed: () {
+            NavigationButtons(
+              onBack: () {
+                Navigator.pop(context);
+              },
+              onContinue: () {
                 // Read values from the controllers
                 final String protein = proteinController.text;
                 final String carbs = carbsController.text;
@@ -380,10 +383,6 @@ class GoalScreenState extends State<HealthGoalScreen> {
                           ingredientsMapCons: widget.ingredientsMapCons)),
                 );
               },
-              child: Text(
-                  style: TextStyle(
-                      color: Color(0xFF272E3B), fontWeight: FontWeight.bold),
-                  'Save'),
             ),
           ],
         ),

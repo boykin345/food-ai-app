@@ -3,6 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:food_ai_app/SettingsPage/health_goals.dart';
 
+import 'package:food_ai_app/Util/custom_app_bar.dart';
+import 'package:food_ai_app/Util/customer_drawer.dart';
+import 'package:food_ai_app/Util/colours.dart';
+
+import '../Util/navigation_buttons.dart';
+
 class SettingsScreen extends StatefulWidget {
   final Map<String, String> ingredientsMapCons;
 
@@ -27,7 +33,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     super.initState();
     fetchUserData();
   }
-
 
   Future<void> fetchUserData() async {
     try {
@@ -97,10 +102,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Settings', style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.blue[900],
-      ),
+      appBar: CustomAppBar(),
+      drawer: CustomDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -355,18 +358,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 },
               ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                // Implement save functionality if needed
+            NavigationButtons(
+              onBack: () {
                 Navigator.pop(context);
+              },
+              onContinue: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => HealthGoalScreen(
-                          ingredientsMapCons: widget.ingredientsMapCons)),
+                    builder: (context) => HealthGoalScreen(
+                      ingredientsMapCons: widget.ingredientsMapCons,
+                    ),
+                  ),
                 );
               },
-              child: Text('Save'),
             ),
           ],
         ),

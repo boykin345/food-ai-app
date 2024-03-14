@@ -41,6 +41,16 @@ class TinderModel extends ChangeNotifier {
     }
   }
 
+  /// Returns the image URL of the second recipe in the queue.
+  /// Returns an empty string if no images are available.
+  String getSecondRecipeImage() {
+    if (_imageUrls.length >= 2) {
+      return _imageUrls.elementAt(1);
+    } else {
+      return "";
+    }
+  }
+
   /// Removes the current (first) recipe from the model, both description and image URL.
   /// Does nothing if no recipes are available.
   void removeCurrentRecipe() {

@@ -3,7 +3,10 @@ import 'dart:convert';
 import 'package:food_ai_app/TinderMVC/tinder_model.dart';
 import 'package:food_ai_app/LoadingScreen/custom_loading_circle.dart';
 
-import '../FullRecipeGeneration/recipe_overview.dart';
+import 'package:food_ai_app/FullRecipeGeneration/recipe_overview.dart';
+import 'package:food_ai_app/Util/colours.dart';
+import 'package:food_ai_app/Util/custom_app_bar.dart';
+import 'package:food_ai_app/Util/customer_drawer.dart';
 
 /// A widget that displays a Tinder-like swipe view for recipes.
 /// It shows a loading screen until the data is available and then displays the recipe content.
@@ -99,34 +102,46 @@ class TinderViewState extends State<TinderView> {
 
   /// Builds and returns the main content of the TinderView, including the recipe image and description.
   Widget buildContent(BuildContext context) {
-    final ThemeData theme = Theme.of(context).copyWith(
-      textTheme: Theme.of(context).textTheme.apply(
-            fontFamily: 'Caviar Dreams',
-          ),
-    );
-
-    final double buttonHeight = 60;
     final double imageHeight = 300;
-    final double imageWidth = MediaQuery.of(context).size.width * 0.9;
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double imageWidth = screenWidth * 0.9;
+    final double sidePadding = (screenWidth - imageWidth) * 2;
+    final double textMargin = (screenWidth - imageWidth) - 15;
+    final double secondImageHeight = imageHeight - (imageHeight * 0.9);
+    final double secondImageWidth = screenWidth / 2;
 
     return Scaffold(
-      backgroundColor: Color(0xFF2D3444),
+      appBar: CustomAppBar(),
+      drawer: CustomDrawer(),
+      backgroundColor: Colours.primary,
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              width: double.infinity,
-              color: Color(0xFF2D3444),
-              padding: EdgeInsets.all(16.0),
+            Padding(
+              padding: EdgeInsets.only(top: 10.0, left: 15.0),
               child: Text(
-                "Based on your Fridge\nBON APPETIT!",
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: Color(0xFFF5F5F5),
-                  fontSize: 28,
+                "Based on your Fridge",
+                style: TextStyle(
+                  fontSize: 30,
+                  color: Colours.backgroundOff,
                 ),
               ),
             ),
-            SizedBox(height: buttonHeight / 2),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.0),
+              child: Text(
+                "BON APPETIT!",
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Colours.backgroundOff,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0, left: 15.0),
+            ),
             GestureDetector(
               key: Key('swipeGestureDetector'),
               onHorizontalDragEnd: (dragEndDetails) {
@@ -136,96 +151,136 @@ class TinderViewState extends State<TinderView> {
                   _onSwipe(DismissDirection.startToEnd);
                 }
               },
-              child: Stack(
-                clipBehavior: Clip.none,
-                alignment: Alignment.bottomCenter,
+              child: Column(
                 children: [
                   Container(
                     height: imageHeight,
                     width: imageWidth,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.transparent,
+                    alignment: Alignment.centerLeft,
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        // Second image (background)
+                        Positioned(
+                          left: secondImageWidth,
+                          bottom: secondImageHeight,
+                          child: widget.model.getSecondRecipeImage().isNotEmpty
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: Stack(
+                                    children: [
+                                      Image.memory(
+                                        base64Decode(widget.model
+                                            .getSecondRecipeImage()),
+                                        fit: BoxFit.contain,
+                                        height: imageHeight * 0.8,
+                                        width: imageWidth * 0.8,
+                                      ),
+                                      Container(
+                                        height: imageHeight * 0.8,
+                                        width: imageWidth * 0.8,
+                                        decoration: BoxDecoration(
+                                          color: Colors.black.withOpacity(0.4),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : SizedBox(), // Placeholder
+                        ),
+                        // First image (foreground)
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: widget.model.getRecipeImage().isNotEmpty
+                              ? Image.memory(
+                                  base64Decode(widget.model.getRecipeImage()),
+                                  fit: BoxFit.contain,
+                                )
+                              : Icon(Icons.image,
+                                  size: 100, color: Colours.backgroundOff),
+                        ),
+                      ],
                     ),
-                    child: widget.model.getRecipeImage().isNotEmpty
-                        ? ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Image.memory(
-                              base64Decode(widget.model.getRecipeImage()),
-                              fit: BoxFit.contain,
-                            ),
-                          )
-                        : Icon(Icons.image, size: 100, color: Colors.white54),
                   ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(15, 0, sidePadding, 0),
+                    // Buttons Overlay
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // Yes Button
+                        ElevatedButton(
+                          key: ValueKey('yes-button'),
+                          onPressed: () async {
+                            setState(() {
+                              isLoadingRecipe = true; // Start loading
+                            });
+                            await widget.recipeOverview.getDish();
 
-                  // Buttons Overlay
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          // No Button
-                          ElevatedButton(
-                            key: ValueKey('no-button'),
-                            onPressed: widget.onChangeRecipe,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.red,
-                              shape: CircleBorder(),
-                              padding: EdgeInsets.all(15),
-                            ),
-                            child: Icon(Icons.close,
-                                size: 50, color: Colors.white),
+                            setState(() {
+                              isLoadingRecipe = false; // End  loading
+                            });
+
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (context) => widget.recipeOverview),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                            shape: CircleBorder(),
+                            padding: EdgeInsets.all(15),
                           ),
-                          // Yes Button
-                          ElevatedButton(
-                            key: ValueKey('yes-button'),
-                            onPressed: () async {
-                              setState(() {
-                                isLoadingRecipe = true; // Start loading
-                              });
-                              await widget.recipeOverview.getDish();
-
-                              setState(() {
-                                isLoadingRecipe = false; // End  loading
-                              });
-
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        widget.recipeOverview),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.green,
-                              shape: CircleBorder(),
-                              padding: EdgeInsets.all(15),
-                            ),
-                            child: Icon(Icons.check,
-                                size: 50, color: Colors.white),
+                          child: Icon(Icons.check,
+                              size: 50, color: Colours.backgroundOff),
+                        ),
+                        // No Button
+                        ElevatedButton(
+                          key: ValueKey('no-button'),
+                          onPressed: widget.onChangeRecipe,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                            shape: CircleBorder(),
+                            padding: EdgeInsets.all(15),
                           ),
-                        ],
-                      ),
+                          child: Icon(Icons.close,
+                              size: 50, color: Colours.backgroundOff),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: buttonHeight / 2),
+            Padding(
+              padding: EdgeInsets.only(top: 15.0, left: 15.0),
+              child: Text(
+                "DISH DETAILS...",
+                style: TextStyle(
+                  fontSize: 30,
+                  color: Colours.backgroundOff,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0, left: 15.0),
+            ),
             // Recipe Description Container
             Container(
-              width: double.infinity,
-              color: Color(0xFF2D3444),
-              padding: EdgeInsets.all(16.0),
-              child: Text(
-                widget.model.getRecipeDescription(),
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: Color(0xFFF5F5F5),
-                  fontSize: 28,
-                ),
+              margin: EdgeInsets.fromLTRB(0, 0, textMargin + 30, 0),
+              color: Colours.primary,
+              padding: EdgeInsets.all(15.0),
+              child: Wrap(
+                children: [
+                  Text(
+                    widget.model.getRecipeDescription(),
+                    style: TextStyle(
+                      color: Colours.backgroundOff,
+                      fontSize: 24,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
