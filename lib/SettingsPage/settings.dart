@@ -105,303 +105,300 @@ class _SettingsScreenState extends State<SettingsScreen> {
       appBar: CustomAppBar(),
       drawer: CustomDrawer(),
       backgroundColor: Colours.primary,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Text(
-                'Difficulty',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Text(
+              'Difficulty',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
               ),
-              SizedBox(height: 10),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  color: Colours.backgroundOff,
-                ),
-                child: DropdownButtonFormField<int>(
-                  value: _selectedDifficulty,
-                  items: [
-                    DropdownMenuItem<int>(
-                      value: 1,
-                      child: Text(
-                        '1 (Easy)',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 18,
-                        ),
+            ),
+            SizedBox(height: 10),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.0),
+                color: Colours.backgroundOff,
+              ),
+              child: DropdownButtonFormField<int>(
+                value: _selectedDifficulty,
+                items: [
+                  DropdownMenuItem<int>(
+                    value: 1,
+                    child: Text(
+                      '1 (Easy)',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 18,
                       ),
-                    ),
-                    DropdownMenuItem<int>(
-                      value: 2,
-                      child: Text(
-                        '2',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                    DropdownMenuItem<int>(
-                      value: 3,
-                      child: Text(
-                        '3',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                    DropdownMenuItem<int>(
-                      value: 4,
-                      child: Text(
-                        '4',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                    DropdownMenuItem<int>(
-                      value: 5,
-                      child: Text(
-                        '5 (Hard)',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                  ],
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedDifficulty = value!;
-                    });
-                    _updateSettings();
-                  },
-                  decoration: InputDecoration(
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: BorderSide(color: Colors.white),
                     ),
                   ),
-                ),
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Cooking Time',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 10),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  color: Colours.backgroundOff,
-                ),
-                child: DropdownButtonFormField<String>(
-                  value: _selectedCookingTime,
-                  items: [
-                    '30 min',
-                    '1 h',
-                    '2 h',
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(
-                        value,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 18,
-                        ),
+                  DropdownMenuItem<int>(
+                    value: 2,
+                    child: Text(
+                      '2',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 18,
                       ),
-                    );
-                  }).toList(),
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedCookingTime = value!;
-                    });
-                    _updateSettings();
-                  },
-                  decoration: InputDecoration(
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: BorderSide(color: Colors.white),
                     ),
                   ),
-                ),
-              ),
-              SizedBox(height: 20),
-              Text(
-                'Portion Size',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 10),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  color: Colours.backgroundOff,
-                ),
-                child: DropdownButtonFormField<int>(
-                  value: _selectedPortionSize,
-                  items: [
-                    DropdownMenuItem<int>(
-                      value: 1,
-                      child: Text(
-                        'For 1 person',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 18,
-                        ),
+                  DropdownMenuItem<int>(
+                    value: 3,
+                    child: Text(
+                      '3',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 18,
                       ),
-                    ),
-                    DropdownMenuItem<int>(
-                      value: 2,
-                      child: Text(
-                        'For 2 people',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                    DropdownMenuItem<int>(
-                      value: 4,
-                      child: Text(
-                        'For 4 people',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                    DropdownMenuItem<int>(
-                      value: 6,
-                      child: Text(
-                        'For 6 people',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                  ],
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedPortionSize = value!;
-                    });
-                    _updateSettings();
-                  },
-                  decoration: InputDecoration(
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                      borderSide: BorderSide(color: Colors.white),
                     ),
                   ),
-                ),
-              ),
-              SizedBox(height: 20),
-              TextField(
-                controller: allergyController,
-                decoration: InputDecoration(
-                  labelText: 'Add a new Dietary need',
-                  labelStyle: TextStyle(
-                      color: Colours.backgroundOff,
-                      fontWeight: FontWeight.w800),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      Icons.add,
-                      color: Colours.backgroundOff,
+                  DropdownMenuItem<int>(
+                    value: 4,
+                    child: Text(
+                      '4',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 18,
+                      ),
                     ),
-                    onPressed: _addAllergy,
                   ),
-                ),
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: allergies.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colours.backgroundOff,
+                  DropdownMenuItem<int>(
+                    value: 5,
+                    child: Text(
+                      '5 (Hard)',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 18,
                       ),
-                      margin: EdgeInsets.symmetric(vertical: 8),
-                      child: ListTile(
-                        title: Text(
-                          allergies[index],
-                          style: TextStyle(
-                            color: Colours.secondary,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
-                        trailing: IconButton(
-                          icon: Icon(
-                            Icons.delete,
-                            color: Colours.secondary,
-                          ),
-                          onPressed: () => _removeAllergy(allergies[index]),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-              NavigationButtons(
-                onBack: () {
-                  Navigator.pop(context);
+                    ),
+                  ),
+                ],
+                onChanged: (value) {
+                  setState(() {
+                    _selectedDifficulty = value!;
+                  });
+                  _updateSettings();
                 },
-                onContinue: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HealthGoalScreen(
-                        ingredientsMapCons: widget.ingredientsMapCons,
+                decoration: InputDecoration(
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            Text(
+              'Cooking Time',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 10),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.0),
+                color: Colours.backgroundOff,
+              ),
+              child: DropdownButtonFormField<String>(
+                value: _selectedCookingTime,
+                items: [
+                  '30 min',
+                  '1 h',
+                  '2 h',
+                ].map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(
+                      value,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 18,
+                      ),
+                    ),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _selectedCookingTime = value!;
+                  });
+                  _updateSettings();
+                },
+                decoration: InputDecoration(
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20.0),
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            Text(
+              'Portion Size',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 10),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.0),
+                color: Colours.backgroundOff,
+              ),
+              child: DropdownButtonFormField<int>(
+                value: _selectedPortionSize,
+                items: [
+                  DropdownMenuItem<int>(
+                    value: 1,
+                    child: Text(
+                      'For 1 person',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  DropdownMenuItem<int>(
+                    value: 2,
+                    child: Text(
+                      'For 2 people',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  DropdownMenuItem<int>(
+                    value: 4,
+                    child: Text(
+                      'For 4 people',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  DropdownMenuItem<int>(
+                    value: 6,
+                    child: Text(
+                      'For 6 people',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w800,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ],
+                onChanged: (value) {
+                  setState(() {
+                    _selectedPortionSize = value!;
+                  });
+                  _updateSettings();
+                },
+                decoration: InputDecoration(
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            TextField(
+              controller: allergyController,
+              decoration: InputDecoration(
+                labelText: 'Add a new Dietary need',
+                labelStyle: TextStyle(
+                    color: Colours.backgroundOff, fontWeight: FontWeight.w800),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    Icons.add,
+                    color: Colours.backgroundOff,
+                  ),
+                  onPressed: _addAllergy,
+                ),
+              ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: allergies.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colours.backgroundOff,
+                    ),
+                    margin: EdgeInsets.symmetric(vertical: 8),
+                    child: ListTile(
+                      title: Text(
+                        allergies[index],
+                        style: TextStyle(
+                          color: Colours.secondary,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                      trailing: IconButton(
+                        icon: Icon(
+                          Icons.delete,
+                          color: Colours.secondary,
+                        ),
+                        onPressed: () => _removeAllergy(allergies[index]),
                       ),
                     ),
                   );
                 },
               ),
-            ],
-          ),
+            ),
+            NavigationButtons(
+              onBack: () {
+                Navigator.pop(context);
+              },
+              onContinue: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HealthGoalScreen(
+                      ingredientsMapCons: widget.ingredientsMapCons,
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
       ),
     );
