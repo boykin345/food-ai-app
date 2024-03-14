@@ -68,6 +68,8 @@ class ChatGPTRecipe extends ChatGPTRecipeInterface {
   /// Throws an exception if the response format is invalid or in case of an error.
   @override
   Future<String> fetchRecipe() async {
+    print("fufffffffffffffffffffffffff");
+    print(userAllergies);
     final ingredientsString = ingredientsMap.entries
         .map((entry) => '${entry.key}: ${entry.value}')
         .join(', ');
