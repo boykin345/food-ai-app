@@ -228,7 +228,12 @@ class _HomePageState extends State<HomePage> {
                     children: <Widget>[
                       ListTile(
                         leading: Icon(Icons.camera_alt),
-                        title: Text('Take Photo'),
+                        title: Text('Take Photo',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w700,
+                            )),
                         onTap: () async {
                           //Navigate to Take Picture Screen
                           //Navigator.pop(context);
@@ -247,7 +252,12 @@ class _HomePageState extends State<HomePage> {
                       ),
                       ListTile(
                         leading: Icon(Icons.photo),
-                        title: Text('Select From Gallery'),
+                        title: Text('Select From Gallery',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w700,
+                        )),
                         onTap: () async {
                           Navigator.pop(context);
                           getImageFromGallery();

@@ -12,6 +12,7 @@ import 'package:food_ai_app/SettingsPage/Settings.dart';
 import '../Util/colours.dart';
 import '../Util/custom_app_bar.dart';
 import '../Util/customer_drawer.dart';
+import '../Util/navigation_buttons.dart';
 
 class IngredientEditing extends StatefulWidget {
   final Map<String, String> ingredientsMapCons;
@@ -26,9 +27,9 @@ class IngredientEditingState extends State<IngredientEditing> {
   final mockIngredients = MockIngredients();
   Map<String, String> ingredientsMap = {};
   final TextEditingController ingredientNameController =
-  TextEditingController();
+      TextEditingController();
   final TextEditingController ingredientQuantityController =
-  TextEditingController();
+      TextEditingController();
 
   @override
   void initState() {
@@ -46,7 +47,7 @@ class IngredientEditingState extends State<IngredientEditing> {
 
   Future<Set<String>> loadFoodNames() async {
     final String response =
-    await rootBundle.loadString('assets/data/food_names.json');
+        await rootBundle.loadString('assets/data/food_names.json');
     final List<dynamic> data = json.decode(response) as List<dynamic>;
     return data.map<String>((item) => item.toString()).toSet();
   }
@@ -141,7 +142,7 @@ class IngredientEditingState extends State<IngredientEditing> {
       backgroundColor: Colours.primary,
       appBar: CustomAppBar(),
       drawer: CustomDrawer(),
-      body: Container(
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -156,35 +157,44 @@ class IngredientEditingState extends State<IngredientEditing> {
                 ),
               ),
             ),
-
-            searchBox(),
-            Expanded(
-              child: ListView(
+            Padding(
+              padding: EdgeInsets.only(
+                  top: 10.0, left: 15.0, right: 15.0, bottom: 15),
+              child: searchBox(),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+              child: Column(
                 children: _buildIngredientWidgets(ingredientsMap),
               ),
+            ),
+            NavigationButtons(
+              onBack: () {
+                Navigator.pop(context);
+              },
+              onContinue: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SettingsScreen(
+                      ingredientsMapCons: ingredientsMap,
+                    ),
+                  ),
+                );
+              },
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    SettingsScreen(ingredientsMapCons: ingredientsMap)),
-          );
-        },
-        child: Icon(Icons.navigate_next),
-        backgroundColor: Colors.white,
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
   Widget searchBox() {
     return Container(
-      padding: EdgeInsets.only(left: 10, right: 10,),
+      padding: EdgeInsets.only(
+        left: 10,
+        right: 10,
+      ),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
@@ -197,7 +207,8 @@ class IngredientEditingState extends State<IngredientEditing> {
               decoration: InputDecoration(
                 hintText: 'Ingredient',
                 border: InputBorder.none,
-                hintStyle: TextStyle(color: Colors.grey, fontWeight: FontWeight.w900),
+                hintStyle:
+                    TextStyle(color: Colors.grey, fontWeight: FontWeight.w900),
               ),
             ),
           ),
@@ -208,7 +219,8 @@ class IngredientEditingState extends State<IngredientEditing> {
               decoration: InputDecoration(
                 hintText: 'Quantity',
                 border: InputBorder.none,
-                hintStyle: TextStyle(color: Colors.grey, fontWeight: FontWeight.w900),
+                hintStyle:
+                    TextStyle(color: Colors.grey, fontWeight: FontWeight.w900),
               ),
               keyboardType: TextInputType.number,
             ),

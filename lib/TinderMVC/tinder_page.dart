@@ -50,6 +50,8 @@ class _TinderPageState extends State<TinderPage> {
     Map<String, dynamic> userSettings = {}; // This will hold user settings.
     List<String> healthGoals = [];
     List<String> preferences = [];
+    List<String> userAllergies = []; // Initialize the list for allergies.
+
     try {
       final userSnapshot = await FirebaseFirestore.instance
           .collection('users')
@@ -58,19 +60,32 @@ class _TinderPageState extends State<TinderPage> {
       if (userSnapshot.exists) {
         userSettings = userSnapshot.data() as Map<String, dynamic>;
 
-        healthGoals = userSettings['activeHealthGoals'] is List
-            ? List<String>.from(
-                userSettings['activeHealthGoals'] as List<dynamic>)
-            : [];
+        // Fetch activeHealthGoals and activePreferences from Personalisation document as before.
+        final personalisationSnapshot = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(FirebaseAuth.instance.currentUser?.uid)
+            .collection('Personalisation')
+            .doc('Personalisation')
+            .get();
+        if (personalisationSnapshot.exists) {
+          var personalisationData = personalisationSnapshot.data() as Map<String, dynamic>;
+          healthGoals = personalisationData['activeHealthGoals'] is List
+              ? List<String>.from(personalisationData['activeHealthGoals'] as List<dynamic>)
+              : [];
+          preferences = personalisationData['activePreferences'] is List
+              ? List<String>.from(personalisationData['activePreferences'] as List<dynamic>)
+              : [];
+        }
 
-        preferences = (userSettings['activePreferences'] is List)
-            ? List<String>.from(
-                userSettings['activePreferences'] as List<dynamic>)
+        // Directly fetch userAllergies from the user document.
+        userAllergies = userSettings['allergies'] is List
+            ? List<String>.from(userSettings['allergies'] as List<dynamic>)
             : [];
       }
     } catch (error) {
       print('Error fetching user data: $error');
     }
+
     print(healthGoals);
     print(preferences);
     final String healthGoalsString = healthGoals.join(', ');
@@ -85,7 +100,7 @@ class _TinderPageState extends State<TinderPage> {
       userPortionSize:
           int.tryParse(userSettings['portionSize']?.toString() ?? '') ?? 1,
       userAllergies:
-          List<String>.from(userSettings['allergies'] as List<dynamic>? ?? []),
+      userAllergies,
       healthGoalsString: healthGoalsString,
       preferencesString: preferencesString,
     );
