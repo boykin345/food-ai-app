@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:food_ai_app/Entities/recipe.dart';
 
 /// Deals with the knowledge of accessing & editing the firebase authentication database.
 ///
@@ -99,5 +100,52 @@ class DataUtil {
       print("Error: usernameAlreadyTaken: $e");
       return true; // If an error is caught, still returns true to act as the username is already taken.
     }
+  }
+
+  static Future<void> saveRecipe(String userId, Recipe recipe) async {
+    try {
+      await FirebaseFirestore.instance.collection('users').doc(userId).collection('recipes').add({
+        'recipeName': recipe.recipeName,
+        'calories': recipe.calories,
+        'prepTime': recipe.prepTime,
+        'difficulty': recipe.difficulty,
+        'ingredients': recipe.ingredients,
+        'instructions': recipe.instructions,
+        'category': recipe.category,
+        'imageURL': recipe.imageURL
+      });
+    } catch (e) {
+      print("Error: saveRecipe: $e");
+    }
+  }
+
+  static Future<List<Map<String, dynamic>>> getUserRecipes(String userId) async {
+    List<Map<String, dynamic>> recipes = [];
+
+    try {
+      QuerySnapshot userSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection('recipes')
+          .get();
+
+      userSnapshot.docs.forEach((doc) {
+        Map<String, dynamic> recipeData = {
+          'recipeName': doc['recipeName'],
+          'calories': doc['calories'],
+          'prepTime': doc['prepTime'],
+          'difficulty': doc['difficulty'],
+          'ingredients': (doc['ingredients'] as List<dynamic>).cast<String>(),
+          'instructions': doc['instructions'],
+          'category': doc['category'],
+          'imageURL': doc['imageURL'],
+        };
+        recipes.add(recipeData);
+      });
+    } catch (e) {
+      print('Error: getUserRecipes: $e');
+    }
+
+    return recipes;
   }
 }
