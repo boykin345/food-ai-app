@@ -340,6 +340,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             SizedBox(height: 20),
             TextField(
               controller: allergyController,
+              style: TextStyle(color: Colors.white), // Set text color to white
               decoration: InputDecoration(
                 labelText: 'Add a new Dietary need',
                 labelStyle:
