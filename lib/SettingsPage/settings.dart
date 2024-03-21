@@ -122,7 +122,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20.0),
-                color: Colours.backgroundOff,
+                color: Colors.white,
               ),
               child: DropdownButtonFormField<int>(
                 value: _selectedDifficulty,
@@ -215,7 +215,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20.0),
-                color: Colours.backgroundOff,
+                color: Colors.white,
               ),
               child: DropdownButtonFormField<String>(
                 value: _selectedCookingTime,
@@ -268,7 +268,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20.0),
-                color: Colours.backgroundOff,
+                color: Colors.white,
               ),
               child: DropdownButtonFormField<int>(
                 value: _selectedPortionSize,
@@ -342,12 +342,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
               controller: allergyController,
               decoration: InputDecoration(
                 labelText: 'Add a new Dietary need',
-                labelStyle: TextStyle(
-                    color: Colours.backgroundOff, fontWeight: FontWeight.w800),
+                labelStyle:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
                 suffixIcon: IconButton(
                   icon: Icon(
                     Icons.add,
-                    color: Colours.backgroundOff,
+                    color: Colors.white,
                   ),
                   onPressed: _addAllergy,
                 ),
@@ -360,7 +360,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   return Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Colours.backgroundOff,
+                      color: Colors.white,
                     ),
                     margin: EdgeInsets.symmetric(vertical: 8),
                     child: ListTile(
