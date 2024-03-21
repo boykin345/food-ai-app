@@ -68,15 +68,13 @@ class ChatGPTRecipe extends ChatGPTRecipeInterface {
   /// Throws an exception if the response format is invalid or in case of an error.
   @override
   Future<String> fetchRecipe() async {
-    print("fufffffffffffffffffffffffff");
-    print(userAllergies);
     final ingredientsString = ingredientsMap.entries
         .map((entry) => '${entry.key}: ${entry.value}')
         .join(', ');
     try {
       final message =
           'Tell me a set of dishes based on ingredients: $ingredientsString, '
-          'do not need to give me instructions, make your description concise and in this format: Calories:\n Prep Time:\nDifficult Rating:\nProtein:\n Carbohydrates:\nFats:\nCooking Times:\nUtensils:\nProtenial Allergens:\nIngredients: , and make sure your calories is only number, no other things, and make name of cuisine name on first line(only show  tomato soup),make difficult rating out of 5 '
+          'do not need to give me instructions, make your description concise and in this format: Calories:\n Prep Time:\nDifficult Rating:\nProtein:\n Carbohydrates:\nFats:\nCooking Times:\nUtensils:\nProtenial Allergens:\nIngredients: , and make sure your calories is only number, no other things, and make name of cuisine name on first line,make difficult rating out of 5 '
           'And the condition of food should be close to these information: '
           'Difficulty: $userDifficulty, '
           'Cooking Time: $userCookingTime, '
@@ -84,7 +82,7 @@ class ChatGPTRecipe extends ChatGPTRecipeInterface {
           'Allergies: ${userAllergies.join(', ')}, '
           'Health Goals: $healthGoalsString, '
           'Preference: $preferencesString, '
-          'make sure your description is concise and formatted properly. Do not give anything else not included in the format.';
+          'make sure your description is concise and formatted properly. 1 recipe is enough. Do not give anything else not included in the format.';
 
       //  print(healthGoalsString);
       //  print(userAllergies.join(', '));
