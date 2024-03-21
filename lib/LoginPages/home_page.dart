@@ -21,6 +21,8 @@ import 'package:food_ai_app/Util/customer_drawer.dart';
 
 import 'package:food_ai_app/Util/colours.dart';
 
+import '../LoadingScreen/custom_loading_circle.dart';
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -28,7 +30,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final user = FirebaseAuth.instance.currentUser!;
-  late IngredientEditing ingredientEditing;
+  bool _isLoading = false;
 
   File? _imageFile;
   String _response = 'No image processed yet';
@@ -71,16 +73,21 @@ class _HomePageState extends State<HomePage> {
   /// Process the selected image to extract information using APIs.
   Future<void> processImage(File imageFile) async {
     try {
+      setState(() {
+        _isLoading = true; // Start loading
+      });
       final String? imageUrl =
           await APICall.uploadImageAndGetDownloadUrl(imageFile);
+
       if (imageUrl != null) {
         final String response = await APICall.sendToOpenAI(imageUrl);
         final jsonResponse = jsonDecode(response);
         final contentString = jsonResponse['choices'][0]['message']['content'];
         setState(() {
+          _isLoading = false; // Stop loading
           _response = contentString as String;
           final ingredientsMap = parseContent(_response);
-          ingredientEditing =
+          final IngredientEditing ingredientEditing =
               IngredientEditing(ingredientsMapCons: ingredientsMap);
           Navigator.push(
             context,
@@ -89,11 +96,13 @@ class _HomePageState extends State<HomePage> {
         });
       } else {
         setState(() {
+          _isLoading = false; // Stop loading
           _response = "Error: Image was not uploaded successfully.";
         });
       }
     } catch (e) {
       setState(() {
+        _isLoading = false; // Stop loading
         _response = 'Error processing image: ${e}';
       });
     }
@@ -101,6 +110,15 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colours.primary,
+      body: _isLoading
+          ? Center(child: CustomLoadingCircle()) // Show loading indicator
+          : buildUI(context),
+    );
+  }
+
+  Widget buildUI(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
       drawer: CustomDrawer(),
@@ -242,7 +260,6 @@ class _HomePageState extends State<HomePage> {
                           //Handle returned image path
                           if (imagePath != null) {
                             setState(() {
-                              print(imagePath);
                               _imageFile = File(
                                   imagePath); // Update _imageFile with the captured image
                               processImage(_imageFile!);
@@ -253,11 +270,11 @@ class _HomePageState extends State<HomePage> {
                       ListTile(
                         leading: Icon(Icons.photo),
                         title: Text('Select From Gallery',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w700,
-                        )),
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w700,
+                            )),
                         onTap: () async {
                           Navigator.pop(context);
                           getImageFromGallery();

@@ -70,19 +70,4 @@ class APICall {
       return 'Error: ${response.statusCode}';
     }
   }
-
-  /// Parse the content string to extract ingredients and their quantities.
-  Map<String, String> parseContent(String content) {
-    final Map<String, String> resultMap = {};
-    final lines = content.split('\n');
-    for (final line in lines) {
-      final parts = line.split(':');
-      if (parts.length == 2) {
-        final ingredient = parts[0].trim();
-        final quantity = parts[1].trim();
-        resultMap[ingredient] = quantity;
-      }
-    }
-    return resultMap;
-  }
 }
