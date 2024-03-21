@@ -18,7 +18,7 @@ class TinderController {
   ImageFetcherInterface imageFetcherClient;
 
   /// Number of recipes to fetch in parallel.
-  final int threadCount = 10;
+  final int threadCount = 5;
 
   /// Callback to update the view when the model changes.
   VoidCallback? onModelUpdated;
@@ -65,29 +65,34 @@ class TinderController {
 
   /// Initializes the app's recipes by fetching descriptions and images asynchronously.
   Future<void> initRecipes() async {
-    // Step 1: Fetch all recipes concurrently
+    // Start the stopwatch
+    final stopwatch = Stopwatch()..start();
 
-    final List<Future<String>> recipeFutures = List.generate(
-      threadCount,
-      (_) => gptApiClient.fetchRecipe(),
-    );
-    print("1");
-    final List<String> descriptions = await Future.wait(recipeFutures);
-    print("2");
-    // Step 2: Extract information for image fetch
-    final List<Future<String>> imageFutures = descriptions.map((description) {
-      final String firstLine = extractFirstLineFromString(description);
-      return imageFetcherClient.fetchImage(firstLine);
-    }).toList();
-    print("3");
-    // Step 3: Fetch all images concurrently
-    final List<String> images = await Future.wait(imageFutures);
+    List<Future<void>> tasks = List.generate(threadCount, (_) async {
+      // Fetch recipe asynchronously
+      String description = await gptApiClient.fetchRecipe();
+      print("Recipe fetched");
 
-    // Step 4: Combine recipes and images
-    for (int i = 0; i < threadCount; i++) {
-      model.addRecipe(descriptions[i], images[i]);
-    }
-    print("4");
+      // Extract first line for image fetch
+      String firstLine = extractFirstLineFromString(description);
+
+      // Fetch image asynchronously
+      String image = await imageFetcherClient.fetchImage(firstLine);
+      print("Image fetched");
+
+      // Combine recipe and image
+      model.addRecipe(description, image);
+    });
+
+    // Wait for all tasks to complete
+    await Future.wait(tasks);
+    print("All recipes and images are fetched");
+
+    // Stop the stopwatch and print the elapsed time
+    stopwatch.stop();
+    print('Finished in ${stopwatch.elapsedMilliseconds} milliseconds.');
+
+    // Refresh the view once everything is done
     refreshView();
   }
 
