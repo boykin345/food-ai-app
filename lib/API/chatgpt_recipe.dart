@@ -35,7 +35,7 @@ class ChatGPTRecipe extends ChatGPTRecipeInterface {
   /// Throws an exception if the request fails or the response is not 200 OK.
   Future<String> getChatResponse(String message) async {
     final url = Uri.parse(
-        'https://gpt-marco-west.openai.azure.com/openai/deployments/gpt-george/chat/completions?api-version=2024-02-15-preview');
+        'https://gpt-george-france.openai.azure.com/openai/deployments/gpt-george-france/chat/completions?api-version=2024-02-15-preview');
 
     final response = await http.post(
       url,
@@ -92,10 +92,13 @@ class ChatGPTRecipe extends ChatGPTRecipeInterface {
       //  print(userCookingTime);
       print(message);
       final response = await getChatResponse(message);
+      print("5");
       final decodedResponse = jsonDecode(response)
           as Map<String, dynamic>; // Safely cast to Map<String, dynamic>
+      print("6");
       if (decodedResponse.containsKey('choices') &&
           decodedResponse['choices'] is List) {
+        print("7");
         final choices = decodedResponse['choices'] as List;
         if (choices.isNotEmpty && choices[0] is Map<String, dynamic>) {
           final firstChoice = choices[0] as Map<String, dynamic>;

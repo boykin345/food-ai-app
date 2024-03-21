@@ -18,7 +18,7 @@ class TinderController {
   ImageFetcherInterface imageFetcherClient;
 
   /// Number of recipes to fetch in parallel.
-  final int threadCount = 10;
+  final int threadCount = 3;
 
   /// Callback to update the view when the model changes.
   VoidCallback? onModelUpdated;
@@ -71,22 +71,23 @@ class TinderController {
       threadCount,
       (_) => gptApiClient.fetchRecipe(),
     );
-
+    print("1");
     final List<String> descriptions = await Future.wait(recipeFutures);
-
+    print("2");
     // Step 2: Extract information for image fetch
     final List<Future<String>> imageFutures = descriptions.map((description) {
       final String firstLine = extractFirstLineFromString(description);
       return imageFetcherClient.fetchImage(firstLine);
     }).toList();
-
+    print("3");
     // Step 3: Fetch all images concurrently
     final List<String> images = await Future.wait(imageFutures);
 
     // Step 4: Combine recipes and images
-    for (int i = 0; i < descriptions.length; i++) {
+    for (int i = 0; i < threadCount; i++) {
       model.addRecipe(descriptions[i], images[i]);
     }
+    print("4");
     refreshView();
   }
 

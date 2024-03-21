@@ -14,7 +14,7 @@ class RecipeOverview extends StatelessWidget {
   late String imageLink;
 
   //create an instance of the gpt class that can be used to make api requests
-  GPTRecipeApi gptRecipeApi = GPTRecipeApi('bafe17e1da1e4a0a870426f8a7fd64d6');
+  GPTRecipeApi gptRecipeApi = GPTRecipeApi('0f91ba9b74344d7699144a8afbeeae2b');
   MockGPTRecipeApi mockRecipeApi = MockGPTRecipeApi();
 
   //store the entire recipe

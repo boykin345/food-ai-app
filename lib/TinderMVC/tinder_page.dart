@@ -68,12 +68,15 @@ class _TinderPageState extends State<TinderPage> {
             .doc('Personalisation')
             .get();
         if (personalisationSnapshot.exists) {
-          var personalisationData = personalisationSnapshot.data() as Map<String, dynamic>;
+          var personalisationData =
+              personalisationSnapshot.data() as Map<String, dynamic>;
           healthGoals = personalisationData['activeHealthGoals'] is List
-              ? List<String>.from(personalisationData['activeHealthGoals'] as List<dynamic>)
+              ? List<String>.from(
+                  personalisationData['activeHealthGoals'] as List<dynamic>)
               : [];
           preferences = personalisationData['activePreferences'] is List
-              ? List<String>.from(personalisationData['activePreferences'] as List<dynamic>)
+              ? List<String>.from(
+                  personalisationData['activePreferences'] as List<dynamic>)
               : [];
         }
 
@@ -92,15 +95,14 @@ class _TinderPageState extends State<TinderPage> {
     final String preferencesString = preferences.join(', ');
 
     gptApiClient = ChatGPTRecipe(
-      'bafe17e1da1e4a0a870426f8a7fd64d6',
+      '0f91ba9b74344d7699144a8afbeeae2b',
       ingredientsMap: widget.ingredientsMapCons,
       userDifficulty:
           int.tryParse(userSettings['difficulty']?.toString() ?? '') ?? 1,
       userCookingTime: userSettings['cookingTime']?.toString() ?? '30 min',
       userPortionSize:
           int.tryParse(userSettings['portionSize']?.toString() ?? '') ?? 1,
-      userAllergies:
-      userAllergies,
+      userAllergies: userAllergies,
       healthGoalsString: healthGoalsString,
       preferencesString: preferencesString,
     );
