@@ -30,7 +30,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final user = FirebaseAuth.instance.currentUser!;
-  late IngredientEditing ingredientEditing;
   bool _isLoading = false;
 
   File? _imageFile;
@@ -77,23 +76,29 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         _isLoading = true; // Start loading
       });
-
       final String? imageUrl =
           await APICall.uploadImageAndGetDownloadUrl(imageFile);
+      print("Upload complete, URL: $imageUrl");
+
       if (imageUrl != null) {
+        print("Error 1");
         final String response = await APICall.sendToOpenAI(imageUrl);
         final jsonResponse = jsonDecode(response);
         final contentString = jsonResponse['choices'][0]['message']['content'];
+        print(response);
+        print("Error 2");
         setState(() {
+          print("Error 3");
           _isLoading = false; // Stop loading
           _response = contentString as String;
           final ingredientsMap = parseContent(_response);
-          ingredientEditing =
+          final IngredientEditing ingredientEditing =
               IngredientEditing(ingredientsMapCons: ingredientsMap);
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => ingredientEditing),
           );
+          print("Error 4");
         });
       } else {
         setState(() {
