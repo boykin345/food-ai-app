@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:food_ai_app/Pages/login_signup_page.dart';
+import 'package:food_ai_app/LoginPages/login_signup_page.dart';
 import 'package:food_ai_app/Util/data_util.dart';
 
 import '../Util/colours.dart';
@@ -67,7 +67,8 @@ class ForgotPasswordPageState extends State<ForgotPasswordPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 12.0, bottom: 12.0, left: 12.0, right: 12.0),
+            padding: const EdgeInsets.only(
+                top: 12.0, bottom: 12.0, left: 12.0, right: 12.0),
             child: Container(
               width: MediaQuery.of(context).size.width * 0.6,
               child: TextField(
@@ -76,7 +77,8 @@ class ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 decoration: InputDecoration(
                   hintText: "Info@gmail.com",
                   hintStyle: TextStyle(fontSize: 14, color: Colours.greyText),
-                  errorText: LoginSignupPageState.validateEmail(emailController.text, emailInteracted),
+                  errorText: LoginSignupPageState.validateEmail(
+                      emailController.text, emailInteracted),
                 ),
               ),
             ),
@@ -106,22 +108,25 @@ class ForgotPasswordPageState extends State<ForgotPasswordPage> {
   Future<void> passwordReset() async {
     // Checks the email entered is valid, otherwise return.
     emailInteracted = true;
-    if (LoginSignupPageState.validateEmail(emailController.text.trim(), emailInteracted) != null) {
+    if (LoginSignupPageState.validateEmail(
+            emailController.text.trim(), emailInteracted) !=
+        null) {
       FocusScope.of(context).requestFocus(emailFocusNode);
       FocusScope.of(context).requestFocus(FocusNode());
       FocusScope.of(context).unfocus();
       return;
     }
 
-    final bool result = await AuthUtil.resetPassword(emailController.text.trim());
+    final bool result =
+        await AuthUtil.resetPassword(emailController.text.trim());
 
     if (result == true) {
       showDialog(
           context: context,
           builder: (context) {
             return AlertDialog(
-                content: Text(
-                    "Password reset link sent! Check your email inbox."));
+                content:
+                    Text("Password reset link sent! Check your email inbox."));
           });
       return;
     } else {

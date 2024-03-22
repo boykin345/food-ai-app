@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:food_ai_app/Pages/login_signup_page.dart';
+import 'package:food_ai_app/LoginPages/login_signup_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // Initialises the state for the index page.
@@ -21,7 +21,6 @@ class _IndexPageState extends State<IndexPage> {
             padding: const EdgeInsets.only(top: 50.0),
             child: Column(
               children: [
-
                 // Container to display the text at the top of the screen.
                 Container(
                   child: Column(
@@ -31,8 +30,7 @@ class _IndexPageState extends State<IndexPage> {
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 60,
-                            color: Colors.white
-                        ),
+                            color: Colors.white),
                       ),
                       Text(
                         'Lets find the food you love',
@@ -43,7 +41,6 @@ class _IndexPageState extends State<IndexPage> {
                       ),
                     ],
                   ),
-
                 ),
 
                 // Container to display the buttons on the screen such as login, sing up.
@@ -60,13 +57,13 @@ class _IndexPageState extends State<IndexPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => LoginSignupPage(screenType: false)),
+                                  builder: (context) =>
+                                      LoginSignupPage(screenType: false)),
                               //builder: (context) => LoginSignupScreen(screenType: false)),
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                              fixedSize: Size(125, 30.0)
-                          ),
+                              fixedSize: Size(125, 30.0)),
                           child: Text(
                             'Log In',
                             style: TextStyle(
@@ -88,12 +85,12 @@ class _IndexPageState extends State<IndexPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => LoginSignupPage(screenType: true)),
+                                  builder: (context) =>
+                                      LoginSignupPage(screenType: true)),
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                              fixedSize: Size(125, 30.0)
-                          ),
+                              fixedSize: Size(125, 30.0)),
                           child: Text(
                             'Sign Up',
                             style: TextStyle(
@@ -111,8 +108,7 @@ class _IndexPageState extends State<IndexPage> {
                         child: ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
-                              fixedSize: Size(125, 30.0)
-                          ),
+                              fixedSize: Size(125, 30.0)),
                           child: Text(
                             'Help',
                             style: TextStyle(
@@ -163,7 +159,9 @@ class _IndexPageState extends State<IndexPage> {
                               // Provide an onTap redirecting the user to google plus social media page.
                               GestureDetector(
                                 onTap: () async {
-                                  await launchUrl(Uri(scheme: 'https', host: 'google.com'), mode: LaunchMode.externalApplication);
+                                  await launchUrl(
+                                      Uri(scheme: 'https', host: 'google.com'),
+                                      mode: LaunchMode.externalApplication);
                                 },
                                 child: Container(
                                   padding: EdgeInsets.all(7),
@@ -185,7 +183,9 @@ class _IndexPageState extends State<IndexPage> {
                               // Provide an onTap redirecting the user to facebook social media page.
                               GestureDetector(
                                 onTap: () async {
-                                  await launchUrl(Uri(scheme: 'https', host: 'google.com'), mode: LaunchMode.externalApplication);
+                                  await launchUrl(
+                                      Uri(scheme: 'https', host: 'google.com'),
+                                      mode: LaunchMode.externalApplication);
                                 },
                                 child: Container(
                                   padding: EdgeInsets.all(7),
@@ -207,7 +207,9 @@ class _IndexPageState extends State<IndexPage> {
                               // Provide an onTap redirecting the user to twitter social media page.
                               GestureDetector(
                                 onTap: () async {
-                                  await launchUrl(Uri(scheme: 'https', host: 'google.com'), mode: LaunchMode.externalApplication);
+                                  await launchUrl(
+                                      Uri(scheme: 'https', host: 'google.com'),
+                                      mode: LaunchMode.externalApplication);
                                 },
                                 child: Container(
                                   padding: EdgeInsets.all(7),

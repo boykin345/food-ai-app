@@ -5,10 +5,9 @@ import 'package:http/http.dart' as http;
 import 'package:food_ai_app/FullRecipeGeneration/gpt_api_recipe.dart';
 import 'package:food_ai_app/FullRecipeGeneration/gpt_api_recipe_mock.dart';
 
-void main()
-{
-  runApp(RecipeOverview());
-}
+import '../Util/colours.dart';
+import '../Util/custom_app_bar.dart';
+import '../Util/customer_drawer.dart';
 
 class RecipeOverview extends StatelessWidget {
   //store properties of recipe in separate variables such that they can be distinguished for recipe saving
@@ -27,7 +26,7 @@ class RecipeOverview extends StatelessWidget {
   Color back = const Color.fromARGB(255, 44,52,67,);
 
   //create an instance of the gpt class that can be used to make api requests
-  GPTRecipeApi gptRecipeApi = GPTRecipeApi('46ac92c47cd344e48007ac50e31d7771');
+  GPTRecipeApi gptRecipeApi = GPTRecipeApi('0f91ba9b74344d7699144a8afbeeae2b');
   MockGPTRecipeApi mockRecipeApi = MockGPTRecipeApi();
 
   //store the entire recipe

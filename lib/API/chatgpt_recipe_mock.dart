@@ -157,8 +157,28 @@ Serve: Let the pie cool for a few minutes before serving. This dish is perfect w
   /// The API key for demonstration purposes; not used in the mock.
   final String apiKey;
 
-  /// Constructs a [ChatGPTRecipeMock] instance with an optional [apiKey].
-  ChatGPTRecipeMock(this.apiKey);
+  /// Add fields for user settings.
+  final int userDifficulty;
+  final String userCookingTime;
+  final int userPortionSize;
+  final List<String> userAllergies;
+  final String healthGoalsString;
+  final String preferencesString;
+
+  /// The map is used as part of a prompt to gpt.
+  final Map<String, String> ingredientsMap;
+
+  /// Constructs a [ChatGPTRecipeMock] instance with a key [apiKey], user setting paramters and a hashmap [ingredientsMap].
+  ChatGPTRecipeMock(
+    this.apiKey, {
+    required this.ingredientsMap,
+    required this.userDifficulty,
+    required this.userCookingTime,
+    required this.userPortionSize,
+    required this.userAllergies,
+    required this.healthGoalsString,
+    required this.preferencesString,
+  });
 
   /// Increments the counter to cycle through the mock descriptions.
   /// Resets to 0 if it exceeds the number of available descriptions.

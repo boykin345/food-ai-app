@@ -25,6 +25,14 @@
 | D2              | Unique Username               | User enters a unique username that is already taken                                                                                                      | Pending       | [- Not Started  -]      | NA                                                                         |
 | D5              | Forgot Password               | User enters a email address that isn't in the database, receiving an error message saying the email doesn't exist and can't send a password reset link   | Pending       | [- Not Started  -]      | NA                                                                         |
 | D5              | Forgot Password               | User enters a email address that exists in the database, receiving a message saying that a password reset link has been sent to them                     | Pending       | [- Not Started  -]      | NA                                                                         |
+|-----------------|---------------------|-----------------------|-------------|-----------------------|-------------------|
+| E           | **Fridge Snapshot** | | | | |
+| E          | - Open Camera | Test if the user can open up the camera | Pending | In Progress | _Notes on refactoring_ |
+| E          | - Take Photo | Test if the user can successfully take a photo within the app | Pending | In Progress | _Notes on refactoring_ |
+| E          | - View Photo | Test if the user can view the photo | Pending | In Progress | _Notes on refactoring_ |
+| E          | - Retake Photo | Test if the user can take a new photo if they dislike the photo taken | Pending | Not Started | _Notes on refactoring_ |
+| E          | - Send Photo to Vision API | Test if the vision API recieves an image | Pending | Not Started | _Notes on refactoring_ |
+|-----------------|---------------------|-----------------------|-------------|-----------------------|-------------------|
 | I               | **Meal/Tinder Selection**     |                                                                                                                                                          |               |                         |                                                                            |
 | I1/2            | - Index Initialization        | Test if the index is initialized correctly at 0                                                                                                          | Pass          | Done                    |                                                                            |
 | I1/2            | - Index Increment             | Test if the index is incremented correctly                                                                                                               | Pass          | Done                    |                                                                            |

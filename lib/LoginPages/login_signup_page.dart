@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_ai_app/Util/colours.dart';
 import 'package:food_ai_app/Util/data_util.dart';
-import 'package:food_ai_app/Pages/forgot_password_page.dart';
-import 'package:food_ai_app/Pages/home_page.dart';
+import 'package:food_ai_app/LoginPages/forgot_password_page.dart';
+import 'package:food_ai_app/LoginPages/home_page.dart';
 
 /// Initialises the state for the login & sign up page.
 ///
@@ -287,7 +287,8 @@ class LoginSignupPageState extends State<LoginSignupPage> {
                   contentPadding: EdgeInsets.all(10),
                   hintText: "Info@email.com",
                   hintStyle: TextStyle(fontSize: 14, color: Colours.greyText),
-                  errorText: validateEmail(emailController.text, emailInteracted),
+                  errorText:
+                      validateEmail(emailController.text, emailInteracted),
                 ),
               ),
             ),
@@ -331,7 +332,8 @@ class LoginSignupPageState extends State<LoginSignupPage> {
               children: [
                 TextButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
                       return ForgotPasswordPage();
                     }));
                   },
@@ -634,6 +636,7 @@ class LoginSignupPageState extends State<LoginSignupPage> {
                 content: Text(
                     "There is no user record corresponding to this combination of email and password, please double check the information entered!"));
           });
+      return;
     }
 
     Navigator.pushReplacement(
@@ -681,7 +684,8 @@ class LoginSignupPageState extends State<LoginSignupPage> {
     }
 
     // Checks the username doesn't already exists
-    if (await DataUtil.usernameAlreadyTaken(usernameController.text.trim()) == true) {
+    if (await DataUtil.usernameAlreadyTaken(usernameController.text.trim()) ==
+        true) {
       showDialog(
           context: context,
           builder: (context) {
