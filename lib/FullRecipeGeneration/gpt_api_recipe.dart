@@ -40,17 +40,13 @@ class GPTRecipeApi {
   }
 
   //function to get a recipe from GPT
-  Future<String> getRecipe(String dishName, bool isImage) async {
+  Future<String> getRecipe(String dishName) async {
     try {
-      String message = "";
-      if (!isImage) {
-        //instruct the api to return a recipe with name, difficulty cooking time, ingredients and method
-        message =
-            'Tell me how to make $dishName, give me the name of the dish, a difficulty rating out of 10 and estimated cooking time, then give me a list of ingredients and a full method with step-by-step instructions';
-      } else {
-        //instruct the api to get an image of the dish
-        message = "Give me the image address of an image of a $dishName";
-      }
+      String message = " ";
+
+      //instruct the api to return a recipe with name, difficulty cooking time, ingredients and method
+      message =
+          'Tell me how to make $dishName, give me the name of the dish, a difficulty rating out of 10 and estimated cooking time, calories, a list of ingredients and a full method with step-by-step instructions in that order. Insert two newlines after each requested thing';
 
       final response = await getChatResponse(message);
       final decodedResponse = jsonDecode(response)
