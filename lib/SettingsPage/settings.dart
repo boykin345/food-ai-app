@@ -7,7 +7,7 @@ import 'package:food_ai_app/Util/custom_app_bar.dart';
 import 'package:food_ai_app/Util/customer_drawer.dart';
 import 'package:food_ai_app/Util/colours.dart';
 
-import '../Util/navigation_buttons.dart';
+import 'package:food_ai_app/Util/navigation_buttons.dart';
 
 class SettingsScreen extends StatefulWidget {
   final Map<String, String> ingredientsMapCons;
