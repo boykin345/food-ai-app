@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_ai_app/LoadingScreen/tile_circle_painter.dart';
 
-import '../Util/colours.dart';
-
 /// Displays a circular loading indicator with animated segments
 class CustomLoadingCircle extends StatefulWidget {
   @override

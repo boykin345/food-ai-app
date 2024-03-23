@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_ai_app/LoginPages/login_signup_page.dart';
 import 'package:food_ai_app/Util/data_util.dart';

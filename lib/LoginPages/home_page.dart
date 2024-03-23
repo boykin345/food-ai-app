@@ -1,27 +1,21 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:food_ai_app/SettingsPage/health_goals.dart';
-import 'package:food_ai_app/SettingsPage/preferences.dart';
-import 'package:food_ai_app/SettingsPage/settings.dart';
-import 'package:food_ai_app/IngredientVerification/mock_ingredients.dart';
-import 'package:food_ai_app/TinderMVC/tinder_page.dart';
-import 'package:food_ai_app/ImageDetection/take_photo.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:food_ai_app/ImageDetection/api_call.dart';
-
-import 'package:food_ai_app/LoginPages/index_page.dart';
-
+import 'package:food_ai_app/ImageDetection/take_photo.dart';
 import 'package:food_ai_app/IngredientVerification/ingredients_editing.dart';
-
+import 'package:food_ai_app/Util/colours.dart';
 import 'package:food_ai_app/Util/custom_app_bar.dart';
 import 'package:food_ai_app/Util/customer_drawer.dart';
+import 'package:food_ai_app/Util/initial_recipes.dart';
+import 'package:image_picker/image_picker.dart';
 
-import 'package:food_ai_app/Util/colours.dart';
+import 'package:food_ai_app/Entities/recipe.dart';
+import 'package:food_ai_app/LoadingScreen/custom_loading_circle.dart';
 
-import '../LoadingScreen/custom_loading_circle.dart';
+import '../Util/map_to_recipe_converter.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -31,6 +25,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final user = FirebaseAuth.instance.currentUser!;
   bool _isLoading = false;
+  RecipeInitialiser recipeInitialiser = RecipeInitialiser();
+  late Future<List<Recipe>> favouriteRecipes;
 
   File? _imageFile;
   String _response = 'No image processed yet';
@@ -38,6 +34,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    favouriteRecipes = (MapToRecipeConverter.getRecipesAsObjects(
+        FirebaseAuth.instance.currentUser!.uid)) as Future<List<Recipe>>;
   }
 
   /// Function to get an image from the device's gallery.
@@ -118,6 +116,50 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget favoritesSectionWidget(Future<List<Recipe>> favouriteRecipesFuture) {
+    return FutureBuilder<List<Recipe>>(
+      future: favouriteRecipesFuture,
+      builder: (BuildContext context, AsyncSnapshot<List<Recipe>> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CustomLoadingCircle());
+        } else if (snapshot.hasError) {
+          return Text("Error fetching favorites");
+        } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.only(top: 45.0, left: 15.0, bottom: 15),
+                child: Text(
+                  "Favorites",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colours.backgroundOff,
+                  ),
+                ),
+              ),
+              Container(
+                height: 270,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    return _buildRecipeItem(recipe: snapshot.data![index]);
+                  },
+                ),
+              ),
+            ],
+          );
+        } else {
+          // No data is present
+          return Container();
+        }
+      },
+    );
+  }
+
   Widget buildUI(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
@@ -148,10 +190,11 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
+            favoritesSectionWidget(favouriteRecipes),
             Padding(
               padding: const EdgeInsets.only(top: 45.0, left: 15.0, bottom: 15),
               child: Text(
-                "Mains",
+                "Breakfasts",
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -165,22 +208,30 @@ class _HomePageState extends State<HomePage> {
                 scrollDirection: Axis.horizontal,
                 children: [
                   _buildRecipeItem(
-                    imageUrl: "https://via.placeholder.com/150",
-                    name: "Chicken Curry",
-                    calories: "400 kcal",
-                    prepTime: "30 min",
+                    recipe: recipeInitialiser.frenchToast,
                   ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 45.0, left: 15.0, bottom: 15),
+              child: Text(
+                "Mains",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colours.backgroundOff,
+                ),
+              ),
+            ),
+            Container(
+              height:
+                  270, //Adjusts the space allocated for the Desserts Section
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
                   _buildRecipeItem(
-                    imageUrl: "https://via.placeholder.com/150",
-                    name: "Spaghetti Bolognese",
-                    calories: "500 kcal",
-                    prepTime: "45 min",
-                  ),
-                  _buildRecipeItem(
-                    imageUrl: "https://via.placeholder.com/150",
-                    name: "Vegetable Stir Fry",
-                    calories: "300 kcal",
-                    prepTime: "25 min",
+                    recipe: recipeInitialiser.pestoChicken,
                   ),
                 ],
               ),
@@ -197,28 +248,56 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Container(
-              height:
-                  270, //Adjusts the space allocated for the Desserts Section
+              height: 270, //Adjusts the space for the Mains Section
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
                   _buildRecipeItem(
-                    imageUrl: "https://via.placeholder.com/150",
-                    name: "Chocolate Cake",
-                    calories: "350 kcal",
-                    prepTime: "40 min",
+                    recipe: recipeInitialiser.lavaCake,
                   ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 45.0, left: 15.0, bottom: 15),
+              child: Text(
+                "Side-Dishes",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colours.backgroundOff,
+                ),
+              ),
+            ),
+            Container(
+              height: 270, //Adjusts the space for the Mains Section
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
                   _buildRecipeItem(
-                    imageUrl: "https://via.placeholder.com/150",
-                    name: "Apple Pie",
-                    calories: "250 kcal",
-                    prepTime: "35 min",
+                    recipe: recipeInitialiser.roastedBroccoli,
                   ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 45.0, left: 15.0, bottom: 15),
+              child: Text(
+                "Lunch",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colours.backgroundOff,
+                ),
+              ),
+            ),
+            Container(
+              height: 270, //Adjusts the space for the Mains Section
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
                   _buildRecipeItem(
-                    imageUrl: "https://via.placeholder.com/150",
-                    name: "Strawberry Cheesecake",
-                    calories: "450 kcal",
-                    prepTime: "50 min",
+                    recipe: recipeInitialiser.chickenSalad,
                   ),
                 ],
               ),
@@ -297,10 +376,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildRecipeItem({
-    required String imageUrl,
-    required String name,
-    required String calories,
-    required String prepTime,
+    required Recipe recipe,
   }) {
     return Container(
       width: 220, // Set a fixed width for the item card
@@ -323,7 +399,7 @@ class _HomePageState extends State<HomePage> {
           ClipRRect(
             borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
             child: Image.network(
-              imageUrl,
+              recipe.imageURL,
               height: 150, // Fixed height for the image
               width: double.infinity, // Image takes the full width available
               fit: BoxFit.cover,
@@ -339,18 +415,18 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      name,
+                      recipe.recipeName,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18.0,
                       ),
                     ),
                     SizedBox(height: 8.0),
-                    Text("Calories: $calories",
+                    Text("Calories: ${recipe.calories}.",
                         style: TextStyle(
                             fontSize: 14.0, fontWeight: FontWeight.w800)),
                     Text(
-                      "Prep Time: $prepTime",
+                      "Prep Time: ${recipe.prepTime}",
                       style: TextStyle(
                           fontSize: 14.0, fontWeight: FontWeight.w800),
                     ),

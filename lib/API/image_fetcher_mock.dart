@@ -1,6 +1,7 @@
-import 'package:food_ai_app/API/image_fetcher_interface.dart';
-import 'package:flutter/services.dart';
 import 'dart:convert';
+
+import 'package:flutter/services.dart';
+import 'package:food_ai_app/API/image_fetcher_interface.dart';
 
 /// A mock implementation of [ImageFetcherInterface] that simulates fetching images
 /// by converting local asset images to Base64-encoded strings.

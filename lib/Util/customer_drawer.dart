@@ -1,11 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:food_ai_app/LoginPages/home_page.dart';
 import 'package:food_ai_app/LoginPages/index_page.dart';
 import 'package:food_ai_app/MenuPages/menu_preferences.dart';
 import 'package:food_ai_app/MenuPages/menu_settings.dart';
 import 'package:food_ai_app/SettingsPage/health_goals.dart';
-import 'package:food_ai_app/main.dart';
-import 'package:food_ai_app/LoginPages/home_page.dart';
 import 'package:food_ai_app/Util/colours.dart';
 
 class CustomDrawer extends StatelessWidget {

@@ -1,13 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_ai_app/API/chatgpt_recipe_interface.dart';
 import 'package:food_ai_app/API/image_fetcher_interface.dart';
-import 'package:food_ai_app/API/image_fetcher_mock.dart';
 import 'package:food_ai_app/TinderMVC/tinder_controller.dart';
 import 'package:food_ai_app/TinderMVC/tinder_model.dart';
-import 'package:food_ai_app/API/chatgpt_recipe_mock.dart';
 
 import '../API/chatgpt_recipe.dart';
 import '../API/image_fetcher.dart';
