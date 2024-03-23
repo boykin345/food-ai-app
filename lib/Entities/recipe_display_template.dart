@@ -13,6 +13,10 @@ class RecipeTemplate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double imageWidth = screenWidth * 0.9;
+    final double imageHeight = imageWidth;
+
     return Scaffold(
       backgroundColor: Colours.primary,
       appBar: CustomAppBar(),
@@ -21,7 +25,23 @@ class RecipeTemplate extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(top: 10.0, left: 15.0),
+              padding: const EdgeInsets.only(top: 35.0, left: 15.0),
+            ),
+            Center(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                height: imageHeight,
+                width: imageWidth,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.network(recipe.imageURL, fit: BoxFit.contain),
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 30.0, left: 15.0),
               child: Text(
                 recipe.recipeName,
                 style: TextStyle(
@@ -30,15 +50,13 @@ class RecipeTemplate extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              width: 410,
-              height: 336,
-              child: Image.network(recipe.imageURL),
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0, left: 15.0),
             ),
             Padding(
               padding: EdgeInsets.only(top: 10.0, left: 15.0),
               child: Text(
-                recipe.category,
+                "Category: ${recipe.category}",
                 style: TextStyle(
                   fontSize: 20,
                   color: Colours.backgroundOff,
@@ -48,7 +66,7 @@ class RecipeTemplate extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(top: 10.0, left: 15.0),
               child: Text(
-                recipe.calories.toString(),
+                "Calories: ${recipe.calories}",
                 style: TextStyle(
                   fontSize: 20,
                   color: Colours.backgroundOff,
@@ -58,7 +76,7 @@ class RecipeTemplate extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(top: 10.0, left: 15.0),
               child: Text(
-                recipe.prepTime,
+                "Prep Time: ${recipe.prepTime}",
                 style: TextStyle(
                   fontSize: 20,
                   color: Colours.backgroundOff,
@@ -68,7 +86,7 @@ class RecipeTemplate extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(top: 10.0, left: 15.0),
               child: Text(
-                recipe.difficulty.toString(),
+                "Difficulty: ${recipe.difficulty}/5",
                 style: TextStyle(
                   fontSize: 20,
                   color: Colours.backgroundOff,
@@ -76,7 +94,20 @@ class RecipeTemplate extends StatelessWidget {
               ),
             ),
             Padding(
+              padding: const EdgeInsets.only(top: 15.0, left: 15.0),
+            ),
+            Padding(
               padding: EdgeInsets.only(top: 10.0, left: 15.0),
+              child: Text(
+                "Ingredients:",
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colours.backgroundOff,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 15.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: recipe.ingredients
@@ -91,7 +122,20 @@ class RecipeTemplate extends StatelessWidget {
               ),
             ),
             Padding(
+              padding: const EdgeInsets.only(top: 15.0, left: 15.0),
+            ),
+            Padding(
               padding: EdgeInsets.only(top: 10.0, left: 15.0),
+              child: Text(
+                "Instructions:",
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colours.backgroundOff,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 15.0),
               child: Text(
                 recipe.instructions,
                 style: TextStyle(
