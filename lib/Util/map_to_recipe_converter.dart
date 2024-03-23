@@ -3,7 +3,7 @@ import 'package:food_ai_app/Entities/recipe.dart';
 import 'package:food_ai_app/Util/data_util.dart';
 
 class MapToRecipeConverter {
-  Recipe mapToRecipe(Map<String, dynamic> map) {
+  static Recipe mapToRecipe(Map<String, dynamic> map) {
     return Recipe(
       recipeName: map['recipeName'] as String,
       calories: int.tryParse(map['calories'].toString()) ?? 0,
@@ -16,7 +16,7 @@ class MapToRecipeConverter {
     );
   }
 
-  Future<List<Recipe>> getRecipesAsObjects(String userId) async {
+  static Future<List<Recipe>> getRecipesAsObjects(String userId) async {
     List<Map<String, dynamic>> recipeMaps =
         await DataUtil.getUserRecipes(userId);
     List<Recipe> recipes = recipeMaps.map((map) => mapToRecipe(map)).toList();

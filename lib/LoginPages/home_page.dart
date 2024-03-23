@@ -15,6 +15,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:food_ai_app/Entities/recipe.dart';
 import 'package:food_ai_app/LoadingScreen/custom_loading_circle.dart';
 
+import '../Util/map_to_recipe_converter.dart';
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -24,13 +26,16 @@ class _HomePageState extends State<HomePage> {
   final user = FirebaseAuth.instance.currentUser!;
   bool _isLoading = false;
   RecipeInitialiser recipeInitialiser = RecipeInitialiser();
+  late Future<List<Recipe>> favouriteRecipes;
 
   File? _imageFile;
   String _response = 'No image processed yet';
 
   @override
-  void initState() {
+  Future<void> initState() async {
     super.initState();
+    favouriteRecipes = (await MapToRecipeConverter.getRecipesAsObjects(
+        FirebaseAuth.instance.currentUser!.uid)) as Future<List<Recipe>>;
   }
 
   /// Function to get an image from the device's gallery.
