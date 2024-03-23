@@ -14,7 +14,7 @@ class RecipeTemplate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    final double imageWidth = screenWidth * 0.9;
+    final double imageWidth = screenWidth * 0.8;
     final double imageHeight = imageWidth;
 
     return Scaffold(
@@ -143,6 +143,9 @@ class RecipeTemplate extends StatelessWidget {
                   color: Colours.backgroundOff,
                 ),
               ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 50.0, left: 15.0),
             ),
           ],
         ),
