@@ -15,6 +15,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:food_ai_app/Entities/recipe.dart';
 import 'package:food_ai_app/LoadingScreen/custom_loading_circle.dart';
 
+import '../Entities/recipe_display_template.dart';
 import '../Util/map_to_recipe_converter.dart';
 
 class HomePage extends StatefulWidget {
@@ -146,7 +147,10 @@ class _HomePageState extends State<HomePage> {
                   scrollDirection: Axis.horizontal,
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
-                    return _buildRecipeItem(recipe: snapshot.data![index]);
+                    return _buildRecipeItem(
+                      recipe: snapshot.data![index],
+                      context: context,
+                    );
                   },
                 ),
               ),
@@ -209,6 +213,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   _buildRecipeItem(
                     recipe: recipeInitialiser.frenchToast,
+                    context: context,
                   ),
                 ],
               ),
@@ -232,6 +237,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   _buildRecipeItem(
                     recipe: recipeInitialiser.pestoChicken,
+                    context: context,
                   ),
                 ],
               ),
@@ -254,6 +260,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   _buildRecipeItem(
                     recipe: recipeInitialiser.lavaCake,
+                    context: context,
                   ),
                 ],
               ),
@@ -276,6 +283,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   _buildRecipeItem(
                     recipe: recipeInitialiser.roastedBroccoli,
+                    context: context,
                   ),
                 ],
               ),
@@ -298,6 +306,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   _buildRecipeItem(
                     recipe: recipeInitialiser.chickenSalad,
+                    context: context,
                   ),
                 ],
               ),
@@ -377,65 +386,76 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildRecipeItem({
     required Recipe recipe,
+    required BuildContext context,
   }) {
-    return Container(
-      width: 220, // Set a fixed width for the item card
-      margin: EdgeInsets.symmetric(horizontal: 15.0),
-      decoration: BoxDecoration(
-        color: Colours.backgroundOff,
-        borderRadius: BorderRadius.circular(20.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black26,
-            blurRadius: 8.0,
-            offset: Offset(0, 2),
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => RecipeTemplate(recipe: recipe),
           ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min, // Use minimum space needed by children
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
-            child: Image.network(
-              recipe.imageURL,
-              height: 150, // Fixed height for the image
-              width: double.infinity, // Image takes the full width available
-              fit: BoxFit.cover,
+        );
+      },
+      child: Container(
+        width: 220, // Set a fixed width for the item card
+        margin: EdgeInsets.symmetric(horizontal: 15.0),
+        decoration: BoxDecoration(
+          color: Colours.backgroundOff,
+          borderRadius: BorderRadius.circular(20.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26,
+              blurRadius: 8.0,
+              offset: Offset(0, 2),
             ),
-          ),
-          Expanded(
-            // Make the text section flexible
-            child: SingleChildScrollView(
-              // Make it scrollable
-              child: Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      recipe.recipeName,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.0,
-                      ),
-                    ),
-                    SizedBox(height: 8.0),
-                    Text("Calories: ${recipe.calories}.",
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize:
+              MainAxisSize.min, // Use minimum space needed by children
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
+              child: Image.network(
+                recipe.imageURL,
+                height: 150, // Fixed height for the image
+                width: double.infinity, // Image takes the full width available
+                fit: BoxFit.cover,
+              ),
+            ),
+            Expanded(
+              // Make the text section flexible
+              child: SingleChildScrollView(
+                // Make it scrollable
+                child: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        recipe.recipeName,
                         style: TextStyle(
-                            fontSize: 14.0, fontWeight: FontWeight.w800)),
-                    Text(
-                      "Prep Time: ${recipe.prepTime}",
-                      style: TextStyle(
-                          fontSize: 14.0, fontWeight: FontWeight.w800),
-                    ),
-                  ],
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.0,
+                        ),
+                      ),
+                      SizedBox(height: 8.0),
+                      Text("Calories: ${recipe.calories}",
+                          style: TextStyle(
+                              fontSize: 14.0, fontWeight: FontWeight.w800)),
+                      Text(
+                        "Prep Time: ${recipe.prepTime}",
+                        style: TextStyle(
+                            fontSize: 14.0, fontWeight: FontWeight.w800),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

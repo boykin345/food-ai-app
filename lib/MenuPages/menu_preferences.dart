@@ -134,7 +134,6 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
     return Scaffold(
       backgroundColor: Color(0xFF272E3B),
       appBar: CustomAppBar(),
-      drawer: CustomDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

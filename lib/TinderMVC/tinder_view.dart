@@ -86,7 +86,7 @@ class TinderViewState extends State<TinderView> {
     isLoading = !widget.model.hasData();
 
     return Scaffold(
-      backgroundColor: Color(0xFF2D3444),
+      backgroundColor: Colours.primary,
       body: isLoading || isLoadingRecipe
           ? buildLoadingScreen()
           : buildContent(context),

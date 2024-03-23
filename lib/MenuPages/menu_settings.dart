@@ -96,7 +96,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(),
-      drawer: CustomDrawer(),
       backgroundColor: Colours.primary,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
