@@ -27,8 +27,7 @@ class IngredientEditingState extends State<IngredientEditing> {
   final mockIngredients = MockIngredients();
   Set<String> foodNames = {};
   Map<String, String> ingredientsMap = {};
-  final TextEditingController ingredientNameController =
-      TextEditingController();
+  late TextEditingController ingredientNameController = TextEditingController();
   final TextEditingController ingredientQuantityController =
       TextEditingController();
 
@@ -220,8 +219,14 @@ class IngredientEditingState extends State<IngredientEditing> {
                       .contains(textEditingValue.text.toLowerCase());
                 });
               },
-              fieldViewBuilder: (context, textEditingController, focusNode,
-                  onFieldSubmitted) {
+              fieldViewBuilder: (
+                BuildContext context,
+                TextEditingController textEditingController,
+                FocusNode focusNode,
+                VoidCallback onFieldSubmitted,
+              ) {
+                ingredientNameController = textEditingController;
+
                 return TextField(
                   controller: textEditingController,
                   focusNode: focusNode,
@@ -234,15 +239,14 @@ class IngredientEditingState extends State<IngredientEditing> {
                 );
               },
               onSelected: (String selection) {
-                ingredientNameController.text =
-                    selection; // Update controller with selected item
+                ingredientNameController.text = selection;
               },
             ),
           ),
           SizedBox(width: 10),
           Expanded(
             child: TextField(
-              controller: ingredientQuantityController, // Update quantity
+              controller: ingredientQuantityController,
               decoration: InputDecoration(
                 hintText: 'Quantity',
                 border: InputBorder.none,
