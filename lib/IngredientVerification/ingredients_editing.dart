@@ -3,10 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:food_ai_app/IngredientVerification/ingredients.dart';
-
 import 'package:food_ai_app/IngredientVerification/mock_ingredients.dart';
-import 'package:food_ai_app/SettingsPage/Preferences.dart';
-
 import 'package:food_ai_app/SettingsPage/Settings.dart';
 
 import '../Util/colours.dart';

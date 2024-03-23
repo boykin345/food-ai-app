@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:flutter/material.dart';
+
 import 'package:camera/camera.dart';
+import 'package:flutter/material.dart';
 
 /// A future that initialises the camera screen.
 /// Returns the image path of the picture taken.
@@ -40,6 +41,7 @@ class TakePictureScreen extends StatefulWidget {
   @override
   TakePictureScreenState createState() => TakePictureScreenState();
 }
+
 /// The state for [TakePictureScreen].
 class TakePictureScreenState extends State<TakePictureScreen> {
   late CameraController _controller;
@@ -106,7 +108,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
               context,
               MaterialPageRoute(
                 builder: (context) => DisplayPictureScreen(
-                    imagePath: image.path,
+                  imagePath: image.path,
                 ),
               ),
             );
@@ -116,8 +118,8 @@ class TakePictureScreenState extends State<TakePictureScreen> {
           }
         },
         child: const Icon(Icons.camera_alt),
-          foregroundColor: Color(0xFF2D3444),
-          backgroundColor: Color(0xFFFAF0F0),
+        foregroundColor: Color(0xFF2D3444),
+        backgroundColor: Color(0xFFFAF0F0),
       ),
     );
   }
@@ -146,7 +148,8 @@ class DisplayPictureScreen extends StatelessWidget {
             ),
             SizedBox(height: 20),
             SizedBox(
-              height: 100, // Adjust this value to increase or decrease the space
+              height:
+                  100, // Adjust this value to increase or decrease the space
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [

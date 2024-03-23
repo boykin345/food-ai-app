@@ -1,12 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 import '../Util/colours.dart';
 import '../Util/custom_app_bar.dart';
 import '../Util/customer_drawer.dart';
-import '../Util/navigation_buttons.dart';
-import 'Preferences.dart';
 
 final TextEditingController proteinController = TextEditingController();
 final TextEditingController carbsController = TextEditingController();

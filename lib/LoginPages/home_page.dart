@@ -1,25 +1,16 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:food_ai_app/SettingsPage/health_goals.dart';
-import 'package:food_ai_app/SettingsPage/preferences.dart';
-import 'package:food_ai_app/SettingsPage/settings.dart';
-import 'package:food_ai_app/IngredientVerification/mock_ingredients.dart';
-import 'package:food_ai_app/TinderMVC/tinder_page.dart';
-import 'package:food_ai_app/ImageDetection/take_photo.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:food_ai_app/ImageDetection/api_call.dart';
-
-import 'package:food_ai_app/LoginPages/index_page.dart';
-
+import 'package:food_ai_app/ImageDetection/take_photo.dart';
 import 'package:food_ai_app/IngredientVerification/ingredients_editing.dart';
-
+import 'package:food_ai_app/Util/colours.dart';
 import 'package:food_ai_app/Util/custom_app_bar.dart';
 import 'package:food_ai_app/Util/customer_drawer.dart';
-
-import 'package:food_ai_app/Util/colours.dart';
+import 'package:food_ai_app/Util/initial_recipes.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../LoadingScreen/custom_loading_circle.dart';
 
@@ -31,6 +22,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final user = FirebaseAuth.instance.currentUser!;
   bool _isLoading = false;
+  RecipeInitialiser recipeInitialiser = RecipeInitialiser();
 
   File? _imageFile;
   String _response = 'No image processed yet';

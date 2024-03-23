@@ -1,6 +1,7 @@
+import 'dart:convert';
+
 import 'package:food_ai_app/API/image_fetcher_interface.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 /// A concrete implementation of [ImageFetcherInterface] that fetches images
 /// from a specified API based on a text query.

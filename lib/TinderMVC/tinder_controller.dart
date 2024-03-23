@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:food_ai_app/API/chatgpt_recipe_interface.dart';
 import 'package:food_ai_app/API/image_fetcher_interface.dart';
 import 'package:food_ai_app/TinderMVC/tinder_model.dart';
 import 'package:food_ai_app/TinderMVC/tinder_view.dart';
-import 'package:flutter/material.dart';
 
 import '../FullRecipeGeneration/recipe_overview.dart';
 

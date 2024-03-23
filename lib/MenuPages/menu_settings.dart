@@ -1,15 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:food_ai_app/SettingsPage/health_goals.dart';
-
+import 'package:food_ai_app/Util/colours.dart';
 import 'package:food_ai_app/Util/custom_app_bar.dart';
 import 'package:food_ai_app/Util/customer_drawer.dart';
-import 'package:food_ai_app/Util/colours.dart';
-
-import 'package:food_ai_app/Util/navigation_buttons.dart';
-
-import 'menu_preferences.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override

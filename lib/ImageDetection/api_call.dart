@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as path;
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 /// A class for making API calls related to image processing and communication with OpenAI/Azure.
 class APICall {

@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:math' as math;
+
+import 'package:flutter/material.dart';
 
 /// A custom painter that draws a circle divided into multiple segments
 /// with variable scales to create a dynamic, animated effect.

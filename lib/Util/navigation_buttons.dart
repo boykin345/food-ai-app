@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:food_ai_app/Util/colours.dart';
 
 class NavigationButtons extends StatelessWidget {

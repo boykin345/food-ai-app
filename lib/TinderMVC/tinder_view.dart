@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 import 'dart:convert';
-import 'package:food_ai_app/TinderMVC/tinder_model.dart';
-import 'package:food_ai_app/LoadingScreen/custom_loading_circle.dart';
 
+import 'package:flutter/material.dart';
 import 'package:food_ai_app/FullRecipeGeneration/recipe_overview.dart';
+import 'package:food_ai_app/LoadingScreen/custom_loading_circle.dart';
+import 'package:food_ai_app/TinderMVC/tinder_model.dart';
 import 'package:food_ai_app/Util/colours.dart';
 import 'package:food_ai_app/Util/custom_app_bar.dart';
 import 'package:food_ai_app/Util/customer_drawer.dart';
