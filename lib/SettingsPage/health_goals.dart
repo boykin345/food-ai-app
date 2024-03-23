@@ -15,10 +15,6 @@ final TextEditingController fibreController = TextEditingController();
 final TextEditingController calorieController = TextEditingController();
 
 class HealthGoalScreen extends StatefulWidget {
-  final Map<String, String> ingredientsMapCons;
-
-  const HealthGoalScreen({super.key, required this.ingredientsMapCons});
-
   @override
   GoalScreenState createState() => GoalScreenState();
 }
@@ -351,38 +347,6 @@ class GoalScreenState extends State<HealthGoalScreen> {
                   );
                 },
               ),
-            ),
-            NavigationButtons(
-              onBack: () {
-                Navigator.pop(context);
-              },
-              onContinue: () {
-                // Read values from the controllers
-                final String protein = proteinController.text;
-                final String carbs = carbsController.text;
-                final String fats = fatController.text;
-                final String fibre = fibreController.text;
-                final String calorie = calorieController.text;
-
-                firestore
-                    .collection('users')
-                    .doc(user?.uid)
-                    .collection('Personalisation')
-                    .doc('Personalisation')
-                    .update({
-                  'Protein': protein,
-                  'Carbs': carbs,
-                  'Fats': fats,
-                  'Fibre': fibre,
-                  'Calories': calorie,
-                });
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => PreferencesScreen(
-                          ingredientsMapCons: widget.ingredientsMapCons)),
-                );
-              },
             ),
           ],
         ),
