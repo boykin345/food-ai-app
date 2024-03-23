@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_ai_app/SettingsPage/health_goals.dart';
 
 import 'colours.dart';
 
@@ -13,6 +14,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           iconSize: 50,
           color: Colors.white,
           onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HealthGoalScreen()),
+            );
             // Add functionality here
           },
         ),

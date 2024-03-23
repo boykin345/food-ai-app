@@ -9,13 +9,9 @@ import 'package:food_ai_app/Util/colours.dart';
 
 import 'package:food_ai_app/Util/navigation_buttons.dart';
 
-import 'Preferences.dart';
+import 'menu_preferences.dart';
 
 class SettingsScreen extends StatefulWidget {
-  final Map<String, String> ingredientsMapCons;
-
-  const SettingsScreen({super.key, required this.ingredientsMapCons});
-
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
 }
@@ -386,21 +382,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   );
                 },
               ),
-            ),
-            NavigationButtons(
-              onBack: () {
-                Navigator.pop(context);
-              },
-              onContinue: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PreferencesScreen(
-                      ingredientsMapCons: widget.ingredientsMapCons,
-                    ),
-                  ),
-                );
-              },
             ),
           ],
         ),
