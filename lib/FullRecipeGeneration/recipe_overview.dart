@@ -46,7 +46,6 @@ class RecipeOverview extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppBar(),
-        drawer: CustomDrawer(),
         //set background colour of page
         backgroundColor: Colours.primary,
 

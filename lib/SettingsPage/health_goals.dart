@@ -154,7 +154,6 @@ class GoalScreenState extends State<HealthGoalScreen> {
     return Scaffold(
       backgroundColor: Colours.primary,
       appBar: CustomAppBar(),
-      drawer: CustomDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
