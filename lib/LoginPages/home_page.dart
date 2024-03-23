@@ -32,9 +32,9 @@ class _HomePageState extends State<HomePage> {
   String _response = 'No image processed yet';
 
   @override
-  Future<void> initState() async {
+  void initState() {
     super.initState();
-    favouriteRecipes = (await MapToRecipeConverter.getRecipesAsObjects(
+    favouriteRecipes = (MapToRecipeConverter.getRecipesAsObjects(
         FirebaseAuth.instance.currentUser!.uid)) as Future<List<Recipe>>;
   }
 
@@ -116,6 +116,50 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget favoritesSectionWidget(Future<List<Recipe>> favouriteRecipesFuture) {
+    return FutureBuilder<List<Recipe>>(
+      future: favouriteRecipesFuture,
+      builder: (BuildContext context, AsyncSnapshot<List<Recipe>> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CustomLoadingCircle());
+        } else if (snapshot.hasError) {
+          return Text("Error fetching favorites");
+        } else if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.only(top: 45.0, left: 15.0, bottom: 15),
+                child: Text(
+                  "Favorites",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colours.backgroundOff,
+                  ),
+                ),
+              ),
+              Container(
+                height: 270,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    return _buildRecipeItem(recipe: snapshot.data![index]);
+                  },
+                ),
+              ),
+            ],
+          );
+        } else {
+          // No data is present
+          return Container();
+        }
+      },
+    );
+  }
+
   Widget buildUI(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
@@ -146,6 +190,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
+            favoritesSectionWidget(favouriteRecipes),
             Padding(
               padding: const EdgeInsets.only(top: 45.0, left: 15.0, bottom: 15),
               child: Text(
