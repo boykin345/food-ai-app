@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:food_ai_app/Entities/recipe.dart';
-import 'package:food_ai_app/LoginPages/home_page.dart';
 
-import '../Util/colours.dart';
-import '../Util/custom_app_bar.dart';
-import '../Util/customer_drawer.dart';
+import 'package:food_ai_app/Util/colours.dart';
+import 'package:food_ai_app/Util/custom_app_bar.dart';
 
+/// A template widget that displays the data for favourited recipes or home screen recipes.
+/// It works by injecting a [Recipe] object in it then rendering each part.
 class RecipeTemplate extends StatelessWidget {
+  /// The object containing recipe data.
   final Recipe recipe;
 
+  /// Constructs a [RecipeTemplate] with required [recipe] object.
   RecipeTemplate({required this.recipe});
 
+  /// Builds and returns the main content of the Recipe, including the recipe image, title, categories, calories, prep time, difficult, ingredients and instructions.
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
