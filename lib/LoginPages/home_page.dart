@@ -12,8 +12,8 @@ import 'package:food_ai_app/Util/customer_drawer.dart';
 import 'package:food_ai_app/Util/initial_recipes.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../Entities/recipe.dart';
-import '../LoadingScreen/custom_loading_circle.dart';
+import 'package:food_ai_app/Entities/recipe.dart';
+import 'package:food_ai_app/LoadingScreen/custom_loading_circle.dart';
 
 class HomePage extends StatefulWidget {
   @override

@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_ai_app/Entities/recipe.dart';
+import 'package:food_ai_app/Util/data_util.dart';
 
 class RecipeInitialiser {
   // Breakfast
