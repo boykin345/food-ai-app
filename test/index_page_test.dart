@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:food_ai_app/Pages/index_page.dart';
+import 'package:food_ai_app/LoginPages/index_page.dart';
 
 // L - Unit tests for the index page class.
 void main() {
-  testWidgets('Test to see when the application is open that it opens the index page', (WidgetTester tester) async {
+  testWidgets(
+      'Test to see when the application is open that it opens the index page',
+      (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(MaterialApp(home: Scaffold(body: IndexPage())));
 
@@ -12,7 +14,9 @@ void main() {
     expect(find.text('Lets find the food you love'), findsOneWidget);
   });
 
-  testWidgets('User clicks on the login button and is redirected to the login page', (WidgetTester tester) async {
+  testWidgets(
+      'User clicks on the login button and is redirected to the login page',
+      (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(MaterialApp(home: Scaffold(body: IndexPage())));
 
@@ -28,7 +32,9 @@ void main() {
     expect(find.byKey(ValueKey('passwordTextField')), findsOneWidget);
   });
 
-  testWidgets('User clicks on the sign up button and is redirected to the sign up page', (WidgetTester tester) async {
+  testWidgets(
+      'User clicks on the sign up button and is redirected to the sign up page',
+      (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(MaterialApp(home: Scaffold(body: IndexPage())));
 

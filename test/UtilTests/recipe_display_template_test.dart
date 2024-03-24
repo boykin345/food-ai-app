@@ -1,31 +1,28 @@
-import 'dart:ui' as ui;
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:food_ai_app/Entities/recipe.dart';
 import 'package:food_ai_app/Entities/recipe_display_template.dart';
 
 void main() {
-  group('RecipeTemplate Widget Tests', () {
-    testWidgets('Displays correct recipe name', (WidgetTester tester) async {
-      final sampleRecipe = Recipe(
-        recipeName: 'Test Recipe',
-        calories: 100,
-        prepTime: '20 mins',
-        difficulty: 2,
-        ingredients: ['Ingredient 1', 'Ingredient 2'],
-        instructions: 'Mix ingredients',
-        category: 'Test Category',
-        imageURL: 'http://example.com/image.jpg',
-      );
+  testWidgets('RecipeTemplate golden test', (WidgetTester tester) async {
+    final testRecipe = Recipe(
+      recipeName: "Test Recipe",
+      imageURL: "https://example.com/test_image.jpg",
+      category: "Test Category",
+      calories: 100,
+      prepTime: "10 mins",
+      difficulty: 3,
+      ingredients: ["Ingredient 1", "Ingredient 2"],
+      instructions: "Test instructions.",
+    );
 
-      await tester.pumpWidget(MaterialApp(
-        home: RecipeTemplate(recipe: sampleRecipe),
-      ));
+    await tester.pumpWidget(MaterialApp(
+      home: RecipeTemplate(recipe: testRecipe),
+    ));
 
-      // Verify the recipe name is displayed
-      expect(find.text('Test Recipe'), findsOneWidget);
-    });
+    await expectLater(
+      find.byType(RecipeTemplate),
+      matchesGoldenFile('golden_files/recipe_template.png'),
+    );
   });
 }
