@@ -47,7 +47,7 @@ class GPTRecipeApi {
       if (!isImage) {
         //instruct the api to return a recipe with name, difficulty cooking time, ingredients and method
         message =
-            'Tell me how to make $dishName, give me the name of the dish, a difficulty rating out of 10 and estimated cooking time, then give me a list of ingredients and a full method with step-by-step instructions';
+            'Tell me how to make $dishName, give me the name of the dish, a difficulty rating out of 5 and estimated cooking time, then give me a list of ingredients and a full method with step-by-step instructions';
       } else {
         //instruct the api to get an image of the dish
         message = "Give me the image address of an image of a $dishName";
