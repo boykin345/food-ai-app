@@ -102,6 +102,9 @@ class DataUtil {
     }
   }
 
+  /// Saves a recipe that belongs to the user in the firebase store
+  ///
+  /// Takes in two inputs [userId] which is the username of the user and [recipe] which is an entity of the recipe class.
   static Future<void> saveRecipe(String userId, Recipe recipe) async {
     try {
       await FirebaseFirestore.instance.collection('users').doc(userId).collection('recipes').add({
@@ -119,6 +122,10 @@ class DataUtil {
     }
   }
 
+  /// Gets all the recipes that belong to a user from the firebase store.
+  ///
+  /// Takes in one input [userId] which is the username of the user.
+  /// Returns a list of recipes in a map format
   static Future<List<Map<String, dynamic>>> getUserRecipes(String userId) async {
     List<Map<String, dynamic>> recipes = [];
 
