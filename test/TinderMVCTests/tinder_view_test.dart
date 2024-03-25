@@ -9,7 +9,7 @@ import 'dart:io';
 import 'dart:convert';
 import 'dart:typed_data';
 
-/// I1/I.2 Tests for the view in the TinderMVC
+/// I1/I2 Tests for the view in the TinderMVC
 void main() {
   group('TinderView Tests', () {
     late TinderModel tinderModel;

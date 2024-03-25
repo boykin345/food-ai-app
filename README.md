@@ -34,16 +34,22 @@ Favoriting Recipes
 
 A1. As an app user, I want to click on a star icon to add a recipe to my favourites, so that I can quickly access my preferred recipes without searching for them again. - 1
 
-A2. As an app user, I want to view my list of favourited recipes in a separate tab so that I can have a dedicated space for recipes I love and plan to make often. - 1
+A2. As an app user, I want to view my favourites on the homepage, so that I can quickly access my preferred recipes without searching for them again. - 1
 
-A3. As an app user, I want to be able to sort my favourited recipes by cuisine, cooking time, and other filters so that I can organise my favourites based on my current cooking preferences or time constraints. - 2
+A3. As an app user, I want to click on my favourites and view the full recipe, so that I can see all the details of my recipe. - 1
+
+A4. As a developer, I want a function which can take objects returned from firebase for a recipe, and convert it into a recipe object, so that I can call that function anytime I need to display things on the homepage more easily. - 1
+
+[- Removed -]A2. As an app user, I want to view my list of favourited recipes in a separate tab so that I can have a dedicated space for recipes I love and plan to make often. - 1
+
+[- Removed -]A3. As an app user, I want to be able to sort my favourited recipes by cuisine, cooking time, and other filters so that I can organise my favourites based on my current cooking preferences or time constraints. - 2
 
 ---
-Sharing Recipes
+[- Removed -]Sharing Recipes
 
-B1. As an app user, I want to press a share button to send a recipe link via text, email, or social media so that I can easily share my culinary finds with friends and family.  - 3
+[- Removed -]B1. As an app user, I want to press a share button to send a recipe link via text, email, or social media so that I can easily share my culinary finds with friends and family.  - 3
 
-B2. As an app user, I want to include a personal note or comment when sharing a recipe, to add a personal touch or specific thoughts when recommending the recipe to others. - 1
+[- Removed -]B2. As an app user, I want to include a personal note or comment when sharing a recipe, to add a personal touch or specific thoughts when recommending the recipe to others. - 1
 
 ---
 Settings Personalisation
@@ -85,9 +91,9 @@ Customise Recipe Settings
 G1. As an app user, I want to adjust my settings related to allergies, cooking times, difficulty levels, portion sizes, and required utensils so that I can receive recipe suggestions tailored to my specific needs and circumstances. - 1
 
 ---
-Discover Similar Recipes
+[- Removed -]Discover Similar Recipes
 
-H1. As an app user, I want to see a "Similar Recipes" section on the homepage to explore new recipes that align with my taste preferences and expand my culinary repertoire. - 5
+[- Removed -]H1. As an app user, I want to see a "Similar Recipes" section on the homepage to explore new recipes that align with my taste preferences and expand my culinary repertoire. - 5
 
 ---
 Meal/Tinder Selection
@@ -130,6 +136,19 @@ User Landing Page
 L1. As an app user, I expect a user-friendly interface to access the signup page, so I can easily follow the provided instructions to sign up to the app. - 1
 
 L2. As an app user, I expect a user-friendly interface to access the login page, so I can easily follow the provided instructions to log in to and access the app. - 1
+---
+Home Page
+
+M1. As an app user, I want to see some base recipes on the homepage, so that I can look at the kind of options that are available to me when I am new to the app. - 1
+
+M2. As a developer, I want to create an initialiser function for recipes to be shown on the homapage, such that I don't need to call them individually each time and cause more work. - 1
+---
+Navigation
+
+N1. As an app user, I want to be able to see a hamburger menu, so that I can navigate between pages more easily. - 1
+
+N2. As an app user, I want to be able to see an accounts icon, so that I can navigate to the settings page more easily. - 1
+
 
 ## Technologies
 Firebase: Back-End Development

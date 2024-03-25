@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:food_ai_app/Util/custom_app_bar.dart';
 import 'package:food_ai_app/Util/colours.dart';
 
+/// N2 Tests for the app bar and accounts icon
 void main() {
   group('CustomAppBar Tests', () {
     testWidgets('CustomAppBar renders correctly', (WidgetTester tester) async {

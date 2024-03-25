@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:food_ai_app/Util/initial_recipes.dart';
 
+/// M2 Tests for the recipe initialisation class
 void main() {
   group('RecipeInitialiser Tests', () {
     final RecipeInitialiser initialiser = RecipeInitialiser();

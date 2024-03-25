@@ -8,8 +8,9 @@ import 'package:food_ai_app/Util/colours.dart';
 import 'package:food_ai_app/Util/initial_recipes.dart';
 import 'package:mocktail_image_network/mocktail_image_network.dart';
 
+/// A3 Tests for the recipe template
 void main() {
-  testWidgets('RecipeTemplate golden test', (WidgetTester tester) async {
+  testWidgets('RecipeTemplate checking all data', (WidgetTester tester) async {
     final RecipeInitialiser recipeInitialiser = RecipeInitialiser();
     await mockNetworkImages(() async => tester.pumpWidget(MaterialApp(
         home: Scaffold(
