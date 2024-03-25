@@ -7,6 +7,11 @@ import 'package:food_ai_app/MenuPages/menu_settings.dart';
 import 'package:food_ai_app/SettingsPage/health_goals.dart';
 import 'package:food_ai_app/Util/colours.dart';
 
+/// Defines a custom navigation [Drawer] for the app.
+///
+/// Displays the user's email at the top and provides navigation options to
+/// various pages like Home, Preferences, Health Goals, and Settings. Also
+/// allows the user to log out.
 class CustomDrawer extends StatelessWidget {
   final user = FirebaseAuth.instance.currentUser;
 
@@ -66,6 +71,10 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 
+  /// Builds a single item for the drawer menu.
+  ///
+  /// Each item is represented by an icon, a text label, and an associated action
+  /// defined by the [onTap] callback.
   ListTile _buildDrawerItem(
       {required IconData icon,
       required String text,
@@ -83,6 +92,10 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 
+  /// Navigates to the specified [page] when a drawer item is tapped.
+  ///
+  /// The method uses the [Navigator] to push a new route to the stack,
+  /// navigating to the [page] widget.
   void _navigateTo(BuildContext context, Widget page) {
     Navigator.push(
       context,

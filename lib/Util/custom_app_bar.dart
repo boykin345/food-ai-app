@@ -3,6 +3,9 @@ import 'package:food_ai_app/SettingsPage/health_goals.dart';
 
 import 'colours.dart';
 
+/// A custom [AppBar] widget for the app.
+///
+/// Features an action button that navigates to the [HealthGoalScreen] when tapped.
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
