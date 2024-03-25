@@ -215,6 +215,18 @@ class _HomePageState extends State<HomePage> {
                     recipe: recipeInitialiser.frenchToast,
                     context: context,
                   ),
+                  _buildRecipeItem(
+                    recipe: recipeInitialiser.oatmealBerryBowl,
+                    context: context,
+                  ),
+                  _buildRecipeItem(
+                    recipe: recipeInitialiser.spinachFetaOmelette,
+                    context: context,
+                  ),
+                  _buildRecipeItem(
+                    recipe: recipeInitialiser.bananaPeanutButterSmoothie,
+                    context: context,
+                  ),
                 ],
               ),
             ),
@@ -237,6 +249,18 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   _buildRecipeItem(
                     recipe: recipeInitialiser.pestoChicken,
+                    context: context,
+                  ),
+                  _buildRecipeItem(
+                    recipe: recipeInitialiser.garlicLemonHerbChicken,
+                    context: context,
+                  ),
+                  _buildRecipeItem(
+                    recipe: recipeInitialiser.beefStirFry,
+                    context: context,
+                  ),
+                  _buildRecipeItem(
+                    recipe: recipeInitialiser.creamyPasta,
                     context: context,
                   ),
                 ],
@@ -262,6 +286,18 @@ class _HomePageState extends State<HomePage> {
                     recipe: recipeInitialiser.lavaCake,
                     context: context,
                   ),
+                  _buildRecipeItem(
+                    recipe: recipeInitialiser.chocolateBrownies,
+                    context: context,
+                  ),
+                  _buildRecipeItem(
+                    recipe: recipeInitialiser.lemonCheesecake,
+                    context: context,
+                  ),
+                  _buildRecipeItem(
+                    recipe: recipeInitialiser.appleCrisp,
+                    context: context,
+                  ),
                 ],
               ),
             ),
@@ -285,6 +321,18 @@ class _HomePageState extends State<HomePage> {
                     recipe: recipeInitialiser.roastedBroccoli,
                     context: context,
                   ),
+                  _buildRecipeItem(
+                    recipe: recipeInitialiser.garlicMashedPotatoes,
+                    context: context,
+                  ),
+                  _buildRecipeItem(
+                    recipe: recipeInitialiser.roastedBrusselsSprouts,
+                    context: context,
+                  ),
+                  _buildRecipeItem(
+                    recipe: recipeInitialiser.quinoaSalad,
+                    context: context,
+                  ),
                 ],
               ),
             ),
@@ -306,6 +354,18 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   _buildRecipeItem(
                     recipe: recipeInitialiser.chickenSalad,
+                    context: context,
+                  ),
+                  _buildRecipeItem(
+                    recipe: recipeInitialiser.tomatoBasilPasta,
+                    context: context,
+                  ),
+                  _buildRecipeItem(
+                    recipe: recipeInitialiser.chickenCaesarWrap,
+                    context: context,
+                  ),
+                  _buildRecipeItem(
+                    recipe: recipeInitialiser.veggieQuinoaBowl,
                     context: context,
                   ),
                 ],
