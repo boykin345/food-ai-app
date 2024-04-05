@@ -37,28 +37,27 @@ class ChatGPTRecipe extends ChatGPTRecipeInterface {
   Future<String> getChatResponse(String message) async {
     final url = Uri.parse(
         'https://gpt-george-france.openai.azure.com/openai/deployments/gpt-george-france/chat/completions?api-version=2024-02-15-preview');
+    http.Response response;
+    do {
+      response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json', 'api-key': apiKey},
+        body: jsonEncode({
+          "messages": [
+            {"role": "user", "content": message}
+          ],
+          "temperature": 0.7,
+          "top_p": 0.95,
+          "frequency_penalty": 0,
+          "presence_penalty": 0,
+          "max_tokens": 800,
+          "stop": null
+        }),
+      );
+    } while( response.statusCode != 200);
 
-    final response = await http.post(
-      url,
-      headers: {'Content-Type': 'application/json', 'api-key': apiKey},
-      body: jsonEncode({
-        "messages": [
-          {"role": "user", "content": message}
-        ],
-        "temperature": 0.7,
-        "top_p": 0.95,
-        "frequency_penalty": 0,
-        "presence_penalty": 0,
-        "max_tokens": 800,
-        "stop": null
-      }),
-    );
+    return response.body;
 
-    if (response.statusCode == 200) {
-      return response.body;
-    } else {
-      throw Exception('Failed to fetch chat response');
-    }
   }
 
   /// Fetches a concise recipe description formatted according to specific criteria.

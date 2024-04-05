@@ -19,7 +19,8 @@ class ImageFetcher extends ImageFetcherInterface {
 
     const String apiKey = 'b3fe274a85ad4962a768317afc26db40';
 
-    final response = await http.post(
+    http.Response response;
+    do{ response = await http.post(
       url,
       headers: {'Content-Type': 'application/json', 'api-key': apiKey},
       body: jsonEncode({
@@ -27,7 +28,7 @@ class ImageFetcher extends ImageFetcherInterface {
         "prompt": "<Generate me an image of a realistic looking $query>",
         "n": 1
       }),
-    );
+    );} while(response.statusCode != 200);
 
     if (response.statusCode == 200) {
       final imageUrl = jsonDecode(response.body)['data'][0]['url'] as String;
