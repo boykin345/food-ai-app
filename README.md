@@ -151,6 +151,11 @@ N1. As an app user, I want to be able to see a hamburger menu, so that I can nav
 
 N2. As an app user, I want to be able to see an accounts icon, so that I can navigate to the settings page more easily. - 1
 
+---
+Integration Testing
+
+Z1. As a developer, I want to write an integration test to check whether the homepage loads correctly after logging in, so I know this part of the app works correctly
+
 
 ## Technologies
 Firebase: Back-End Development
