@@ -136,12 +136,14 @@ User Landing Page
 L1. As an app user, I expect a user-friendly interface to access the signup page, so I can easily follow the provided instructions to sign up to the app. - 1
 
 L2. As an app user, I expect a user-friendly interface to access the login page, so I can easily follow the provided instructions to log in to and access the app. - 1
+
 ---
 Home Page
 
 M1. As an app user, I want to see some base recipes on the homepage, so that I can look at the kind of options that are available to me when I am new to the app. - 1
 
 M2. As a developer, I want to create an initialiser function for recipes to be shown on the homapage, such that I don't need to call them individually each time and cause more work. - 1
+
 ---
 Navigation
 
