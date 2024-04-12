@@ -154,7 +154,30 @@ N2. As an app user, I want to be able to see an accounts icon, so that I can nav
 ---
 Integration Testing
 
-Z1. As a developer, I want to write an integration test to check whether the homepage loads correctly after logging in, so I know this part of the app works correctly
+
+Z1. As a user, I want to navigate from the login screen directly to the homepage after successfully logging in, to access recipes. - 1
+
+Z2. As a user, I want to select a recipe from the homepage and be able to see its full details, including ingredients and preparation steps. - 1
+
+Z3. As a user, during the recipe Tinder process, I want to ensure that swiping right on a recipe leads me to a detailed overview of that recipe. - 1
+
+Z4. As a user, I want to return to the homepage from any page within the app by using a dedicated home button or gesture, to easily access the main menu. - 1
+
+Z5. As a user, after scanning my fridge and selecting ingredients, and setting relative things, I want to receive recipe suggestions based on these inputs, ensuring the app uses my current inventory. - 1
+
+Z6. As a user, I want to swipe left to skip the current recipe and move to the next one, so I can quickly browse through recipes. - 1
+
+Z7. As a user, I want to ensure that editing the ingredients list after scanning my fridge correctly updates. - 1
+
+Z8. As a user, I want to log out when I press the log out button on the menu. - 1
+
+Z9. As a user, I want to see Nutrients and HealthGoals when I press profile button. - 1
+
+Z10. As a user, I want to be able to use the menu to switch between the recipe recommendation page, dietary preferences, and health goal settings without losing my place or data. - 1
+
+Z11. As a user, after reviewing a recipe's detailed information from the swipe selection process, I want to navigate back to the swipe interface and have it remember my position in the recipe list, so I can continue exploring recipes without starting over. - 1
+
+
 
 
 ## Technologies
