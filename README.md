@@ -155,28 +155,27 @@ N2. As an app user, I want to be able to see an accounts icon, so that I can nav
 Integration Testing
 
 
-Z1. As a user, I want to navigate from the login screen directly to the homepage after successfully logging in, to access recipes. - 1
+Z1. As a user, I want to navigate from the login screen directly to the homepage after successfully logging in, so that I can access recipes immediately. - 1
 
-Z2. As a user, I want to select a recipe from the homepage and be able to see its full details, including ingredients and preparation steps. - 1
+Z2. As a user, I want to select a recipe from the homepage and be able to see its full details, including ingredients and preparation steps, so that I can understand how to prepare the dish. - 1
 
-Z3. As a user, during the recipe Tinder process, I want to ensure that swiping right on a recipe leads me to a detailed overview of that recipe. - 1
+Z3. As a user, during the recipe Tinder process, I want to ensure that swiping right on a recipe leads me to a detailed overview of that recipe, so that I can explore it further. - 1
 
-Z4. As a user, I want to return to the homepage from any page within the app by using a dedicated home button or gesture, to easily access the main menu. - 1
+Z4. As a user, I want to return to the homepage from any page within the app by using a dedicated home button or gesture, so that I can easily access the main menu and other features. - 1
 
-Z5. As a user, after scanning my fridge and selecting ingredients, and setting relative things, I want to receive recipe suggestions based on these inputs, ensuring the app uses my current inventory. - 1
+Z5. As a user, after scanning my fridge and selecting ingredients, and setting relative things, I want to receive recipe suggestions based on these inputs, so that the app uses my current inventory to suggest relevant recipes. - 1
 
-Z6. As a user, I want to swipe left to skip the current recipe and move to the next one, so I can quickly browse through recipes. - 1
+Z6. As a user, I want to swipe left to skip the current recipe and move to the next one, so that I can quickly browse through recipes without wasting time on uninteresting ones. - 1
 
-Z7. As a user, I want to ensure that editing the ingredients list after scanning my fridge correctly updates. - 1
+Z7. As a user, I want to ensure that editing the ingredients list after scanning my fridge correctly updates, so that the recipes suggested are always relevant to the ingredients I have available. - 1
 
-Z8. As a user, I want to log out when I press the log out button on the menu. - 1
+Z8. As a user, I want to log out when I press the log out button on the menu, so that I can ensure my account remains secure when I'm not using the app. - 1
 
-Z9. As a user, I want to see Nutrients and HealthGoals when I press profile button. - 1
+Z9. As a user, I want to see Nutrients and HealthGoals when I press profile button, so that I can easily monitor my dietary achievements and goals. - 1
 
-Z10. As a user, I want to be able to use the menu to switch between the recipe recommendation page, dietary preferences, and health goal settings without losing my place or data. - 1
+Z10. As a user, I want to be able to use the menu to switch between the recipe recommendation page, dietary preferences, and health goal settings without losing my place or data, so that I can efficiently manage my preferences and view recipes without repetitive navigation. - 1
 
-Z11. As a user, after reviewing a recipe's detailed information from the swipe selection process, I want to navigate back to the swipe interface and have it remember my position in the recipe list, so I can continue exploring recipes without starting over. - 1
-
+Z11. As a user, after reviewing a recipe's detailed information from the swipe selection process, I want to navigate back to the swipe interface and have it remember my position in the recipe list, so that I can continue exploring recipes without having to start over. - 1
 
 
 
