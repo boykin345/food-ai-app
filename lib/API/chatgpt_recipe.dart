@@ -36,7 +36,7 @@ class ChatGPTRecipe extends ChatGPTRecipeInterface {
   /// Throws an exception if the request fails or the response is not 200 OK.
   Future<String> getChatResponse(String message) async {
     final url = Uri.parse(
-        'https://gpt-george-france.openai.azure.com/openai/deployments/gpt-george-france/chat/completions?api-version=2024-02-15-preview');
+        'https://gpt-aus.openai.azure.com/openai/deployments/marco-gpt/chat/completions?api-version=2024-02-15-preview');
     http.Response response;
     do {
       response = await http.post(
@@ -54,10 +54,9 @@ class ChatGPTRecipe extends ChatGPTRecipeInterface {
           "stop": null
         }),
       );
-    } while( response.statusCode != 200);
+    } while (response.statusCode != 200);
 
     return response.body;
-
   }
 
   /// Fetches a concise recipe description formatted according to specific criteria.

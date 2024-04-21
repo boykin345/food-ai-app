@@ -12,8 +12,7 @@ class GPTRecipeApi {
   //method for fetching responses from GPT
   Future<String> getChatResponse(String message) async {
     final url = Uri.parse(
-        'https://gpt-george-france.openai.azure.com/openai/deployments/gpt-george-france/chat/completions?api-version=2024-02-15-preview');
-
+        'https://gpt-aus.openai.azure.com/openai/deployments/marco-gpt/chat/completions?api-version=2024-02-15-preview');
 
     http.Response response;
     do {
@@ -32,9 +31,8 @@ class GPTRecipeApi {
           "stop": null
         }),
       );
-    }while (response.statusCode != 200) ;
+    } while (response.statusCode != 200);
     return response.body;
-
   }
 
   //function to get a recipe from GPT

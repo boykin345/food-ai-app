@@ -92,7 +92,7 @@ class _TinderPageState extends State<TinderPage> {
     final String preferencesString = preferences.join(', ');
 
     gptApiClient = ChatGPTRecipe(
-      '0f91ba9b74344d7699144a8afbeeae2b',
+      'bfc9723eaa5443bcabf0fa450647baf3',
       ingredientsMap: widget.ingredientsMapCons,
       userDifficulty:
           int.tryParse(userSettings['difficulty']?.toString() ?? '') ?? 1,

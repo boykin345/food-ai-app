@@ -15,20 +15,22 @@ class ImageFetcher extends ImageFetcherInterface {
   @override
   Future<String> fetchImage(String query) async {
     final url = Uri.parse(
-        'https://gpt-george-uk.openai.azure.com/openai/deployments/george-dalle/images/generations?api-version=2024-02-01');
+        'https://gpt-aus.openai.azure.com/openai/deployments/marco-dalle/images/generations?api-version=2024-02-01');
 
-    const String apiKey = 'b3fe274a85ad4962a768317afc26db40';
+    const String apiKey = 'bfc9723eaa5443bcabf0fa450647baf3';
 
     http.Response response;
-    do{ response = await http.post(
-      url,
-      headers: {'Content-Type': 'application/json', 'api-key': apiKey},
-      body: jsonEncode({
-        "model": "george-dalle",
-        "prompt": "<Generate me an image of a realistic looking $query>",
-        "n": 1
-      }),
-    );} while(response.statusCode != 200);
+    do {
+      response = await http.post(
+        url,
+        headers: {'Content-Type': 'application/json', 'api-key': apiKey},
+        body: jsonEncode({
+          "model": "marco-dalle",
+          "prompt": "<Generate me an image of a realistic looking $query>",
+          "n": 1
+        }),
+      );
+    } while (response.statusCode != 200);
 
     if (response.statusCode == 200) {
       final imageUrl = jsonDecode(response.body)['data'][0]['url'] as String;

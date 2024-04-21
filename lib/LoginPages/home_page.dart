@@ -77,7 +77,6 @@ class _HomePageState extends State<HomePage> {
       });
       final String? imageUrl =
           await APICall.uploadImageAndGetDownloadUrl(imageFile);
-
       if (imageUrl != null) {
         final String response = await APICall.sendToOpenAI(imageUrl);
         final jsonResponse = jsonDecode(response);
@@ -97,12 +96,14 @@ class _HomePageState extends State<HomePage> {
         setState(() {
           _isLoading = false; // Stop loading
           _response = "Error: Image was not uploaded successfully.";
+          print('Error openAI 1\n\n\n\n');
         });
       }
     } catch (e) {
       setState(() {
         _isLoading = false; // Stop loading
         _response = 'Error processing image: ${e}';
+        print('Error openAI 2 $_response \n\n\n\n');
       });
     }
   }

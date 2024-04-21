@@ -38,8 +38,8 @@ class APICall {
   /// Returns the response from OpenAI or an error message.
   static Future<String> sendToOpenAI(String imageUrl) async {
     final uri = Uri.parse(
-        'https://gpt-marco-west.openai.azure.com/openai/deployments/gpt-george-vision/chat/completions?api-version=2024-02-15-preview'); // API URL
-    const String apiKey = 'bafe17e1da1e4a0a870426f8a7fd64d6';
+        'https://gpt-aus.openai.azure.com/openai/deployments/marco-vision/chat/completions?api-version=2024-02-15-preview'); // API URL
+    const String apiKey = 'bfc9723eaa5443bcabf0fa450647baf3';
     final response = await http.post(
       uri,
       headers: {'Content-Type': 'application/json', 'api-key': apiKey},
@@ -68,6 +68,7 @@ class APICall {
     if (response.statusCode == 200) {
       return response.body;
     } else {
+      print('Error openAI\n\n\n\n');
       return 'Error: ${response.statusCode}';
     }
   }
