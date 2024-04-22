@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="food_ai_app"
+        android:label="Generative Food Collator"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/foodailogo">
         <activity
             android:name=".MainActivity"
             android:exported="true"
