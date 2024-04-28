@@ -83,19 +83,11 @@ class ChatGPTRecipe extends ChatGPTRecipeInterface {
           'Preference: $preferencesString, '
           'make sure your description is concise and formatted properly. 1 recipe is enough. Do not give anything else not included in the format.';
 
-      //  print(healthGoalsString);
-      //  print(userAllergies.join(', '));
-      //  print(preferencesString);
-      //  print(userCookingTime);
-      print(message);
       final response = await getChatResponse(message);
-      print("5");
       final decodedResponse = jsonDecode(response)
           as Map<String, dynamic>; // Safely cast to Map<String, dynamic>
-      print("6");
       if (decodedResponse.containsKey('choices') &&
           decodedResponse['choices'] is List) {
-        print("7");
         final choices = decodedResponse['choices'] as List;
         if (choices.isNotEmpty && choices[0] is Map<String, dynamic>) {
           final firstChoice = choices[0] as Map<String, dynamic>;
