@@ -86,8 +86,6 @@ class _TinderPageState extends State<TinderPage> {
       print('Error fetching user data: $error');
     }
 
-    print(healthGoals);
-    print(preferences);
     final String healthGoalsString = healthGoals.join(', ');
     final String preferencesString = preferences.join(', ');
 
