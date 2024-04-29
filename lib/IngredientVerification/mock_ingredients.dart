@@ -1,4 +1,12 @@
+/// A class that simulates a database of mock ingredients.
+///
+/// This class contains a predefined list of ingredients with their respective quantities
+/// typically used for demonstration or testing in a development environment.
 class MockIngredients {
+  /// A map representing a collection of ingredient names and their corresponding quantities.
+  ///
+  /// The map includes a variety of common kitchen ingredients such as vegetables, fruits, and dairy products
+  /// with predefined quantities to simulate a realistic scenario.
   Map<String, String> items = {
     'Tomatoes': '10',
     'Eggs': '16',
@@ -25,6 +33,10 @@ class MockIngredients {
     'Pickles jar': '1',
   };
 
+  /// Retrieves the map of mock ingredients.
+  ///
+  /// This method returns a copy of the current map of ingredients and their quantities.
+  /// It can be used to initialize or reset the ingredient list in user interfaces or testing scenarios.
   Map<String, String> getMap() {
     return items;
   }

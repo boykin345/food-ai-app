@@ -1,11 +1,27 @@
 import 'package:flutter/material.dart';
 
+/// A StatefulWidget that displays and allows editing of a single ingredient with its quantity.
+///
+/// This widget provides a ListTile that shows the ingredient's name and quantity.
+/// It can toggle to edit mode where the user can update these details.
 class Ingredients extends StatefulWidget {
+  /// The title of the ingredient.
   final String title;
+
+  /// The quantity of the ingredient, defaulting to an empty string if not provided.
   final String quantity;
+
+  /// A callback function triggered when the delete icon is tapped.
   final VoidCallback onDelete;
+
+  /// A callback function that is called when the save icon is tapped.
+  /// It passes the new name and quantity of the ingredient.
   final Function(String newName, String newQuantity) onEdit;
 
+  /// Constructs an instance of [Ingredients].
+  ///
+  /// Requires [title] for the ingredient's name, and [onDelete], [onEdit] callbacks for managing
+  /// ingredient deletion and updates.
   const Ingredients({
     super.key,
     required this.title,
@@ -18,9 +34,15 @@ class Ingredients extends StatefulWidget {
   _IngredientsState createState() => _IngredientsState();
 }
 
+/// The state class for [Ingredients] widget that handles editing and viewing of an ingredient.
 class _IngredientsState extends State<Ingredients> {
+  /// Indicates whether the ingredient is currently in edit mode.
   bool isEditing = false;
+
+  /// Controller for editing the ingredient's name.
   final TextEditingController nameController = TextEditingController();
+
+  /// Controller for editing the ingredient's quantity.
   final TextEditingController quantityController = TextEditingController();
 
   @override
@@ -37,6 +59,7 @@ class _IngredientsState extends State<Ingredients> {
     super.dispose();
   }
 
+  /// Toggles the editing state of this ingredient widget.
   void toggleEdit() => setState(() => isEditing = !isEditing);
 
   @override
@@ -88,16 +111,26 @@ class _IngredientsState extends State<Ingredients> {
     );
   }
 
+  /// Builds the editing fields when the widget is in editing mode.
+  ///
+  /// Provides text fields for ingredient name and quantity, and buttons for saving or
+  /// canceling edits.
   Widget buildEditFields() {
     return Row(
       children: [
         Expanded(
           child: TextField(
             controller: nameController,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 20), // Text color
+            style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w800,
+                fontSize: 20), // Text color
             decoration: InputDecoration(
               labelText: 'Ingredient',
-              labelStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 20), // Label text color
+              labelStyle: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 20), // Label text color
               border: OutlineInputBorder(),
               enabledBorder: OutlineInputBorder(
                 // Normal border color
@@ -115,10 +148,16 @@ class _IngredientsState extends State<Ingredients> {
           child: TextField(
             cursorColor: Colors.white,
             controller: quantityController,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 20), // Text color
+            style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w800,
+                fontSize: 20), // Text color
             decoration: InputDecoration(
               labelText: 'Quantity',
-              labelStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 20), // Label text color
+              labelStyle: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w800,
+                  fontSize: 20), // Label text color
               border: OutlineInputBorder(),
               enabledBorder: OutlineInputBorder(
                 // Normal border color

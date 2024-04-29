@@ -5,13 +5,18 @@ import 'package:food_ai_app/LoginPages/home_page.dart';
 import 'package:food_ai_app/LoginPages/index_page.dart';
 import 'package:food_ai_app/Util/firebase_options.dart';
 
+/// Initializes the app and Firebase, then runs the app.
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Initializes Firebase with the default options for the current platform.
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  runApp(MyApp());
+  runApp(MyApp()); // Runs the MyApp widget.
 }
 
+/// The root widget of the application.
+///
+/// This widget sets up the theme and routing based on the Firebase authentication state.
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

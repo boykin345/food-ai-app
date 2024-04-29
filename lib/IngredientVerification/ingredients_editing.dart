@@ -11,20 +11,36 @@ import '../Util/custom_app_bar.dart';
 import '../Util/customer_drawer.dart';
 import '../Util/navigation_buttons.dart';
 
+/// A StatefulWidget that provides a UI for viewing and managing a list of ingredients.
+///
+/// This widget allows the user to add, edit, and delete ingredients from a given list.
+/// It utilizes autocomplete for ingredient names based on a JSON data file.
 class IngredientEditing extends StatefulWidget {
+  /// The initial map of ingredients and their quantities.
   final Map<String, String> ingredientsMapCons;
 
+  /// Creates a new instance of [IngredientEditing] with the specified initial ingredient map.
   const IngredientEditing({super.key, required this.ingredientsMapCons});
 
   @override
   IngredientEditingState createState() => IngredientEditingState();
 }
 
+/// The state class for [IngredientEditing] that manages the editing of ingredients.
 class IngredientEditingState extends State<IngredientEditing> {
+  /// A mock database of ingredients, used for demonstration.
   final mockIngredients = MockIngredients();
+
+  /// A set containing names of food items loaded from an asset file.
   Set<String> foodNames = {};
+
+  /// A map holding the names and quantities of the ingredients being edited.
   Map<String, String> ingredientsMap = {};
+
+  /// Controller for the text field that allows editing the name of an ingredient.
   late TextEditingController ingredientNameController = TextEditingController();
+
+  /// Controller for the text field that allows editing the quantity of an ingredient.
   final TextEditingController ingredientQuantityController =
       TextEditingController();
 
@@ -48,6 +64,7 @@ class IngredientEditingState extends State<IngredientEditing> {
     super.dispose();
   }
 
+  /// Loads and returns a set of food names from a JSON asset.
   Future<Set<String>> loadFoodNames() async {
     final String response =
         await rootBundle.loadString('assets/data/food_names.json');
@@ -55,6 +72,7 @@ class IngredientEditingState extends State<IngredientEditing> {
     return data.map<String>((item) => item.toString()).toSet();
   }
 
+  /// Builds a list of [Ingredients] widgets from a map of ingredient items.
   List<Widget> _buildIngredientWidgets(Map<String, String> items) {
     return items.entries.map((entry) {
       return Ingredients(
@@ -68,6 +86,7 @@ class IngredientEditingState extends State<IngredientEditing> {
     }).toList();
   }
 
+  /// Validates and adds an ingredient and its quantity to the map if the item exists in [foodNames].
   Future<void> validateAndAddItem(String itemName, String quantity) async {
     final Set<String> foodNames = await loadFoodNames();
     if (foodNames.contains(itemName)) {
@@ -77,6 +96,7 @@ class IngredientEditingState extends State<IngredientEditing> {
     }
   }
 
+  /// Validates and updates an ingredient's name and quantity if the new name exists in [foodNames].
   Future<void> validateAndEditIngredient(
       String oldName, String newName, String newQuantity) async {
     final Set<String> foodNames = await loadFoodNames();
@@ -88,6 +108,7 @@ class IngredientEditingState extends State<IngredientEditing> {
     }
   }
 
+  /// Edits an ingredient by updating its name and quantity in the map.
   void editIngredient(String oldName, String newName, String newQuantity) {
     setState(() {
       final bool isNameUpdated = oldName != newName;
@@ -113,6 +134,7 @@ class IngredientEditingState extends State<IngredientEditing> {
     });
   }
 
+  /// Adds a new ingredient to the top of the map, ensuring any existing entry for that ingredient is updated.
   void addItemToIngredientsMap(String itemName, String quantity) {
     setState(() {
       // Removes the item if it exists to add it back and to move it to the top
@@ -133,6 +155,7 @@ class IngredientEditingState extends State<IngredientEditing> {
     });
   }
 
+  /// Removes an ingredient from the map.
   void removeIngredient(String itemName) {
     setState(() {
       ingredientsMap.remove(itemName);
@@ -192,6 +215,7 @@ class IngredientEditingState extends State<IngredientEditing> {
     );
   }
 
+  /// Returns a search box widget that includes an autocomplete field for ingredient names and a text field for quantities.
   Widget searchBox() {
     return Container(
       padding: EdgeInsets.only(

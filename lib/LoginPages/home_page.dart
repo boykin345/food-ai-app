@@ -18,18 +18,31 @@ import 'package:food_ai_app/LoadingScreen/custom_loading_circle.dart';
 import '../Entities/recipe_display_template.dart';
 import '../Util/map_to_recipe_converter.dart';
 
+/// The home page of the application that serves as the main user interface.
+/// This page provides access to various functionalities such as viewing favorite recipes,
+/// managing ingredients, and interacting with a food image detection system.
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  /// The current authenticated user.
   final user = FirebaseAuth.instance.currentUser!;
+
+  /// Indicates if the page is currently in a loading state.
   bool _isLoading = false;
+
+  /// Initializer for recipes that might be loaded on this page.
   RecipeInitialiser recipeInitialiser = RecipeInitialiser();
+
+  /// Future that holds a list of favorite recipes of the user.
   late Future<List<Recipe>> favouriteRecipes;
 
+  /// The file reference to the selected image from gallery or camera.
   File? _imageFile;
+
+  /// Stores the response received after processing the image.
   String _response = 'No image processed yet';
 
   @override
@@ -113,11 +126,14 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colours.primary,
       body: _isLoading
-          ? Center(child: CustomLoadingCircle()) // Show loading indicator
+          ? Center(
+              child:
+                  CustomLoadingCircle()) // Show loading indicator when ingredients loading
           : buildUI(context),
     );
   }
 
+  /// Constructs the user interface for the favourite recipes section.
   Widget favoritesSectionWidget(Future<List<Recipe>> favouriteRecipesFuture) {
     return FutureBuilder<List<Recipe>>(
       future: favouriteRecipesFuture,
@@ -165,6 +181,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// Constructs the user interface when data is loaded.
   Widget buildUI(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
@@ -445,6 +462,15 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  /// Builds a single recipe item widget.
+  ///
+  /// This method constructs a visually appealing card for a recipe, which includes
+  /// an image, the recipe name, and key details such as calories and preparation time.
+  ///
+  /// [recipe] - The `Recipe` object containing all the data needed to display.
+  /// [context] - The `BuildContext` which will be used for navigation when the recipe is tapped.
+  ///
+  /// Returns a widget that displays the recipe information and handles user interaction.
   Widget _buildRecipeItem({
     required Recipe recipe,
     required BuildContext context,
