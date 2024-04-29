@@ -5,6 +5,7 @@ import 'package:food_ai_app/Util/colours.dart';
 import 'package:food_ai_app/Util/custom_app_bar.dart';
 import 'package:food_ai_app/Util/customer_drawer.dart';
 
+/// Screen for managing user settings such as difficulty, cooking time, portion size, and allergies.
 class SettingsScreen extends StatefulWidget {
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
@@ -20,12 +21,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   final user = FirebaseAuth.instance.currentUser;
 
+  /// Initializes the state of the widget.
   @override
   void initState() {
     super.initState();
     fetchUserData();
   }
 
+  /// Fetches user data from Firestore and updates the state.
   Future<void> fetchUserData() async {
     try {
       DocumentSnapshot userSnapshot =
@@ -53,6 +56,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+  /// Updates the user settings in Firestore.
   Future<void> _updateSettings() async {
     try {
       await firestore.collection('users').doc(user?.uid).update({
@@ -66,6 +70,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+  /// Adds a new allergy to the user's list of allergies.
   Future<void> _addAllergy() async {
     try {
       if (allergyController.text.isNotEmpty) {
@@ -80,6 +85,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+  /// Removes an allergy from the user's list of allergies.
   Future<void> _removeAllergy(String allergy) async {
     try {
       setState(() {
@@ -91,6 +97,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+  /// Builds the UI for the SettingsScreen.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
