@@ -6,25 +6,49 @@ import '../Util/colours.dart';
 import '../Util/custom_app_bar.dart';
 import '../Util/customer_drawer.dart';
 
+/// Controller for text field where user's can enter thier goals for protein
 final TextEditingController proteinController = TextEditingController();
+
+/// Controller for text field where user's can enter thier goals for carbohydrates
 final TextEditingController carbsController = TextEditingController();
+
+/// Controller for text field where user's can enter thier goals for fats
 final TextEditingController fatController = TextEditingController();
+
+/// Controller for text field where user's can enter thier goals for fibre
 final TextEditingController fibreController = TextEditingController();
+
+/// Controller for text field where user's can enter thier goals for calories
 final TextEditingController calorieController = TextEditingController();
 
+/// A StatefulWidget that represents the health goal screen of the app.
+///
+/// This screen allows users to manage their health goals, such as "Gain Muscle" or "Lose Weight"
+/// and set daily nutritional goals for protein, carbs, fat, fibre, and calories.
 class HealthGoalScreen extends StatefulWidget {
   @override
   GoalScreenState createState() => GoalScreenState();
 }
 
+
 class GoalScreenState extends State<HealthGoalScreen> {
+  /// A list to hold the health goals fetched from the Firestore database.
   List<String> healthGoals = [];
-  Map<String, bool> checkedHealthGoals = {}; // Track checked state
+
+  /// A map to track the checked state of each health goal.
+  Map<String, bool> checkedHealthGoals = {};
+  
+  /// A TextEditingController for adding new health goals.
   final TextEditingController goalsController = TextEditingController();
 
+  /// Firestore instance for database operations.
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  /// The current authenticated user.
   final user = FirebaseAuth.instance.currentUser;
 
+  /// initializes the Health Goals page with the default health goals
+  /// and macros and calories
   @override
   void initState() {
     super.initState();
@@ -32,6 +56,10 @@ class GoalScreenState extends State<HealthGoalScreen> {
     fetchHealthGoals();
   }
 
+  /// Initializes health goals in the Firestore database if they don't exist.
+  ///
+  /// This method checks if the 'healthGoals' field exists for the current user in the Firestore database.
+  /// If it doesn't, it initializes the field with default values such as "Gain Muscle" and "Lose Weight".
   void initializeHealthGoals() async {
     var personalisationDocRef = firestore
         .collection('users')
@@ -39,11 +67,12 @@ class GoalScreenState extends State<HealthGoalScreen> {
         .collection('Personalisation')
         .doc('Personalisation');
 
+    /// snapshot of the user's halth goals that are stored in Firebase
     var docSnapshot = await personalisationDocRef.get();
 
     // Check if the document exists
     if (docSnapshot.exists) {
-      // Document exists, now check if 'healthGoals' field exists
+      /// Document exists, now check if 'healthGoals' field exists
       var data = docSnapshot.data();
       if (data != null && !data.containsKey('healthGoals')) {
         // 'healthGoals' field doesn't exist, initialize it
@@ -59,7 +88,13 @@ class GoalScreenState extends State<HealthGoalScreen> {
     }
   }
 
+  /// Fetches health goals from the Firestore database and updates the local list.
+  ///
+  /// This method queries the Firestore database for the current user's health goals and updates
+  /// the local [healthGoals] list with the fetched values.
   void fetchHealthGoals() async {
+
+    /// Snapshot of the document containing the user's health goals.
     DocumentSnapshot userSnapshot = await firestore
         .collection('users')
         .doc(user?.uid)
@@ -67,6 +102,7 @@ class GoalScreenState extends State<HealthGoalScreen> {
         .doc('Personalisation')
         .get();
     setState(() {
+      ///Gets the user's data as a snapshot
       var userData = userSnapshot.data() as Map<String, dynamic>?;
       if (userData != null) {
         if (userData['healthGoals'] is List<dynamic>) {
@@ -112,6 +148,10 @@ class GoalScreenState extends State<HealthGoalScreen> {
     });
   }
 
+  /// Adds a new health goal to the Firestore database and updates the UI.
+  ///
+  /// This method adds a new health goal entered by the user to the Firestore database and
+  /// updates the local list of health goals to reflect the change.
   void addGoal() {
     if (goalsController.text.isNotEmpty) {
       setState(() {
@@ -131,6 +171,10 @@ class GoalScreenState extends State<HealthGoalScreen> {
     }
   }
 
+  /// Removes a health goal from the Firestore database and updates the UI.
+  ///
+  /// This method removes the specified health goal from the Firestore database and
+  /// updates the local list of health goals to reflect the change.
   void removeGoal(String preference) {
     setState(() {
       healthGoals.remove(preference);
@@ -149,6 +193,12 @@ class GoalScreenState extends State<HealthGoalScreen> {
     });
   }
 
+  /// Builds the UI for the health goal screen.
+  ///
+  /// This method constructs a Scaffold widget that defines the structure of the health goal screen.
+  /// The screen includes an AppBar with the title 'Health Goals', text fields for adding new health goals
+  /// and entering daily nutritional information, a list of existing health goals with checkboxes to select them,
+  /// and a button to save the entered information to the Firestore database.
   @override
   Widget build(BuildContext context) {
     return Scaffold(

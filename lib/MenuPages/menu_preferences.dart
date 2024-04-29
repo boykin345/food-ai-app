@@ -6,19 +6,36 @@ import '../Util/colours.dart';
 import '../Util/custom_app_bar.dart';
 import '../Util/customer_drawer.dart';
 
+
+/// A StatefulWidget that represents the preferences screen in the application.
+///
+/// This screen allows users to view and manage their preferences, such as dietary restrictions
+/// or other personalization settings. It interacts with Firestore to fetch and update user preferences.
 class PreferencesScreen extends StatefulWidget {
   @override
   _PreferenceScreenState createState() => _PreferenceScreenState();
 }
 
+/// The state for [PreferencesScreen] that manages user preferences.
+///
+/// This class handles the state and UI interactions for the preferences screen, allowing users to
+/// view and modify their preferences such as dietary restrictions or notification settings. 
+/// 
+/// It integrates with Firebase Firestore to store and retrieve user preferences, 
+/// and Firebase Auth to identify the current user.
 class _PreferenceScreenState extends State<PreferencesScreen> {
+  /// Stores a list of the user's preferences.
   List<String> preferences = [];
-  Map<String, bool> checkedPreferences = {}; // Track checked state
+  /// Tracks the checked state of each preference.
+  Map<String, bool> checkedPreferences = {}; 
+  /// Controls the text input for adding new preferences
   final TextEditingController preferenceController = TextEditingController();
-
+  /// Instance of Firestore used to interact with the Firebase Firestore database.
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  /// The currently authenticated user.
   final user = FirebaseAuth.instance.currentUser;
 
+  /// Initializes the state of the preferences screen.
   @override
   void initState() {
     super.initState();
@@ -26,6 +43,9 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
     fetchPreferences();
   }
 
+  /// Initializes the user's preferences and stores them in the Firestore database.
+  /// If preferences don't already exist they will ne initialized
+  /// If they already exist, then the preferences will be loaded in
   void initializePreferences() async {
     // Reference to the Personalisation document
     var personalisationDocRef = firestore
@@ -34,6 +54,7 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
         .collection('Personalisation')
         .doc('Personalisation');
 
+    /// Stores the personalisation document. 
     var docSnapshot = await personalisationDocRef.get();
 
     // Check if the document exists
@@ -56,6 +77,7 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
     }
   }
 
+ /// Fetches and stores the user's preferences in an array
   void fetchPreferences() async {
     DocumentSnapshot userSnapshot = await firestore
         .collection('users')
@@ -86,12 +108,14 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
           });
         }
       } else {
+        /// stores preferences and checked preferences
         preferences = [];
         checkedPreferences = {};
       }
     });
   }
 
+  /// Adds the text stored in [preferenceController] to the user's preferences in firebase.
   void addPreference() {
     if (preferenceController.text.isNotEmpty) {
       setState(() {
@@ -111,6 +135,8 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
     }
   }
 
+  /// Removes the selected preference from the current user's preference document
+  /// Takes preference as a parameter
   void removePreferece(String preference) {
     setState(() {
       preferences.remove(preference);
@@ -128,7 +154,10 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
           FieldValue.arrayRemove([preference]) // Ensure consistency
     });
   }
-
+  
+  /// This function returns a Scaffold widget with a specified background color and an AppBar
+  /// containing the title "Preferences". The body consists of a TextField for adding new preferences
+  /// and a ListView.builder for displaying existing preferences as CheckboxListTiles.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
