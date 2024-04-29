@@ -1,62 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:food_ai_app/MenuPages/menu_settings.dart';
 import 'package:mockito/mockito.dart';
 import 'package:food_ai_app/main.dart';
 
-// Mock Firebase.initializeApp function
-class MockFirebaseApp extends Mock implements FirebaseApp {}
-
 void main() {
-  group('MyApp', () {
-    testWidgets('MyApp builds', (WidgetTester tester) async {
-      // Mock Firebase.initializeApp
-      final mockFirebaseApp = MockFirebaseApp();
-      when(Firebase.initializeApp(
-        options: anyNamed('options'),
-      )).thenAnswer((_) async => mockFirebaseApp);
+  testWidgets('Settings Screen UI Test', (WidgetTester tester) async {
+    // Build the SettingsScreen widget
+    await tester.pumpWidget(MaterialApp(home: SettingsScreen()));
 
-      // Run app
-      await tester.pumpWidget(MyApp());
+    // Expect to find text widgets for Difficulty, Cooking Time, and Portion Size
+    expect(find.text('Difficulty'), findsOneWidget);
+    expect(find.text('Cooking Time'), findsOneWidget);
+    expect(find.text('Portion Size'), findsOneWidget);
 
-      // Verify that a MaterialApp is created
-      expect(find.byType(MaterialApp), findsOneWidget);
-    });
-  });
+    // Tap on the 'Add a new Dietary need' text field
+    await tester.tap(find.byType(TextField));
+    await tester.pump();
 
-  group('MyHomePage', () {
-    testWidgets('MyHomePage builds', (WidgetTester tester) async {
-      // Build MyHomePage
-      await tester.pumpWidget(MaterialApp(home: MyHomePage()));
+    // Expect to find the 'Add' icon button
+    expect(find.byIcon(Icons.add), findsOneWidget);
 
-      // Verify that the title text widget is rendered
-      expect(find.text('Main Page'), findsOneWidget);
-    });
+    // Enter text into the 'Add a new Dietary need' text field and tap the 'Add' button
+    await tester.enterText(find.byType(TextField), 'Peanuts');
+    await tester.tap(find.byIcon(Icons.add));
+    await tester.pump();
 
-    testWidgets('Tapping Settings navigates to SettingsScreen',
-        (WidgetTester tester) async {
-      // Build MyHomePage
-      await tester.pumpWidget(MaterialApp(home: MyHomePage()));
+    // Expect to find 'Peanuts' added to the list of allergies
+    expect(find.text('Peanuts'), findsOneWidget);
 
-      // Tap the Settings button
-      await tester.tap(find.text('Settings'));
-      await tester.pump();
+    // Tap on the 'Peanuts' allergy to remove it
+    await tester.tap(find.byIcon(Icons.delete));
+    await tester.pump();
 
-      // Verify that SettingsScreen is pushed
-      expect(find.text('Settings Screen'), findsOneWidget);
-    });
-
-    testWidgets('Tapping Allergies navigates to AllergiesScreen',
-        (WidgetTester tester) async {
-      // Build MyHomePage
-      await tester.pumpWidget(MaterialApp(home: MyHomePage()));
-
-      // Tap the Allergies button
-      await tester.tap(find.text('Allergies'));
-      await tester.pump();
-
-      // Verify that AllergiesScreen is pushed
-      expect(find.text('Allergies Screen'), findsOneWidget);
-    });
+    // Expect 'Peanuts' to be removed from the list of allergies
+    expect(find.text('Peanuts'), findsNothing);
   });
 }

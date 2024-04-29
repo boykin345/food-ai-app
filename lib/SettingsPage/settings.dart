@@ -8,15 +8,19 @@ import 'package:food_ai_app/Util/navigation_buttons.dart';
 
 import 'Preferences.dart';
 
+/// Screen for managing user settings such as difficulty, cooking time, portion size, and allergies.
 class SettingsScreen extends StatefulWidget {
+  /// Map of ingredients with their corresponding constraints.
   final Map<String, String> ingredientsMapCons;
 
+  /// Constructor for SettingsScreen.
   const SettingsScreen({super.key, required this.ingredientsMapCons});
 
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
 }
 
+/// State class for the SettingsScreen.
 class _SettingsScreenState extends State<SettingsScreen> {
   int _selectedDifficulty = 1;
   String _selectedCookingTime = '30 min';
@@ -27,12 +31,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   final user = FirebaseAuth.instance.currentUser;
 
+  /// Initializes the state of the widget.
   @override
   void initState() {
     super.initState();
     fetchUserData();
   }
 
+  /// Fetches user data from Firestore and updates the state.
   Future<void> fetchUserData() async {
     try {
       DocumentSnapshot userSnapshot =
@@ -60,6 +66,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+  /// Updates the user settings in Firestore.
   Future<void> _updateSettings() async {
     try {
       await firestore.collection('users').doc(user?.uid).update({
@@ -73,6 +80,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+  /// Adds a new allergy to the user's list of allergies.
   Future<void> _addAllergy() async {
     try {
       if (allergyController.text.isNotEmpty) {
@@ -87,6 +95,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+  /// Removes an allergy from the user's list of allergies.
   Future<void> _removeAllergy(String allergy) async {
     try {
       setState(() {
@@ -98,6 +107,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+  /// Builds the UI for the SettingsScreen.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
