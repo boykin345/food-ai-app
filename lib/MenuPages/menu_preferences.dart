@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../Util/colours.dart';
 import '../Util/custom_app_bar.dart';
-import '../Util/customer_drawer.dart';
-
 
 /// A StatefulWidget that represents the preferences screen in the application.
 ///
@@ -19,19 +17,23 @@ class PreferencesScreen extends StatefulWidget {
 /// The state for [PreferencesScreen] that manages user preferences.
 ///
 /// This class handles the state and UI interactions for the preferences screen, allowing users to
-/// view and modify their preferences such as dietary restrictions or notification settings. 
-/// 
-/// It integrates with Firebase Firestore to store and retrieve user preferences, 
+/// view and modify their preferences such as dietary restrictions or notification settings.
+///
+/// It integrates with Firebase Firestore to store and retrieve user preferences,
 /// and Firebase Auth to identify the current user.
 class _PreferenceScreenState extends State<PreferencesScreen> {
   /// Stores a list of the user's preferences.
   List<String> preferences = [];
+
   /// Tracks the checked state of each preference.
-  Map<String, bool> checkedPreferences = {}; 
+  Map<String, bool> checkedPreferences = {};
+
   /// Controls the text input for adding new preferences
   final TextEditingController preferenceController = TextEditingController();
+
   /// Instance of Firestore used to interact with the Firebase Firestore database.
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+
   /// The currently authenticated user.
   final user = FirebaseAuth.instance.currentUser;
 
@@ -54,7 +56,7 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
         .collection('Personalisation')
         .doc('Personalisation');
 
-    /// Stores the personalisation document. 
+    /// Stores the personalisation document.
     var docSnapshot = await personalisationDocRef.get();
 
     // Check if the document exists
@@ -77,7 +79,7 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
     }
   }
 
- /// Fetches and stores the user's preferences in an array
+  /// Fetches and stores the user's preferences in an array
   void fetchPreferences() async {
     DocumentSnapshot userSnapshot = await firestore
         .collection('users')
@@ -154,7 +156,7 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
           FieldValue.arrayRemove([preference]) // Ensure consistency
     });
   }
-  
+
   /// This function returns a Scaffold widget with a specified background color and an AppBar
   /// containing the title "Preferences". The body consists of a TextField for adding new preferences
   /// and a ListView.builder for displaying existing preferences as CheckboxListTiles.

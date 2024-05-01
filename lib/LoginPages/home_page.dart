@@ -3,17 +3,16 @@ import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:food_ai_app/Entities/recipe.dart';
 import 'package:food_ai_app/ImageDetection/api_call.dart';
 import 'package:food_ai_app/ImageDetection/take_photo.dart';
 import 'package:food_ai_app/IngredientVerification/ingredients_editing.dart';
+import 'package:food_ai_app/LoadingScreen/custom_loading_circle.dart';
 import 'package:food_ai_app/Util/colours.dart';
 import 'package:food_ai_app/Util/custom_app_bar.dart';
 import 'package:food_ai_app/Util/customer_drawer.dart';
 import 'package:food_ai_app/Util/initial_recipes.dart';
 import 'package:image_picker/image_picker.dart';
-
-import 'package:food_ai_app/Entities/recipe.dart';
-import 'package:food_ai_app/LoadingScreen/custom_loading_circle.dart';
 
 import '../Entities/recipe_display_template.dart';
 import '../Util/map_to_recipe_converter.dart';

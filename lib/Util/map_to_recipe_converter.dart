@@ -1,5 +1,4 @@
 import 'package:food_ai_app/Entities/recipe.dart';
-
 import 'package:food_ai_app/Util/data_util.dart';
 
 /// A utility class for converting map data to [Recipe] objects and fetching recipe objects.

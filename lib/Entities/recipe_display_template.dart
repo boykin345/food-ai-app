@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:food_ai_app/Entities/recipe.dart';
-
 import 'package:food_ai_app/Util/colours.dart';
 import 'package:food_ai_app/Util/custom_app_bar.dart';
 

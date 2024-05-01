@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../Util/colours.dart';
 import '../Util/custom_app_bar.dart';
-import '../Util/customer_drawer.dart';
 
 /// Controller for text field where user's can enter thier goals for protein
 final TextEditingController proteinController = TextEditingController();
@@ -30,14 +29,13 @@ class HealthGoalScreen extends StatefulWidget {
   GoalScreenState createState() => GoalScreenState();
 }
 
-
 class GoalScreenState extends State<HealthGoalScreen> {
   /// A list to hold the health goals fetched from the Firestore database.
   List<String> healthGoals = [];
 
   /// A map to track the checked state of each health goal.
   Map<String, bool> checkedHealthGoals = {};
-  
+
   /// A TextEditingController for adding new health goals.
   final TextEditingController goalsController = TextEditingController();
 
@@ -93,7 +91,6 @@ class GoalScreenState extends State<HealthGoalScreen> {
   /// This method queries the Firestore database for the current user's health goals and updates
   /// the local [healthGoals] list with the fetched values.
   void fetchHealthGoals() async {
-
     /// Snapshot of the document containing the user's health goals.
     DocumentSnapshot userSnapshot = await firestore
         .collection('users')

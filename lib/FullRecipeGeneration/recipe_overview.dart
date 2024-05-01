@@ -6,7 +6,6 @@ import 'package:food_ai_app/FullRecipeGeneration/gpt_api_recipe_mock.dart';
 
 import '../Util/colours.dart';
 import '../Util/custom_app_bar.dart';
-import '../Util/customer_drawer.dart';
 
 class RecipeOverview extends StatelessWidget {
   late String dishName;

@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_ai_app/Util/colours.dart';
 import 'package:food_ai_app/Util/custom_app_bar.dart';
-import 'package:food_ai_app/Util/customer_drawer.dart';
 
 /// Screen for managing user settings such as difficulty, cooking time, portion size, and allergies.
 class SettingsScreen extends StatefulWidget {

@@ -1,6 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_ai_app/Entities/recipe.dart';
-import 'package:food_ai_app/Util/data_util.dart';
 
 /// Initializes a set of predefined recipes for various meal categories.
 class RecipeInitialiser {
