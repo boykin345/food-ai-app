@@ -1,69 +1,56 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:food_ai_app/LoginPages/home_page.dart';
+import 'package:food_ai_app/LoginPages/index_page.dart';
+import 'package:food_ai_app/Util/firebase_options.dart';
 
-void main() {
-  runApp(const MyApp());
+/// Initializes the app and Firebase, then runs the app.
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // Initializes Firebase with the default options for the current platform.
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  runApp(MyApp()); // Runs the MyApp widget.
 }
 
+/// The root widget of the application.
+///
+/// This widget sets up the theme and routing based on the Firebase authentication state.
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  // Change made here: Convert 'key' to a super parameter for linter
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+        textTheme: Theme.of(context).textTheme.apply(
+              fontFamily: 'Caviar Dreams',
             ),
-            Text(
-              '$_counter',
-              // Change made here: Replace deprecated 'headline4' with 'headlineMedium'
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+        appBarTheme: AppBarTheme(
+          iconTheme: IconThemeData(
+            size: 50,
+            color: Colors.white,
+          ),
+          actionsIconTheme: IconThemeData(
+            size: 50,
+            color: Colors.white,
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      home: Scaffold(
+        body: StreamBuilder<User?>(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return HomePage();
+              } else {
+                return IndexPage();
+              }
+            }),
       ),
     );
   }

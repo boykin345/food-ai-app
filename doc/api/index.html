@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="generator" content="made with love by dartdoc 7.0.1-wip">
+  <meta name="description" content="food_ai_app API docs, for the Dart programming language.">
+  <title>food_ai_app - Dart API docs</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="static-assets/github.css?v1">
+  <link rel="stylesheet" href="static-assets/styles.css?v1">
+  <link rel="icon" href="static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li class="self-crumb">food_ai_app package</li>
+  </ol>
+  <div class="self-name">food_ai_app</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div id="dartdoc-main-content" class="main-content">
+      
+<section class="desc markdown">
+  <h1 id="food-ai-brief">Food AI Brief</h1>
+<h2 id="introduction">Introduction</h2>
+<p><strong>Team 31's Food AI Project</strong></p>
+<p>Have you ever found yourself looking inside your fridge trying to figure out what to eat? Our Food AI project aims to deal with this age-old issue with generative AI packaged in an easy-to-use yet feature-rich mobile application.</p>
+<p><strong>How it Works:</strong></p>
+<p>Generate recipes that the user will like in only four simple steps:</p>
+<ol>
+<li>
+<p>Set up your preferences, allergies, etc., and tell the app what cooking equipment you have.</p>
+</li>
+<li>
+<p>Take a photo of your fridge, and an image detection component will help identify possible ingredients.</p>
+</li>
+<li>
+<p>Watch as recipes are generated for you.</p>
+</li>
+<li>
+<p>Swipe left if you're not interested or swipe right if you're feeling hungry, and the recipe will be shown to you in its full glory.</p>
+</li>
+</ol>
+<p><strong>Goals:</strong></p>
+<ul>
+<li>User-friendly user interface</li>
+<li>Accessibility options and testing</li>
+<li>Recipe saving and organisation</li>
+<li>Safe, diverse, and high-quality recipes with detailed instructions and warnings</li>
+<li>Personalisation and fine-tuning of recipes and user settings</li>
+<li>Social media integration</li>
+<li>CI/CD pipeline</li>
+</ul>
+<h2 id="user-stories">User Stories</h2>
+<p>Below are the user stories that we will be using for our product backlog. We have given codes at the start of each user story so that they can be tracked across the various diagrams that we have made. At the end of each user story, there is also a rating which tells us how hard it will be to complete that specific task.</p>
+<p>Favoriting Recipes</p>
+<p>A1. As an app user, I want to click on a star icon to add a recipe to my favourites, so that I can quickly access my preferred recipes without searching for them again. - 1</p>
+<p>A2. As an app user, I want to view my favourites on the homepage, so that I can quickly access my preferred recipes without searching for them again. - 1</p>
+<p>A3. As an app user, I want to click on my favourites and view the full recipe, so that I can see all the details of my recipe. - 1</p>
+<p>A4. As a developer, I want a function which can take objects returned from firebase for a recipe, and convert it into a recipe object, so that I can call that function anytime I need to display things on the homepage more easily. - 1</p>
+<p><code>- Removed -</code>A2. As an app user, I want to view my list of favourited recipes in a separate tab so that I can have a dedicated space for recipes I love and plan to make often. - 1</p>
+<p><code>- Removed -</code>A3. As an app user, I want to be able to sort my favourited recipes by cuisine, cooking time, and other filters so that I can organise my favourites based on my current cooking preferences or time constraints. - 2</p>
+<hr>
+<p><code>- Removed -</code>Sharing Recipes</p>
+<p><code>- Removed -</code>B1. As an app user, I want to press a share button to send a recipe link via text, email, or social media so that I can easily share my culinary finds with friends and family.  - 3</p>
+<p><code>- Removed -</code>B2. As an app user, I want to include a personal note or comment when sharing a recipe, to add a personal touch or specific thoughts when recommending the recipe to others. - 1</p>
+<hr>
+<p>Settings Personalisation</p>
+<p>C1. As an app user, I want to select dietary preferences in my profile settings (e.g., vegetarian, gluten-free) so that the recipes I browse are aligned with my dietary needs. - 1</p>
+<p>C2. As an app user, I want to input my health goals (e.g., weight loss, muscle gain), so the app can recommend recipes that support my fitness and health objectives. - 1</p>
+<hr>
+<p>Account Registration</p>
+<p>D1. As an app user, I want to sign up using my email or <del>social media accounts</del> for quick registration to minimise the time and effort required to start using the app. - 1</p>
+<p>D2. As an app user, I want to choose a unique username for my profile on the app so I can be easily recognised by friends. - 1</p>
+<p><code>- Removed -</code>D3. As an app user, I want to have a multi-factor authentication option for increased security to ensure my personal information and account details are well-protected.  - 1</p>
+<p>D4. As an app user, I want to sign in using my email or <del>social media account</del> for quick login access to minimise the time and effort required to use the app regularly. - 2</p>
+<p>D5. As an app user, I want the ability to reset my password so that I can regain access to my account when I forget my password. - 2</p>
+<hr>
+<p>Fridge Snapshot</p>
+<p>E1. As an app user, I want to open my camera from within the app to take a picture of my fridge, so that the app can help me keep track of my current ingredients and suggest recipes accordingly. - 2</p>
+<hr>
+<p>Ingredient Verification</p>
+<p>F1. As an app user, I want to review a list of ingredients identified from my fridge snapshot so I can ensure the inventory is correct before recipes are suggested. - 2</p>
+<p>F2. As an app user, I want to manually add or remove ingredients if the recognition is incorrect to maintain accurate ingredient tracking. - 1</p>
+<p>F3. As an app user, I want the option to confirm the final list before it affects recipe suggestions to have full control over the ingredient list used for recipe discovery. - 1</p>
+<hr>
+<p>Customise Recipe Settings</p>
+<p>G1. As an app user, I want to adjust my settings related to allergies, cooking times, difficulty levels, portion sizes, and required utensils so that I can receive recipe suggestions tailored to my specific needs and circumstances. - 1</p>
+<hr>
+<p><code>- Removed -</code>Discover Similar Recipes</p>
+<p><code>- Removed -</code>H1. As an app user, I want to see a "Similar Recipes" section on the homepage to explore new recipes that align with my taste preferences and expand my culinary repertoire. - 5</p>
+<hr>
+<p>Meal/Tinder Selection</p>
+<p>I1. As an app user, I want to swipe right or left to like or dislike meal options to quickly curate my meal plan and discover new recipes that match my taste. - 8</p>
+<p>I2. As an app user, I want to see a thumbnail image of the recipe along with the title and a short description to make an informed decision while swiping through the options. - 8</p>
+<p>I3. As an app user, I want to see a loading screen when the recipes are generating so I know that the app is working and not frozen - 2</p>
+<hr>
+<p>Recipe Overview</p>
+<p>J1. As an app user, I want to tap on the recipe overview to expand to a full description to better understand the dish before deciding to prepare it. - 2</p>
+<hr>
+<p>Detailed Recipe Information</p>
+<p>K1. As an app user, I want to have step-by-step instructions for each recipe so that I can follow along easily without missing any critical steps in the cooking process. - 1</p>
+<p>K2. As an app user, I want a complete list of ingredients for each recipe so that I can ensure I have everything I need before starting to cook. - 1</p>
+<p>K3. As an app user, I want to see a high-quality image of the finished dish for each recipe so that I know what the final product should look like and can be inspired by its presentation. - 1</p>
+<p>K4. As an app user, I want to see a difficulty rating for each recipe so that I can choose recipes that match my cooking skill level. - 1</p>
+<p>K5. As an app user, I want to see the estimated preparation and cooking time for each recipe so that I can manage my time effectively and choose recipes that fit my schedule. - 1</p>
+<p>K6. As an app user, I want a list of required utensils for each recipe so that I can prepare my kitchen tools in advance and ensure I have the necessary equipment. - 1</p>
+<p>K7. As an app user, I want to see allergen information for each recipe so that I can avoid dishes that contain ingredients I am allergic to. - 1</p>
+<p>K8. As an app user, I want to know the portion sizes for each recipe so that I can plan meals according to the number of people I'm serving or for my own dietary needs. - 1</p>
+<p>K9. As an app user, I want detailed nutritional information for each recipe so that I can track my dietary intake and choose recipes that align with my health goals. - 1</p>
+<hr>
+<p>User Landing Page</p>
+<p>L1. As an app user, I expect a user-friendly interface to access the signup page, so I can easily follow the provided instructions to sign up to the app. - 1</p>
+<p>L2. As an app user, I expect a user-friendly interface to access the login page, so I can easily follow the provided instructions to log in to and access the app. - 1</p>
+<hr>
+<p>Home Page</p>
+<p>M1. As an app user, I want to see some base recipes on the homepage, so that I can look at the kind of options that are available to me when I am new to the app. - 1</p>
+<p>M2. As a developer, I want to create an initialiser function for recipes to be shown on the homapage, such that I don't need to call them individually each time and cause more work. - 1</p>
+<hr>
+<p>Navigation</p>
+<p>N1. As an app user, I want to be able to see a hamburger menu, so that I can navigate between pages more easily. - 1</p>
+<p>N2. As an app user, I want to be able to see an accounts icon, so that I can navigate to the settings page more easily. - 1</p>
+<hr>
+<p>Integration Testing</p>
+<p>Z1. As a user, I want to navigate from the login screen directly to the homepage after successfully logging in, so that I can access recipes immediately. - 1</p>
+<p>Z2. As a user, I want to select a recipe from the homepage and be able to see its full details, including ingredients and preparation steps, so that I can understand how to prepare the dish. - 1</p>
+<p>Z3. As a user, during the recipe Tinder process, I want to ensure that swiping right on a recipe leads me to a detailed overview of that recipe, so that I can explore it further. - 1</p>
+<p>Z4. As a user, I want to return to the homepage from any page within the app by using a dedicated home button or gesture, so that I can easily access the main menu and other features. - 1</p>
+<p>Z5. As a user, after scanning my fridge and selecting ingredients, and setting relative things, I want to receive recipe suggestions based on these inputs, so that the app uses my current inventory to suggest relevant recipes. - 1</p>
+<p>Z6. As a user, I want to swipe left to skip the current recipe and move to the next one, so that I can quickly browse through recipes without wasting time on uninteresting ones. - 1</p>
+<p>Z7. As a user, I want to ensure that editing the ingredients list after scanning my fridge correctly updates, so that the recipes suggested are always relevant to the ingredients I have available. - 1</p>
+<p>Z8. As a user, I want to log out when I press the log out button on the menu, so that I can ensure my account remains secure when I'm not using the app. - 1</p>
+<p>Z9. As a user, I want to see Nutrients and HealthGoals when I press profile button, so that I can easily monitor my dietary achievements and goals. - 1</p>
+<p>Z10. As a user, I want to be able to use the menu to switch between the recipe recommendation page, dietary preferences, and health goal settings without losing my place or data, so that I can efficiently manage my preferences and view recipes without repetitive navigation. - 1</p>
+<p>Z11. As a user, after reviewing a recipe's detailed information from the swipe selection process, I want to navigate back to the swipe interface and have it remember my position in the recipe list, so that I can continue exploring recipes without having to start over. - 1</p>
+<h2 id="technologies">Technologies</h2>
+<p>Firebase: Back-End Development
+Firebase provides our app with a reliable and scalable back-end solution. It's ideal for managing user data, handling authentication, and storing recipe information efficiently.</p>
+<p>Flutter: Front-End Development
+We're using Flutter for front-end development, allowing us to create a visually appealing and responsive interface for our food app across multiple platforms with a single codebase.</p>
+<p>GPT API: Recipe and Image Generation
+The GPT API is integrated for its advanced AI capabilities, particularly in generating creative recipe suggestions and food-related content, enhancing the user experience with innovative features.</p>
+<h2 id="testing-strategy-and-frameworks">Testing Strategy and Frameworks</h2>
+<p>For this project, we are committed to adopting a Test-Driven Development (TDD) approach to ensure high-quality, reliable software. Our testing strategy encompasses a combination of powerful tools, including <em>flutter_test</em>, <em>mockito</em>, and <em>integration_test</em>.</p>
+<ul>
+<li>flutter_test
+<ul>
+<li>Flutter_test is the central component of our unit and widget testing. We can thoroughly test our Flutter widgets and underlying Dart functionality thanks to this framework. We make sure that every element works as intended, both separately and as a part of the larger user interface (UI), by simulating user interactions and validating widget behaviours in a controlled environment.</li>
+</ul>
+</li>
+<li>Mockito
+<ul>
+<li>We use mockito as an addition to our unit testing. With the help of this tool, we can easily create mock&nbsp;objects for our tests, which helps us to test and isolate particular components separately from external dependencies. This method improves the accuracy of our testing while also accelerating it.</li>
+</ul>
+</li>
+<li>Integration_test
+<ul>
+<li>For our integration testing requirements, we use integration_test. This framework helps us verify that the application functions smoothly overall and that all of its parts cooperate well&nbsp;from the user's point of view.</li>
+</ul>
+</li>
+</ul>
+<p>We will&nbsp;also utilise User-Driven Development (UDD) since we understand that not all functionalities lend themselves to automated testing, especially when working with external APIs like the GPT API. With this approach, we work closely with our users to collect input and iterate to improve features that are difficult to test the traditional way.</p>
+<p>In the development and testing phase of our Food AI project, we will also leverage emulators in Firebase, allowing our team to efficiently test and validate features before deploying to the cloud. Firebase emulators provide a convenient and cost-effective way to test and debug Firebase functionality.</p>
+<h2 id="use-case-diagram">Use Case Diagram</h2>
+<p><img src="assets/FOOD_AI_USE_CASE_DIAGRAMjpg.png" alt="Use Case Diagram"></p>
+<h2 id="context-diagram">Context Diagram</h2>
+<p><img src="assets/Food%20AI%20Context%20Diagram.PNG" alt="Context Diagram"></p>
+<h2 id="activity-diagram">Activity Diagram</h2>
+<p><img src="assets/FOOD_AI_ACTIVITY_DIAGRAM_SIGNUP.jpg" alt="Activity Diagram1"></p>
+<p><img src="assets/FOOD_AI_ACTIVITY_DIAGRAM_LOGIN.jpg" alt="Activity Diagram2"></p>
+<p><img src="assets/FOOD_AI_ACTIVITY_DIAGRAM_USER.jpg" alt="Activity Diagram3"></p>
+<p><img src="assets/Food%20AI%20Activity%20Diagram.png" alt="Activity Diagram4"></p>
+<h2 id="sequence-diagram">Sequence Diagram</h2>
+<p><img src="assets/FOOD_AI_SEQUENCE_DIAGRAM.png" alt="Sequence Diagram"></p>
+<h2 id="app-mockups">App Mockups</h2>
+<p><a href="https://xd.adobe.com/view/72e04895-bd2b-4dc1-b016-ba3df1bee1a2-27b3/?fullscreen">Link to AdobeXD Project</a>
+George Video</p>
+<h2 id="coding-and-maintainability-conventions">Coding and Maintainability Conventions</h2>
+<p>Throughout the project, we're going to keep the bar for readability and code quality high. We have decided to use the <a href="https://dart.dev/effective-dart/style">Google Dart Style Guide</a>. This manual offers thorough instructions for creating idiomatic, consistent, and understandable Dart code. It is recommended that all team members become acquainted with this style guide in order to maintain consistency throughout our codebase.</p>
+<p>Maintaining the integrity of our codebase is largely the responsibility of our Git administrator. Each merge request will be examined by them to ensure that our coding standards are being followed. This entails a careful examination for readability, consistency, and adherence to the Dart style guide.</p>
+<p>We plan to incorporate the Flutter linter into our development workflow in order to enhance our code quality assurance even more. Our code will be automatically examined by this tool to see if it complies with accepted coding standards and best practices.
+As a first line of defence, the linter will spot any possible problems and inconsistencies in our code. It will lessen the workload associated with manual code reviews and ensure a more seamless and effective development process by assisting us in identifying and fixing issues early in the development cycle.</p>
+<h2 id="accessibility">Accessibility</h2>
+<p>We wish for our project to be an easy way for anyone to come up with something to eat, and as a result, we will work hard to ensure that our application will have a high degree of accessibility. We intend to achieve this by following the <a href="https://www.w3.org/TR/WCAG22/">Web Content Acessibility Guidelines 2.2</a> which defines a set of standards that improve the quality of Web (and application) content for people with disabilities, including but not limited to visual, auditory, and physical. If time allows, we will implement features such as light/dark themes, alternate colour palettes for colourblind people, text-to-speech/speech-to-text functionality, and test a variety of screen readers on our application.</p>
+<h1 id="installation-manual">Installation Manual</h1>
+</section>
+
+
+      <section class="summary">
+          <h2>Libraries</h2>
+        <dl>
+          <dt id="api_call">
+  <span class="name"><a href="ImageDetection_api_call/ImageDetection_api_call-library.html">api_call</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="chatgpt_recipe">
+  <span class="name"><a href="API_chatgpt_recipe/API_chatgpt_recipe-library.html">chatgpt_recipe</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="chatgpt_recipe_interface">
+  <span class="name"><a href="API_chatgpt_recipe_interface/API_chatgpt_recipe_interface-library.html">chatgpt_recipe_interface</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="chatgpt_recipe_mock">
+  <span class="name"><a href="API_chatgpt_recipe_mock/API_chatgpt_recipe_mock-library.html">chatgpt_recipe_mock</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="colours">
+  <span class="name"><a href="Util_colours/Util_colours-library.html">colours</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="custom_app_bar">
+  <span class="name"><a href="Util_custom_app_bar/Util_custom_app_bar-library.html">custom_app_bar</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="custom_loading_circle">
+  <span class="name"><a href="LoadingScreen_custom_loading_circle/LoadingScreen_custom_loading_circle-library.html">custom_loading_circle</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="customer_drawer">
+  <span class="name"><a href="Util_customer_drawer/Util_customer_drawer-library.html">customer_drawer</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="data_util">
+  <span class="name"><a href="Util_data_util/Util_data_util-library.html">data_util</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="firebase_options">
+  <span class="name"><a href="ImageDetection_firebase_options/ImageDetection_firebase_options-library.html">firebase_options</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="firebase_options">
+  <span class="name"><a href="Util_firebase_options/Util_firebase_options-library.html">firebase_options</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="forgot_password_page">
+  <span class="name"><a href="LoginPages_forgot_password_page/LoginPages_forgot_password_page-library.html">forgot_password_page</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="gpt_api_recipe">
+  <span class="name"><a href="FullRecipeGeneration_gpt_api_recipe/FullRecipeGeneration_gpt_api_recipe-library.html">gpt_api_recipe</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="gpt_api_recipe_mock">
+  <span class="name"><a href="FullRecipeGeneration_gpt_api_recipe_mock/FullRecipeGeneration_gpt_api_recipe_mock-library.html">gpt_api_recipe_mock</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="health_goals">
+  <span class="name"><a href="SettingsPage_health_goals/SettingsPage_health_goals-library.html">health_goals</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="home_page">
+  <span class="name"><a href="LoginPages_home_page/LoginPages_home_page-library.html">home_page</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="image_fetcher">
+  <span class="name"><a href="API_image_fetcher/API_image_fetcher-library.html">image_fetcher</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="image_fetcher_interface">
+  <span class="name"><a href="API_image_fetcher_interface/API_image_fetcher_interface-library.html">image_fetcher_interface</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="image_fetcher_mock">
+  <span class="name"><a href="API_image_fetcher_mock/API_image_fetcher_mock-library.html">image_fetcher_mock</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="index_page">
+  <span class="name"><a href="LoginPages_index_page/LoginPages_index_page-library.html">index_page</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="ingredients">
+  <span class="name"><a href="IngredientVerification_ingredients/IngredientVerification_ingredients-library.html">ingredients</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="ingredients_editing">
+  <span class="name"><a href="IngredientVerification_ingredients_editing/IngredientVerification_ingredients_editing-library.html">ingredients_editing</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="initial_recipes">
+  <span class="name"><a href="Util_initial_recipes/Util_initial_recipes-library.html">initial_recipes</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="login_signup_page">
+  <span class="name"><a href="LoginPages_login_signup_page/LoginPages_login_signup_page-library.html">login_signup_page</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="main">
+  <span class="name"><a href="main/main-library.html">main</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="map_to_recipe_converter">
+  <span class="name"><a href="Util_map_to_recipe_converter/Util_map_to_recipe_converter-library.html">map_to_recipe_converter</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="menu_preferences">
+  <span class="name"><a href="MenuPages_menu_preferences/MenuPages_menu_preferences-library.html">menu_preferences</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="menu_settings">
+  <span class="name"><a href="MenuPages_menu_settings/MenuPages_menu_settings-library.html">menu_settings</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="mock_ingredients">
+  <span class="name"><a href="IngredientVerification_mock_ingredients/IngredientVerification_mock_ingredients-library.html">mock_ingredients</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="navigation_buttons">
+  <span class="name"><a href="Util_navigation_buttons/Util_navigation_buttons-library.html">navigation_buttons</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="Preferences">
+  <span class="name"><a href="SettingsPage_Preferences/SettingsPage_Preferences-library.html">Preferences</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="preferences">
+  <span class="name"><a href="SettingsPage_preferences/SettingsPage_preferences-library.html">preferences</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="recipe">
+  <span class="name"><a href="Entities_recipe/Entities_recipe-library.html">recipe</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="recipe_display_template">
+  <span class="name"><a href="Entities_recipe_display_template/Entities_recipe_display_template-library.html">recipe_display_template</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="recipe_overview">
+  <span class="name"><a href="FullRecipeGeneration_recipe_overview/FullRecipeGeneration_recipe_overview-library.html">recipe_overview</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="Settings">
+  <span class="name"><a href="SettingsPage_Settings/SettingsPage_Settings-library.html">Settings</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="settings">
+  <span class="name"><a href="SettingsPage_settings/SettingsPage_settings-library.html">settings</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="take_photo">
+  <span class="name"><a href="ImageDetection_take_photo/ImageDetection_take_photo-library.html">take_photo</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="tile_circle_painter">
+  <span class="name"><a href="LoadingScreen_tile_circle_painter/LoadingScreen_tile_circle_painter-library.html">tile_circle_painter</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="tinder_controller">
+  <span class="name"><a href="TinderMVC_tinder_controller/TinderMVC_tinder_controller-library.html">tinder_controller</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="tinder_model">
+  <span class="name"><a href="TinderMVC_tinder_model/TinderMVC_tinder_model-library.html">tinder_model</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="tinder_page">
+  <span class="name"><a href="TinderMVC_tinder_page/TinderMVC_tinder_page-library.html">tinder_page</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+          <dt id="tinder_view">
+  <span class="name"><a href="TinderMVC_tinder_view/TinderMVC_tinder_view-library.html">tinder_view</a></span> 
+
+</dt>
+<dd>
+</dd>
+
+        </dl>
+      </section>
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li class="self-crumb">food_ai_app package</li>
+</ol>
+
+
+    <h5 class="hidden-xs"><span class="package-name">food_ai_app</span> <span class="package-kind">package</span></h5>
+    <ol>
+      <li class="section-title">Libraries</li>
+      <li><a href="ImageDetection_api_call/ImageDetection_api_call-library.html">api_call</a></li>
+      <li><a href="API_chatgpt_recipe/API_chatgpt_recipe-library.html">chatgpt_recipe</a></li>
+      <li><a href="API_chatgpt_recipe_interface/API_chatgpt_recipe_interface-library.html">chatgpt_recipe_interface</a></li>
+      <li><a href="API_chatgpt_recipe_mock/API_chatgpt_recipe_mock-library.html">chatgpt_recipe_mock</a></li>
+      <li><a href="Util_colours/Util_colours-library.html">colours</a></li>
+      <li><a href="Util_custom_app_bar/Util_custom_app_bar-library.html">custom_app_bar</a></li>
+      <li><a href="LoadingScreen_custom_loading_circle/LoadingScreen_custom_loading_circle-library.html">custom_loading_circle</a></li>
+      <li><a href="Util_customer_drawer/Util_customer_drawer-library.html">customer_drawer</a></li>
+      <li><a href="Util_data_util/Util_data_util-library.html">data_util</a></li>
+      <li><a href="ImageDetection_firebase_options/ImageDetection_firebase_options-library.html">firebase_options</a></li>
+      <li><a href="Util_firebase_options/Util_firebase_options-library.html">firebase_options</a></li>
+      <li><a href="LoginPages_forgot_password_page/LoginPages_forgot_password_page-library.html">forgot_password_page</a></li>
+      <li><a href="FullRecipeGeneration_gpt_api_recipe/FullRecipeGeneration_gpt_api_recipe-library.html">gpt_api_recipe</a></li>
+      <li><a href="FullRecipeGeneration_gpt_api_recipe_mock/FullRecipeGeneration_gpt_api_recipe_mock-library.html">gpt_api_recipe_mock</a></li>
+      <li><a href="SettingsPage_health_goals/SettingsPage_health_goals-library.html">health_goals</a></li>
+      <li><a href="LoginPages_home_page/LoginPages_home_page-library.html">home_page</a></li>
+      <li><a href="API_image_fetcher/API_image_fetcher-library.html">image_fetcher</a></li>
+      <li><a href="API_image_fetcher_interface/API_image_fetcher_interface-library.html">image_fetcher_interface</a></li>
+      <li><a href="API_image_fetcher_mock/API_image_fetcher_mock-library.html">image_fetcher_mock</a></li>
+      <li><a href="LoginPages_index_page/LoginPages_index_page-library.html">index_page</a></li>
+      <li><a href="IngredientVerification_ingredients/IngredientVerification_ingredients-library.html">ingredients</a></li>
+      <li><a href="IngredientVerification_ingredients_editing/IngredientVerification_ingredients_editing-library.html">ingredients_editing</a></li>
+      <li><a href="Util_initial_recipes/Util_initial_recipes-library.html">initial_recipes</a></li>
+      <li><a href="LoginPages_login_signup_page/LoginPages_login_signup_page-library.html">login_signup_page</a></li>
+      <li><a href="main/main-library.html">main</a></li>
+      <li><a href="Util_map_to_recipe_converter/Util_map_to_recipe_converter-library.html">map_to_recipe_converter</a></li>
+      <li><a href="MenuPages_menu_preferences/MenuPages_menu_preferences-library.html">menu_preferences</a></li>
+      <li><a href="MenuPages_menu_settings/MenuPages_menu_settings-library.html">menu_settings</a></li>
+      <li><a href="IngredientVerification_mock_ingredients/IngredientVerification_mock_ingredients-library.html">mock_ingredients</a></li>
+      <li><a href="Util_navigation_buttons/Util_navigation_buttons-library.html">navigation_buttons</a></li>
+      <li><a href="SettingsPage_Preferences/SettingsPage_Preferences-library.html">Preferences</a></li>
+      <li><a href="SettingsPage_preferences/SettingsPage_preferences-library.html">preferences</a></li>
+      <li><a href="Entities_recipe/Entities_recipe-library.html">recipe</a></li>
+      <li><a href="Entities_recipe_display_template/Entities_recipe_display_template-library.html">recipe_display_template</a></li>
+      <li><a href="FullRecipeGeneration_recipe_overview/FullRecipeGeneration_recipe_overview-library.html">recipe_overview</a></li>
+      <li><a href="SettingsPage_Settings/SettingsPage_Settings-library.html">Settings</a></li>
+      <li><a href="SettingsPage_settings/SettingsPage_settings-library.html">settings</a></li>
+      <li><a href="ImageDetection_take_photo/ImageDetection_take_photo-library.html">take_photo</a></li>
+      <li><a href="LoadingScreen_tile_circle_painter/LoadingScreen_tile_circle_painter-library.html">tile_circle_painter</a></li>
+      <li><a href="TinderMVC_tinder_controller/TinderMVC_tinder_controller-library.html">tinder_controller</a></li>
+      <li><a href="TinderMVC_tinder_model/TinderMVC_tinder_model-library.html">tinder_model</a></li>
+      <li><a href="TinderMVC_tinder_page/TinderMVC_tinder_page-library.html">tinder_page</a></li>
+      <li><a href="TinderMVC_tinder_view/TinderMVC_tinder_view-library.html">tinder_view</a></li>
+</ol>
+
+  </div>
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div>
+
+</main>
+
+<footer>
+  <span class="no-break">
+    food_ai_app
+      1.0.0+1
+  </span>
+
+  
+</footer>
+
+
+
+<script src="static-assets/highlight.pack.js?v1"></script>
+<script src="static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+

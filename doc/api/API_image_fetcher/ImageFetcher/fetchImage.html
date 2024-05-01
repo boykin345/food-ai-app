@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the fetchImage method from the ImageFetcher class, for the Dart programming language.">
+  <title>fetchImage method - ImageFetcher class - image_fetcher library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">food_ai_app</a></li>
+    <li><a href="../../API_image_fetcher/API_image_fetcher-library.html">image_fetcher</a></li>
+    <li><a href="../../API_image_fetcher/ImageFetcher-class.html">ImageFetcher</a></li>
+    <li class="self-crumb">fetchImage method</li>
+  </ol>
+  <div class="self-name">fetchImage</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <div class="toggle" id="theme-button">
+    <label for="theme">
+      <input type="checkbox" id="theme" value="light-theme">
+      <span id="dark-theme-button" class="material-symbols-outlined">
+        brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
+      </span>
+    </label>
+  </div>
+</header>
+<main>
+
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="API_image_fetcher&#47;ImageFetcher-class-sidebar.html"
+      data-below-sidebar="">
+      <div>
+<h1><span class="kind-method">fetchImage</span> method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+  <div>
+    <ol class="annotation-list">
+        <li>@<a href="https://api.flutter.dev/flutter/dart-core/override-constant.html">override</a></li>
+    </ol>
+  </div>
+
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span></span>
+<span class="name ">fetchImage</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="fetchImage-param-query"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">query</span></span></li>
+</ol>)
+
+      <div class="features"><span class="feature">override</span></div>
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Fetches an image URL from an external API based on the provided <code>query</code>.
+This method cycles through different API endpoints and keys by using a static
+counter to select an index, which is used to choose the URL and key from the lists.</p>
+<p>Returns a <a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future&lt;String&gt;</a> that resolves to the URL of the fetched image.
+If the request is successful and the image data is found in the response, the image URL is returned.</p>
+<p>Throws an <a href="https://api.flutter.dev/flutter/dart-core/Exception-class.html">Exception</a> if the request fails or if the image data is not found in the API response.</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">@override
+Future&lt;String&gt; fetchImage(String query) async {
+  final int index = counter % urls.length;
+  final url = Uri.parse(urls[index]);
+  final apiKey = apiKeys[index];
+  print(url);
+  counter++;
+
+  http.Response response;
+  do {
+    response = await http.post(
+      url,
+      headers: {&#39;Content-Type&#39;: &#39;application&#47;json&#39;, &#39;api-key&#39;: apiKey},
+      body: jsonEncode({
+        &quot;model&quot;: &quot;marco-dalle&quot;,
+        &quot;prompt&quot;: &quot;&lt;Generate me a realistic looking image of a $query&gt;&quot;,
+        &quot;n&quot;: 1
+      }),
+    );
+  } while (response.statusCode != 200);
+
+  if (response.statusCode == 200) {
+    final imageUrl = jsonDecode(response.body)[&#39;data&#39;][0][&#39;url&#39;] as String;
+    &#47;&#47; Fetch the image data from the URL
+    final imageResponse = await http.get(Uri.parse(imageUrl));
+    if (imageResponse.statusCode == 200) {
+      &#47;&#47; Convert the image data to base64
+      final base64Image = base64Encode(imageResponse.bodyBytes);
+      return base64Image;
+    } else {
+      throw Exception(&#39;Failed to fetch image data&#39;);
+    }
+  } else {
+    print(response.body);
+    throw Exception(&#39;Failed to generate image&#39;);
+  }
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">food_ai_app</a></li>
+    <li><a href="../../API_image_fetcher/API_image_fetcher-library.html">image_fetcher</a></li>
+    <li><a href="../../API_image_fetcher/ImageFetcher-class.html">ImageFetcher</a></li>
+    <li class="self-crumb">fetchImage method</li>
+</ol>
+
+
+    <h5>ImageFetcher class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    food_ai_app
+      1.0.0+1
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+
+
+</body>
+
+</html>
+
