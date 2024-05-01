@@ -18,6 +18,8 @@ void main() async {
 ///
 /// This widget sets up the theme and routing based on the Firebase authentication state.
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
