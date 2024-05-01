@@ -30,7 +30,7 @@ and select the Windows operating system.
 
 - Next, download the EXE from the website and once finished downloading, run the EXE, and follow the instructions it provides, once you get to this screenshot, please ensure you tick the box “Add bin folder to the PATH” under “Update PATH Variable (restart needed) as this is essential for running the code in a terminal. 
 
-[Image Link]()
+![Image Link](../assets/intellij-pic.png)
  
 
 - You may select any of the other options as well that you feel like you would like, but they are not essential. Once you are happy simply continue with the setup wizard until the installation is finished. 
@@ -41,7 +41,7 @@ and select the Windows operating system.
 
 - Once you see a window like in the screenshot below, click on plugins on the left of the application. 
 
-[Image Link]()
+![Image Link](../assets/intellij-home.png)
 
 - Then click on marketplace and search for Flutter and click download once completed, then search for Dart and click download and this should finish off setting up the pre requirements for running the group’s code.
 
