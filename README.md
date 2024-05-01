@@ -1,239 +1,70 @@
 # Food AI Brief
 
-## Introduction
-**Team 31's Food AI Project**
-
 Have you ever found yourself looking inside your fridge trying to figure out what to eat? Our Food AI project aims to deal with this age-old issue with generative AI packaged in an easy-to-use yet feature-rich mobile application.
 
-**How it Works:**
+## Installation
 
-Generate recipes that the user will like in only four simple steps:
+Feel free to pick an integrated development environment (IDE) of your choosing, as many options widely available for mobile development should in theory work, but we would recommend one of the following, due to extensive support for mobile development and the inclusion of powerful mobile emulators: 
 
-1. Set up your preferences, allergies, etc., and tell the app what cooking equipment you have.
+- Android Studio 
 
-2. Take a photo of your fridge, and an image detection component will help identify possible ingredients.
+- IntelliJ IDEA  
 
-3. Watch as recipes are generated for you.
+The aforementioned IDEs were the ones used in the development of the Food AI Brief Project and functioned well. This installation guide will focus on IntelliJ IDEA on a Windows operating system. 
 
-4. Swipe left if you're not interested or swipe right if you're feeling hungry, and the recipe will be shown to you in its full glory.
+#### Installing Flutter + Dart: 
 
-**Goals:**
+Flutter already has an amazing guide on how to install it, so I will guide the first couple of steps and then you just need to follow the instructions on the website. When downloading flutter, it will also download Dart along with it. 
 
-- User-friendly user interface
-- Accessibility options and testing
-- Recipe saving and organisation
-- Safe, diverse, and high-quality recipes with detailed instructions and warnings
-- Personalisation and fine-tuning of recipes and user settings
-- Social media integration
-- CI/CD pipeline
+- Firstly, go to this website:
 
-## User Stories
-Below are the user stories that we will be using for our product backlog. We have given codes at the start of each user story so that they can be tracked across the various diagrams that we have made. At the end of each user story, there is also a rating which tells us how hard it will be to complete that specific task.
+ [https://docs.flutter.dev/get-started/install](https://docs.flutter.dev/get-started/install)
 
-Favoriting Recipes
+and select the Windows operating system. 
 
-A1. As an app user, I want to click on a star icon to add a recipe to my favourites, so that I can quickly access my preferred recipes without searching for them again. - 1
+- Next, select Android and it should bring up a page with the title of “Start building Flutter Android apps on Windows”, simply follow these steps from now on until the installation is completed. There are a couple of different ways to install it, so you can pick which method best suits you. 
+ 
+#### Installing IntelliJ IDEA: 
 
-A2. As an app user, I want to view my favourites on the homepage, so that I can quickly access my preferred recipes without searching for them again. - 1
+- Firstly, go to [https://www.jetbrains.com/idea/download/?section=windows](https://www.jetbrains.com/idea/download/?section=windows) and select the Windows platform (you may wish to select a different operating system such as macOS or Linux, but this guide is done using a Windows operating system, so it may change slightly). 
 
-A3. As an app user, I want to click on my favourites and view the full recipe, so that I can see all the details of my recipe. - 1
+- Next, download the EXE from the website and once finished downloading, run the EXE, and follow the instructions it provides, once you get to this screenshot, please ensure you tick the box “Add bin folder to the PATH” under “Update PATH Variable (restart needed) as this is essential for running the code in a terminal. 
 
-A4. As a developer, I want a function which can take objects returned from firebase for a recipe, and convert it into a recipe object, so that I can call that function anytime I need to display things on the homepage more easily. - 1
+[Image Link]()
+ 
 
-[- Removed -]A2. As an app user, I want to view my list of favourited recipes in a separate tab so that I can have a dedicated space for recipes I love and plan to make often. - 1
+- You may select any of the other options as well that you feel like you would like, but they are not essential. Once you are happy simply continue with the setup wizard until the installation is finished. 
 
-[- Removed -]A3. As an app user, I want to be able to sort my favourited recipes by cuisine, cooking time, and other filters so that I can organise my favourites based on my current cooking preferences or time constraints. - 2
+- Now you should be able to start IntelliJ IDEA for the first time. If you have any trouble setting up the installation, then feel free to also look at this website as it is the official download guide that everyone who used IntelliJ IDEA in our group used under the Standalone installation section 
 
----
-[- Removed -]Sharing Recipes
+ [https://www.jetbrains.com/help/idea/installation-guide.html#standalone](https://www.jetbrains.com/help/idea/installation-guide.html#standalone) 
 
-[- Removed -]B1. As an app user, I want to press a share button to send a recipe link via text, email, or social media so that I can easily share my culinary finds with friends and family.  - 3
+- Once you see a window like in the screenshot below, click on plugins on the left of the application. 
 
-[- Removed -]B2. As an app user, I want to include a personal note or comment when sharing a recipe, to add a personal touch or specific thoughts when recommending the recipe to others. - 1
+[Image Link]()
 
----
-Settings Personalisation
+- Then click on marketplace and search for Flutter and click download once completed, then search for Dart and click download and this should finish off setting up the pre requirements for running the group’s code.
 
-C1. As an app user, I want to select dietary preferences in my profile settings (e.g., vegetarian, gluten-free) so that the recipes I browse are aligned with my dietary needs. - 1
+## Usage
 
-C2. As an app user, I want to input my health goals (e.g., weight loss, muscle gain), so the app can recommend recipes that support my fitness and health objectives. - 1
+Firstly, go to the git repository: 
+ [https://projects.cs.nott.ac.uk/comp2002/2023-2024/team31_project](https://projects.cs.nott.ac.uk/comp2002/2023-2024/team31_project)  
+and download the source code for or clone our project. 
 
----
-Account Registration
+- Next, open the project in IntelliJ IDEA. 
 
-D1. As an app user, I want to sign up using my email or ~~social media accounts~~ for quick registration to minimise the time and effort required to start using the app. - 1 
+- Now open the terminal and run the following two commands: 
 
-D2. As an app user, I want to choose a unique username for my profile on the app so I can be easily recognised by friends. - 1
+```
+flutter pub get
+```
+```
+flutter pub upgrade
+```
+  
 
-[- Removed -]D3. As an app user, I want to have a multi-factor authentication option for increased security to ensure my personal information and account details are well-protected.  - 1
+- After, go to the top right of IntelliJ IDEA and where it says, “No device selected”, click on it and select “Chrome (Web)” and press start by clicking on the green arrow. 
 
-D4. As an app user, I want to sign in using my email or ~~social media account~~ for quick login access to minimise the time and effort required to use the app regularly. - 2
+## License
 
-D5. As an app user, I want the ability to reset my password so that I can regain access to my account when I forget my password. - 2
-
----
-Fridge Snapshot
-
-E1. As an app user, I want to open my camera from within the app to take a picture of my fridge, so that the app can help me keep track of my current ingredients and suggest recipes accordingly. - 2
-
----
-Ingredient Verification
-
-F1. As an app user, I want to review a list of ingredients identified from my fridge snapshot so I can ensure the inventory is correct before recipes are suggested. - 2  
-
-F2. As an app user, I want to manually add or remove ingredients if the recognition is incorrect to maintain accurate ingredient tracking. - 1
-
-F3. As an app user, I want the option to confirm the final list before it affects recipe suggestions to have full control over the ingredient list used for recipe discovery. - 1
-
----
-Customise Recipe Settings
-
-G1. As an app user, I want to adjust my settings related to allergies, cooking times, difficulty levels, portion sizes, and required utensils so that I can receive recipe suggestions tailored to my specific needs and circumstances. - 1
-
----
-[- Removed -]Discover Similar Recipes
-
-[- Removed -]H1. As an app user, I want to see a "Similar Recipes" section on the homepage to explore new recipes that align with my taste preferences and expand my culinary repertoire. - 5
-
----
-Meal/Tinder Selection
-
-I1. As an app user, I want to swipe right or left to like or dislike meal options to quickly curate my meal plan and discover new recipes that match my taste. - 8
-
-I2. As an app user, I want to see a thumbnail image of the recipe along with the title and a short description to make an informed decision while swiping through the options. - 8
-
-I3. As an app user, I want to see a loading screen when the recipes are generating so I know that the app is working and not frozen - 2
-
----
-Recipe Overview
-
-J1. As an app user, I want to tap on the recipe overview to expand to a full description to better understand the dish before deciding to prepare it. - 2
-
----
-Detailed Recipe Information
-
-K1. As an app user, I want to have step-by-step instructions for each recipe so that I can follow along easily without missing any critical steps in the cooking process. - 1
-
-K2. As an app user, I want a complete list of ingredients for each recipe so that I can ensure I have everything I need before starting to cook. - 1
-
-K3. As an app user, I want to see a high-quality image of the finished dish for each recipe so that I know what the final product should look like and can be inspired by its presentation. - 1
-
-K4. As an app user, I want to see a difficulty rating for each recipe so that I can choose recipes that match my cooking skill level. - 1
-
-K5. As an app user, I want to see the estimated preparation and cooking time for each recipe so that I can manage my time effectively and choose recipes that fit my schedule. - 1
-
-K6. As an app user, I want a list of required utensils for each recipe so that I can prepare my kitchen tools in advance and ensure I have the necessary equipment. - 1
-
-K7. As an app user, I want to see allergen information for each recipe so that I can avoid dishes that contain ingredients I am allergic to. - 1
-
-K8. As an app user, I want to know the portion sizes for each recipe so that I can plan meals according to the number of people I'm serving or for my own dietary needs. - 1
-
-K9. As an app user, I want detailed nutritional information for each recipe so that I can track my dietary intake and choose recipes that align with my health goals. - 1
-
----
-User Landing Page
-
-L1. As an app user, I expect a user-friendly interface to access the signup page, so I can easily follow the provided instructions to sign up to the app. - 1
-
-L2. As an app user, I expect a user-friendly interface to access the login page, so I can easily follow the provided instructions to log in to and access the app. - 1
-
----
-Home Page
-
-M1. As an app user, I want to see some base recipes on the homepage, so that I can look at the kind of options that are available to me when I am new to the app. - 1
-
-M2. As a developer, I want to create an initialiser function for recipes to be shown on the homapage, such that I don't need to call them individually each time and cause more work. - 1
-
----
-Navigation
-
-N1. As an app user, I want to be able to see a hamburger menu, so that I can navigate between pages more easily. - 1
-
-N2. As an app user, I want to be able to see an accounts icon, so that I can navigate to the settings page more easily. - 1
-
----
-Integration Testing
-
-
-Z1. As a user, I want to navigate from the login screen directly to the homepage after successfully logging in, so that I can access recipes immediately. - 1
-
-Z2. As a user, I want to select a recipe from the homepage and be able to see its full details, including ingredients and preparation steps, so that I can understand how to prepare the dish. - 1
-
-Z3. As a user, during the recipe Tinder process, I want to ensure that swiping right on a recipe leads me to a detailed overview of that recipe, so that I can explore it further. - 1
-
-Z4. As a user, I want to return to the homepage from any page within the app by using a dedicated home button or gesture, so that I can easily access the main menu and other features. - 1
-
-Z5. As a user, after scanning my fridge and selecting ingredients, and setting relative things, I want to receive recipe suggestions based on these inputs, so that the app uses my current inventory to suggest relevant recipes. - 1
-
-Z6. As a user, I want to swipe left to skip the current recipe and move to the next one, so that I can quickly browse through recipes without wasting time on uninteresting ones. - 1
-
-Z7. As a user, I want to ensure that editing the ingredients list after scanning my fridge correctly updates, so that the recipes suggested are always relevant to the ingredients I have available. - 1
-
-Z8. As a user, I want to log out when I press the log out button on the menu, so that I can ensure my account remains secure when I'm not using the app. - 1
-
-Z9. As a user, I want to see Nutrients and HealthGoals when I press profile button, so that I can easily monitor my dietary achievements and goals. - 1
-
-Z10. As a user, I want to be able to use the menu to switch between the recipe recommendation page, dietary preferences, and health goal settings without losing my place or data, so that I can efficiently manage my preferences and view recipes without repetitive navigation. - 1
-
-Z11. As a user, after reviewing a recipe's detailed information from the swipe selection process, I want to navigate back to the swipe interface and have it remember my position in the recipe list, so that I can continue exploring recipes without having to start over. - 1
-
-
-
-## Technologies
-Firebase: Back-End Development
-Firebase provides our app with a reliable and scalable back-end solution. It's ideal for managing user data, handling authentication, and storing recipe information efficiently.
-
-Flutter: Front-End Development
-We're using Flutter for front-end development, allowing us to create a visually appealing and responsive interface for our food app across multiple platforms with a single codebase.
-
-GPT API: Recipe and Image Generation
-The GPT API is integrated for its advanced AI capabilities, particularly in generating creative recipe suggestions and food-related content, enhancing the user experience with innovative features.
-
-## Testing Strategy and Frameworks
-For this project, we are committed to adopting a Test-Driven Development (TDD) approach to ensure high-quality, reliable software. Our testing strategy encompasses a combination of powerful tools, including *flutter_test*, *mockito*, and *integration_test*.
-
-- flutter_test
-    - Flutter_test is the central component of our unit and widget testing. We can thoroughly test our Flutter widgets and underlying Dart functionality thanks to this framework. We make sure that every element works as intended, both separately and as a part of the larger user interface (UI), by simulating user interactions and validating widget behaviours in a controlled environment.
-- Mockito
-    - We use mockito as an addition to our unit testing. With the help of this tool, we can easily create mock objects for our tests, which helps us to test and isolate particular components separately from external dependencies. This method improves the accuracy of our testing while also accelerating it.
-- Integration_test
-    - For our integration testing requirements, we use integration_test. This framework helps us verify that the application functions smoothly overall and that all of its parts cooperate well from the user's point of view.
-
-We will also utilise User-Driven Development (UDD) since we understand that not all functionalities lend themselves to automated testing, especially when working with external APIs like the GPT API. With this approach, we work closely with our users to collect input and iterate to improve features that are difficult to test the traditional way.
-
-In the development and testing phase of our Food AI project, we will also leverage emulators in Firebase, allowing our team to efficiently test and validate features before deploying to the cloud. Firebase emulators provide a convenient and cost-effective way to test and debug Firebase functionality.
-
-## Use Case Diagram
-![Use Case Diagram](assets/FOOD_AI_USE_CASE_DIAGRAMjpg.png)
-
-## Context Diagram
-![Context Diagram](assets/Food%20AI%20Context%20Diagram.PNG)
-
-## Activity Diagram
-![Activity Diagram1](assets/FOOD_AI_ACTIVITY_DIAGRAM_SIGNUP.jpg)
-
-![Activity Diagram2](assets/FOOD_AI_ACTIVITY_DIAGRAM_LOGIN.jpg)
-
-![Activity Diagram3](assets/FOOD_AI_ACTIVITY_DIAGRAM_USER.jpg)
-
-![Activity Diagram4](assets/Food%20AI%20Activity%20Diagram.png)
-
-## Sequence Diagram
-![Sequence Diagram](assets/FOOD_AI_SEQUENCE_DIAGRAM.png)
-
-## App Mockups
-[Link to AdobeXD Project](https://xd.adobe.com/view/72e04895-bd2b-4dc1-b016-ba3df1bee1a2-27b3/?fullscreen)
-George Video
-
-## Coding and Maintainability Conventions
-Throughout the project, we're going to keep the bar for readability and code quality high. We have decided to use the [Google Dart Style Guide](https://dart.dev/effective-dart/style). This manual offers thorough instructions for creating idiomatic, consistent, and understandable Dart code. It is recommended that all team members become acquainted with this style guide in order to maintain consistency throughout our codebase.
-
-Maintaining the integrity of our codebase is largely the responsibility of our Git administrator. Each merge request will be examined by them to ensure that our coding standards are being followed. This entails a careful examination for readability, consistency, and adherence to the Dart style guide.
-
-We plan to incorporate the Flutter linter into our development workflow in order to enhance our code quality assurance even more. Our code will be automatically examined by this tool to see if it complies with accepted coding standards and best practices.
-As a first line of defence, the linter will spot any possible problems and inconsistencies in our code. It will lessen the workload associated with manual code reviews and ensure a more seamless and effective development process by assisting us in identifying and fixing issues early in the development cycle.
-
-## Accessibility
-We wish for our project to be an easy way for anyone to come up with something to eat, and as a result, we will work hard to ensure that our application will have a high degree of accessibility. We intend to achieve this by following the [Web Content Acessibility Guidelines 2.2](https://www.w3.org/TR/WCAG22/) which defines a set of standards that improve the quality of Web (and application) content for people with disabilities, including but not limited to visual, auditory, and physical. If time allows, we will implement features such as light/dark themes, alternate colour palettes for colourblind people, text-to-speech/speech-to-text functionality, and test a variety of screen readers on our application.
-
-# Installation Manual
+[MIT](https://choosealicense.com/licenses/mit/)
