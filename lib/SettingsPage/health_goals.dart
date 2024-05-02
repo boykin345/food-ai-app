@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../Util/colours.dart';
-import '../Util/custom_app_bar.dart';
+import 'package:food_ai_app/Util/colours.dart';
+import 'package:food_ai_app/Util/custom_app_bar.dart';
 
 /// Controller for text field where user's can enter thier goals for protein
 final TextEditingController proteinController = TextEditingController();
@@ -58,20 +58,20 @@ class GoalScreenState extends State<HealthGoalScreen> {
   ///
   /// This method checks if the 'healthGoals' field exists for the current user in the Firestore database.
   /// If it doesn't, it initializes the field with default values such as "Gain Muscle" and "Lose Weight".
-  void initializeHealthGoals() async {
-    var personalisationDocRef = firestore
+  Future<void> initializeHealthGoals() async {
+    final personalisationDocRef = firestore
         .collection('users')
         .doc(user?.uid)
         .collection('Personalisation')
         .doc('Personalisation');
 
     /// snapshot of the user's halth goals that are stored in Firebase
-    var docSnapshot = await personalisationDocRef.get();
+    final docSnapshot = await personalisationDocRef.get();
 
     // Check if the document exists
     if (docSnapshot.exists) {
       /// Document exists, now check if 'healthGoals' field exists
-      var data = docSnapshot.data();
+      final data = docSnapshot.data();
       if (data != null && !data.containsKey('healthGoals')) {
         // 'healthGoals' field doesn't exist, initialize it
         await personalisationDocRef.update({
@@ -90,9 +90,9 @@ class GoalScreenState extends State<HealthGoalScreen> {
   ///
   /// This method queries the Firestore database for the current user's health goals and updates
   /// the local [healthGoals] list with the fetched values.
-  void fetchHealthGoals() async {
+  Future<void> fetchHealthGoals() async {
     /// Snapshot of the document containing the user's health goals.
-    DocumentSnapshot userSnapshot = await firestore
+    final DocumentSnapshot userSnapshot = await firestore
         .collection('users')
         .doc(user?.uid)
         .collection('Personalisation')
@@ -100,7 +100,7 @@ class GoalScreenState extends State<HealthGoalScreen> {
         .get();
     setState(() {
       ///Gets the user's data as a snapshot
-      var userData = userSnapshot.data() as Map<String, dynamic>?;
+      final userData = userSnapshot.data() as Map<String, dynamic>?;
       if (userData != null) {
         if (userData['healthGoals'] is List<dynamic>) {
           healthGoals =
@@ -110,16 +110,16 @@ class GoalScreenState extends State<HealthGoalScreen> {
         }
         if (userData['activeHealthGoals'] is List<dynamic>) {
           // Initialize checkedHealthGoals based on activehealthGoals
-          List<String> activehealthGoals =
+          final List<String> activehealthGoals =
               (userData['activeHealthGoals'] as List<dynamic>).cast<String>();
-          healthGoals.forEach((preference) {
+          for (final preference in healthGoals) {
             checkedHealthGoals[preference] =
                 activehealthGoals.contains(preference);
-          });
+          }
         } else {
-          healthGoals.forEach((preference) {
+          for (final preference in healthGoals) {
             checkedHealthGoals[preference] = false;
-          });
+          }
         }
 
         // Load nutrient values into TextControllers
@@ -240,7 +240,6 @@ class GoalScreenState extends State<HealthGoalScreen> {
             Row(
               children: <Widget>[
                 Expanded(
-                  flex: 1, // Takes 1/3 of the row space
                   child: Text('Protein (g)',
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold)),
@@ -257,7 +256,6 @@ class GoalScreenState extends State<HealthGoalScreen> {
                           fontSize: 18)),
                 ),
                 Expanded(
-                  flex: 1, // Takes 1/3 of the row space
                   child: Text('Fat (g)',
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold)),
@@ -279,7 +277,6 @@ class GoalScreenState extends State<HealthGoalScreen> {
             Row(
               children: <Widget>[
                 Expanded(
-                  flex: 1, // Takes 1/3 of the row space
                   child: Text('Carbs (g)',
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold)),
@@ -296,7 +293,6 @@ class GoalScreenState extends State<HealthGoalScreen> {
                           fontSize: 18)),
                 ),
                 Expanded(
-                  flex: 1, // Takes 1/3 of the row space
                   child: Text('Fibre (g)',
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold)),
@@ -319,7 +315,6 @@ class GoalScreenState extends State<HealthGoalScreen> {
             Row(
               children: <Widget>[
                 Expanded(
-                  flex: 1, // Takes 1/3 of the row space
                   child: Text('Calories (cal)',
                       style: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold)),
@@ -348,7 +343,7 @@ class GoalScreenState extends State<HealthGoalScreen> {
               child: ListView.builder(
                 itemCount: healthGoals.length,
                 itemBuilder: (context, index) {
-                  String currentPreference = healthGoals[index];
+                  final String currentPreference = healthGoals[index];
                   return CheckboxListTile(
                     title: Text(
                         style: TextStyle(

@@ -12,7 +12,7 @@ class AuthUtil {
   /// Will return an instance of the user if they exist, otherwise it will return user as null.
   static Future<User?> login(String email, String password) async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+      final UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
       print("Error: logging in: $e");
@@ -26,7 +26,7 @@ class AuthUtil {
   /// Will return an instance of the newly created user if successful, otherwise it will return user as null.
   static Future<User?> signUp(String email, String password) async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+      final UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
       return userCredential.user;
     } catch (e) {
       print("Error: signing up: $e");
@@ -74,7 +74,7 @@ class DataUtil {
   /// Returns `false` if the email is available, otherwise if the email is taken it will return `true`.
   static Future<bool> emailAlreadyTaken(String email) async {
     try {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+      final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('users')
           .where('email', isEqualTo: email)
           .get();
@@ -91,7 +91,7 @@ class DataUtil {
   /// Returns `false` if the username is available, otherwise if the username is taken it will return `true`.
   static Future<bool> usernameAlreadyTaken(String username) async {
     try {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+      final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('users')
           .where('username', isEqualTo: username)
           .get();
@@ -127,17 +127,17 @@ class DataUtil {
   /// Takes in one input [userId] which is the username of the user.
   /// Returns a list of recipes in a map format
   static Future<List<Map<String, dynamic>>> getUserRecipes(String userId) async {
-    List<Map<String, dynamic>> recipes = [];
+    final List<Map<String, dynamic>> recipes = [];
 
     try {
-      QuerySnapshot userSnapshot = await FirebaseFirestore.instance
+      final QuerySnapshot userSnapshot = await FirebaseFirestore.instance
           .collection('users')
           .doc(userId)
           .collection('recipes')
           .get();
 
-      userSnapshot.docs.forEach((doc) {
-        Map<String, dynamic> recipeData = {
+      for (final doc in userSnapshot.docs) {
+        final Map<String, dynamic> recipeData = {
           'recipeName': doc['recipeName'],
           'calories': doc['calories'],
           'prepTime': doc['prepTime'],
@@ -148,7 +148,7 @@ class DataUtil {
           'imageURL': doc['imageURL'],
         };
         recipes.add(recipeData);
-      });
+      }
     } catch (e) {
       print('Error: getUserRecipes: $e');
     }

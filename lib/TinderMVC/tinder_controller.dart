@@ -4,7 +4,7 @@ import 'package:food_ai_app/API/image_fetcher_interface.dart';
 import 'package:food_ai_app/TinderMVC/tinder_model.dart';
 import 'package:food_ai_app/TinderMVC/tinder_view.dart';
 
-import '../FullRecipeGeneration/recipe_overview.dart';
+import 'package:food_ai_app/FullRecipeGeneration/recipe_overview.dart';
 
 /// Controls the interaction between the model and view in the recipe app.
 class TinderController {
@@ -68,16 +68,16 @@ class TinderController {
     // Start the stopwatch
     final stopwatch = Stopwatch()..start();
 
-    List<Future<void>> tasks = List.generate(threadCount, (_) async {
+    final List<Future<void>> tasks = List.generate(threadCount, (_) async {
       // Fetch recipe asynchronously
-      String description = await gptApiClient.fetchRecipe();
+      final String description = await gptApiClient.fetchRecipe();
       print("Recipe fetched");
 
       // Extract first line for image fetch
-      String firstLine = extractFirstLineFromString(description);
+      final String firstLine = extractFirstLineFromString(description);
 
       // Fetch image asynchronously
-      String image = await imageFetcherClient.fetchImage(firstLine);
+      final String image = await imageFetcherClient.fetchImage(firstLine);
       print("Image fetched");
 
       // Combine recipe and image

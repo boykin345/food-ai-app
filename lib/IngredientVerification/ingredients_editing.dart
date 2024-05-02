@@ -6,10 +6,10 @@ import 'package:food_ai_app/IngredientVerification/ingredients.dart';
 import 'package:food_ai_app/IngredientVerification/mock_ingredients.dart';
 import 'package:food_ai_app/SettingsPage/Settings.dart';
 
-import '../Util/colours.dart';
-import '../Util/custom_app_bar.dart';
-import '../Util/customer_drawer.dart';
-import '../Util/navigation_buttons.dart';
+import 'package:food_ai_app/Util/colours.dart';
+import 'package:food_ai_app/Util/custom_app_bar.dart';
+import 'package:food_ai_app/Util/customer_drawer.dart';
+import 'package:food_ai_app/Util/navigation_buttons.dart';
 
 /// A StatefulWidget that provides a UI for viewing and managing a list of ingredients.
 ///

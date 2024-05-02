@@ -44,7 +44,7 @@ void main() {
       expect(tinderModel.getRecipeDescription(),
           equals(mockChatGPTRecipeInterface.description0));
 
-      final imageBase64 = await tinderModel.getRecipeImage();
+      final imageBase64 = tinderModel.getRecipeImage();
       expect(imageBase64, isNotEmpty);
     });
 
