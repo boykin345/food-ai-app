@@ -199,6 +199,7 @@ class GoalScreenState extends State<HealthGoalScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colours.primary,
       appBar: CustomAppBar(),
       body: Padding(
@@ -386,6 +387,42 @@ class GoalScreenState extends State<HealthGoalScreen> {
                   );
                 },
               ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                /// Reads and stores value from protein controller and stores
+                final String protein = proteinController.text;
+
+                /// Reads and stores value from carbs  controller and stores
+                final String carbs = carbsController.text;
+
+                /// Reads and stores value from fat controller and stores
+                final String fats = fatController.text;
+
+                /// Reads and stores value from fibre controller and stores
+                final String fibre = fibreController.text;
+
+                /// Reads and stores value from calorie controller and stores
+                final String calorie = calorieController.text;
+
+                /// updates the user's database with he necessary. 
+                firestore
+                    .collection('users')
+                    .doc(user?.uid)
+                    .collection('Personalisation')
+                    .doc('Personalisation')
+                    .update({
+                  'Protein': protein,
+                  'Carbs': carbs,
+                  'Fats': fats,
+                  'Fibre': fibre,
+                  'Calories': calorie,
+                });
+              },
+              child: Text(
+                  style: TextStyle(
+                      color: Color(0xFF272E3B), fontWeight: FontWeight.bold),
+                  'Save'),
             ),
           ],
         ),

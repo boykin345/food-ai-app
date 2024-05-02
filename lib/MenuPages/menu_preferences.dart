@@ -163,6 +163,7 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Color(0xFF272E3B),
       appBar: CustomAppBar(),
       body: Padding(
