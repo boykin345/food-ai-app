@@ -1,11 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:food_ai_app/LoginPages/login_signup_page.dart';
-import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
-import 'package:food_ai_app/Util/data_util.dart';
 
 void main() {
   testWidgets(
@@ -233,7 +229,7 @@ void main() {
     await tester.enterText(usernameTextField, 'username');
 
     // Find the email TextField on the signup page.
-    final emailTextField = find.byKey(Key('emailTextField'));
+    // final emailTextField = find.byKey(Key('emailTextField'));
     expect(usernameTextField, findsOneWidget);
 
     // Clicks on the submit button.

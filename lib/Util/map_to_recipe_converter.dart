@@ -25,9 +25,9 @@ class MapToRecipeConverter {
   ///   - [userId]: A [String] representing the unique ID of the user for whom to fetch recipes.
   /// - Returns: A [Future] that resolves to a [List<Recipe>] containing all converted recipes.
   static Future<List<Recipe>> getRecipesAsObjects(String userId) async {
-    List<Map<String, dynamic>> recipeMaps =
+    final List<Map<String, dynamic>> recipeMaps =
         await DataUtil.getUserRecipes(userId);
-    List<Recipe> recipes = recipeMaps.map((map) => mapToRecipe(map)).toList();
+    final List<Recipe> recipes = recipeMaps.map((map) => mapToRecipe(map)).toList();
     return recipes;
   }
 }

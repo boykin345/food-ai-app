@@ -47,9 +47,9 @@ class Recipe {
   /// Returns a list of maps, where each map represents a recipe that matches the specified category.
   static List<Map<String, dynamic>> sortCategory(
       List<Map<String, dynamic>> recipes, String category) {
-    List<Map<String, dynamic>> sortedRecipes = [];
+    final List<Map<String, dynamic>> sortedRecipes = [];
 
-    for (var recipe in recipes) {
+    for (final recipe in recipes) {
       if (recipe['category'] == category) {
         sortedRecipes.add(recipe);
       }

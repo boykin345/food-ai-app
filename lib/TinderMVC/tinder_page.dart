@@ -6,10 +6,10 @@ import 'package:food_ai_app/API/image_fetcher_interface.dart';
 import 'package:food_ai_app/TinderMVC/tinder_controller.dart';
 import 'package:food_ai_app/TinderMVC/tinder_model.dart';
 
-import '../API/chatgpt_recipe.dart';
-import '../API/image_fetcher.dart';
-import '../LoadingScreen/custom_loading_circle.dart';
-import '../Util/colours.dart';
+import 'package:food_ai_app/API/chatgpt_recipe.dart';
+import 'package:food_ai_app/API/image_fetcher.dart';
+import 'package:food_ai_app/LoadingScreen/custom_loading_circle.dart';
+import 'package:food_ai_app/Util/colours.dart';
 
 /// A widget that serves as the entry point for the Tinder-like recipe selection feature.
 /// It initializes the model, controller, and mock API clients, then builds the UI based on the model's state.
@@ -55,7 +55,7 @@ class _TinderPageState extends State<TinderPage> {
           .doc(FirebaseAuth.instance.currentUser?.uid)
           .get();
       if (userSnapshot.exists) {
-        userSettings = userSnapshot.data() as Map<String, dynamic>;
+        userSettings = userSnapshot.data()!;
 
         // Fetch activeHealthGoals and activePreferences from Personalisation document as before.
         final personalisationSnapshot = await FirebaseFirestore.instance
@@ -65,8 +65,8 @@ class _TinderPageState extends State<TinderPage> {
             .doc('Personalisation')
             .get();
         if (personalisationSnapshot.exists) {
-          var personalisationData =
-              personalisationSnapshot.data() as Map<String, dynamic>;
+          final personalisationData =
+              personalisationSnapshot.data()!;
           healthGoals = personalisationData['activeHealthGoals'] is List
               ? List<String>.from(
                   personalisationData['activeHealthGoals'] as List<dynamic>)

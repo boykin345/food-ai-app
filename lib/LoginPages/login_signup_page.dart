@@ -624,7 +624,7 @@ class LoginSignupPageState extends State<LoginSignupPage> {
     }
 
     // Checks the user is actually in the database, otherwise return null.
-    User? user = await AuthUtil.login(
+    final User? user = await AuthUtil.login(
         emailController.text.trim(), passwordController.text.trim());
 
     // If the user doesn't exist, display an error message.
@@ -708,7 +708,7 @@ class LoginSignupPageState extends State<LoginSignupPage> {
       return;
     }
 
-    User? user = await AuthUtil.signUp(
+    final User? user = await AuthUtil.signUp(
         emailController.text.trim(), passwordController.text.trim());
     DataUtil.addUser(
         user!.uid, usernameController.text.trim(), emailController.text.trim());

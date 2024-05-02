@@ -14,8 +14,8 @@ import 'package:food_ai_app/Util/customer_drawer.dart';
 import 'package:food_ai_app/Util/initial_recipes.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../Entities/recipe_display_template.dart';
-import '../Util/map_to_recipe_converter.dart';
+import 'package:food_ai_app/Entities/recipe_display_template.dart';
+import 'package:food_ai_app/Util/map_to_recipe_converter.dart';
 
 /// The home page of the application that serves as the main user interface.
 /// This page provides access to various functionalities such as viewing favorite recipes,
@@ -47,8 +47,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    favouriteRecipes = (MapToRecipeConverter.getRecipesAsObjects(
-        FirebaseAuth.instance.currentUser!.uid)) as Future<List<Recipe>>;
+    favouriteRecipes = MapToRecipeConverter.getRecipesAsObjects(
+        FirebaseAuth.instance.currentUser!.uid);
   }
 
   /// Function to get an image from the device's gallery.

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_ai_app/LoginPages/login_signup_page.dart';
 import 'package:food_ai_app/Util/data_util.dart';
 
-import '../Util/colours.dart';
+import 'package:food_ai_app/Util/colours.dart';
 
 /// Initialises the state for the forgot password page.
 class ForgotPasswordPage extends StatefulWidget {

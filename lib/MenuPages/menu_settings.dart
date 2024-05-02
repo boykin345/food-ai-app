@@ -30,10 +30,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
   /// Fetches user data from Firestore and updates the state.
   Future<void> fetchUserData() async {
     try {
-      DocumentSnapshot userSnapshot =
+      final DocumentSnapshot userSnapshot =
           await firestore.collection('users').doc(user?.uid).get();
       setState(() {
-        var userData = userSnapshot.data() as Map<String, dynamic>?;
+        final userData = userSnapshot.data() as Map<String, dynamic>?;
         if (userData != null) {
           _selectedDifficulty =
               userData['difficulty'] is int ? userData['difficulty'] as int : 1;

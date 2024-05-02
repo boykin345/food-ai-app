@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_ai_app/SettingsPage/health_goals.dart';
 
-import 'colours.dart';
+import 'package:food_ai_app/Util/colours.dart';
 
 /// A custom [AppBar] widget for the app.
 ///

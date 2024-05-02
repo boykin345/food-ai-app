@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../Util/colours.dart';
-import '../Util/custom_app_bar.dart';
+import 'package:food_ai_app/Util/colours.dart';
+import 'package:food_ai_app/Util/custom_app_bar.dart';
 
 /// A StatefulWidget that represents the preferences screen in the application.
 ///
@@ -48,21 +48,21 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
   /// Initializes the user's preferences and stores them in the Firestore database.
   /// If preferences don't already exist they will ne initialized
   /// If they already exist, then the preferences will be loaded in
-  void initializePreferences() async {
+  Future<void> initializePreferences() async {
     // Reference to the Personalisation document
-    var personalisationDocRef = firestore
+    final personalisationDocRef = firestore
         .collection('users')
         .doc(user?.uid)
         .collection('Personalisation')
         .doc('Personalisation');
 
     /// Stores the personalisation document.
-    var docSnapshot = await personalisationDocRef.get();
+    final docSnapshot = await personalisationDocRef.get();
 
     // Check if the document exists
     if (docSnapshot.exists) {
       // Document exists, now check if 'prefrences' field exists
-      var data = docSnapshot.data();
+      final data = docSnapshot.data();
       if (data != null && !data.containsKey('preferences')) {
         // 'healthGoals' field doesn't exist, initialize it
         await personalisationDocRef.update({
@@ -80,15 +80,15 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
   }
 
   /// Fetches and stores the user's preferences in an array
-  void fetchPreferences() async {
-    DocumentSnapshot userSnapshot = await firestore
+  Future<void> fetchPreferences() async {
+    final DocumentSnapshot userSnapshot = await firestore
         .collection('users')
         .doc(user?.uid)
         .collection('Personalisation')
         .doc('Personalisation')
         .get();
     setState(() {
-      var userData = userSnapshot.data() as Map<String, dynamic>?;
+      final userData = userSnapshot.data() as Map<String, dynamic>?;
       if (userData != null) {
         if (userData['preferences'] is List<dynamic>) {
           preferences =
@@ -98,16 +98,16 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
         }
         if (userData['activePreferences'] is List<dynamic>) {
           // Initialize checkedPreferences based on activePreferences
-          List<String> activePreferences =
+          final List<String> activePreferences =
               (userData['activePreferences'] as List<dynamic>).cast<String>();
-          preferences.forEach((preference) {
+          for (final preference in preferences) {
             checkedPreferences[preference] =
                 activePreferences.contains(preference);
-          });
+          }
         } else {
-          preferences.forEach((preference) {
+          for (final preference in preferences) {
             checkedPreferences[preference] = false;
-          });
+          }
         }
       } else {
         /// stores preferences and checked preferences
@@ -199,7 +199,7 @@ class _PreferenceScreenState extends State<PreferencesScreen> {
               child: ListView.builder(
                 itemCount: preferences.length,
                 itemBuilder: (context, index) {
-                  String currentPreference = preferences[index];
+                  final String currentPreference = preferences[index];
                   return CheckboxListTile(
                     title: Text(
                         style: TextStyle(
