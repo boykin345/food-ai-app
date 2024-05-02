@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:food_ai_app/MenuPages/menu_settings.dart';
-import 'package:mockito/mockito.dart';
-import 'package:food_ai_app/main.dart';
 
 void main() {
   testWidgets('Settings Screen UI Test', (WidgetTester tester) async {
@@ -22,7 +19,6 @@ void main() {
     // Expect to find the 'Add' icon button
     expect(find.byIcon(Icons.add), findsOneWidget);
 
-    // Enter text into the 'Add a new Dietary need' text field and tap the 'Add' button
     await tester.enterText(find.byType(TextField), 'Peanuts');
     await tester.tap(find.byIcon(Icons.add));
     await tester.pump();

@@ -162,7 +162,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   DropdownMenuItem<int>(
                     value: 3,
                     child: Text(
-                      '3',
+                      '3 (Medium)',
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w800,
@@ -230,6 +230,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               child: DropdownButtonFormField<String>(
                 value: _selectedCookingTime,
                 items: [
+                  '10 min',
                   '30 min',
                   '1 h',
                   '2 h',
@@ -352,7 +353,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               controller: allergyController,
               style: TextStyle(color: Colors.white), // Set text color to white
               decoration: InputDecoration(
-                labelText: 'Add a new Dietary need',
+                labelText: 'Add Allergy/Unfavorable ingredient',
                 labelStyle:
                     TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
                 suffixIcon: IconButton(

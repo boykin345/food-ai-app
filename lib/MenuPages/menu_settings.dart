@@ -30,10 +30,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
   /// Fetches user data from Firestore and updates the state.
   Future<void> fetchUserData() async {
     try {
-      DocumentSnapshot userSnapshot =
+      final DocumentSnapshot userSnapshot =
           await firestore.collection('users').doc(user?.uid).get();
       setState(() {
-        var userData = userSnapshot.data() as Map<String, dynamic>?;
+        final userData = userSnapshot.data() as Map<String, dynamic>?;
         if (userData != null) {
           _selectedDifficulty =
               userData['difficulty'] is int ? userData['difficulty'] as int : 1;
@@ -150,7 +150,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   DropdownMenuItem<int>(
                     value: 3,
                     child: Text(
-                      '3',
+                      '3 (Medium)',
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w800,
@@ -218,6 +218,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               child: DropdownButtonFormField<String>(
                 value: _selectedCookingTime,
                 items: [
+                  '10 min',
                   '30 min',
                   '1 h',
                   '2 h',
@@ -340,7 +341,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               controller: allergyController,
               style: TextStyle(color: Colors.white), // Set text color to white
               decoration: InputDecoration(
-                labelText: 'Add a new Dietary need',
+                labelText: 'Add Allergy/Unfavorable ingredient',
                 labelStyle:
                     TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
                 suffixIcon: IconButton(
