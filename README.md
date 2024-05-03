@@ -61,7 +61,14 @@ flutter pub get
 ```
 flutter pub upgrade
 ```
-  
+
+- Then, click on “File” at the top left of the screen and select “Settings”, open up “Languages & Frameworks” and select “Dart”, where it says “Dart SDK Path” enter where you installed the dart SDK.  
+
+- It should be located in the flutter folder: “flutter\bin\cache\dart-sdk” 
+
+- After you have set the Dart SDK Path, ensure that “Enable Dart support for the project” is ticked like in the screenshot below.
+
+![Image Link](../assets/sdk.png)  
 
 - After, go to the top right of IntelliJ IDEA and where it says, “No device selected”, click on it and select “Chrome (Web)” and press start by clicking on the green arrow. 
 
